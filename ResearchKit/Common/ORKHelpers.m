@@ -38,6 +38,7 @@
 
 #import <CoreText/CoreText.h>
 
+BOOL ORKLoggingEnabled = YES;
 
 NSURL *ORKCreateRandomBaseURL() {
     return [NSURL URLWithString:[NSString stringWithFormat:@"http://researchkit.%@/", [NSUUID UUID].UUIDString]];
@@ -171,12 +172,6 @@ CGFloat ORKExpectedLabelHeight(UILabel *label) {
                                                      attributes:@{ NSFontAttributeName : label.font }
                                                         context:nil].size;
     return expectedLabelSize.height;
-}
-
-void ORKAdjustHeightForLabel(UILabel *label) {
-    CGRect rect = label.frame;
-    rect.size.height = ORKExpectedLabelHeight(label);
-    label.frame = rect;
 }
 
 UIImage *ORKImageWithColor(UIColor *color) {
@@ -400,7 +395,7 @@ NSURL *ORKURLFromBookmarkData(NSData *data) {
                                        bookmarkDataIsStale:&bookmarkIsStale
                                                      error:&bookmarkError];
     if (!bookmarkURL) {
-        ORK_Log_Warning(@"Error loading URL from bookmark: %@", bookmarkError);
+        ORK_Log_Error("Error loading URL from bookmark: %@", bookmarkError);
     }
     
     return bookmarkURL;
@@ -417,7 +412,7 @@ NSData *ORKBookmarkDataFromURL(NSURL *url) {
                                       relativeToURL:nil
                                               error:&error];
     if (!bookmark) {
-        ORK_Log_Warning(@"Error converting URL to bookmark: %@", error);
+        ORK_Log_Error("Error converting URL to bookmark: %@", error);
     }
     return bookmark;
 }
@@ -522,4 +517,8 @@ NSNumberFormatter *ORKDecimalNumberFormatter() {
     numberFormatter.maximumFractionDigits = NSDecimalNoScale;
     numberFormatter.usesGroupingSeparator = NO;
     return numberFormatter;
+}
+
+NSString* ORKSwiftLocalizedString(NSString *key, NSString *comment) {
+    return ORKLocalizedString(key, comment);
 }

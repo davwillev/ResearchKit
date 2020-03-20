@@ -36,8 +36,34 @@
 #import "ORKHelpers_Internal.h"
 #import "ORKSkin.h"
 
+static const CGFloat TopToProgressViewMinPadding = 10.0;
+static const CGFloat BottomToProgressLabelPadding = 30.0;
+
+@implementation ORKdBHLToneAudiometryButton
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.layer.borderWidth = 15.0;
+        self.layer.borderColor = UIColor.whiteColor.CGColor;
+        self.layer.shadowRadius = 10.0;
+        self.layer.shadowOpacity = 0.2;
+        self.layer.masksToBounds = NO;
+    }
+    return self;
+}
+
+- (void)updateBackgroundColor {
+    [super updateBackgroundColor];
+    self.layer.borderColor = UIColor.whiteColor.CGColor;
+}
+
+@end
+
 @implementation ORKdBHLToneAudiometryContentView {
     NSLayoutConstraint *_topToProgressViewConstraint;
+    UILabel *_progressLabel;
 }
 
 - (instancetype)init {
@@ -48,26 +74,42 @@
         _progressView.translatesAutoresizingMaskIntoConstraints = NO;
         _progressView.progressTintColor = [self tintColor];
         [_progressView setAlpha:0];
+        [_progressView setHidden:YES];
         [self addSubview:_progressView];
-        _tapButton = [[ORKRoundTappingButton alloc] init];
-        [_tapButton setDiameter:200];
+        _tapButton = [[ORKdBHLToneAudiometryButton alloc] init];
+        [_tapButton setDiameter:150];
         _tapButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [_tapButton setTitle:ORKLocalizedString(@"TAP_BUTTON_TITLE", nil) forState:UIControlStateNormal];
         _tapButton.accessibilityTraits = UIAccessibilityTraitButton | UIAccessibilityTraitAllowsDirectInteraction;
 
         [self addSubview:_tapButton];
         self.translatesAutoresizingMaskIntoConstraints = NO;
-        
+        [self setupProgressLabel];
+
         [self setUpConstraints];
-        [self updateConstraintConstantsForWindow:self.window];
     }
     
     return self;
 }
 
-- (void)willMoveToWindow:(UIWindow *)newWindow {
-    [super willMoveToWindow:newWindow];
-    [self updateConstraintConstantsForWindow:newWindow];
+- (void)setupProgressLabel {
+    if (!_progressLabel) {
+        _progressLabel = [UILabel new];
+    }
+    _progressLabel.font = [self textFontBold];
+    _progressLabel.textAlignment = NSTextAlignmentCenter;
+    if (@available(iOS 13.0, *)) {
+        _progressLabel.textColor = UIColor.secondaryLabelColor;
+    } else {
+        _progressLabel.textColor = UIColor.grayColor;
+    }
+    _progressLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_progressLabel];
+}
+
+- (UIFont *)textFontBold {
+    UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleSubheadline];
+    UIFontDescriptor *fontDescriptor = [descriptor fontDescriptorWithSymbolicTraits:(UIFontDescriptorTraitBold | UIFontDescriptorTraitLooseLeading)];
+    return [UIFont fontWithDescriptor:fontDescriptor size:[[fontDescriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue]];
 }
 
 - (void)didMoveToWindow {
@@ -88,6 +130,13 @@
     [UIView animateWithDuration:animated ? 0.2 : 0 animations:^{
         [self.progressView setAlpha:(progress == 0) ? 0 : 1];
     }];
+
+    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    formatter.numberStyle = NSNumberFormatterPercentStyle;
+    formatter.locale = [NSLocale currentLocale];
+
+    NSString *percentageText = [formatter stringFromNumber:[NSNumber numberWithFloat:progress]];
+    _progressLabel.text = [NSString stringWithFormat:ORKLocalizedString(@"dBHL_PROGRESS_COMPLETION_%@", nil), percentageText];
 }
 
 - (void)finishStep:(ORKActiveStepViewController *)viewController {
@@ -95,54 +144,59 @@
     self.tapButton.enabled = NO;
 }
 
-- (void)updateConstraintConstantsForWindow:(UIWindow *)window {
-    const CGFloat HeaderBaselineToCaptionTop = ORKGetMetricForWindow(ORKScreenMetricCaptionBaselineToTappingLabelTop, window);
-    const CGFloat AssumedHeaderBaselineToStepViewTop = ORKGetMetricForWindow(ORKScreenMetricLearnMoreBaselineToStepViewTop, window);
-    
-    _topToProgressViewConstraint.constant = (HeaderBaselineToCaptionTop / 3) - AssumedHeaderBaselineToStepViewTop;
-    
-}
-
-- (void)updateLayoutMargins {
-    CGFloat margin = ORKStandardHorizontalMarginForView(self);
-    self.layoutMargins = (UIEdgeInsets){.left = margin * 2, .right = margin * 2};
-}
-
-- (void)setFrame:(CGRect)frame {
-    [super setFrame:frame];
-    [self updateLayoutMargins];
-}
-
-- (void)setBounds:(CGRect)bounds {
-    [super setBounds:bounds];
-    [self updateLayoutMargins];
-}
-
 - (void)setUpConstraints {
-    NSMutableArray *constraints = [NSMutableArray array];
-    NSDictionary *views = NSDictionaryOfVariableBindings(_progressView, _tapButton);
+    NSArray<NSLayoutConstraint *> *constraints = @[
+                                                   [NSLayoutConstraint constraintWithItem:_progressView
+                                                                                attribute:NSLayoutAttributeTop
+                                                                                relatedBy:NSLayoutRelationEqual
+                                                                                   toItem:self
+                                                                                attribute:NSLayoutAttributeTop
+                                                                               multiplier:1.0
+                                                                                 constant:TopToProgressViewMinPadding],
+                                                   [NSLayoutConstraint constraintWithItem:_progressView
+                                                                                attribute:NSLayoutAttributeLeft
+                                                                                relatedBy:NSLayoutRelationEqual
+                                                                                   toItem:self
+                                                                                attribute:NSLayoutAttributeLeft
+                                                                               multiplier:1.0
+                                                                                 constant:0.0],
+                                                   [NSLayoutConstraint constraintWithItem:_progressView
+                                                                                attribute:NSLayoutAttributeRight
+                                                                                relatedBy:NSLayoutRelationEqual
+                                                                                   toItem:self
+                                                                                attribute:NSLayoutAttributeRight
+                                                                               multiplier:1.0
+                                                                                 constant:0.0],
+                                                   [NSLayoutConstraint constraintWithItem:_tapButton
+                                                                                attribute:NSLayoutAttributeCenterX
+                                                                                relatedBy:NSLayoutRelationEqual
+                                                                                   toItem:self
+                                                                                attribute:NSLayoutAttributeCenterX
+                                                                               multiplier:1.0
+                                                                                 constant:0.0],
+                                                   [NSLayoutConstraint constraintWithItem:_tapButton
+                                                                                attribute:NSLayoutAttributeCenterY
+                                                                                relatedBy:NSLayoutRelationEqual
+                                                                                   toItem:self
+                                                                                attribute:NSLayoutAttributeCenterY
+                                                                               multiplier:1.0
+                                                                                 constant:0.0],
+                                                   [NSLayoutConstraint constraintWithItem:_progressLabel
+                                                                                attribute:NSLayoutAttributeCenterX
+                                                                                relatedBy:NSLayoutRelationEqual
+                                                                                   toItem:self
+                                                                                attribute:NSLayoutAttributeCenterX
+                                                                               multiplier:1.0
+                                                                                 constant:0.0],
+                                                   [NSLayoutConstraint constraintWithItem:_progressLabel
+                                                                                attribute:NSLayoutAttributeBottom
+                                                                                relatedBy:NSLayoutRelationEqual
+                                                                                   toItem:self
+                                                                                attribute:NSLayoutAttributeBottom
+                                                                               multiplier:1.0
+                                                                                 constant:-BottomToProgressLabelPadding]
 
-    
-    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(100)-[_tapButton]-(100)-|"
-                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
-                                                                             metrics:nil
-                                                                               views:views]];
-    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_progressView]|"
-                                                                             options:NSLayoutFormatDirectionLeftToRight
-                                                                             metrics:nil
-                                                                               views:views]];
-    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(50)-[_tapButton]-(50)-|"
-                                                                             options:NSLayoutFormatDirectionLeftToRight
-                                                                             metrics:nil
-                                                                               views:views]];
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:_progressView
-                                                        attribute:NSLayoutAttributeTop
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeTop
-                                                       multiplier:1.0
-                                                         constant:0.0]];
-    [self addConstraints:constraints];
+                                                   ];
     
     [NSLayoutConstraint activateConstraints:constraints];
 }

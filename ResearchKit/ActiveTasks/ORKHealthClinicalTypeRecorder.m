@@ -77,10 +77,10 @@
     [super start];
     
     if (!_logger) {
-        NSError *err = nil;
-        _logger = [self makeJSONDataLoggerWithError:&err];
+        NSError *error = nil;
+        _logger = [self makeJSONDataLoggerWithError:&error];
         if (!_logger) {
-            [self finishRecordingWithError:err];
+            [self finishRecordingWithError:error];
             return;
         }
     }
@@ -110,7 +110,7 @@
                                                               NSError *logError = nil;
                                                               [_logger append:clinicalRecord.FHIRResource.data error:&logError];
                                                               if (logError) {
-                                                                  ORK_Log_Warning(@"Failed to add health records object to the logger with error: %@", logError);
+                                                                  ORK_Log_Error("Failed to add health records object to the logger with error: %@", logError);
                                                                   return;
                                                               }
                                                           }];

@@ -100,14 +100,14 @@ ORKDefineStringKey(NavigableOrderedTaskIdentifier);
     answerFormat = [ORKAnswerFormat choiceAnswerFormatWithStyle:ORKChoiceAnswerStyleSingleChoice
                                                     textChoices:textChoices];
     stepIdentifier = SymptomStepIdentifier;
-    step = [ORKQuestionStep questionStepWithIdentifier:stepIdentifier title:@"What is your symptom?" answer:answerFormat];
+    step = [ORKQuestionStep questionStepWithIdentifier:stepIdentifier title:@"Survey" question:@"What is your symptom?" answer:answerFormat];
     step.optional = NO;
     [stepIdentifiers addObject:stepIdentifier];
     [steps addObject:step];
     
     answerFormat = [ORKAnswerFormat booleanAnswerFormat];
     stepIdentifier = SeverityStepIdentifier;
-    step = [ORKQuestionStep questionStepWithIdentifier:stepIdentifier title:@"Does your symptom interferes with your daily life?" answer:answerFormat];
+    step = [ORKQuestionStep questionStepWithIdentifier:stepIdentifier title:@"Survey" question:@"Does your symptom interferes with your daily life?" answer:answerFormat];
     step.optional = NO;
     [stepIdentifiers addObject:stepIdentifier];
     [steps addObject:step];
@@ -349,13 +349,24 @@ typedef NS_OPTIONS(NSUInteger, TestsTaskResultOptions) {
     
     NSUInteger expectedTotalProgress = _orderedTaskSteps.count;
     
+    for (ORKStep *step in _orderedTaskSteps) {
+        ORKTaskProgress currentProgress = [_orderedTask progressOfCurrentStep:step withResult:mockTaskResult];
+        if (!currentProgress.shouldBePresented) {
+            expectedTotalProgress -= 1;
+        }
+    }
+    
     for (NSUInteger stepIndex = 0; stepIndex < _orderedTaskStepIdentifiers.count; stepIndex++) {
         ORKStep *currentStep = _orderedTaskSteps[stepIndex];
         XCTAssertEqualObjects(currentStep, [_orderedTask stepWithIdentifier:_orderedTaskStepIdentifiers[stepIndex]]);
         
-        const NSUInteger expectedCurrentProgress = stepIndex;
-        ORKTaskProgress currentProgress = [_orderedTask progressOfCurrentStep:currentStep withResult:mockTaskResult];
-        XCTAssertTrue(currentProgress.total == expectedTotalProgress && currentProgress.current == expectedCurrentProgress);
+         ORKTaskProgress currentProgress = [_orderedTask progressOfCurrentStep:currentStep withResult:mockTaskResult];
+        
+        if (currentProgress.shouldBePresented) {
+            const NSUInteger expectedCurrentProgress = stepIndex;
+            XCTAssertEqual(currentProgress.total, expectedTotalProgress);
+            XCTAssertEqual(currentProgress.current, expectedCurrentProgress);
+        }
         
         NSString *expectedPreviousStep = (stepIndex != 0) ? _orderedTaskSteps[stepIndex - 1] : nil;
         NSString *expectedNextStep = (stepIndex < _orderedTaskStepIdentifiers.count - 1) ? _orderedTaskSteps[stepIndex + 1] : nil;
@@ -1685,7 +1696,8 @@ static ORKStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL) = ^O
     
     // Setup the task
     ORKStep *boolStep = [ORKQuestionStep  questionStepWithIdentifier:@"question"
-                                                               title:@"Yes or No"
+                                                               title:@"Question"
+                                                            question:@"Yes or No"
                                                               answer:[ORKAnswerFormat booleanAnswerFormat]];
     
     ORKStep *nextStep = [[ORKInstructionStep alloc] initWithIdentifier:@"nextStep"];
