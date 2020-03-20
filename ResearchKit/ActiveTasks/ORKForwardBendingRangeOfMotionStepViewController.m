@@ -60,7 +60,7 @@
     ORKRangeOfMotionContentView *_contentView;
     UITapGestureRecognizer *_gestureRecognizer;
     CMAttitude *_referenceAttitude;
-    UIInterfaceOrientation _orientation;
+    //UIInterfaceOrientation _orientation;
 }
 
 @end
@@ -70,12 +70,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     _contentView = [ORKRangeOfMotionContentView new];
     _contentView.translatesAutoresizingMaskIntoConstraints = NO;
     self.activeStepView.activeCustomView = _contentView;
     _gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     [self.activeStepView addGestureRecognizer:_gestureRecognizer];
+    
+     // Initiates orientation notifications
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    _orientation = [[UIDevice currentDevice] orientation]; // captures the initial device orientation
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+ 
+    // Ends orientation notifications
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    if ([[UIDevice currentDevice] isGeneratingDeviceOrientationNotifications]) {
+        [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+    }
+}
+
 //This function records the angle of the device when the screen is tapped
 - (void)handleTap:(UIGestureRecognizer *)sender {
     [self calculateAndSetAngles];
@@ -89,10 +105,11 @@
     if (_newAngle > _maxAngle) {
         _maxAngle = _newAngle;
     }
-    if (_minAngle == 0.0 || _newAngle < _minAngle) {
+    if (_newAngle < _minAngle) {
         _minAngle = _newAngle;
     }
 }
+
 
 #pragma mark - ORKDeviceMotionRecorderDelegate
 
@@ -106,17 +123,39 @@
     
     double angle = [self getDeviceAngleInDegreesFromAttitude:currentAttitude];
     
-    //This function shifts the range of angles reported by the device from +/-180 degrees to -90 to +270 degrees, which should be sufficient to cover all achievable forward bending ranges of motion
-    BOOL shiftAngleRange = angle < -90 && angle >= -180;
-    if (shiftAngleRange) {
-        _newAngle = 360 - fabs(angle);
-    } else {
-        _newAngle = angle;
+    //This shifts the range of angles reported by the device from +/-180 degrees to -90 to +270 degrees, which should be sufficient to cover all achievable forward bending ranges of motion
+    if (UIDeviceOrientationLandscapeLeft == _orientation) {
+        BOOL shiftAngleRange = angle > 90 && angle <= 180;
+        if (shiftAngleRange) {
+            _newAngle = fabs(angle) - 360;
+        } else {
+            _newAngle = angle;
+        }
+    } else if (UIDeviceOrientationPortrait == _orientation) {
+        BOOL shiftAngleRange = angle < -90 && angle >= -180;
+        if (shiftAngleRange) {
+            _newAngle = 360 - fabs(angle);
+        } else {
+            _newAngle = angle;
+        }
+    } else if (UIDeviceOrientationLandscapeRight == _orientation) {
+        BOOL shiftAngleRange = angle < -90 && angle >= -180;
+        if (shiftAngleRange) {
+            _newAngle = 360 - fabs(angle);
+        } else {
+            _newAngle = angle;
+        }
+    } else if (UIDeviceOrientationPortraitUpsideDown == _orientation) {
+        BOOL shiftAngleRange = angle > 90 && angle <= 180;
+        if (shiftAngleRange) {
+            _newAngle = fabs(angle) - 360;
+        } else {
+            _newAngle = angle;
+        }
     }
-    
     [self calculateAndSetAngles];
 }
-
+    
 /*
  When the device is in Portrait mode, we need to get the attitude's pitch
  to determine the device's angle. attitude.pitch doesn't return all
@@ -124,17 +163,14 @@
  angle.
  */
 - (double)getDeviceAngleInDegreesFromAttitude:(CMAttitude *)attitude {
-    if (!_orientation) {
-        _orientation = [UIApplication sharedApplication].statusBarOrientation;
-    }
-    double angle;
-    if (UIInterfaceOrientationIsLandscape(_orientation)) {
+    double angle = 0.0;
+    if (UIDeviceOrientationIsLandscape(_orientation)) {
         double x = attitude.quaternion.x;
         double w = attitude.quaternion.w;
         double y = attitude.quaternion.y;
         double z = attitude.quaternion.z;
         angle = radiansToDegrees(allOrientationsForRoll(x, w, y, z));
-    } else {
+    } else if (UIDeviceOrientationIsPortrait(_orientation)) {
         double x = attitude.quaternion.x;
         double w = attitude.quaternion.w;
         double y = attitude.quaternion.y;
@@ -144,18 +180,59 @@
     return angle;
 }
 
+
 #pragma mark - ORKActiveTaskViewController
 
 - (ORKResult *)result {
     ORKStepResult *stepResult = [super result];
     
     ORKRangeOfMotionResult *result = [[ORKRangeOfMotionResult alloc] initWithIdentifier:self.step.identifier];
-    result.start = _startAngle - 90.0;
-    result.finish = result.start + _newAngle;
-    result.minimum = result.start + _minAngle;
-    result.maximum = result.start + _maxAngle;
-    result.range = fabs(result.maximum - result.minimum);
     
+    int ORIENTATION_UNSPECIFIED = -1;
+    int ORIENTATION_LANDSCAPE_LEFT = 0; // equivalent to LANDSCAPE in Android
+    int ORIENTATION_PORTRAIT = 1;
+    int ORIENTATION_LANDSCAPE_RIGHT = 2; // equivalent to REVERSE_LANDSCAPE in Android
+    int ORIENTATION_PORTRAIT_UPSIDE_DOWN = 3;  // equivalent to REVERSE_PORTRAIT in Android
+    
+    if (UIDeviceOrientationLandscapeLeft == _orientation) {
+        result.orientation = ORIENTATION_LANDSCAPE_LEFT;
+        result.start = -90.0 - _startAngle;
+        result.finish = result.start + _newAngle;
+    // In Lanscape Left device orientation, the task uses roll in the direction opposite to the original CoreMotion device axes (i.e. right hand rule). Therefore, maximum and minimum angles are reported the 'wrong' way around for the forward bending tasks.
+        result.minimum = result.start - _maxAngle;
+        result.maximum = result.start - _minAngle;
+        result.range = fabs(result.maximum - result.minimum);
+    } else if (UIDeviceOrientationPortrait == _orientation) {
+        result.orientation = ORIENTATION_PORTRAIT;
+        result.start = _startAngle - 90.0;
+        result.finish = result.start + _newAngle;
+        result.minimum = result.start + _minAngle;
+        result.maximum = result.start + _maxAngle;
+        result.range = fabs(result.maximum - result.minimum);
+    } else if (UIDeviceOrientationLandscapeRight == _orientation) {
+        result.orientation = ORIENTATION_LANDSCAPE_RIGHT;
+        result.start = _startAngle - 90.0;
+        result.finish = result.start + _newAngle;
+        result.minimum = result.start + _minAngle;
+        result.maximum = result.start + _maxAngle;
+        result.range = fabs(result.maximum - result.minimum);
+    } else if (UIDeviceOrientationPortraitUpsideDown == _orientation) {
+        result.orientation = ORIENTATION_PORTRAIT_UPSIDE_DOWN;
+        result.start = 90.0 + _startAngle;
+        result.finish = result.start + _newAngle;
+    // In Portrait Upside Down device orientation, the task uses pitch in the direction opposite to the original CoreMotion device axes.
+        result.minimum = result.start - _maxAngle;
+        result.maximum = result.start - _minAngle;
+        result.range = fabs(result.maximum - result.minimum);
+    } else if (!UIDeviceOrientationIsValidInterfaceOrientation(_orientation)) {
+        result.orientation = ORIENTATION_UNSPECIFIED;
+        result.start = NAN;
+        result.finish = NAN;
+        result.minimum = NAN;
+        result.maximum = NAN;
+        result.range = NAN;
+    }
+               
     stepResult.results = [self.addedResults arrayByAddingObject:result] ? : @[result];
     
     return stepResult;
