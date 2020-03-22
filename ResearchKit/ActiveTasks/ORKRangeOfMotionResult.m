@@ -100,7 +100,7 @@
     self.orientation == castObject.orientation &&
     self.maximumAx == castObject.maximumAx &&
     self.maximumAy == castObject.maximumAy &&
-    self.smaximumAz == castObject.maximumAz &&
+    self.maximumAz == castObject.maximumAz &&
     self.maximumAr == castObject.maximumAr &&
     self.meanAr == castObject.meanAr &&
     self.SDAr == castObject.SDAr &&
