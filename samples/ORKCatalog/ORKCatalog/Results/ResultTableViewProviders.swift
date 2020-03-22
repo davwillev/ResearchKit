@@ -958,6 +958,7 @@ class RangeOfMotionResultTableViewProvider: ResultTableViewProvider {
         let rangeOfMotionResult = result as! ORKRangeOfMotionResult
         let rows = super.resultRowsForSection(section)
         return rows + [
+            ResultRow(text: "duration", detail: rangeOfMotionResult.orientation),
             ResultRow(text: "orientation", detail: rangeOfMotionResult.orientation),
             ResultRow(text: "max x accel", detail: rangeOfMotionResult.maximumAx),
             ResultRow(text: "max y accel", detail: rangeOfMotionResult.maximumAy),
