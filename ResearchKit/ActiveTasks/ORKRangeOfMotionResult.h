@@ -1,5 +1,6 @@
 /*
  Copyright (c) 2016, Darren Levy. All rights reserved.
+ Copyright (c) 2020, David W. Evans. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -46,6 +47,76 @@ ORK_CLASS_AVAILABLE
  The physical orientation of the device at the start position (the commencement of recording).
  */
 @property (nonatomic, assign) NSInteger orientation;
+
+/**
+ Time duration (seconds) of the task
+ */
+@property (nonatomic, assign) double duration;
+
+/**
+ The maximum acceleration (ms^-2) recorded along the x-axis during the task.
+ */
+@property (nonatomic, assign) double maximumAx;
+
+/**
+ The maximum acceleration (ms^-2) recorded along the y-axis during the task.
+ */
+@property (nonatomic, assign) double maximumAy;
+
+/**
+ The maximum acceleration (ms^-2) recorded along the z-axis during the task.
+ */
+@property (nonatomic, assign) double maximumAz;
+
+/**
+ The maximum resultant acceleration (ms^-2) recorded during the task.
+ */
+@property (nonatomic, assign) double maximumAr;
+
+/**
+ Mean resultant acceleration
+ */
+@property (nonatomic, assign) double meanAr;
+
+/**
+ Standard deviation of resultant acceleration
+ */
+@property (nonatomic, assign) double SDAr;
+
+/**
+ The maximum jerk (ms^-3) recorded along the x-axis during the task.
+ */
+@property (nonatomic, assign) double maximumJx;
+
+/**
+ The maximum jerk (ms^-3) recorded along the y-axis during the task.
+ */
+@property (nonatomic, assign) double maximumJy;
+
+/**
+ The maximum jerk (ms^-3) recorded along the z-axis during the task.
+ */
+@property (nonatomic, assign) double maximumJz;
+
+/**
+ The maximum resultant jerk (ms^-3) recorded during the task.
+ */
+@property (nonatomic, assign) double maximumJr;
+
+/**
+ Mean resultant jerk; the time derivative of acceleration (ms^-3)
+ */
+@property (nonatomic, assign) double meanJerk;
+
+/**
+ Standard deviation of resultant jerk; the time derivative of acceleration (ms^-3)
+ */
+@property (nonatomic, assign) double SDJerk;
+
+/**
+ The time integral of resultant jerk, normalized by the total time of the task (ms^-1)
+ */
+@property (nonatomic, assign) double timeNormIntegratedJerk;
 
 /**
  The angle (degrees) from the device reference position at the start position.

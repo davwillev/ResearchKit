@@ -128,15 +128,14 @@
     UITapGestureRecognizer *_gestureRecognizer;
     CMAttitude *_referenceAttitude;
      // added these
-    CMAcceleration userAcceleration;
-    //CMAcceleration _previousAcceleration;
-    //CMAcceleration _nextAcceleration;
     int count;
     double sumDeltaTime;
     double _maxAr, _meanAr, _varianceAr, _standardDevAr;
     double _maxJr, _meanJr, _varianceJr, _standardDevJr;
     double _prevMa, _newMa, _prevSa, _newSa;
     double _prevMj, _newMj, _prevSj, _newSj;
+    double _maxAx, _maxAy, _maxAz;
+    double _maxJx, _maxJy, _maxJz;
     double _first_time, _prev_time, _new_time;
     double _firstJerk, _prevJerk, _newJerk, _lastJerk;
     double _prevAccelX, _prevAccelY, _prevAccelZ;
@@ -146,6 +145,7 @@
     double sumOdd, sumEven, h;
     double _integratedJerk;
     double total_time;
+    double time_normalized_integrated_jerk;
 }
 
 @end
@@ -241,6 +241,15 @@
     
     /* Process userAcceleration data */
     count ++; // count each sensor pass
+    if (motion.userAcceleration.x > _maxAx) { // captures the maximum recorded acceleration along the x-axis (Ax)
+        _maxAx = motion.userAcceleration.x;
+    }
+    if (motion.userAcceleration.y > _maxAy) { // captures the maximum recorded acceleration along the y-axis (Ay)
+        _maxAy = motion.userAcceleration.y;
+    }
+    if (motion.userAcceleration.z > _maxAz) { // captures the maximum recorded acceleration along the z-axis (Az)
+        _maxAz = motion.userAcceleration.x;
+    }
     // calculate resultant acceleration (Ar)
     double resultant_accel = sqrt(
             (motion.userAcceleration.x * motion.userAcceleration.x) +
@@ -276,7 +285,6 @@
         double temp = sumDeltaTime + fabs(_new_time - _prev_time); // see: Press, Teukolsky, Vetterling, Flannery (2007) Numerical Recipes; p230.
         double delta_time = temp - sumDeltaTime;
         sumDeltaTime += delta_time; // sum of all deltas
-
         // assign previous accel values
         _prevAccelX = _newAccelX;
         _prevAccelY = _newAccelY;
@@ -293,6 +301,15 @@
         _jerkX = _deltaAccelX / delta_time;
         _jerkY = _deltaAccelX / delta_time;
         _jerkZ = _deltaAccelX / delta_time;
+    }
+    if (_jerkX > _maxJx) { // captures the maximum recorded jerk along the x-axis (Ax)
+        _maxJx = _jerkX;
+    }
+    if (_jerkY > _maxJy) { // captures the maximum recorded jerk along the y-axis (Ay)
+        _maxJy = _jerkY;
+    }
+    if (_jerkZ > _maxJz) { // captures the maximum recorded jerk along the z-axis (Az)
+        _maxJz = _jerkZ;
     }
     // calculate resultant jerk (Jr)
     double resultant_jerk = sqrt(
@@ -327,15 +344,15 @@
         h = total_time / (count - 1);
     }
     // Sum of all odd (4/3) terms, excluding the first term (n == 1)
-    if ((count % 2 != 0) && (count != 1)) { // odd excluding '1'
+    if ((count % 2 != 0) && (count != 1)) { // odds excluding '1'
         sumOdd += 4.0 * resultant_jerk;
     }
     // Sum of all even (2/3) terms
-    if (count % 2 == 0) { // even
+    if (count % 2 == 0) { // evens
         sumEven += 2.0 * resultant_jerk;
     }
     //if (MathUtils.isOdd(count)) {
-    if (count % 2 != 0) { // odd
+    if (count % 2 != 0) { // odds
         _integratedJerk = h * (_firstJerk + sumOdd + sumEven - (3.0 * _lastJerk)) / 3.0; // lastJerk will have been added to SumEven 4 times, but we only want to retain one
     //} else if (MathUtils.isEven(count)) {
     } else if (count % 2 == 0) {
@@ -343,7 +360,7 @@
     }
     // the time duration of each recorded task will be different, so comparable results must be normalized by duration
     total_time = fabs(_new_time - _first_time); // total time duration of entire recording (in seconds)
-    //double time_normalized_integrated_jerk = _integratedJerk / total_time;
+    time_normalized_integrated_jerk = _integratedJerk / total_time;
 }
 
 
@@ -387,6 +404,49 @@ When the device is in Portrait mode, we need to get the attitude's pitch to dete
     int ORIENTATION_LANDSCAPE_RIGHT = 2; // equivalent to REVERSE_LANDSCAPE in Android
     int ORIENTATION_PORTRAIT_UPSIDE_DOWN = 3;  // equivalent to REVERSE_PORTRAIT in Android
     
+    // Task duration (seconds)
+    result.duration = sumDeltaTime;
+
+    // Maximum acceleration along x-axis
+    result.maximumAx = _maxAx;
+
+    // Maximum acceleration along y-axis
+    result.maximumAy = _maxAy;
+
+    // Maximum acceleration along z-axis
+    result.maximumAz = _maxAz;
+
+    // Maximum resultant acceleration
+    result.maximumAr = _maxAr;
+
+    // Mean resultant acceleration
+    result.meanAr = _meanAr;
+
+    // Standard deviation of resultant acceleration
+    result.SDAr = _standardDevAr;
+
+    // Maximum jerk along x-axis
+    result.maximumJx = _maxJx;
+
+    // Maximum jerk along y-axis
+    result.maximumJy = _maxJy;
+
+    // Maximum jerk along z-axis
+    result.maximumJz = _maxJz;
+
+    // Maximum resultant jerk
+    result.maximumJr = _maxJr;
+
+    // Mean resultant jerk
+    result.meanJerk = _meanJr;
+
+    // Standard deviation of resultant jerk
+    result.SDJerk = _standardDevJr;
+
+    // Time-averaged integrated resultant jerk (smoothness)
+    result.timeNormIntegratedJerk = time_normalized_integrated_jerk;
+
+    // Device orientation and angles
     if (UIDeviceOrientationLandscapeLeft == _orientation) {
         result.orientation = ORIENTATION_LANDSCAPE_LEFT;
         result.start = 90.0 + _startAngle;

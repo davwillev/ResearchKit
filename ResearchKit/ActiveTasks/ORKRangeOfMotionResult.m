@@ -40,6 +40,19 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
     ORK_ENCODE_INTEGER(aCoder, orientation);
+    ORK_ENCODE_DOUBLE(aCoder, maximumAx);
+    ORK_ENCODE_DOUBLE(aCoder, maximumAy);
+    ORK_ENCODE_DOUBLE(aCoder, maximumAz);
+    ORK_ENCODE_DOUBLE(aCoder, maximumAr);
+    ORK_ENCODE_DOUBLE(aCoder, meanAr);
+    ORK_ENCODE_DOUBLE(aCoder, SDAr);
+    ORK_ENCODE_DOUBLE(aCoder, maximumJx);
+    ORK_ENCODE_DOUBLE(aCoder, maximumJy);
+    ORK_ENCODE_DOUBLE(aCoder, maximumJz);
+    ORK_ENCODE_DOUBLE(aCoder, maximumJr);
+    ORK_ENCODE_DOUBLE(aCoder, meanJerk);
+    ORK_ENCODE_DOUBLE(aCoder, SDJerk);
+    ORK_ENCODE_DOUBLE(aCoder, timeNormIntegratedJerk);
     ORK_ENCODE_DOUBLE(aCoder, start);
     ORK_ENCODE_DOUBLE(aCoder, finish);
     ORK_ENCODE_DOUBLE(aCoder, minimum);
@@ -51,6 +64,19 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         ORK_DECODE_INTEGER(aDecoder, orientation);
+        ORK_DECODE_DOUBLE(aDecoder, maximumAx);
+        ORK_DECODE_DOUBLE(aDecoder, maximumAy);
+        ORK_DECODE_DOUBLE(aDecoder, maximumAz);
+        ORK_DECODE_DOUBLE(aDecoder, maximumAr);
+        ORK_DECODE_DOUBLE(aDecoder, meanAr);
+        ORK_DECODE_DOUBLE(aDecoder, SDAr);
+        ORK_DECODE_DOUBLE(aDecoder, maximumJx);
+        ORK_DECODE_DOUBLE(aDecoder, maximumJy);
+        ORK_DECODE_DOUBLE(aDecoder, maximumJz);
+        ORK_DECODE_DOUBLE(aDecoder, maximumJr);
+        ORK_DECODE_DOUBLE(aDecoder, meanJerk);
+        ORK_DECODE_DOUBLE(aDecoder, SDJerk);
+        ORK_DECODE_DOUBLE(aDecoder, timeNormIntegratedJerk);
         ORK_DECODE_DOUBLE(aDecoder, start);
         ORK_DECODE_DOUBLE(aDecoder, finish);
         ORK_DECODE_DOUBLE(aDecoder, minimum);
@@ -69,6 +95,19 @@
     __typeof(self) castObject = object;
     return isParentSame &&
     self.orientation == castObject.orientation &&
+    self.start == castObject.maximumAx &&
+    self.start == castObject.maximumAy &&
+    self.start == castObject.maximumAz &&
+    self.start == castObject.maximumAr &&
+    self.start == castObject.meanAr &&
+    self.start == castObject.SDAr &&
+    self.start == castObject.maximumJx &&
+    self.start == castObject.maximumJy &&
+    self.start == castObject.maximumJz &&
+    self.start == castObject.maximumJr &&
+    self.start == castObject.meanJerk &&
+    self.start == castObject.SDJerk &&
+    self.start == castObject.timeNormIntegratedJerk &&
     self.start == castObject.start &&
     self.finish == castObject.finish &&
     self.minimum == castObject.minimum &&
@@ -83,6 +122,19 @@
 - (instancetype)copyWithZone:(NSZone *)zone {
     ORKRangeOfMotionResult *result = [super copyWithZone:zone];
     result.orientation = self.orientation;
+    result.maximumAx = self.maximumAx;
+    result.maximumAy = self.maximumAy;
+    result.maximumAz = self.maximumAz;
+    result.maximumAr = self.maximumAr;
+    result.meanAr = self.meanAr;
+    result.SDAr = self.SDAr;
+    result.maximumJx = self.maximumJx;
+    result.maximumJy = self.maximumJy;
+    result.maximumJz = self.maximumJz;
+    result.maximumJr = self.maximumJr;
+    result.meanJerk = self.meanJerk;
+    result.SDJerk = self.SDJerk;
+    result.timeNormIntegratedJerk = self.timeNormIntegratedJerk;
     result.start = self.start;
     result.finish = self.finish;
     result.minimum = self.minimum;
@@ -92,7 +144,7 @@
 }
 
 - (NSString *)descriptionWithNumberOfPaddingSpaces:(NSUInteger)numberOfPaddingSpaces {
-    return [NSString stringWithFormat:@"<%@: orientation: %li; start: %f; finish: %f; minimum: %f; maximum: %f; range: %f>", self.class.description, self.orientation, self.start, self.finish, self.minimum, self.maximum, self.range];
+    return [NSString stringWithFormat:@"<%@: orientation: %li; maximumAx: %f; maximumAy: %f; maximumAz: %f; maximumAr: %f; meanAr: %f; SDAr: %f; maximumJx: %f; maximumJy: %f; maximumJz: %f; maximumJr: %f; meanJerk: %f; SDJerk: %f; timeNormIntegratedJerk: %f; start: %f; finish: %f; minimum: %f; maximum: %f; range: %f>", self.class.description, self.orientation, self.maximumAx, self.maximumAy, self.maximumAz, self.maximumAr, self.meanAr, self.SDAr, self.maximumJx, self.maximumJy, self.maximumJz, self.maximumJr, self.meanJerk, self.SDJerk, self.timeNormIntegratedJerk, self.start, self.finish, self.minimum, self.maximum, self.range];
 }
 
 @end
