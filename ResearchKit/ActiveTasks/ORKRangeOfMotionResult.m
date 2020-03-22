@@ -39,6 +39,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
+    ORK_ENCODE_DOUBLE(aCoder, duration);
     ORK_ENCODE_INTEGER(aCoder, orientation);
     ORK_ENCODE_DOUBLE(aCoder, maximumAx);
     ORK_ENCODE_DOUBLE(aCoder, maximumAy);
@@ -63,6 +64,7 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
+        ORK_DECODE_DOUBLE(aDecoder, duration);
         ORK_DECODE_INTEGER(aDecoder, orientation);
         ORK_DECODE_DOUBLE(aDecoder, maximumAx);
         ORK_DECODE_DOUBLE(aDecoder, maximumAy);
@@ -94,20 +96,21 @@
     BOOL isParentSame = [super isEqual:object];
     __typeof(self) castObject = object;
     return isParentSame &&
+    self.duration == castObject.duration &&
     self.orientation == castObject.orientation &&
-    self.start == castObject.maximumAx &&
-    self.start == castObject.maximumAy &&
-    self.start == castObject.maximumAz &&
-    self.start == castObject.maximumAr &&
-    self.start == castObject.meanAr &&
-    self.start == castObject.SDAr &&
-    self.start == castObject.maximumJx &&
-    self.start == castObject.maximumJy &&
-    self.start == castObject.maximumJz &&
-    self.start == castObject.maximumJr &&
-    self.start == castObject.meanJerk &&
-    self.start == castObject.SDJerk &&
-    self.start == castObject.timeNormIntegratedJerk &&
+    self.maximumAx == castObject.maximumAx &&
+    self.maximumAy == castObject.maximumAy &&
+    self.smaximumAz == castObject.maximumAz &&
+    self.maximumAr == castObject.maximumAr &&
+    self.meanAr == castObject.meanAr &&
+    self.SDAr == castObject.SDAr &&
+    self.maximumJx == castObject.maximumJx &&
+    self.maximumJy == castObject.maximumJy &&
+    self.maximumJz == castObject.maximumJz &&
+    self.maximumJr == castObject.maximumJr &&
+    self.meanJerk == castObject.meanJerk &&
+    self.SDJerk == castObject.SDJerk &&
+    self.timeNormIntegratedJerk == castObject.timeNormIntegratedJerk &&
     self.start == castObject.start &&
     self.finish == castObject.finish &&
     self.minimum == castObject.minimum &&
@@ -121,6 +124,7 @@
 
 - (instancetype)copyWithZone:(NSZone *)zone {
     ORKRangeOfMotionResult *result = [super copyWithZone:zone];
+    result.duration = self.duration;
     result.orientation = self.orientation;
     result.maximumAx = self.maximumAx;
     result.maximumAy = self.maximumAy;
@@ -144,7 +148,7 @@
 }
 
 - (NSString *)descriptionWithNumberOfPaddingSpaces:(NSUInteger)numberOfPaddingSpaces {
-    return [NSString stringWithFormat:@"<%@: orientation: %li; maximumAx: %f; maximumAy: %f; maximumAz: %f; maximumAr: %f; meanAr: %f; SDAr: %f; maximumJx: %f; maximumJy: %f; maximumJz: %f; maximumJr: %f; meanJerk: %f; SDJerk: %f; timeNormIntegratedJerk: %f; start: %f; finish: %f; minimum: %f; maximum: %f; range: %f>", self.class.description, self.orientation, self.maximumAx, self.maximumAy, self.maximumAz, self.maximumAr, self.meanAr, self.SDAr, self.maximumJx, self.maximumJy, self.maximumJz, self.maximumJr, self.meanJerk, self.SDJerk, self.timeNormIntegratedJerk, self.start, self.finish, self.minimum, self.maximum, self.range];
+    return [NSString stringWithFormat:@"<%@: duration: %f; orientation: %li; maximumAx: %f; maximumAy: %f; maximumAz: %f; maximumAr: %f; meanAr: %f; SDAr: %f; maximumJx: %f; maximumJy: %f; maximumJz: %f; maximumJr: %f; meanJerk: %f; SDJerk: %f; timeNormIntegratedJerk: %f; start: %f; finish: %f; minimum: %f; maximum: %f; range: %f>", self.class.description, self.duration, self.orientation, self.maximumAx, self.maximumAy, self.maximumAz, self.maximumAr, self.meanAr, self.SDAr, self.maximumJx, self.maximumJy, self.maximumJz, self.maximumJr, self.meanJerk, self.SDJerk, self.timeNormIntegratedJerk, self.start, self.finish, self.minimum, self.maximum, self.range];
 }
 
 @end

@@ -44,14 +44,14 @@ ORK_CLASS_AVAILABLE
 @interface ORKRangeOfMotionResult : ORKResult
 
 /**
- The physical orientation of the device at the start position (the commencement of recording).
- */
-@property (nonatomic, assign) NSInteger orientation;
-
-/**
  Time duration (seconds) of the task
  */
 @property (nonatomic, assign) double duration;
+
+/**
+ The physical orientation of the device at the start position (the commencement of recording).
+ */
+@property (nonatomic, assign) NSInteger orientation;
 
 /**
  The maximum acceleration (ms^-2) recorded along the x-axis during the task.
