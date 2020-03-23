@@ -1,5 +1,6 @@
 /*
  Copyright (c) 2016, Darren Levy. All rights reserved.
+ Copyright (c) 2020, David W. Evans. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -42,8 +43,11 @@
     ORK_ENCODE_DOUBLE(aCoder, duration);
     ORK_ENCODE_INTEGER(aCoder, orientation);
     ORK_ENCODE_DOUBLE(aCoder, maximumAx);
+    ORK_ENCODE_DOUBLE(aCoder, minimumAx);
     ORK_ENCODE_DOUBLE(aCoder, maximumAy);
+    ORK_ENCODE_DOUBLE(aCoder, minimumAy);
     ORK_ENCODE_DOUBLE(aCoder, maximumAz);
+    ORK_ENCODE_DOUBLE(aCoder, minimumAz);
     ORK_ENCODE_DOUBLE(aCoder, maximumAr);
     ORK_ENCODE_DOUBLE(aCoder, meanAr);
     ORK_ENCODE_DOUBLE(aCoder, SDAr);

@@ -135,6 +135,7 @@
     double _prevMa, _newMa, _prevSa, _newSa;
     double _prevMj, _newMj, _prevSj, _newSj;
     double _maxAx, _maxAy, _maxAz;
+    double _minAx, _minAy, _minAz;
     double _maxJx, _maxJy, _maxJz;
     double _first_time, _prev_time, _new_time;
     double _firstJerk, _prevJerk, _newJerk, _lastJerk;
@@ -155,7 +156,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+        
     _contentView = [ORKRangeOfMotionContentView new];
     _contentView.translatesAutoresizingMaskIntoConstraints = NO;
     self.activeStepView.activeCustomView = _contentView;
@@ -241,14 +242,23 @@
     
     /* Process userAcceleration data */
     count ++; // count each sensor pass
-    if (motion.userAcceleration.x > _maxAx) { // captures the maximum recorded acceleration along the x-axis (Ax)
+    if (motion.userAcceleration.x > _maxAx) { // captures the greatest positive acceleration recorded along the x-axis (Ax)
         _maxAx = motion.userAcceleration.x;
     }
-    if (motion.userAcceleration.y > _maxAy) { // captures the maximum recorded acceleration along the y-axis (Ay)
+    if (motion.userAcceleration.x < _minAx) { // captures the greatest negative acceleration recorded along the x-axis (Ax)
+        _minAx = motion.userAcceleration.x;
+    }
+    if (motion.userAcceleration.y > _maxAy) { // captures the greatest positive acceleration recorded along the y-axis (Ay)
         _maxAy = motion.userAcceleration.y;
     }
-    if (motion.userAcceleration.z > _maxAz) { // captures the maximum recorded acceleration along the z-axis (Az)
-        _maxAz = motion.userAcceleration.x;
+    if (motion.userAcceleration.y < _minAy) { // captures the greatest negative acceleration recorded along the y-axis (Ay)
+        _minAy = motion.userAcceleration.y;
+    }
+    if (motion.userAcceleration.z > _maxAz) { // captures the greatest positive acceleration recorded along the z-axis (Az)
+        _maxAz = motion.userAcceleration.z;
+    }
+    if (motion.userAcceleration.z < _minAz) { // captures the greatest negative acceleration recorded along the z-axis (Az)
+        _minAz = motion.userAcceleration.z;
     }
     // calculate resultant acceleration (Ar)
     double resultant_accel = sqrt(
@@ -275,13 +285,13 @@
     }
     // calculate jerk (time derivative of acceleration)
     if (count == 1) {
-        _first_time = _prev_time = _new_time = mach_absolute_time() / 10e9; // captures first time value (in seconds)
+        _first_time = _prev_time = _new_time = [self convertAbsoluteTimeIntoSeconds: mach_absolute_time()]; // captures first time value (in seconds)
         _prevAccelX = _newAccelX = motion.userAcceleration.x;
         _prevAccelY = _newAccelY = motion.userAcceleration.y;
         _prevAccelZ = _newAccelZ = motion.userAcceleration.x;
     } else {
         _prev_time = _new_time; // assigns previous time value
-        _new_time = mach_absolute_time() / 10e9; // immediately updates to the new time value (in seconds)
+        _new_time = [self convertAbsoluteTimeIntoSeconds: mach_absolute_time()]; // immediately updates to the new time value (in seconds)
         double temp = sumDeltaTime + fabs(_new_time - _prev_time); // see: Press, Teukolsky, Vetterling, Flannery (2007) Numerical Recipes; p230.
         double delta_time = temp - sumDeltaTime;
         sumDeltaTime += delta_time; // sum of all deltas
@@ -348,14 +358,12 @@
         sumOdd += 4.0 * resultant_jerk;
     }
     // Sum of all even (2/3) terms
-    if (count % 2 == 0) { // evens
+    if (count % 2 == 0) { // even terms
         sumEven += 2.0 * resultant_jerk;
     }
-    //if (MathUtils.isOdd(count)) {
-    if (count % 2 != 0) { // odds
+    if (count % 2 != 0) { // odd terms
         _integratedJerk = h * (_firstJerk + sumOdd + sumEven - (3.0 * _lastJerk)) / 3.0; // lastJerk will have been added to SumEven 4 times, but we only want to retain one
-    //} else if (MathUtils.isEven(count)) {
-    } else if (count % 2 == 0) {
+    } else if (count % 2 == 0) { // even terms
         _integratedJerk = h * (_firstJerk + sumOdd + sumEven - _lastJerk) / 3.0; // lastJerk will have been added to SumEven 2 times, but we only want to retain one
     }
     // the time duration of each recorded task will be different, so comparable results must be normalized by duration
@@ -363,7 +371,15 @@
     time_normalized_integrated_jerk = _integratedJerk / total_time;
 }
 
-
+/*
+ Helper method to convert absolute time into seconds
+ */
+- (double) convertAbsoluteTimeIntoSeconds:(uint64_t) mach_time {
+    mach_timebase_info_data_t _clock_timebase;
+    mach_timebase_info(&_clock_timebase);
+    double nanos = (mach_time * _clock_timebase.numer) / _clock_timebase.denom;
+    return nanos / 10e9;
+}
     
 /*
 When the device is in Portrait mode, we need to get the attitude's pitch to determine the
@@ -407,14 +423,23 @@ When the device is in Portrait mode, we need to get the attitude's pitch to dete
     // Task duration (seconds)
     result.duration = sumDeltaTime;
 
-    // Maximum acceleration along x-axis
+    // Greatest positive acceleration along x-axis
     result.maximumAx = _maxAx;
 
-    // Maximum acceleration along y-axis
+    // Greatest negative acceleration along x-axis
+    result.minimumAx = _minAx;
+    
+    // Greatest positive acceleration along y-axis
     result.maximumAy = _maxAy;
+    
+    // Greatest negative acceleration along y-axis
+    result.minimumAy = _minAy;
 
-    // Maximum acceleration along z-axis
+    // Greatest positive acceleration along z-axis
     result.maximumAz = _maxAz;
+    
+    // Greatest negative acceleration along z-axis
+    result.minimumAz = _minAz;
 
     // Maximum resultant acceleration
     result.maximumAr = _maxAr;
