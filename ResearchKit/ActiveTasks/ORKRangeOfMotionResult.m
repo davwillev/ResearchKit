@@ -103,8 +103,11 @@
     self.duration == castObject.duration &&
     self.orientation == castObject.orientation &&
     self.maximumAx == castObject.maximumAx &&
+    self.minimumAx == castObject.minimumAx &&
     self.maximumAy == castObject.maximumAy &&
+    self.minimumAy == castObject.minimumAy &&
     self.maximumAz == castObject.maximumAz &&
+    self.minimumAz == castObject.minimumAz &&
     self.maximumAr == castObject.maximumAr &&
     self.meanAr == castObject.meanAr &&
     self.SDAr == castObject.SDAr &&
@@ -131,8 +134,11 @@
     result.duration = self.duration;
     result.orientation = self.orientation;
     result.maximumAx = self.maximumAx;
+    result.minimumAx = self.minimumAx;
     result.maximumAy = self.maximumAy;
+    result.minimumAy = self.minimumAy;
     result.maximumAz = self.maximumAz;
+    result.minimumAz = self.minimumAz;
     result.maximumAr = self.maximumAr;
     result.meanAr = self.meanAr;
     result.SDAr = self.SDAr;
@@ -152,7 +158,7 @@
 }
 
 - (NSString *)descriptionWithNumberOfPaddingSpaces:(NSUInteger)numberOfPaddingSpaces {
-    return [NSString stringWithFormat:@"<%@: duration: %f; orientation: %li; maximumAx: %f; maximumAy: %f; maximumAz: %f; maximumAr: %f; meanAr: %f; SDAr: %f; maximumJx: %f; maximumJy: %f; maximumJz: %f; maximumJr: %f; meanJerk: %f; SDJerk: %f; timeNormIntegratedJerk: %f; start: %f; finish: %f; minimum: %f; maximum: %f; range: %f>", self.class.description, self.duration, self.orientation, self.maximumAx, self.maximumAy, self.maximumAz, self.maximumAr, self.meanAr, self.SDAr, self.maximumJx, self.maximumJy, self.maximumJz, self.maximumJr, self.meanJerk, self.SDJerk, self.timeNormIntegratedJerk, self.start, self.finish, self.minimum, self.maximum, self.range];
+    return [NSString stringWithFormat:@"<%@: duration: %f; orientation: %li; maximumAx: %f; minimumAx: %f; maximumAy: %f;  minimumAy: %f; maximumAz: %f; minimumAz: %f; maximumAr: %f; meanAr: %f; SDAr: %f; maximumJx: %f; maximumJy: %f; maximumJz: %f; maximumJr: %f; meanJerk: %f; SDJerk: %f; timeNormIntegratedJerk: %f; start: %f; finish: %f; minimum: %f; maximum: %f; range: %f>", self.class.description, self.duration, self.orientation, self.maximumAx, self.minimumAx, self.maximumAy, self.minimumAy, self.maximumAz, self.minimumAz, self.maximumAr, self.meanAr, self.SDAr, self.maximumJx, self.maximumJy, self.maximumJz, self.maximumJr, self.meanJerk, self.SDJerk, self.timeNormIntegratedJerk, self.start, self.finish, self.minimum, self.maximum, self.range];
 }
 
 @end
