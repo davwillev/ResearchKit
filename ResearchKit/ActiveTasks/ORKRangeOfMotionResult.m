@@ -71,8 +71,11 @@
         ORK_DECODE_DOUBLE(aDecoder, duration);
         ORK_DECODE_INTEGER(aDecoder, orientation);
         ORK_DECODE_DOUBLE(aDecoder, maximumAx);
+        ORK_DECODE_DOUBLE(aDecoder, minimumAx);
         ORK_DECODE_DOUBLE(aDecoder, maximumAy);
+        ORK_DECODE_DOUBLE(aDecoder, minimumAy);
         ORK_DECODE_DOUBLE(aDecoder, maximumAz);
+        ORK_DECODE_DOUBLE(aDecoder, minimumAz);
         ORK_DECODE_DOUBLE(aDecoder, maximumAr);
         ORK_DECODE_DOUBLE(aDecoder, meanAr);
         ORK_DECODE_DOUBLE(aDecoder, SDAr);

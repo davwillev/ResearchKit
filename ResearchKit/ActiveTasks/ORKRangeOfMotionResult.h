@@ -54,32 +54,32 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, assign) NSInteger orientation;
 
 /**
- The greatest positive acceleration (ms^-2) recorded along the x-axis during the task.
+ The greatest acceleration (ms^-2) recorded during the task along the positive direction of the x-axis.
  */
 @property (nonatomic, assign) double maximumAx;
 
 /**
- The greatest negative acceleration (ms^-2) recorded along the x-axis during the task.
+ The greatest acceleration (ms^-2) recorded during the task along the negative direction of the x-axis.
  */
 @property (nonatomic, assign) double minimumAx;
 
 /**
- The greatest positive acceleration (ms^-2) recorded along the y-axis during the task.
+ The greatest acceleration (ms^-2) recorded during the task along the positive direction of the y-axis.
  */
 @property (nonatomic, assign) double maximumAy;
 
 /**
- The greatest negative acceleration (ms^-2) recorded along the y-axis during the task.
+ The greatest acceleration (ms^-2) recorded during the task along the negative direction of the y-axis.
  */
 @property (nonatomic, assign) double minimumAy;
 
 /**
- The greatest positive acceleration (ms^-2) recorded along the z-axis during the task.
+ The greatest acceleration (ms^-2) recorded during the task along the positive direction of the z-axis.
  */
 @property (nonatomic, assign) double maximumAz;
 
 /**
- The greatest negative acceleration (ms^-2) recorded along the z-axis during the task.
+ The greatest acceleration (ms^-2) recorded during the task along the negative direction of the z-axis.
  */
 @property (nonatomic, assign) double minimumAz;
 

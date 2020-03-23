@@ -502,7 +502,6 @@ When the device is in Portrait mode, we need to get the attitude's pitch to dete
         result.minimum = result.start + _minAngle;
         result.maximum = result.start + _maxAngle;
         result.range = fabs(result.maximum - result.minimum);
-    //} else if (UIDeviceOrientationFaceUp == _orientation || UIDeviceOrientationFaceDown == _orientation) {
     } else if (!UIDeviceOrientationIsValidInterfaceOrientation(_orientation)) {
         result.orientation = ORIENTATION_UNSPECIFIED;
         result.start = NAN;
