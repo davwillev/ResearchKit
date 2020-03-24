@@ -52,8 +52,11 @@
     ORK_ENCODE_DOUBLE(aCoder, meanAr);
     ORK_ENCODE_DOUBLE(aCoder, SDAr);
     ORK_ENCODE_DOUBLE(aCoder, maximumJx);
+    ORK_ENCODE_DOUBLE(aCoder, minimumJx);
     ORK_ENCODE_DOUBLE(aCoder, maximumJy);
+    ORK_ENCODE_DOUBLE(aCoder, minimumJy);
     ORK_ENCODE_DOUBLE(aCoder, maximumJz);
+    ORK_ENCODE_DOUBLE(aCoder, minimumJz);
     ORK_ENCODE_DOUBLE(aCoder, maximumJr);
     ORK_ENCODE_DOUBLE(aCoder, meanJerk);
     ORK_ENCODE_DOUBLE(aCoder, SDJerk);
@@ -80,8 +83,11 @@
         ORK_DECODE_DOUBLE(aDecoder, meanAr);
         ORK_DECODE_DOUBLE(aDecoder, SDAr);
         ORK_DECODE_DOUBLE(aDecoder, maximumJx);
+        ORK_DECODE_DOUBLE(aDecoder, minimumJx);
         ORK_DECODE_DOUBLE(aDecoder, maximumJy);
+        ORK_DECODE_DOUBLE(aDecoder, minimumJy);
         ORK_DECODE_DOUBLE(aDecoder, maximumJz);
+        ORK_DECODE_DOUBLE(aDecoder, minimumJz);
         ORK_DECODE_DOUBLE(aDecoder, maximumJr);
         ORK_DECODE_DOUBLE(aDecoder, meanJerk);
         ORK_DECODE_DOUBLE(aDecoder, SDJerk);
@@ -115,8 +121,11 @@
     self.meanAr == castObject.meanAr &&
     self.SDAr == castObject.SDAr &&
     self.maximumJx == castObject.maximumJx &&
+    self.minimumJx == castObject.minimumJx &&
     self.maximumJy == castObject.maximumJy &&
+    self.minimumJy == castObject.minimumJy &&
     self.maximumJz == castObject.maximumJz &&
+    self.minimumJz == castObject.minimumJz &&
     self.maximumJr == castObject.maximumJr &&
     self.meanJerk == castObject.meanJerk &&
     self.SDJerk == castObject.SDJerk &&
@@ -146,8 +155,11 @@
     result.meanAr = self.meanAr;
     result.SDAr = self.SDAr;
     result.maximumJx = self.maximumJx;
+    result.minimumJx = self.minimumJx;
     result.maximumJy = self.maximumJy;
+    result.minimumJy = self.minimumJy;
     result.maximumJz = self.maximumJz;
+    result.minimumJz = self.minimumJz;
     result.maximumJr = self.maximumJr;
     result.meanJerk = self.meanJerk;
     result.SDJerk = self.SDJerk;
@@ -161,7 +173,7 @@
 }
 
 - (NSString *)descriptionWithNumberOfPaddingSpaces:(NSUInteger)numberOfPaddingSpaces {
-    return [NSString stringWithFormat:@"<%@: duration: %f; orientation: %li; maximumAx: %f; minimumAx: %f; maximumAy: %f;  minimumAy: %f; maximumAz: %f; minimumAz: %f; maximumAr: %f; meanAr: %f; SDAr: %f; maximumJx: %f; maximumJy: %f; maximumJz: %f; maximumJr: %f; meanJerk: %f; SDJerk: %f; timeNormIntegratedJerk: %f; start: %f; finish: %f; minimum: %f; maximum: %f; range: %f>", self.class.description, self.duration, self.orientation, self.maximumAx, self.minimumAx, self.maximumAy, self.minimumAy, self.maximumAz, self.minimumAz, self.maximumAr, self.meanAr, self.SDAr, self.maximumJx, self.maximumJy, self.maximumJz, self.maximumJr, self.meanJerk, self.SDJerk, self.timeNormIntegratedJerk, self.start, self.finish, self.minimum, self.maximum, self.range];
+    return [NSString stringWithFormat:@"<%@: duration: %f; orientation: %li; maximumAx: %f; minimumAx: %f; maximumAy: %f;  minimumAy: %f; maximumAz: %f; minimumAz: %f; maximumAr: %f; meanAr: %f; SDAr: %f; maximumJx: %f; minimumJx: %f; maximumJy: %f; minimumJy: %f; maximumJz: %f; maximumJz: %f; minimumJr: %f; meanJerk: %f; SDJerk: %f; timeNormIntegratedJerk: %f; start: %f; finish: %f; minimum: %f; maximum: %f; range: %f>", self.class.description, self.duration, self.orientation, self.maximumAx, self.minimumAx, self.maximumAy, self.minimumAy, self.maximumAz, self.minimumAz, self.maximumAr, self.meanAr, self.SDAr, self.maximumJx, self.minimumJx, self.maximumJy, self.minimumJy, self.maximumJz, self.minimumJz, self.maximumJr, self.meanJerk, self.SDJerk, self.timeNormIntegratedJerk, self.start, self.finish, self.minimum, self.maximum, self.range];
 }
 
 @end

@@ -44,7 +44,7 @@ ORK_CLASS_AVAILABLE
 @interface ORKRangeOfMotionResult : ORKResult
 
 /**
- Time duration (seconds) of the task
+ Time duration (seconds) of the task recording.
  */
 @property (nonatomic, assign) double duration;
 
@@ -54,32 +54,32 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, assign) NSInteger orientation;
 
 /**
- The greatest acceleration (ms^-2) recorded during the task along the positive direction of the x-axis.
+ The highest magnitude of acceleration (ms^-2) recorded during the task along the positive direction of the x-axis.
  */
 @property (nonatomic, assign) double maximumAx;
 
 /**
- The greatest acceleration (ms^-2) recorded during the task along the negative direction of the x-axis.
+ The highest magnitude of acceleration (ms^-2) recorded during the task along the negative direction of the x-axis.
  */
 @property (nonatomic, assign) double minimumAx;
 
 /**
- The greatest acceleration (ms^-2) recorded during the task along the positive direction of the y-axis.
+ The highest magnitude of acceleration (ms^-2) recorded during the task along the positive direction of the y-axis.
  */
 @property (nonatomic, assign) double maximumAy;
 
 /**
- The greatest acceleration (ms^-2) recorded during the task along the negative direction of the y-axis.
+ The highest magnitude of acceleration (ms^-2) recorded during the task along the negative direction of the y-axis.
  */
 @property (nonatomic, assign) double minimumAy;
 
 /**
- The greatest acceleration (ms^-2) recorded during the task along the positive direction of the z-axis.
+ The highest magnitude of acceleration (ms^-2) recorded during the task along the positive direction of the z-axis.
  */
 @property (nonatomic, assign) double maximumAz;
 
 /**
- The greatest acceleration (ms^-2) recorded during the task along the negative direction of the z-axis.
+ The highest magnitude of acceleration (ms^-2) recorded during the task along the negative direction of the z-axis.
  */
 @property (nonatomic, assign) double minimumAz;
 
@@ -99,19 +99,34 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, assign) double SDAr;
 
 /**
- The maximum jerk (ms^-3) recorded along the x-axis during the task.
+ The highest magnitude of  jerk (ms^-3) recorded during the task along the positive direction of the x-axis.
  */
 @property (nonatomic, assign) double maximumJx;
 
 /**
- The maximum jerk (ms^-3) recorded along the y-axis during the task.
+ The highest magnitude of  jerk (ms^-3) recorded during the task along the negative direction of the x-axis.
+ */
+@property (nonatomic, assign) double minimumJx;
+
+/**
+ The highest magnitude of  jerk (ms^-3) recorded during the task along the positive direction of the y-axis.
  */
 @property (nonatomic, assign) double maximumJy;
 
 /**
- The maximum jerk (ms^-3) recorded along the z-axis during the task.
+ The highest magnitude of  jerk (ms^-3) recorded during the task along the negative direction of the y-axis.
+ */
+@property (nonatomic, assign) double minimumJy;
+
+/**
+ The highest magnitude of  jerk (ms^-3) recorded during the task along the positive direction of the z-axis.
  */
 @property (nonatomic, assign) double maximumJz;
+
+/**
+ The highest magnitude of  jerk (ms^-3) recorded during the task along the negative direction of the z-axis.
+ */
+@property (nonatomic, assign) double minimumJz;
 
 /**
  The maximum resultant jerk (ms^-3) recorded during the task.

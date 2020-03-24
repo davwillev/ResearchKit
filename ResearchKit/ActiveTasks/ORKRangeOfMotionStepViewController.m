@@ -137,6 +137,7 @@
     double _maxAx, _maxAy, _maxAz;
     double _minAx, _minAy, _minAz;
     double _maxJx, _maxJy, _maxJz;
+    double _minJx, _minJy, _minJz;
     double _first_time, _prev_time, _new_time;
     double _firstJerk, _prevJerk, _newJerk, _lastJerk;
     double _prevAccelX, _prevAccelY, _prevAccelZ;
@@ -315,11 +316,20 @@
     if (_jerkX > _maxJx) { // captures the greatest positive jerk recorded along the x-axis (Jx)
         _maxJx = _jerkX;
     }
+    if (_jerkX < _minJx) { // captures the greatest negative jerk recorded along the x-axis (Jx)
+        _minJx = _jerkX;
+    }
     if (_jerkY > _maxJy) { // captures the greatest positive jerk recorded along the y-axis (Jy)
         _maxJy = _jerkY;
     }
+    if (_jerkY < _minJy) { // captures the greatest negative jerk recorded along the y-axis (Jy)
+        _minJy = _jerkY;
+    }
     if (_jerkZ > _maxJz) { // captures the greatest positive jerk recorded along the z-axis (Jz)
         _maxJz = _jerkZ;
+    }
+    if (_jerkZ < _minJz) { // captures the greatest negative jerk recorded along the z-axis (Jz)
+        _minJz = _jerkZ;
     }
     // calculate resultant jerk (Jr)
     double resultant_jerk = sqrt(
@@ -420,7 +430,7 @@ When the device is in Portrait mode, we need to get the attitude's pitch to dete
     int ORIENTATION_LANDSCAPE_RIGHT = 2; // equivalent to REVERSE_LANDSCAPE in Android
     int ORIENTATION_PORTRAIT_UPSIDE_DOWN = 3;  // equivalent to REVERSE_PORTRAIT in Android
     
-    // Task duration (seconds)
+    // Duration of recording (seconds)
     result.duration = total_time; // sumDeltaTime or total_time
 
     // Greatest positive acceleration along x-axis
@@ -450,14 +460,23 @@ When the device is in Portrait mode, we need to get the attitude's pitch to dete
     // Standard deviation of resultant acceleration
     result.SDAr = _standardDevAr;
 
-    // Maximum jerk along x-axis
+    // Greatest positive jerk along x-axis
     result.maximumJx = _maxJx;
 
-    // Maximum jerk along y-axis
+    // Greatest negative jerk along x-axis
+    result.minimumJx = _minJx;
+    
+    // Greatest positive jerk along y-axis
     result.maximumJy = _maxJy;
-
-    // Maximum jerk along z-axis
+    
+    // Greatest negative jerk along y-axis
+    result.minimumJy = _minJy;
+    
+    // Greatest positive jerk along z-axis
     result.maximumJz = _maxJz;
+    
+    // Greatest negative jerk along z-axis
+    result.minimumJz = _minJz;
 
     // Maximum resultant jerk
     result.maximumJr = _maxJr;
