@@ -283,7 +283,7 @@
     if (_varianceAr > 0) {
         _standardDevAr = sqrt(_varianceAr);
     }
-    // calculate jerk (time derivative of acceleration)
+    /* Calculate jerk (time derivative of acceleration) */
     if (count == 1) {
         _first_time = _prev_time = _new_time = [self convertAbsoluteTimeIntoSeconds: mach_absolute_time()]; // captures first time value (in seconds)
         _prevAccelX = _newAccelX = motion.userAcceleration.x;
@@ -312,13 +312,13 @@
         _jerkY = _deltaAccelY / delta_time;
         _jerkZ = _deltaAccelZ / delta_time;
     }
-    if (_jerkX > _maxJx) { // captures the maximum recorded jerk along the x-axis (Ax)
+    if (_jerkX > _maxJx) { // captures the greatest positive jerk recorded along the x-axis (Jx)
         _maxJx = _jerkX;
     }
-    if (_jerkY > _maxJy) { // captures the maximum recorded jerk along the y-axis (Ay)
+    if (_jerkY > _maxJy) { // captures the greatest positive jerk recorded along the y-axis (Jy)
         _maxJy = _jerkY;
     }
-    if (_jerkZ > _maxJz) { // captures the maximum recorded jerk along the z-axis (Az)
+    if (_jerkZ > _maxJz) { // captures the greatest positive jerk recorded along the z-axis (Jz)
         _maxJz = _jerkZ;
     }
     // calculate resultant jerk (Jr)
@@ -378,7 +378,7 @@
     mach_timebase_info_data_t _clock_timebase;
     mach_timebase_info(&_clock_timebase);
     double nanos = (mach_time * _clock_timebase.numer) / _clock_timebase.denom;
-    return nanos / 10e9;
+    return nanos / 10e8; // not correct when 10e9
 }
     
 /*
@@ -421,7 +421,7 @@ When the device is in Portrait mode, we need to get the attitude's pitch to dete
     int ORIENTATION_PORTRAIT_UPSIDE_DOWN = 3;  // equivalent to REVERSE_PORTRAIT in Android
     
     // Task duration (seconds)
-    result.duration = sumDeltaTime; // try total_time
+    result.duration = total_time; // sumDeltaTime or total_time
 
     // Greatest positive acceleration along x-axis
     result.maximumAx = _maxAx;
