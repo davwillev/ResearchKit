@@ -364,17 +364,20 @@
         h = total_time / (count - 1);
     }
     // Sum of all odd (4/3) terms, excluding the first term (n == 1)
-    if ((count % 2 != 0) && (count != 1)) { // odds excluding '1'
+    //if ((count % 2 != 0) && (count != 1)) { // odds excluding '1'
+    if ([self isOdd: count] && (count != 1)) { // odds excluding '1'
         sumOdd += 4.0 * resultant_jerk;
     }
     // Sum of all even (2/3) terms
-    if (count % 2 == 0) { // even terms
+    //if (count % 2 == 0) { // even terms
+    if ([self isEven: count]) { // even terms
         sumEven += 2.0 * resultant_jerk;
     }
-    if (count % 2 != 0) { // odd terms
-        _integratedJerk = h * (_firstJerk + sumOdd + sumEven - (3.0 * _lastJerk)) / 3.0; // lastJerk will have been added to SumEven 4 times, but we only want to retain one
-    } else if (count % 2 == 0) { // even terms
-        _integratedJerk = h * (_firstJerk + sumOdd + sumEven - _lastJerk) / 3.0; // lastJerk will have been added to SumEven 2 times, but we only want to retain one
+    if ([self isOdd: count]) { // odd terms
+        _integratedJerk = h * (_firstJerk + sumOdd + sumEven - (3.0 * _lastJerk)) / 3.0; // _lastJerk will have been added to SumEven 4 times, but we only want to retain one
+    //} else if (count % 2 == 0) { // even terms
+    } else if ([self isEven: count]) { // even terms
+        _integratedJerk = h * (_firstJerk + sumOdd + sumEven - _lastJerk) / 3.0; // _lastJerk will have been added to SumEven 2 times, but we only want to retain one
     }
     // the time duration of each recorded task will be different, so comparable results must be normalized by duration
     total_time = fabs(_new_time - _first_time); // total time duration of entire recording (in seconds)
@@ -390,12 +393,23 @@
     double nanos = (mach_time * _clock_timebase.numer) / _clock_timebase.denom;
     return nanos / 10e8; // not correct when 10e9
 }
-    
+
+/*
+Helper methods to evaluate odd and even numbers
+*/
+- (BOOL)isOdd:(NSUInteger) n {
+    return n % 2 != 0;
+}
+
+- (BOOL)isEven:(NSUInteger) n {
+    return n % 2 == 0;
+}
+
 /*
 When the device is in Portrait mode, we need to get the attitude's pitch to determine the
  device's angle; whereas, when the device is in Landscape, we need the attitude's roll. We can
- use the quaternion that represents the device's attitude to calculate the angle around each
- axis.
+ use the quaternion that represents the device's attitude to calculate the angle in degrees
+ around each axis.
  */
 - (double)getDeviceAngleInDegreesFromAttitude:(CMAttitude *)attitude {
     double angle = 0.0;
