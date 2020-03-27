@@ -1,5 +1,6 @@
 /*
  Copyright (c) 2016, Darren Levy. All rights reserved.
+ Copyright (c) 2020, David W. Evans. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -42,10 +43,16 @@ NS_ASSUME_NONNULL_BEGIN
 ORK_CLASS_AVAILABLE
 @interface ORKRangeOfMotionStepViewController : ORKActiveStepViewController {
     UIDeviceOrientation _orientation;
-    double _startAngle;
-    double _newAngle;
-    double _minAngle;
-    double _maxAngle;
+    double _startAngle, _newAngle;
+    double _minAngle, _maxAngle;
+    double _maxAx, _maxAy, _maxAz;
+    double _minAx, _minAy, _minAz;
+    double _maxJx, _maxJy, _maxJz;
+    double _minJx, _minJy, _minJz;
+    double _maxAr, _meanAr, _varianceAr, _standardDevAr;
+    double _maxJr, _meanJr, _varianceJr, _standardDevJr;
+    double _totalTime;
+    double _timeNormalizedIntegratedJerk;
 }
 
 @end

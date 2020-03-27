@@ -51,6 +51,67 @@
     int ORIENTATION_LANDSCAPE_RIGHT = 2; // equivalent to REVERSE_LANDSCAPE in Android
     int ORIENTATION_PORTRAIT_UPSIDE_DOWN = 3;  // equivalent to REVERSE_PORTRAIT in Android
     
+    // Duration of recording (seconds)
+    result.duration = _totalTime; // sumDeltaTime or total_time
+
+    // Greatest positive acceleration along x-axis
+    result.maximumAx = _maxAx;
+
+    // Greatest negative acceleration along x-axis
+    result.minimumAx = _minAx;
+    
+    // Greatest positive acceleration along y-axis
+    result.maximumAy = _maxAy;
+    
+    // Greatest negative acceleration along y-axis
+    result.minimumAy = _minAy;
+
+    // Greatest positive acceleration along z-axis
+    result.maximumAz = _maxAz;
+    
+    // Greatest negative acceleration along z-axis
+    result.minimumAz = _minAz;
+
+    // Maximum resultant acceleration
+    result.maximumAr = _maxAr;
+
+    // Mean resultant acceleration
+    result.meanAr = _meanAr;
+
+    // Standard deviation of resultant acceleration
+    result.SDAr = _standardDevAr;
+
+    // Greatest positive jerk along x-axis
+    result.maximumJx = _maxJx;
+
+    // Greatest negative jerk along x-axis
+    result.minimumJx = _minJx;
+    
+    // Greatest positive jerk along y-axis
+    result.maximumJy = _maxJy;
+    
+    // Greatest negative jerk along y-axis
+    result.minimumJy = _minJy;
+    
+    // Greatest positive jerk along z-axis
+    result.maximumJz = _maxJz;
+    
+    // Greatest negative jerk along z-axis
+    result.minimumJz = _minJz;
+
+    // Maximum resultant jerk
+    result.maximumJr = _maxJr;
+
+    // Mean resultant jerk
+    result.meanJerk = _meanJr;
+
+    // Standard deviation of resultant jerk
+    result.SDJerk = _standardDevJr;
+
+    // Time-averaged integrated resultant jerk (smoothness)
+    result.timeNormIntegratedJerk = _timeNormalizedIntegratedJerk;
+
+    // Device orientation and angles
     if (UIDeviceOrientationLandscapeLeft == _orientation) {
         result.orientation = ORIENTATION_LANDSCAPE_LEFT;
         result.start = 90.0 + _startAngle;

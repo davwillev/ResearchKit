@@ -130,14 +130,15 @@
      // added these
     int count;
     double sumDeltaTime;
-    double _maxAr, _meanAr, _varianceAr, _standardDevAr;
-    double _maxJr, _meanJr, _varianceJr, _standardDevJr;
+    //double _maxAr, _meanAr, _varianceAr, _standardDevAr;
+    //double _maxJr, _meanJr, _varianceJr, _standardDevJr;
     double _prevMa, _newMa, _prevSa, _newSa;
     double _prevMj, _newMj, _prevSj, _newSj;
-    double _maxAx, _maxAy, _maxAz;
-    double _minAx, _minAy, _minAz;
-    double _maxJx, _maxJy, _maxJz;
-    double _minJx, _minJy, _minJz;
+    //double _maxAx, _maxAy, _maxAz;
+    //double _minAx, _minAy, _minAz;
+    //double _maxJx, _maxJy, _maxJz;
+    //double _minJx, _minJy, _minJz;
+    //double _totalTime;
     double _first_time, _prev_time, _new_time;
     double _firstJerk, _prevJerk, _newJerk, _lastJerk;
     double _prevAccelX, _prevAccelY, _prevAccelZ;
@@ -146,8 +147,8 @@
     double _jerkX, _jerkY, _jerkZ;
     double sumOdd, sumEven, h;
     double _integratedJerk;
-    double total_time;
-    double time_normalized_integrated_jerk;
+    //double total_time;
+    //double _timeNormalizedIntegratedJerk;
 }
 
 @end
@@ -361,7 +362,7 @@
         _lastJerk = resultant_jerk;// updates to last iteration
     }
     if (count != 1) { // need to avoid a zero denominator at (n - 1)
-        h = total_time / (count - 1);
+        h = _totalTime / (count - 1);
     }
     // Sum of all odd (4/3) terms, excluding the first term (n == 1)
     //if ((count % 2 != 0) && (count != 1)) { // odds excluding '1'
@@ -380,8 +381,8 @@
         _integratedJerk = h * (_firstJerk + sumOdd + sumEven - _lastJerk) / 3.0; // _lastJerk will have been added to SumEven 2 times, but we only want to retain one
     }
     // the time duration of each recorded task will be different, so comparable results must be normalized by duration
-    total_time = fabs(_new_time - _first_time); // total time duration of entire recording (in seconds)
-    time_normalized_integrated_jerk = _integratedJerk / total_time;
+    _totalTime = fabs(_new_time - _first_time); // total time duration of entire recording (in seconds)
+    _timeNormalizedIntegratedJerk = _integratedJerk / _totalTime;
 }
 
 /*
@@ -445,7 +446,7 @@ When the device is in Portrait mode, we need to get the attitude's pitch to dete
     int ORIENTATION_PORTRAIT_UPSIDE_DOWN = 3;  // equivalent to REVERSE_PORTRAIT in Android
     
     // Duration of recording (seconds)
-    result.duration = total_time; // sumDeltaTime or total_time
+    result.duration = _totalTime; // sumDeltaTime or total_time
 
     // Greatest positive acceleration along x-axis
     result.maximumAx = _maxAx;
@@ -502,7 +503,7 @@ When the device is in Portrait mode, we need to get the attitude's pitch to dete
     result.SDJerk = _standardDevJr;
 
     // Time-averaged integrated resultant jerk (smoothness)
-    result.timeNormIntegratedJerk = time_normalized_integrated_jerk;
+    result.timeNormIntegratedJerk = _timeNormalizedIntegratedJerk;
 
     // Device orientation and angles
     if (UIDeviceOrientationLandscapeLeft == _orientation) {
