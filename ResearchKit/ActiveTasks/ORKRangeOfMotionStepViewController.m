@@ -126,29 +126,17 @@
 @interface ORKRangeOfMotionStepViewController () <ORKDeviceMotionRecorderDelegate> {
     ORKRangeOfMotionContentView *_contentView;
     UITapGestureRecognizer *_gestureRecognizer;
-    CMAttitude *_referenceAttitude;
-     // added these
-    int count;
     double sumDeltaTime;
-    //double _maxAr, _meanAr, _varianceAr, _standardDevAr;
-    //double _maxJr, _meanJr, _varianceJr, _standardDevJr;
     double _prevMa, _newMa, _prevSa, _newSa;
     double _prevMj, _newMj, _prevSj, _newSj;
-    //double _maxAx, _maxAy, _maxAz;
-    //double _minAx, _minAy, _minAz;
-    //double _maxJx, _maxJy, _maxJz;
-    //double _minJx, _minJy, _minJz;
-    //double _totalTime;
-    double _first_time, _prev_time, _new_time;
-    double _firstJerk, _prevJerk, _newJerk, _lastJerk;
+    double _firstX, _prevX, _newX, _lastX;
     double _prevAccelX, _prevAccelY, _prevAccelZ;
     double _newAccelX, _newAccelY, _newAccelZ;
     double _deltaAccelX, _deltaAccelY, _deltaAccelZ;
     double _jerkX, _jerkY, _jerkZ;
-    double sumOdd, sumEven, h;
-    double _integratedJerk;
-    //double total_time;
-    //double _timeNormalizedIntegratedJerk;
+    double _sumOdd, _sumEven, _h;
+    double _integratedX;
+    double _resultantJerk;
 }
 
 @end
@@ -170,26 +158,73 @@
     _orientation = [[UIDevice currentDevice] orientation]; // captures the initial device orientation
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
- 
+   //When the screen is tapped, we need to stop recording
+- (void)handleTap:(UIGestureRecognizer *)sender {
+    [self calculateMaxAndMinAngles]; // not sure this is necessary here since value is already updated at every sensor pass through deviceMotionRecorderDidUpdateWithMotion
+    
     // Ends orientation notifications
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    //[[NSNotificationCenter defaultCenter] removeObserver:self]; // is this needed?
     if ([[UIDevice currentDevice] isGeneratingDeviceOrientationNotifications]) {
         [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
     }
-}
-
-   //Records the angle of the device and then finishes the task when the screen is tapped
-- (void)handleTap:(UIGestureRecognizer *)sender {
-    [self calculateAndSetAngles];
     [self finish];
 }
 
-- (void)calculateAndSetAngles {
-    _startAngle = ([self getDeviceAngleInDegreesFromAttitude:_referenceAttitude]);
-    
-    // Calculate maximum and minimum angles recorded by the device
+/*
+ Helper method to convert absolute time into seconds
+ */
+- (double)convertAbsoluteTimeIntoSeconds:(uint64_t) mach_time {
+    mach_timebase_info_data_t _clock_timebase;
+    mach_timebase_info(&_clock_timebase);
+    double nanos = (mach_time * _clock_timebase.numer) / _clock_timebase.denom;
+    return nanos / 10e8; // suprisingly, not correct when 10e9
+}
+
+/*
+Helper methods to evaluate odd and even numbers
+*/
+- (BOOL)isOdd:(NSUInteger) n {
+    return n % 2 != 0;
+}
+
+- (BOOL)isEven:(NSUInteger) n {
+    return n % 2 == 0;
+}
+
+/* Method to calculate the numerical integral of a number (x) within a loop in which
+ count and time duration are being measured (using extended Simpson's rule).
+ For original formula, see: Press, Teukolsky, Vetterling, Flannery (2007) Numerical Recipes; p160.
+*/
+- (double)integrateSimpsons:(double)x usingCount:(int)count andDuration:(double)duration {
+    if (count == 1) {
+        _firstX = x;
+    } else {
+        _lastX = x; // updates to last iteration
+    }
+    if (count != 1) { // need to avoid a zero denominator at (n - 1)
+        _h = duration / (count - 1);
+    }
+    // Sum of all odd (4/3) terms, excluding the first term (n == 1)
+    if ([self isOdd: count] && (count != 1)) { // odds excluding '1'
+        _sumOdd += 4.0 * x;
+    }
+    // Sum of all even (2/3) terms
+    if ([self isEven: count]) { // even terms
+        _sumEven += 2.0 * x;
+    }
+    if ([self isOdd: count]) { // odd terms
+        _integratedX = _h * (_firstX + _sumOdd + _sumEven - (3.0 * _lastX)) / 3.0; // _lastX will have been added to sumEven 4 times, but we only want to retain one
+    } else if ([self isEven: count]) { // even terms
+        _integratedX = _h * (_firstX + _sumOdd + _sumEven - _lastX) / 3.0; // _lastX will have been added to sumEven 2 times, but we only want to retain one
+    }
+    return _integratedX;
+}
+
+/*
+Calculate maximum and minimum angles recorded by the device
+*/
+- (void)calculateMaxAndMinAngles {
+    //_startAngle = ([self getDeviceAngleInDegreesFromAttitude:_referenceAttitude]); // moved this
     if (_newAngle > _maxAngle) {
         _maxAngle = _newAngle;
     }
@@ -198,52 +233,11 @@
     }
 }
 
-
-#pragma mark - ORKDeviceMotionRecorderDelegate
-
-- (void)deviceMotionRecorderDidUpdateWithMotion:(CMDeviceMotion *)motion {
-    /* Process device attitude data */
-    if (!_referenceAttitude) {
-        _referenceAttitude = motion.attitude;
-    }
-    CMAttitude *currentAttitude = [motion.attitude copy];
-    [currentAttitude multiplyByInverseOfAttitude:_referenceAttitude];
-    double angle = [self getDeviceAngleInDegreesFromAttitude:currentAttitude];
-
-    //We need to shift the range of angles reported by the device from +/-180 degrees to -90 to +270 degrees, for all device orientations, which should be sufficient to cover all ahievable knee and shoulder ranges of motion
-    if (UIDeviceOrientationLandscapeLeft == _orientation) {
-        BOOL shiftAngleRange = angle < -90 && angle >= -180;
-        if (shiftAngleRange) {
-            _newAngle = 360 - fabs(angle);
-        } else {
-            _newAngle = angle;
-        }
-    } else if (UIDeviceOrientationPortrait == _orientation) {
-        BOOL shiftAngleRange = angle > 90 && angle <= 180;
-        if (shiftAngleRange) {
-            _newAngle = fabs(angle) - 360;
-        } else {
-            _newAngle = angle;
-        }
-    } else if (UIDeviceOrientationLandscapeRight == _orientation) {
-        BOOL shiftAngleRange = angle > 90 && angle <= 180;
-        if (shiftAngleRange) {
-            _newAngle = fabs(angle) - 360;
-        } else {
-            _newAngle = angle;
-        }
-    } else if (UIDeviceOrientationPortraitUpsideDown == _orientation) {
-       BOOL shiftAngleRange = angle < -90 && angle >= -180;
-       if (shiftAngleRange) {
-           _newAngle = 360 - fabs(angle);
-       } else {
-           _newAngle = angle;
-       }
-    }
-    [self calculateAndSetAngles];
-    
-    /* Process userAcceleration data */
-    count ++; // count each sensor pass
+/*
+Method that will cumulatively calculate userAcceleration statistics as it is called
+within a loop with a count of each pass.
+*/
+- (void)calculateAccelerationResults:(CMDeviceMotion *)motion usingCount:(int)count {
     if (motion.userAcceleration.x > _maxAx) { // captures the greatest positive acceleration recorded along the x-axis (Ax)
         _maxAx = motion.userAcceleration.x;
     }
@@ -285,15 +279,21 @@
     if (_varianceAr > 0) {
         _standardDevAr = sqrt(_varianceAr);
     }
-    /* Calculate jerk (time derivative of acceleration) */
+}
+
+/*
+Method that will cumulatively calculate jerk statistics from userAcceleration data when
+called within a loop with a counting variable
+ */
+- (void)calculateJerkResults:(CMDeviceMotion *)motion usingCount:(int)count {
     if (count == 1) {
-        _first_time = _prev_time = _new_time = [self convertAbsoluteTimeIntoSeconds: mach_absolute_time()]; // captures first time value (in seconds)
+        _first_time = _prev_time = _new_time = [self convertAbsoluteTimeIntoSeconds:mach_absolute_time()]; // captures first time value (in seconds)
         _prevAccelX = _newAccelX = motion.userAcceleration.x;
         _prevAccelY = _newAccelY = motion.userAcceleration.y;
         _prevAccelZ = _newAccelZ = motion.userAcceleration.x;
     } else {
         _prev_time = _new_time; // assigns previous time value
-        _new_time = [self convertAbsoluteTimeIntoSeconds: mach_absolute_time()]; // immediately updates to the new time value (in seconds)
+        _new_time = [self convertAbsoluteTimeIntoSeconds:mach_absolute_time()]; // immediately updates to the new time value (in seconds)
         double temp = sumDeltaTime + fabs(_new_time - _prev_time); // see: Press, Teukolsky, Vetterling, Flannery (2007) Numerical Recipes; p230.
         double delta_time = temp - sumDeltaTime;
         sumDeltaTime += delta_time; // sum of all deltas
@@ -332,21 +332,21 @@
     if (_jerkZ < _minJz) { // captures the greatest negative jerk recorded along the z-axis (Jz)
         _minJz = _jerkZ;
     }
-    // calculate resultant jerk (Jr)
-    double resultant_jerk = sqrt(
+    // calculate resultant jerk
+    _resultantJerk = sqrt(
             (_jerkX * _jerkX) +
             (_jerkY * _jerkY) +
             (_jerkZ * _jerkZ));
-     if (resultant_jerk > _maxJr) { // captures the maximum recorded resultant jerk
-         _maxJr = resultant_jerk;
+     if (_resultantJerk > _maxJr) { // captures the maximum recorded resultant jerk
+         _maxJr = _resultantJerk;
      }
-    // calculate mean and standard deviation of resultant jerk (using Welford's algorithm)
+    // Calculate mean and standard deviation of resultant jerk (using Welford's algorithm)
     if (count == 1) {
-        _prevMj = _newMj = resultant_jerk;
+        _prevMj = _newMj = _resultantJerk;
         _prevSj = 0;
     } else {
-        _newMj = _prevMj + (resultant_jerk - _prevMj) / count;
-        _newSj = _prevSj += (resultant_jerk - _prevMj) * (resultant_jerk - _newMj);
+        _newMj = _prevMj + (_resultantJerk - _prevMj) / count;
+        _newSj = _prevSj += (_resultantJerk - _prevMj) * (_resultantJerk - _newMj);
         _prevMj = _newMj;
     }
     _meanJr = (count > 0) ? _newMj : 0; // mean
@@ -354,64 +354,77 @@
     if (_varianceJr > 0) {
         _standardDevJr = sqrt(_varianceJr); // standard deviation
     }
-    // calculate the numerical integral of jerk (using extended Simpson's rule)
-    // for original formula, see: Press, Teukolsky, Vetterling, Flannery (2007) Numerical Recipes; p160.
-    if (count == 1) {
-        _firstJerk = resultant_jerk;
-    } else {
-        _lastJerk = resultant_jerk;// updates to last iteration
-    }
-    if (count != 1) { // need to avoid a zero denominator at (n - 1)
-        h = _totalTime / (count - 1);
-    }
-    // Sum of all odd (4/3) terms, excluding the first term (n == 1)
-    //if ((count % 2 != 0) && (count != 1)) { // odds excluding '1'
-    if ([self isOdd: count] && (count != 1)) { // odds excluding '1'
-        sumOdd += 4.0 * resultant_jerk;
-    }
-    // Sum of all even (2/3) terms
-    //if (count % 2 == 0) { // even terms
-    if ([self isEven: count]) { // even terms
-        sumEven += 2.0 * resultant_jerk;
-    }
-    if ([self isOdd: count]) { // odd terms
-        _integratedJerk = h * (_firstJerk + sumOdd + sumEven - (3.0 * _lastJerk)) / 3.0; // _lastJerk will have been added to SumEven 4 times, but we only want to retain one
-    //} else if (count % 2 == 0) { // even terms
-    } else if ([self isEven: count]) { // even terms
-        _integratedJerk = h * (_firstJerk + sumOdd + sumEven - _lastJerk) / 3.0; // _lastJerk will have been added to SumEven 2 times, but we only want to retain one
-    }
-    // the time duration of each recorded task will be different, so comparable results must be normalized by duration
     _totalTime = fabs(_new_time - _first_time); // total time duration of entire recording (in seconds)
-    _timeNormalizedIntegratedJerk = _integratedJerk / _totalTime;
+    // Calculate time integral of resultant jerk
+    _integratedJerk = ([self integrateSimpsons:_resultantJerk usingCount:count andDuration:_totalTime]); // can use sumDeltaTime instead of _totalTime
 }
 
-/*
- Helper method to convert absolute time into seconds
+
+#pragma mark - ORKDeviceMotionRecorderDelegate
+
+- (void)deviceMotionRecorderDidUpdateWithMotion:(CMDeviceMotion *)motion {
+    _count ++; // count each sensor pass
+    
+    /* Process device attitude data */
+    //if (!_startAttitude) {
+     if (_count == 1) {
+        _startAttitude = motion.attitude; // captures start attitude (as quaternion)
+        _startAngle = ([self getDeviceAngleInDegreesFromAttitude:_startAttitude]); // captures start angle
+    }
+    CMAttitude *currentAttitude = [motion.attitude copy];
+    [currentAttitude multiplyByInverseOfAttitude:_startAttitude]; // calculates attitude rlative to start position
+    double angle = [self getDeviceAngleInDegreesFromAttitude:currentAttitude]; // calculates angle (degrees) relative to start poistion
+    [self shiftAngleRange:angle]; // shifts angle range as necessary
+    [self calculateMaxAndMinAngles];
+    
+    /* Process device acclerometer data */
+    [self calculateAccelerationResults:motion usingCount:_count];
+    [self calculateJerkResults:motion usingCount:_count];
+}
+
+/* Method to shift the range of angles reported by the device from +/-180 degrees to -90
+ to +270 degrees, which should be sufficient to cover all achievable forward bending
+ ranges of motion
  */
-- (double)convertAbsoluteTimeIntoSeconds:(uint64_t) mach_time {
-    mach_timebase_info_data_t _clock_timebase;
-    mach_timebase_info(&_clock_timebase);
-    double nanos = (mach_time * _clock_timebase.numer) / _clock_timebase.denom;
-    return nanos / 10e8; // not correct when 10e9
-}
-
-/*
-Helper methods to evaluate odd and even numbers
-*/
-- (BOOL)isOdd:(NSUInteger) n {
-    return n % 2 != 0;
-}
-
-- (BOOL)isEven:(NSUInteger) n {
-    return n % 2 == 0;
+-(double)shiftAngleRange:(double)angle {
+    if (UIDeviceOrientationLandscapeLeft == _orientation) {
+        BOOL shiftAngleRange = angle < -90 && angle >= -180;
+        if (shiftAngleRange) {
+            _newAngle = 360 - fabs(angle);
+        } else {
+            _newAngle = angle;
+        }
+    } else if (UIDeviceOrientationPortrait == _orientation) {
+        BOOL shiftAngleRange = angle > 90 && angle <= 180;
+        if (shiftAngleRange) {
+            _newAngle = fabs(angle) - 360;
+        } else {
+            _newAngle = angle;
+        }
+    } else if (UIDeviceOrientationLandscapeRight == _orientation) {
+        BOOL shiftAngleRange = angle > 90 && angle <= 180;
+        if (shiftAngleRange) {
+            _newAngle = fabs(angle) - 360;
+        } else {
+            _newAngle = angle;
+        }
+    } else if (UIDeviceOrientationPortraitUpsideDown == _orientation) {
+       BOOL shiftAngleRange = angle < -90 && angle >= -180;
+       if (shiftAngleRange) {
+           _newAngle = 360 - fabs(angle);
+       } else {
+           _newAngle = angle;
+       }
+    }
+    return _newAngle;
 }
 
 /*
 When the device is in Portrait mode, we need to get the attitude's pitch to determine the
- device's angle; whereas, when the device is in Landscape, we need the attitude's roll. We can
- use the quaternion that represents the device's attitude to calculate the angle in degrees
- around each axis.
- */
+device's angle; whereas, when the device is in Landscape, we need the attitude's roll.
+We can use the quaternion that represents the device's attitude to calculate the angle
+in degrees around each axis.
+*/
 - (double)getDeviceAngleInDegreesFromAttitude:(CMAttitude *)attitude {
     double angle = 0.0;
     if (UIDeviceOrientationIsLandscape(_orientation)) {
@@ -446,7 +459,7 @@ When the device is in Portrait mode, we need to get the attitude's pitch to dete
     int ORIENTATION_PORTRAIT_UPSIDE_DOWN = 3;  // equivalent to REVERSE_PORTRAIT in Android
     
     // Duration of recording (seconds)
-    result.duration = _totalTime; // sumDeltaTime or total_time
+    result.duration = _totalTime; // or sumDeltaTime
 
     // Greatest positive acceleration along x-axis
     result.maximumAx = _maxAx;
@@ -502,8 +515,8 @@ When the device is in Portrait mode, we need to get the attitude's pitch to dete
     // Standard deviation of resultant jerk
     result.SDJerk = _standardDevJr;
 
-    // Time-averaged integrated resultant jerk (smoothness)
-    result.timeNormIntegratedJerk = _timeNormalizedIntegratedJerk;
+    // Time-normalized integrated resultant jerk (smoothness)
+    result.timeNormIntegratedJerk = _integratedJerk / result.duration;
 
     // Device orientation and angles
     if (UIDeviceOrientationLandscapeLeft == _orientation) {

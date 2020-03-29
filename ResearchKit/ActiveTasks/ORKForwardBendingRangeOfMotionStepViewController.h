@@ -30,36 +30,13 @@
  */
 
 
-#import <ResearchKit/ResearchKit.h>
-#import <CoreMotion/CMDeviceMotion.h>
+#import "ORKRangeOfMotionStepViewController.h"
 
-
-NS_ASSUME_NONNULL_BEGIN
 
 /**
- This class is used by the `ORKRangeOfMotionStep.` Its result corresponds to the device's orientation
- as recorded by CoreMotion.
+ This class overrides its parent's result because here an angleresult of 0 degrees would mean the device is at a 90 degree angle. Furthermore, device rotation during forward bending is the direction opposite to that during the knee and shoulder range of motion tasks.
  */
 ORK_CLASS_AVAILABLE
-@interface ORKRangeOfMotionStepViewController : ORKActiveStepViewController {
-    UIDeviceOrientation _orientation;
-    //CMAttitude *_referenceAttitude;
-    CMAttitude *_startAttitude;
-    int _count;
-    double _startAngle, _newAngle;
-    double _minAngle, _maxAngle;
-    double _maxAx, _maxAy, _maxAz;
-    double _minAx, _minAy, _minAz;
-    double _maxJx, _maxJy, _maxJz;
-    double _minJx, _minJy, _minJz;
-    double _maxAr, _meanAr, _varianceAr, _standardDevAr;
-    double _maxJr, _meanJr, _varianceJr, _standardDevJr;
-    double _first_time, _prev_time, _new_time, _totalTime;
-    double _integratedJerk;
-}
-
-- (void)deviceMotionRecorderDidUpdateWithMotion:(CMDeviceMotion *)motion;
+@interface ORKForwardBendingRangeOfMotionStepViewController : ORKRangeOfMotionStepViewController
 
 @end
-
-NS_ASSUME_NONNULL_END
