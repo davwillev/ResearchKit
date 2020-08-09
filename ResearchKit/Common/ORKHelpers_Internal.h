@@ -31,44 +31,46 @@
 
 
 @import UIKit;
+#import <ResearchKit/ORKTypes.h>
 #import "ORKHelpers_Private.h"
-#import "ORKTypes.h"
 #import "ORKErrors.h"
+#import <Foundation/Foundation.h>
+#import <os/log.h>
 
 
 NS_ASSUME_NONNULL_BEGIN
 
-// Logging
-#if ( defined(ORK_LOG_LEVEL_NONE) && ORK_LOG_LEVEL_NONE )
-#  undef ORK_LOG_LEVEL_DEBUG
-#  undef ORK_LOG_LEVEL_WARNING
-#  undef ORK_LOG_LEVEL_ERROR
-#endif
+ORK_EXTERN BOOL ORKLoggingEnabled;
 
-#if ( !defined(ORK_LOG_LEVEL_NONE) && !defined(ORK_LOG_LEVEL_DEBUG) && !defined(ORK_LOG_LEVEL_WARNING) && !defined(ORK_LOG_LEVEL_ERROR) )
-#  define ORK_LOG_LEVEL_WARNING 1
-#endif
+#define ORK_Log(format, ...) __extension__({ \
+     if (ORKLoggingEnabled) { \
+         os_log(OS_LOG_DEFAULT, format, ##__VA_ARGS__); \
+     } \
+ })
 
-#define _ORK_LogWithLevel(level,fmt,...) NSLog(@"[ResearchKit]["#level"] %s " fmt, __PRETTY_FUNCTION__, ## __VA_ARGS__)
+#define ORK_Log_Info(format, ...) __extension__({ \
+     if (ORKLoggingEnabled) { \
+         os_log_info(OS_LOG_DEFAULT, format, ##__VA_ARGS__); \
+     } \
+ })
 
-#if ( ORK_LOG_LEVEL_DEBUG )
-#  define ORK_Log_Debug(fmt,...) _ORK_LogWithLevel(Debug, fmt, ## __VA_ARGS__)
-#else
-#  define ORK_Log_Debug(...)
-#endif
+#define ORK_Log_Debug(format, ...) __extension__({ \
+     if (ORKLoggingEnabled) { \
+         os_log_debug(OS_LOG_DEFAULT, format, ##__VA_ARGS__); \
+     } \
+ })
 
-#if ( ORK_LOG_LEVEL_DEBUG || ORK_LOG_LEVEL_WARNING )
-#  define ORK_Log_Warning(fmt,...) _ORK_LogWithLevel(Warning, fmt, ## __VA_ARGS__)
-#else
-#  define ORK_Log_Warning(...)
-#endif
+#define ORK_Log_Error(format, ...) __extension__({ \
+     if (ORKLoggingEnabled) { \
+         os_log_error(OS_LOG_DEFAULT, format, ##__VA_ARGS__); \
+     } \
+ })
 
-#if ( ORK_LOG_LEVEL_DEBUG || ORK_LOG_LEVEL_WARNING || ORK_LOG_LEVEL_ERROR )
-#  define ORK_Log_Error(fmt,...) _ORK_LogWithLevel(Error, fmt, ## __VA_ARGS__)
-#else
-#  define ORK_Log_Error(...)
-#endif
-
+#define ORK_Log_Fault(format, ...) __extension__({ \
+     if (ORKLoggingEnabled) { \
+         os_log_fault(OS_LOG_DEFAULT, format, ##__VA_ARGS__); \
+     } \
+ })
 
 #define ORK_NARG(...) ORK_NARG_(__VA_ARGS__,ORK_RSEQ_N())
 #define ORK_NARG_(...)  ORK_ARG_N(__VA_ARGS__)
@@ -166,7 +168,6 @@ NSURL *ORKCreateRandomBaseURL(void);
 ORK_EXTERN NSString *ORKFileProtectionFromMode(ORKFileProtectionMode mode);
 
 CGFloat ORKExpectedLabelHeight(UILabel *label);
-void ORKAdjustHeightForLabel(UILabel *label);
 
 // build a image with color
 UIImage *ORKImageWithColor(UIColor *color);
@@ -205,7 +206,7 @@ ORKMutableOrderedSetCopyObjects(NSOrderedSet *a) {
         return nil;
     }
     NSMutableOrderedSet *b = [NSMutableOrderedSet orderedSetWithCapacity:a.count];
-    [a enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [a enumerateObjectsUsingBlock:^(id obj, __unused NSUInteger idx, __unused BOOL *stop) {
         [b addObject:[obj copy]];
     }];
     return b;
@@ -217,7 +218,7 @@ ORKMutableDictionaryCopyObjects(NSDictionary *a) {
         return nil;
     }
     NSMutableDictionary *b = [NSMutableDictionary dictionaryWithCapacity:a.count];
-    [a enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+    [a enumerateKeysAndObjectsUsingBlock:^(id key, id obj, __unused BOOL *stop) {
         b[key] = [obj copy];
     }];
     return b;
@@ -377,5 +378,7 @@ ORK_EXTERN NSBundle *ORKDefaultLocaleBundle(void);
 
 #define ORKLocalizedStringFromNumber(number) \
 [NSNumberFormatter localizedStringFromNumber:number numberStyle:NSNumberFormatterNoStyle]
+
+NSString* ORKSwiftLocalizedString(NSString *key, NSString *comment);
 
 NS_ASSUME_NONNULL_END
