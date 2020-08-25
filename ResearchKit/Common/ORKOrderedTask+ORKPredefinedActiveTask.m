@@ -1522,6 +1522,70 @@ NSString *const ORKStroopStepIdentifier = @"stroop";
 }
 
 
+#pragma mark - leftRightJudgementTask
+
+NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
+
++ (ORKOrderedTask *)leftRightJudgementTaskWithIdentifier:(NSString *)identifier
+                      intendedUseDescription:(nullable NSString *)intendedUseDescription
+                            numberOfAttempts:(NSInteger)numberOfAttempts
+                                     options:(ORKPredefinedTaskOption)options {
+    NSMutableArray *steps = [NSMutableArray array];
+    
+    if (!(options & ORKPredefinedTaskOptionExcludeInstructions)) {
+        {
+            ORKInstructionStep *step = [[ORKInstructionStep alloc] initWithIdentifier:ORKInstruction0StepIdentifier];
+            step.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
+            step.text = intendedUseDescription;
+            step.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO1_DETAIL_TEXT_HAND", nil);
+            step.image = [UIImage imageNamed:@"phonestrooplabel" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil]; // TODO: change image
+            step.imageContentMode = UIViewContentModeCenter;
+            step.shouldTintImages = YES;
+            
+            ORKStepArrayAddStep(steps, step);
+        }
+        {
+            ORKInstructionStep *step = [[ORKInstructionStep alloc] initWithIdentifier:ORKInstruction1StepIdentifier];
+            step.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
+            step.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO2_DETAIL_TEXT", nil);
+            step.image = [UIImage imageNamed:@"phonestroopbutton" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil]; // TODO: change image
+            step.imageContentMode = UIViewContentModeCenter;
+            step.shouldTintImages = YES;
+            
+            ORKStepArrayAddStep(steps, step);
+        }
+    }
+    {
+        ORKCountdownStep *step = [[ORKCountdownStep alloc] initWithIdentifier:ORKCountdownStepIdentifier];
+        step.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
+        step.stepDuration = 3.0;
+        step.optional = YES;
+        
+        ORKStepArrayAddStep(steps, step);
+    }
+    {
+        ORKLeftRightJudgementStep *step = [[ORKLeftRightJudgementStep alloc] initWithIdentifier:ORKLeftRightJudgementStepIdentifier];
+        step.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
+        step.text = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
+        step.spokenInstruction = step.text;
+        step.numberOfAttempts = numberOfAttempts;
+        //step.image = [UIImage imageNamed:@"phonestroopbutton" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+        step.imageContentMode = UIViewContentModeCenter;
+        step.shouldTintImages = YES;
+        ORKStepArrayAddStep(steps, step);
+    }
+    
+    if (!(options & ORKPredefinedTaskOptionExcludeConclusion)) {
+        ORKInstructionStep *step = [self makeCompletionStep];
+        
+        ORKStepArrayAddStep(steps, step);
+    }
+    
+    ORKOrderedTask *task = [[ORKOrderedTask alloc] initWithIdentifier:identifier steps:steps];
+    return task;
+}
+
+
 #pragma mark - toneAudiometryTask
 
 NSString *const ORKToneAudiometryPracticeStepIdentifier = @"tone.audiometry.practice";
