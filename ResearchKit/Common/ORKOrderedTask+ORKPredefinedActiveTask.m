@@ -68,6 +68,7 @@
 #import "ORKSpeechRecognitionStep.h"
 #import "ORKStep_Private.h"
 #import "ORKStroopStep.h"
+#import "ORKLeftRightJudgementStep.h"
 #import "ORKTappingIntervalStep.h"
 #import "ORKTimedWalkStep.h"
 #import "ORKToneAudiometryStep.h"
