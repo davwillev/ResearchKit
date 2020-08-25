@@ -70,6 +70,7 @@
 #import <ResearchKit/ORKShoulderRangeOfMotionStep.h>
 #import <ResearchKit/ORKSpatialSpanMemoryStep.h>
 #import <ResearchKit/ORKStroopStep.h>
+#import <ResearchKit/ORKLeftRightJudgementStep.h>
 #import <ResearchKit/ORKTappingIntervalStep.h>
 #import <ResearchKit/ORKTimedWalkStep.h>
 #import <ResearchKit/ORKToneAudiometryStep.h>
@@ -108,6 +109,7 @@
 #import <ResearchKit/ORKSignatureStepViewController.h>
 #import <ResearchKit/ORKSpatialSpanMemoryStepViewController.h>
 #import <ResearchKit/ORKStroopStepViewController.h>
+#import <ResearchKit/ORKLeftRightJudgementStepViewController.h>
 #import <ResearchKit/ORKTappingIntervalStepViewController.h>
 #import <ResearchKit/ORKToneAudiometryStepViewController.h>
 #import <ResearchKit/ORKTimedWalkStepViewController.h>
