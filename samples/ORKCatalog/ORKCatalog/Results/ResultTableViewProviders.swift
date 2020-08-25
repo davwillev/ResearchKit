@@ -121,6 +121,9 @@ func resultTableViewProviderForResult(_ result: ORKResult?) -> UITableViewDataSo
     case is ORKStroopResult:
         providerType = StroopResultTableViewProvider.self
         
+    case is ORKLeftRightJudgementResult:
+        providerType = LeftRightJudgementResultTableViewProvider.self
+        
     case is ORKSwiftStroopResult:
         providerType = SwiftStroopResultTableViewProvider.self
         
@@ -200,7 +203,7 @@ enum ResultRow {
         storyboard.
     */
     enum TableViewCellIdentifier: String {
-        case `default` =          "Default"
+        case `default` =        "Default"
         case noResultSet =      "NoResultSet"
         case noChildResults =   "NoChildResults"
         case textImage =        "TextImage"
@@ -778,6 +781,40 @@ class StroopResultTableViewProvider: ResultTableViewProvider {
     }
 }
 
+/// Table view provider specific to an `ORKLeftRightJudgementResult` instance.
+class LeftRightJudgementResultTableViewProvider: ResultTableViewProvider {
+    // MARK: UITableViewDataSource
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return super.tableView(tableView, titleForHeaderInSection: 0)
+        }
+    
+        return "Samples"
+    }
+    
+    // MARK: ResultTableViewProvider
+    
+    override func resultRowsForSection(_ section: Int) -> [ResultRow] {
+        let leftRightJudgementResult = result as! ORKLeftRightJudgementResult
+        
+        let rows = super.resultRowsForSection(section)
+        
+        if section == 0 {
+            return rows
+        }
+        return [
+            ResultRow(text: "Color", detail: leftRightJudgementResult.color),
+            ResultRow(text: "Side Presented", detail: leftRightJudgementResult.sidePresented),
+            ResultRow(text: "Side Selected", detail: leftRightJudgementResult.sideSelected)
+        ]
+    }
+}
+
 /// Table view provider specific to an `ResearchKit.ORKSStroopResult` instance.
 class SwiftStroopResultTableViewProvider: ResultTableViewProvider {
     // MARK: UITableViewDataSource
@@ -958,6 +995,7 @@ class RangeOfMotionResultTableViewProvider: ResultTableViewProvider {
         let rangeOfMotionResult = result as! ORKRangeOfMotionResult
         let rows = super.resultRowsForSection(section)
         return rows + [
+            ResultRow(text: "orientation", detail: rangeOfMotionResult.orientation),
             ResultRow(text: "start", detail: rangeOfMotionResult.start),
             ResultRow(text: "finish", detail: rangeOfMotionResult.finish),
             ResultRow(text: "minimum", detail: rangeOfMotionResult.minimum),
