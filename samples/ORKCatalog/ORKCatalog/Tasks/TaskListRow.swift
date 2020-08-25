@@ -79,10 +79,8 @@ enum TaskListRow: Int, CustomStringConvertible {
     case validatedTextQuestion
     case imageCapture
     case videoCapture
-    case frontFacingCamera
     case wait
     case PDFViewer
-    case requestPermissions
     case eligibilityTask
     case consent
     case accountCreation
@@ -99,6 +97,7 @@ enum TaskListRow: Int, CustomStringConvertible {
     case speechRecognition
     case speechInNoise
     case stroop
+    case leftRightJudgement
     case swiftStroop
     case timedWalkWithTurnAround
     case toneAudiometry
@@ -112,6 +111,14 @@ enum TaskListRow: Int, CustomStringConvertible {
     case weightQuestion
     case kneeRangeOfMotion
     case shoulderRangeOfMotion
+    case forwardBendingRangeOfMotion
+    case forwardBendingMotionAndPain
+    case trunkRotationRangeOfMotion
+    case sideBendingRangeOfMotion
+    case neckFlexionRangeOfMotion
+    case neckExtensionRangeOfMotion
+    case neckRotationRangeOfMotion
+    case neckSideBendingRangeOfMotion
     case trailMaking
     case visualAcuityLandoltC
     case contrastSensitivityPeakLandoltC
@@ -158,10 +165,8 @@ enum TaskListRow: Int, CustomStringConvertible {
                     .validatedTextQuestion,
                     .imageCapture,
                     .videoCapture,
-                    .frontFacingCamera,
                     .wait,
-                    .PDFViewer,
-                    .requestPermissions
+                    .PDFViewer
                 ]),
             TaskListRowSection(title: "Onboarding", rows:
                 [
@@ -184,6 +189,7 @@ enum TaskListRow: Int, CustomStringConvertible {
                     .speechRecognition,
                     .speechInNoise,
                     .stroop,
+                    .leftRightJudgement,
                     .swiftStroop,
                     .timedWalkWithTurnAround,
                     .toneAudiometry,
@@ -195,6 +201,14 @@ enum TaskListRow: Int, CustomStringConvertible {
                     .walkBackAndForth,
                     .kneeRangeOfMotion,
                     .shoulderRangeOfMotion,
+                    .forwardBendingRangeOfMotion,
+                    .forwardBendingMotionAndPain,
+                    .trunkRotationRangeOfMotion,
+                    .sideBendingRangeOfMotion,
+                    .neckFlexionRangeOfMotion,
+                    .neckExtensionRangeOfMotion,
+                    .neckRotationRangeOfMotion,
+                    .neckSideBendingRangeOfMotion,
                     .trailMaking,
                     .visualAcuityLandoltC,
                     .contrastSensitivityPeakLandoltC
@@ -273,17 +287,11 @@ enum TaskListRow: Int, CustomStringConvertible {
         case .videoCapture:
             return NSLocalizedString("Video Capture Step", comment: "")
             
-        case .frontFacingCamera:
-            return NSLocalizedString("Front Facing Camera Step", comment: "")
-            
         case .wait:
             return NSLocalizedString("Wait Step", comment: "")
         
         case .PDFViewer:
             return NSLocalizedString("PDF Viewer Step", comment: "")
-            
-        case .requestPermissions:
-            return NSLocalizedString("Request Permissions Step", comment: "")
 
         case .eligibilityTask:
             return NSLocalizedString("Eligibility Task Example", comment: "")
@@ -333,6 +341,9 @@ enum TaskListRow: Int, CustomStringConvertible {
         case .stroop:
             return NSLocalizedString("Stroop", comment: "")
             
+        case .leftRightJudgement:
+            return NSLocalizedString("Left/Right Judgement", comment: "")
+
         case .swiftStroop:
             return NSLocalizedString("Swift Stroop", comment: "")
             
@@ -369,6 +380,30 @@ enum TaskListRow: Int, CustomStringConvertible {
         case .shoulderRangeOfMotion:
             return NSLocalizedString("Shoulder Range of Motion", comment: "")
             
+        case .forwardBendingRangeOfMotion:
+            return NSLocalizedString("Forward Bending Range of Motion", comment: "")
+            
+        case .forwardBendingMotionAndPain:
+                return NSLocalizedString("Forward Bending Motion and Pain", comment: "")
+        
+        case .trunkRotationRangeOfMotion:
+            return NSLocalizedString("Trunk Rotation Range of Motion", comment: "")
+        
+        case .sideBendingRangeOfMotion:
+            return NSLocalizedString("Side Bending Range of Motion", comment: "")
+        
+        case .neckFlexionRangeOfMotion:
+            return NSLocalizedString("Neck Flexion Range of Motion", comment: "")
+            
+        case .neckExtensionRangeOfMotion:
+            return NSLocalizedString("Neck Extension Range of Motion", comment: "")
+        
+        case .neckRotationRangeOfMotion:
+            return NSLocalizedString("Neck Rotation Range of Motion", comment: "")
+            
+        case .neckSideBendingRangeOfMotion:
+            return NSLocalizedString("Neck Side Bending Range of Motion", comment: "")
+        
         case .trailMaking:
             return NSLocalizedString("Trail Making Test", comment: "")
             
@@ -500,8 +535,6 @@ enum TaskListRow: Int, CustomStringConvertible {
         case videoCaptureTask
         case videoCaptureStep
         
-        case frontFacingCameraStep
-        
         // Task with an example of waiting.
         case waitTask
         case waitStepDeterminate
@@ -509,8 +542,6 @@ enum TaskListRow: Int, CustomStringConvertible {
         
         case pdfViewerStep
         case pdfViewerTask
-        
-        case requestPermissionsStep
         
         // Eligibility task specific indentifiers.
         case eligibilityTask
@@ -557,6 +588,7 @@ enum TaskListRow: Int, CustomStringConvertible {
         case speechRecognitionTask
         case speechInNoiseTask
         case stroopTask
+        case leftRightJudgementTask
         case swiftStroopTask
         case timedWalkWithTurnAroundTask
         case toneAudiometryTask
@@ -569,6 +601,14 @@ enum TaskListRow: Int, CustomStringConvertible {
         case walkBackAndForthTask
         case kneeRangeOfMotion
         case shoulderRangeOfMotion
+        case forwardBendingRangeOfMotion
+        case forwardBendingMotionAndPain
+        case trunkRotationRangeOfMotion
+        case sideBendingRangeOfMotion
+        case neckFlexionRangeOfMotion
+        case neckExtensionRangeOfMotion
+        case neckRotationRangeOfMotion
+        case neckSideBendingRangeOfMotion
         case trailMaking
         case visualAcuityLandoltC
         case contrastSensitivityPeakLandoltC
@@ -649,18 +689,11 @@ enum TaskListRow: Int, CustomStringConvertible {
             
         case .videoCapture:
             return videoCaptureTask
-            
-        case .frontFacingCamera:
-            return frontFacingCameraStep
-            
         case .wait:
             return waitTask
             
         case .PDFViewer:
             return PDFViewerTask
-            
-        case .requestPermissions:
-            return requestPermissionsTask
         
         case .eligibilityTask:
             return eligibilityTask
@@ -710,6 +743,9 @@ enum TaskListRow: Int, CustomStringConvertible {
         case .stroop:
             return stroopTask
             
+        case .leftRightJudgement:
+            return leftRightJudgementTask
+            
         case .swiftStroop:
             return swiftStroopTask
             
@@ -743,6 +779,30 @@ enum TaskListRow: Int, CustomStringConvertible {
         case .shoulderRangeOfMotion:
             return shoulderRangeOfMotion
             
+        case .forwardBendingRangeOfMotion:
+            return forwardBendingRangeOfMotion
+        
+        case .forwardBendingMotionAndPain:
+            return forwardBendingMotionAndPain
+        
+        case .trunkRotationRangeOfMotion:
+            return trunkRotationRangeOfMotion
+        
+        case .sideBendingRangeOfMotion:
+            return sideBendingRangeOfMotion
+        
+        case .neckFlexionRangeOfMotion:
+            return neckFlexionRangeOfMotion
+        
+        case .neckExtensionRangeOfMotion:
+            return neckExtensionRangeOfMotion
+        
+        case .neckRotationRangeOfMotion:
+            return neckRotationRangeOfMotion
+            
+        case .neckSideBendingRangeOfMotion:
+            return neckSideBendingRangeOfMotion
+        
         case .trailMaking:
             return trailMaking
     
@@ -1207,7 +1267,7 @@ enum TaskListRow: Int, CustomStringConvertible {
     private var textQuestionTask: ORKTask {
         let answerFormat = ORKAnswerFormat.textAnswerFormat()
         answerFormat.multipleLines = true
-        answerFormat.maximumLength = 280
+        answerFormat.maximumLength = 280;
         
         let step = ORKQuestionStep(identifier: String(describing: Identifier.textQuestionStep), title: NSLocalizedString("Text", comment: ""), question: exampleQuestionText, answer: answerFormat)
         
@@ -1408,30 +1468,6 @@ enum TaskListRow: Int, CustomStringConvertible {
         PDFViewerStep.title = NSLocalizedString("PDF Step", comment: "")
         
         return ORKOrderedTask(identifier: String(describing: Identifier.pdfViewerTask), steps: [PDFViewerStep])
-    }
-    
-    private var requestPermissionsTask: ORKTask {
-        let healthKitTypesToWrite: Set<HKSampleType> = [
-            HKObjectType.quantityType(forIdentifier: .bodyMassIndex)!,
-            HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
-            HKObjectType.workoutType()]
-        
-        let healthKitTypesToRead: Set<HKObjectType> = [
-            HKObjectType.characteristicType(forIdentifier: .dateOfBirth)!,
-            HKObjectType.characteristicType(forIdentifier: .bloodType)!,
-            HKObjectType.workoutType()]
-        
-        
-        let healthKitPermissionType = ORKHealthKitPermissionType(sampleTypesToWrite: healthKitTypesToWrite,
-                                                                 objectTypesToRead: healthKitTypesToRead)
-        
-        let requestPermissionsStep = ORKRequestPermissionsStep(identifier: String(describing: Identifier.requestPermissionsStep),
-                                                               permissionTypes: [healthKitPermissionType])
-       
-        requestPermissionsStep.title = "Health Data Request"
-        requestPermissionsStep.text = "Please review the health data types below and enable sharing to contribute to the study."
-        
-        return ORKOrderedTask(identifier: String(describing: Identifier.requestPermissionsStep), steps: [requestPermissionsStep])
     }
     
     /**
@@ -1712,6 +1748,11 @@ enum TaskListRow: Int, CustomStringConvertible {
         return ORKOrderedTask.stroopTask(withIdentifier: String(describing: Identifier.stroopTask), intendedUseDescription: exampleDescription, numberOfAttempts: 10, options: [])
     }
     
+    /// This task presents the Left/Right Judgement pre-defined active task.
+    private var leftRightJudgementTask: ORKTask {
+        return ORKOrderedTask.leftRightJudgementTask(withIdentifier: String(describing: Identifier.leftRightJudgementTask), intendedUseDescription: exampleDescription, numberOfAttempts: 20, options: [])
+    }
+    
     /// This task presents the swift Stroop pre-defined active task.
     private var swiftStroopTask: ORKTask {
         let instructionStep = ORKInstructionStep(identifier: "stroopInstructionStep")
@@ -1796,12 +1837,52 @@ enum TaskListRow: Int, CustomStringConvertible {
     
     /// This task presents a knee range of motion task
     private var kneeRangeOfMotion: ORKTask {
-        return ORKOrderedTask.kneeRangeOfMotionTask(withIdentifier: String(describing: Identifier.kneeRangeOfMotion), limbOption: .right, intendedUseDescription: exampleDescription, options: [])
+        return ORKOrderedTask.kneeRangeOfMotionTask(withIdentifier: String(describing: Identifier.kneeRangeOfMotion), limbOption: .both, intendedUseDescription: exampleDescription, options: [])
     }
     
     /// This task presents a shoulder range of motion task
     private var shoulderRangeOfMotion: ORKTask {
-        return ORKOrderedTask.shoulderRangeOfMotionTask(withIdentifier: String(describing: Identifier.shoulderRangeOfMotion), limbOption: .left, intendedUseDescription: exampleDescription, options: [])
+        return ORKOrderedTask.shoulderRangeOfMotionTask(withIdentifier: String(describing: Identifier.shoulderRangeOfMotion), limbOption: .both, intendedUseDescription: exampleDescription, options: [])
+    }
+    
+    /// This task presents a forward bending range of motion task
+    private var forwardBendingRangeOfMotion: ORKTask {
+        return ORKOrderedTask.forwardBendingRangeOfMotionTask(withIdentifier: String(describing: Identifier.forwardBendingRangeOfMotion), limbOption: .left, intendedUseDescription: nil, options: [])
+    }
+    
+    /// This task presents a forward bending range of motion task
+    private var forwardBendingMotionAndPain: ORKTask {
+        return ORKOrderedTask.forwardBendingMotionAndPainTask(withIdentifier: String(describing: Identifier.forwardBendingMotionAndPain), limbOption: .left, intendedUseDescription: nil, options: [])
+    }
+    
+    /// This task presents a trunk rotation range of motion task
+    private var trunkRotationRangeOfMotion: ORKTask {
+        return ORKOrderedTask.trunkRotationRangeOfMotionTask(withIdentifier: String(describing: Identifier.trunkRotationRangeOfMotion), limbOption: .left, intendedUseDescription: nil, options: [])
+    }
+    
+    /// This task presents a side bending range of motion task
+    private var sideBendingRangeOfMotion: ORKTask {
+        return ORKOrderedTask.sideBendingRangeOfMotionTask(withIdentifier: String(describing: Identifier.sideBendingRangeOfMotion), limbOption: .left, intendedUseDescription: nil, options: [])
+    }
+    
+    /// This task presents a neck flexion range of motion task
+    private var neckFlexionRangeOfMotion: ORKTask {
+        return ORKOrderedTask.neckFlexionRangeOfMotionTask(withIdentifier: String(describing: Identifier.neckFlexionRangeOfMotion), limbOption: .left, intendedUseDescription: nil, options: [])
+    }
+    
+    /// This task presents a neck extension range of motion task
+    private var neckExtensionRangeOfMotion: ORKTask {
+        return ORKOrderedTask.neckExtensionRangeOfMotionTask(withIdentifier: String(describing: Identifier.neckExtensionRangeOfMotion), limbOption: .left, intendedUseDescription: nil, options: [])
+    }
+    
+    /// This task presents a neck rotation range of motion task
+    private var neckRotationRangeOfMotion: ORKTask {
+        return ORKOrderedTask.neckRotationRangeOfMotionTask(withIdentifier: String(describing: Identifier.neckRotationRangeOfMotion), limbOption: .left, intendedUseDescription: nil, options: [])
+    }
+    
+    /// This task presents a neck side bending range of motion task
+    private var neckSideBendingRangeOfMotion: ORKTask {
+        return ORKOrderedTask.neckSideBendingRangeOfMotionTask(withIdentifier: String(describing: Identifier.neckSideBendingRangeOfMotion), limbOption: .left, intendedUseDescription: nil, options: [])
     }
     
     /// This task presents a trail making task
@@ -1831,25 +1912,10 @@ enum TaskListRow: Int, CustomStringConvertible {
         return ORKOrderedTask(identifier: String(describing: Identifier.videoInstructionTask), steps: [videoInstructionStep])
     }
     
-
-    /// This task presents a video instruction step
-    private var frontFacingCameraStep: ORKTask {
-        let frontFacingCameraStep = ORKFrontFacingCameraStep(identifier: String(describing: Identifier.frontFacingCameraStep))
-        frontFacingCameraStep.maximumRecordingLimit = 30.0
-        frontFacingCameraStep.title = "Front Facing Camera Step"
-        frontFacingCameraStep.text = "Your text goes here."
-        frontFacingCameraStep.allowsRetry = true
-        frontFacingCameraStep.allowsReview = true
-
-        return ORKOrderedTask(identifier: String(describing: Identifier.videoInstructionTask), steps: [frontFacingCameraStep])
-    }
-    
-    
-    /// This task presents a web view step
+    // This task presents a web view step
     private var webView: ORKTask {
         let webViewStep = ORKWebViewStep(identifier: String(describing: Identifier.webViewStep), html: exampleHtml)
         webViewStep.title = NSLocalizedString("Web View", comment: "")
-        webViewStep.showSignatureAfterContent = true
         return ORKOrderedTask(identifier: String(describing: Identifier.webViewTask), steps: [webViewStep])
     }
     
