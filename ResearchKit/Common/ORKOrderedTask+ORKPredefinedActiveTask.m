@@ -42,6 +42,7 @@
 #import "ORKSpatialSpanMemoryStepViewController.h"
 #import "ORKSpeechRecognitionStepViewController.h"
 #import "ORKStroopStepViewController.h"
+#import "ORKLeftRightJudgementStepViewController.h"
 #import "ORKWalkingTaskStepViewController.h"
 
 #import "ORKAccelerometerRecorder.h"
