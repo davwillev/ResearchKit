@@ -40,11 +40,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ORKLeftRightJudgementContentView : ORKActiveStepCustomView
 
+- (void)displayNextImageInQueue;
+
 @property (nonatomic) NSString * imageLabelText;
 @property (nonatomic) UIColor * imageLabelColor; // TODO: replace with images
 @property (nonatomic) ORKBorderedButton * leftButton;
 @property (nonatomic) ORKBorderedButton * rightButton;
-@property (nonatomic, copy, nullable) UIImage *leftRightJudgementImage; // added this
 
 @end
 NS_ASSUME_NONNULL_END

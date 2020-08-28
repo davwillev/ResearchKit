@@ -55,8 +55,6 @@
 
 @implementation ORKLeftRightJudgementStepViewController {
     
-    BOOL _shuffled; // added
-    
     NSTimer *_nextQuestionTimer;
     NSMutableArray *_results;
     NSTimeInterval _startTime;
@@ -91,10 +89,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    _shuffled = NO;
-    [self displayNextImageInQueue]; // display first image
-    
+        
     // randomly present words with allocated colour
     _redString = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_COLOR_RED", nil);
     _greenString = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_COLOR_GREEN", nil);
@@ -123,10 +118,12 @@
     self.questionNumber = 0;
     
     // Set up images
-    ORKLeftRightJudgementStep *step = (ORKLeftRightJudgementStep *) self.step; // based on speech recognition
     _leftRightJudgementContentView = [ORKLeftRightJudgementContentView new];
-    self.activeStepView.activeCustomView = _leftRightJudgementContentView;  // based on speech recognition
-    _leftRightJudgementContentView.leftRightJudgementImage = step.leftRightJudgementImage;
+    self.activeStepView.activeCustomView = _leftRightJudgementContentView;
+    
+    //ORKLeftRightJudgementStep *step = (ORKLeftRightJudgementStep *) self.step; // based on speech recognition
+
+    //self.activeStepView.activeCustomView = _stroopContentView;
     
     // Set up buttons
     [self.leftRightJudgementContentView.leftButton addTarget:self
@@ -136,64 +133,13 @@
                                        action:@selector(buttonPressed:)
                              forControlEvents:UIControlEventTouchUpInside];
 }
-
-
-- (void) displayNextImageInQueue {
-    
-    int imageCount = 0;
-    NSInteger imageQueueLength = self.leftRightJudgementStep.numberOfAttempts;
-    if (imageCount <= imageQueueLength) {
-    NSArray *imageQueue = [self buildArrayOfRandomImages];
-    UIImage *image = [imageQueue objectAtIndex:imageCount];
-    // Add the UIImage to a UIImageView and display it on screen
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    // Set screen position of image
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    }
-    // increment count every time method is called
-    imageCount++;
-}
-
-- (NSArray *) buildArrayOfRandomImages {
-    NSInteger imageQueueLength = self.leftRightJudgementStep.numberOfAttempts; // edit
-    // Build array of pathnames to images in folder
-    NSString *directory = nil;
-    NSArray *pathArray = [[NSBundle bundleForClass:[self class]] pathsForResourcesOfType:@"png" inDirectory:directory];
-    //Create a shuffled copy of pathArray
-    NSArray *shuffledPaths;
-    if (!_shuffled) {
-        shuffledPaths = [self shuffleArray:pathArray];
-    }
-    _shuffled = YES; // shuffle only once
-    // Create a mutable array to hold the images
-    NSMutableArray *imageQueue = [NSMutableArray arrayWithCapacity:imageQueueLength];
-    // Fill the image queue array using pathnames
-    for(NSUInteger i = 1; i <= imageQueueLength; i++) {
-        UIImage *image = [UIImage imageWithContentsOfFile:[shuffledPaths objectAtIndex:(i - 1)]];
-        [imageQueue addObject:image];
-    }
-    // Return the final array, by convention immutable (NSArray) so copy
-    return [imageQueue copy];
-}
-
-- (NSArray *) shuffleArray:(NSArray*)array {
-    NSMutableArray *shuffledArray = [NSMutableArray arrayWithArray:array];
-    
-    for (NSUInteger i = 0; i < [shuffledArray count] - 1; ++i) {
-        NSInteger remainingCount = [shuffledArray count] - i;
-        NSInteger exchangeIndex = i + arc4random_uniform((u_int32_t )remainingCount);
-        [shuffledArray exchangeObjectAtIndex:i withObjectAtIndex:exchangeIndex];
-    }
-    return [shuffledArray copy];
-}
-
+ 
 // Method to set action of buttons
 - (void)buttonPressed:(id)sender {
     // TODO: see containsString when comparing button presses to image filenames
     if (![self.leftRightJudgementContentView.imageLabelText isEqualToString:@" "]) {
         [self setButtonsDisabled];
         
-        // replace this with displaying each image
         if (sender == self.leftRightJudgementContentView.leftButton) {
             
             // left button actions
@@ -265,6 +211,10 @@
 }
 
 - (void)startQuestion {
+    
+    // trigger next image
+    [self.leftRightJudgementContentView displayNextImageInQueue];
+    
     int pattern = arc4random() % 2;
     if (pattern == 0) {
         int index = arc4random() % [self.colors.allKeys count];
