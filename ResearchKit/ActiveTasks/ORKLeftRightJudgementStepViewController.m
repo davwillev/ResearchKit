@@ -59,7 +59,8 @@
     NSMutableArray *_results;
     NSTimeInterval _startTime;
     NSTimeInterval _endTime;
-    NSInteger _imageCount;
+    NSArray *imageQueue; // added
+    NSInteger _imageCount; // added
     
     // to be deleted once replaced
     UIColor *_red;
@@ -181,8 +182,8 @@
 - (UIImage *) nextImageInQueue {
     NSInteger imageQueueLength;
     imageQueueLength = ([self leftRightJudgementStep].numberOfAttempts);
-    NSArray *imageQueue;
-    if (_imageCount == 0) { // allocate only once
+    //NSArray *imageQueue; // needs to be in global field to avoid re-initializing every time method called
+    if (_imageCount == 0) { // TODO: need to allocate only once
         imageQueue = [self buildArrayOfRandomImagesOfLength:imageQueueLength];
     }
     UIImage *image = [imageQueue objectAtIndex:_imageCount];
@@ -198,14 +199,14 @@
     NSArray *shuffledPaths;
     shuffledPaths = [self shuffleArray:pathArray];
     // Create a mutable array to hold the images
-    NSMutableArray *imageQueue = [NSMutableArray arrayWithCapacity:imageQueueLength];
+    NSMutableArray *imageQueueArray = [NSMutableArray arrayWithCapacity:imageQueueLength];
     // Fill the image queue array using pathnames
     for(NSUInteger i = 1; i <= imageQueueLength; i++) {
             UIImage *image = [UIImage imageWithContentsOfFile:[shuffledPaths objectAtIndex:(i - 1)]];
-            [imageQueue addObject:image];
+            [imageQueueArray addObject:image];
     }
     // Return the final array, by convention immutable (NSArray) so copy
-    return [imageQueue copy];
+    return [imageQueueArray copy];
 }
 
 - (NSArray *) shuffleArray:(NSArray*)array {
@@ -254,7 +255,7 @@
     UIImage *image = [self nextImageInQueue];
     self.leftRightJudgementContentView.imageToDisplay = image;
 
-    
+    // TODO: delete these
     int pattern = arc4random() % 2;
     if (pattern == 0) {
         int index = arc4random() % [self.colors.allKeys count];
@@ -272,6 +273,8 @@
         UIColor *color = [colorArray objectAtIndex:randomColor];
         self.leftRightJudgementContentView.imageLabelColor = color;
     }
+    
+    // TODO: keep these
     [self setButtonsEnabled];
     _startTime = [NSProcessInfo processInfo].systemUptime;
 }
