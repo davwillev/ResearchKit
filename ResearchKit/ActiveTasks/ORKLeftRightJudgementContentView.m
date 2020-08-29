@@ -31,7 +31,6 @@
 
 
 #import "ORKLeftRightJudgementContentView.h"
-#import "ORKLeftRightJudgementStep.h" // added
 #import "ORKUnitLabel.h"
 #import "ORKHelpers_Internal.h"
 #import "ORKSkin.h"
@@ -44,9 +43,7 @@ static const CGFloat buttonStackViewSpacing = 100.0;
 @implementation ORKLeftRightJudgementContentView {
     UILabel *_imageLabel;
     UIStackView *_buttonStackView;
-    UIImageView *_imageView; // added
-    NSInteger _imageCount; //added
-    UIImage *_image;
+    UIImageView *_imageView;
 }
  
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -54,24 +51,19 @@ static const CGFloat buttonStackViewSpacing = 100.0;
 
     if (self) {
         self.translatesAutoresizingMaskIntoConstraints = NO;
-        [self setUpButtons];
         [self setUpImageView];
+        [self setUpButtons];
         [self setUpConstraints];
     }
     return self;
 }
 
-//- (ORKLeftRightJudgementStep *)leftRightJudgementStep {
-//    return (ORKLeftRightJudgementStep *)self.step;
-//}
-
 - (void)setUpImageView {
-    // compare these to original stroop task
     if (!_imageLabel) {
         [self displayImageLabel];
     }
     if (!_imageView) {
-        [self displayNextImageInQueue]; // display first image
+        [self displayImageToDisplay];
     }
 }
 
@@ -85,49 +77,13 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     [self addSubview:_imageLabel];
 }
 
-- (void) displayNextImageInQueue {
-    NSInteger imageQueueLength;
-    imageQueueLength = 10; // ([self leftRightJudgementStep].numberOfAttempts); // TODO: need to insert number of attempts from step
-    if (_imageCount <= (imageQueueLength - 1)) {
-        NSArray *imageQueue;
-        if (_imageCount == 0) { // allocate only once
-            imageQueue = [self buildArrayOfRandomImagesOfLength:imageQueueLength];
-        }
-    _image = [imageQueue objectAtIndex:_imageCount];
-    _imageView = [[UIImageView alloc] initWithImage:_image];
-    _imageView.contentMode = UIViewContentModeScaleAspectFit; // UIViewContentModeRedraw; 
+- (void) displayImageToDisplay {
+    _imageView = [UIImageView new];
+    //UIImage *image = [self imageToDisplay];
+    //_imageView = [[UIImageView alloc] initWithImage:image];
+    _imageView.contentMode = UIViewContentModeScaleAspectFit;
     _imageView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_imageView];
-    }
-    _imageCount++; // increment count every time method is called
-}
-
-- (NSArray *) buildArrayOfRandomImagesOfLength:(NSInteger)imageQueueLength {
-    // Build array of pathnames to images in folder
-    NSString *directory = @"Images/Hands";
-    NSArray *pathArray = [[NSBundle bundleForClass:[self class]] pathsForResourcesOfType:@"png" inDirectory:directory];
-    //Create a shuffled copy of pathArray
-    NSArray *shuffledPaths;
-    shuffledPaths = [self shuffleArray:pathArray];
-    // Create a mutable array to hold the images
-    NSMutableArray *imageQueue = [NSMutableArray arrayWithCapacity:imageQueueLength];
-    // Fill the image queue array using pathnames
-    for(NSUInteger i = 1; i <= imageQueueLength; i++) {
-            UIImage *image = [UIImage imageWithContentsOfFile:[shuffledPaths objectAtIndex:(i - 1)]];
-            [imageQueue addObject:image];
-    }
-    // Return the final array, by convention immutable (NSArray) so copy
-    return [imageQueue copy];
-}
-
-- (NSArray *) shuffleArray:(NSArray*)array {
-    NSMutableArray *shuffledArray = [NSMutableArray arrayWithArray:array];
-    for (NSUInteger i = 0; i < [shuffledArray count] - 1; ++i) {
-        NSInteger remainingCount = [shuffledArray count] - i;
-        NSInteger exchangeIndex = i + arc4random_uniform((u_int32_t )remainingCount);
-        [shuffledArray exchangeObjectAtIndex:i withObjectAtIndex:exchangeIndex];
-    }
-    return [shuffledArray copy];
 }
 
 - (void)setUpButtons {
@@ -150,9 +106,8 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     [self addSubview:_buttonStackView];
 }
 
-// added setter
 - (void)setImageToDisplay:(UIImage *)imageToDisplay {
-    [_imageView setImage:imageToDisplay];
+    [_imageView setImage: imageToDisplay];
     [self setNeedsDisplay];
 }
 
@@ -166,7 +121,6 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     [self setNeedsDisplay];
 }
 
-// added getters
 - (UIImage *)imageToDisplay {
     return _imageView.image;
 }

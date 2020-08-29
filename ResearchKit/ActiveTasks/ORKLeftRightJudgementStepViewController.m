@@ -59,6 +59,7 @@
     NSMutableArray *_results;
     NSTimeInterval _startTime;
     NSTimeInterval _endTime;
+    NSInteger _imageCount;
     
     // to be deleted once replaced
     UIColor *_red;
@@ -121,10 +122,6 @@
     _leftRightJudgementContentView = [ORKLeftRightJudgementContentView new];
     self.activeStepView.activeCustomView = _leftRightJudgementContentView;
     
-    //ORKLeftRightJudgementStep *step = (ORKLeftRightJudgementStep *) self.step; // based on speech recognition
-
-    //self.activeStepView.activeCustomView = _stroopContentView;
-    
     // Set up buttons
     [self.leftRightJudgementContentView.leftButton addTarget:self
                                        action:@selector(buttonPressed:)
@@ -181,6 +178,47 @@
     [self startQuestion];
 }
 
+- (UIImage *) nextImageInQueue {
+    NSInteger imageQueueLength;
+    imageQueueLength = ([self leftRightJudgementStep].numberOfAttempts);
+    NSArray *imageQueue;
+    if (_imageCount == 0) { // allocate only once
+        imageQueue = [self buildArrayOfRandomImagesOfLength:imageQueueLength];
+    }
+    UIImage *image = [imageQueue objectAtIndex:_imageCount];
+    _imageCount++; // increment every time method is called
+    return image;
+}
+
+- (NSArray *) buildArrayOfRandomImagesOfLength:(NSInteger)imageQueueLength {
+    // Build array of pathnames to images in folder
+    NSString *directory = @"Images/Hands";
+    NSArray *pathArray = [[NSBundle bundleForClass:[self class]] pathsForResourcesOfType:@"png" inDirectory:directory];
+    //Create a shuffled copy of pathArray
+    NSArray *shuffledPaths;
+    shuffledPaths = [self shuffleArray:pathArray];
+    // Create a mutable array to hold the images
+    NSMutableArray *imageQueue = [NSMutableArray arrayWithCapacity:imageQueueLength];
+    // Fill the image queue array using pathnames
+    for(NSUInteger i = 1; i <= imageQueueLength; i++) {
+            UIImage *image = [UIImage imageWithContentsOfFile:[shuffledPaths objectAtIndex:(i - 1)]];
+            [imageQueue addObject:image];
+    }
+    // Return the final array, by convention immutable (NSArray) so copy
+    return [imageQueue copy];
+}
+
+- (NSArray *) shuffleArray:(NSArray*)array {
+    NSMutableArray *shuffledArray = [NSMutableArray arrayWithArray:array];
+    for (NSUInteger i = 0; i < [shuffledArray count] - 1; ++i) {
+        NSInteger remainingCount = [shuffledArray count] - i;
+        NSInteger exchangeIndex = i + arc4random_uniform((u_int32_t )remainingCount);
+        [shuffledArray exchangeObjectAtIndex:i withObjectAtIndex:exchangeIndex];
+    }
+    return [shuffledArray copy];
+}
+
+
 #pragma mark - ORKResult
 
 - (ORKStepResult *)result {
@@ -212,8 +250,10 @@
 
 - (void)startQuestion {
     
-    // trigger next image
-    [self.leftRightJudgementContentView displayNextImageInQueue];
+    // display next image in queue
+    UIImage *image = [self nextImageInQueue];
+    self.leftRightJudgementContentView.imageToDisplay = image;
+
     
     int pattern = arc4random() % 2;
     if (pattern == 0) {
