@@ -59,8 +59,9 @@
     NSMutableArray *_results;
     NSTimeInterval _startTime;
     NSTimeInterval _endTime;
-    NSArray *imageQueue; // added
-    NSInteger _imageCount; // added
+    NSArray *_imageQueue;
+    NSArray *_imagePaths;
+    NSInteger _imageCount;
     
     // to be deleted once replaced
     UIColor *_red;
@@ -180,33 +181,38 @@
 }
 
 - (UIImage *) nextImageInQueue {
-    NSInteger imageQueueLength;
-    imageQueueLength = ([self leftRightJudgementStep].numberOfAttempts);
-    //NSArray *imageQueue; // needs to be in global field to avoid re-initializing every time method called
-    if (_imageCount == 0) { // TODO: need to allocate only once
-        imageQueue = [self buildArrayOfRandomImagesOfLength:imageQueueLength];
-    }
-    UIImage *image = [imageQueue objectAtIndex:_imageCount];
-    _imageCount++; // increment every time method is called
+    _imageQueue = [self arrayOfImagesForEachAttempt]; // TODO: only workd when calling this
+    UIImage *image = [_imageQueue objectAtIndex:_imageCount];
+    _imageCount++; // increment after call
     return image;
 }
 
-- (NSArray *) buildArrayOfRandomImagesOfLength:(NSInteger)imageQueueLength {
-    // Build array of pathnames to images in folder
-    NSString *directory = @"Images/Hands";
-    NSArray *pathArray = [[NSBundle bundleForClass:[self class]] pathsForResourcesOfType:@"png" inDirectory:directory];
-    //Create a shuffled copy of pathArray
-    NSArray *shuffledPaths;
-    shuffledPaths = [self shuffleArray:pathArray];
-    // Create a mutable array to hold the images
+- (NSString *) nextFilenameInQueue {
+    NSString *path = [_imagePaths objectAtIndex:_imageCount];
+    NSString *fileName = [[path lastPathComponent] stringByDeletingPathExtension];
+    return fileName;
+}
+
+- (NSArray *) arrayOfImagesForEachAttempt { //):(NSInteger)imageQueueLength {
+    NSInteger imageQueueLength = ([self leftRightJudgementStep].numberOfAttempts);
+    if (_imageCount == 0) { // build shuffled array only once
+        _imagePaths = [self arrayOfShuffledPaths:@"png" fromDirectory:@"Images/Hands"];
+    }
     NSMutableArray *imageQueueArray = [NSMutableArray arrayWithCapacity:imageQueueLength];
-    // Fill the image queue array using pathnames
+    // Allocate images
     for(NSUInteger i = 1; i <= imageQueueLength; i++) {
-            UIImage *image = [UIImage imageWithContentsOfFile:[shuffledPaths objectAtIndex:(i - 1)]];
-            [imageQueueArray addObject:image];
+        UIImage *image = [UIImage imageWithContentsOfFile:[_imagePaths objectAtIndex:(i - 1)]];
+        [imageQueueArray addObject:image];
     }
     // Return the final array, by convention immutable (NSArray) so copy
     return [imageQueueArray copy];
+}
+
+- (NSArray *) arrayOfShuffledPaths:(NSString*)type fromDirectory:(NSString*)directory {
+    NSArray *pathArray = [[NSBundle bundleForClass:[self class]] pathsForResourcesOfType:type inDirectory:directory];
+    NSArray *shuffled;
+    shuffled = [self shuffleArray:pathArray];
+    return shuffled;
 }
 
 - (NSArray *) shuffleArray:(NSArray*)array {

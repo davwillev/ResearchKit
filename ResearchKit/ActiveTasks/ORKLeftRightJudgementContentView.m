@@ -79,8 +79,6 @@ static const CGFloat buttonStackViewSpacing = 100.0;
 
 - (void) displayImageToDisplay {
     _imageView = [UIImageView new];
-    //UIImage *image = [self imageToDisplay];
-    //_imageView = [[UIImageView alloc] initWithImage:image];
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
     _imageView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_imageView];
