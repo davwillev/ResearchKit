@@ -43,6 +43,11 @@ ORK_CLASS_AVAILABLE
 @interface ORKLeftRightJudgementResult: ORKResult
 
 /**
+ The `imageName` property is the name of the image presented during the step.
+ */
+@property (nonatomic, copy) NSString *imageName;
+
+/**
  The `startTime` property is equal to the start time of the each step.
  */
 @property (nonatomic, assign) NSTimeInterval startTime;
@@ -58,10 +63,6 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, assign) NSTimeInterval stepTime;
 
 /**
- The `imageName` property is the name of the image presented during the step.
- */
-@property (nonatomic, copy) NSString *imageName;
-/**
  The `sidePresented` property is the side of the body presented in the image.
  */
 @property (nonatomic, copy) NSString *sidePresented;
@@ -72,9 +73,13 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, copy, nullable) NSString *sideSelected;
 
 /**
- The `stepMatch` property corresponds to whether the side selected matches the side presented within the step.
+ A Boolean value indicating whether the side selected matched matched that presented.
+ 
+ The value of this property is `YES` when the addition result is the correct
+ one, and `NO` otherwise.
  */
-@property (nonatomic) BOOL stepMatch;
+//@property (nonatomic, assign, getter=isCorrect) BOOL correct;
+@property (nonatomic, assign) BOOL correct;
 
 @end
 

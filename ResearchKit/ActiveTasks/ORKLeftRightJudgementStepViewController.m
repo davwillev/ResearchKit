@@ -58,22 +58,23 @@
     NSTimer *_nextQuestionTimer;
     NSMutableArray *_results;
     NSTimeInterval _startTime;
-    NSTimeInterval _endTime;
+    //NSTimeInterval _endTime;
+    //NSTimeInterval _stepTime;
     NSArray *_imageQueue;
     NSArray *_imagePaths;
     NSInteger _imageCount;
     NSString *_sideSelected;
-    BOOL _stepMatch;
+    BOOL _correct;
     
     // to be deleted once replaced
-    UIColor *_red;
-    UIColor *_green;
-    UIColor *_blue;
-    UIColor *_yellow;
-    NSString *_redString;
-    NSString *_greenString;
-    NSString *_blueString;
-    NSString *_yellowString;
+    //UIColor *_red;
+    //UIColor *_green;
+    //UIColor *_blue;
+    //UIColor *_yellow;
+    //NSString *_redString;
+    //NSString *_greenString;
+    //NSString *_blueString;
+    //NSString *_yellowString;
 }
 
 - (instancetype)initWithStep:(ORKStep *)step {
@@ -82,7 +83,6 @@
     if (self) {
         self.suspendIfInactive = YES;
     }
-    
     return self;
 }
 
@@ -94,39 +94,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-        
-    // randomly present words with allocated colour
-    _redString = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_COLOR_RED", nil);
-    _greenString = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_COLOR_GREEN", nil);
-    _blueString = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_COLOR_BLUE", nil);
-    _yellowString = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_COLOR_YELLOW", nil);
-    _red = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0];
-    _green = [UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:1.0];
-    _blue = [UIColor colorWithRed:0.0 green:0.0 blue:1.0 alpha:1.0];
-    _yellow = [UIColor colorWithRed:1.0 green:1.0 blue:0.0 alpha:1.0];
     
-    self.colors = @{
-                    _redString: _red,
-                    _blueString: _blue,
-                    _yellowString: _yellow,
-                    _greenString: _green,
-                    };
-    
-    self.differentColorLabels = @{
-                                  _redString: @[_blue, _green, _yellow],
-                                  _blueString: @[_red, _green, _yellow,],
-                                  _yellowString: @[_red, _blue, _green],
-                                  _greenString: @[_red, _blue, _yellow],
-                                  };
-    
-    // Assign question number
     self.questionNumber = 0;
     
-    // Set up images
     _leftRightJudgementContentView = [ORKLeftRightJudgementContentView new];
     self.activeStepView.activeCustomView = _leftRightJudgementContentView;
     
-    // Set up buttons
     [self.leftRightJudgementContentView.leftButton addTarget:self
                                        action:@selector(buttonPressed:)
                              forControlEvents:UIControlEventTouchUpInside];
@@ -135,40 +108,30 @@
                              forControlEvents:UIControlEventTouchUpInside];
 }
  
-// Method to set action of buttons
 - (void)buttonPressed:(id)sender {
-    
-    if (![self.leftRightJudgementContentView.imageLabelText isEqualToString:@" "]) {
-        [self setButtonsDisabled];
+    //if (![self.leftRightJudgementContentView.imageLabelText isEqualToString:@" "]) { // TODO: replace?
+        [self setButtonsDisabled]; // delete?
         
         if (sender == self.leftRightJudgementContentView.leftButton) {
             _sideSelected = @"Left";
             NSString *sidePresented = [self sidePresented];
-            if ([sidePresented isEqualToString:_sideSelected]) {
-                _stepMatch = YES;
-            } else {
-                _stepMatch = NO;
-            }
-            [self createResult:[self nextFilenameInQueue] withSidePresented:sidePresented withSideSelected:_sideSelected toMatch:_stepMatch];
+            _correct = ([sidePresented isEqualToString:_sideSelected]) ? YES : NO;
+            [self createResult:[self nextFilenameInQueue] withSidePresented:sidePresented withSideSelected:_sideSelected toMatch:_correct];
         }
         else if (sender == self.leftRightJudgementContentView.rightButton) {
             _sideSelected = @"Right";
             NSString *sidePresented = [self sidePresented];
-            if ([sidePresented isEqualToString:_sideSelected]) {
-                _stepMatch = YES;
-            } else {
-                _stepMatch = NO;
-            }
-            [self createResult:[self nextFilenameInQueue] withSidePresented:sidePresented withSideSelected:_sideSelected toMatch:_stepMatch];
+            _correct = ([sidePresented isEqualToString:_sideSelected]) ? YES : NO;
+            [self createResult:[self nextFilenameInQueue] withSidePresented:sidePresented withSideSelected:_sideSelected toMatch:_correct];
         }
-        self.leftRightJudgementContentView.imageLabelText = @" "; // delete this?
+        //self.leftRightJudgementContentView.imageLabelText = @" "; // TODO: replace this to remove image before starting next image?
         
         _nextQuestionTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
                                                              target:self
                                                            selector:@selector(startNextQuestionOrFinish)
                                                            userInfo:nil
                                                             repeats:NO];
-    }
+    //}
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -207,7 +170,7 @@
 - (UIImage *)nextImageInQueue {
     _imageQueue = [self arrayOfImagesForEachAttempt];
     UIImage *image = [_imageQueue objectAtIndex:_imageCount];
-    _imageCount++; // increment after call
+    _imageCount++; // increment after method called
     return image;
 }
 
@@ -259,15 +222,19 @@
     return stepResult;
 }
 
-- (void)createResult:(NSString *)imageName withSidePresented:(NSString *)sidePresented withSideSelected:(NSString *)sideSelected toMatch:(BOOL)stepMatch {
+- (void)createResult:(NSString *)imageName withSidePresented:(NSString *)sidePresented withSideSelected:(NSString *)sideSelected toMatch:(BOOL)correct {
     ORKLeftRightJudgementResult *leftRightJudgementResult = [[ORKLeftRightJudgementResult alloc] initWithIdentifier:self.step.identifier];
-    leftRightJudgementResult.startTime = _startTime;
-    leftRightJudgementResult.endTime =  [NSProcessInfo processInfo].systemUptime;
-    leftRightJudgementResult.stepTime = _endTime - _startTime;
+    NSTimeInterval endTime;
+    NSTimeInterval stepTime;
     leftRightJudgementResult.imageName = imageName;
+    leftRightJudgementResult.startTime = _startTime;
+    endTime =  [NSProcessInfo processInfo].systemUptime;
+    leftRightJudgementResult.endTime = endTime;
+    stepTime = endTime - _startTime;
+    leftRightJudgementResult.stepTime = stepTime;
     leftRightJudgementResult.sidePresented = sidePresented;
     leftRightJudgementResult.sideSelected = sideSelected;
-    leftRightJudgementResult.stepMatch = stepMatch;
+    leftRightJudgementResult.correct = correct;
     [_results addObject:leftRightJudgementResult];
 }
 
@@ -281,31 +248,8 @@
 }
 
 - (void)startQuestion {
-    
-    // display next image in queue
     UIImage *image = [self nextImageInQueue];
     self.leftRightJudgementContentView.imageToDisplay = image;
-
-    // TODO: delete these
-    int pattern = arc4random() % 2;
-    if (pattern == 0) {
-        int index = arc4random() % [self.colors.allKeys count];
-        NSString *text = [self.colors.allKeys objectAtIndex:index];
-        self.leftRightJudgementContentView.imageLabelText = text;
-        UIColor *color = [self.colors valueForKey:text];
-        self.leftRightJudgementContentView.imageLabelColor = color;
-    }
-    else {
-        int index = arc4random() % [self.differentColorLabels.allKeys count];
-        NSString *text = [self.differentColorLabels.allKeys objectAtIndex:index];
-        self.leftRightJudgementContentView.imageLabelText = text;
-        NSArray *colorArray = [self.differentColorLabels valueForKey:text];
-        int randomColor = arc4random() % colorArray.count;
-        UIColor *color = [colorArray objectAtIndex:randomColor];
-        self.leftRightJudgementContentView.imageLabelColor = color;
-    }
-    
-    // TODO: keep these
     [self setButtonsEnabled];
     _startTime = [NSProcessInfo processInfo].systemUptime;
 }

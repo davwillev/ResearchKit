@@ -42,8 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 //- (void)displayNextImageInQueue;
 
-@property (nonatomic) NSString * imageLabelText;
-@property (nonatomic) UIColor * imageLabelColor;
+//@property (nonatomic) NSString * imageLabelText;
+//@property (nonatomic) UIColor * imageLabelColor;
 @property (nonatomic) UIImage * imageToDisplay;
 @property (nonatomic) ORKBorderedButton * leftButton;
 @property (nonatomic) ORKBorderedButton * rightButton;

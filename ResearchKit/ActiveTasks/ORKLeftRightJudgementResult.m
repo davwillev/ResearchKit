@@ -70,7 +70,7 @@
             (self.startTime == castObject.startTime) &&
             (self.endTime == castObject.endTime) &&
             (self.stepTime == castObject.stepTime) &&
-            (self.stepMatch == castObject.stepMatch) &&
+            (self.correct == castObject.correct) &&
             ORKEqualObjects(self.imageName, castObject.imageName) &&
             ORKEqualObjects(self.sidePresented, castObject.sidePresented) &&
             ORKEqualObjects(self.sideSelected, castObject.sideSelected));
@@ -81,7 +81,7 @@
     result.startTime = self.startTime;
     result.endTime = self.endTime;
     result.stepTime = self.stepTime;
-    result.stepMatch = self.stepMatch;
+    result.correct = self.correct;
     result -> _imageName = [self.imageName copy];
     result -> _sidePresented = [self.sidePresented copy];
     result -> _sideSelected = [self.sideSelected copy];

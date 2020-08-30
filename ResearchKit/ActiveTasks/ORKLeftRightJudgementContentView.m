@@ -41,7 +41,7 @@ static const CGFloat minimumButtonHeight = 80;
 static const CGFloat buttonStackViewSpacing = 100.0;
 
 @implementation ORKLeftRightJudgementContentView {
-    UILabel *_imageLabel;
+    //UILabel *_imageLabel;
     UIStackView *_buttonStackView;
     UIImageView *_imageView;
 }
@@ -59,29 +59,12 @@ static const CGFloat buttonStackViewSpacing = 100.0;
 }
 
 - (void)setUpImageView {
-    if (!_imageLabel) {
-        [self displayImageLabel];
-    }
     if (!_imageView) {
-        [self displayImageToDisplay];
+        _imageView = [UIImageView new];
+        _imageView.contentMode = UIViewContentModeScaleAspectFit;
+        _imageView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addSubview:_imageView];
     }
-}
-
-- (void) displayImageLabel {
-    _imageLabel = [UILabel new];
-    _imageLabel.numberOfLines = 1;
-    _imageLabel.textAlignment = NSTextAlignmentCenter;
-    _imageLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [_imageLabel setFont:[UIFont systemFontOfSize:60]];
-    [_imageLabel setAdjustsFontSizeToFitWidth:YES];
-    [self addSubview:_imageLabel];
-}
-
-- (void) displayImageToDisplay {
-    _imageView = [UIImageView new];
-    _imageView.contentMode = UIViewContentModeScaleAspectFit;
-    _imageView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_imageView];
 }
 
 - (void)setUpButtons {
@@ -109,50 +92,28 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     [self setNeedsDisplay];
 }
 
-- (void)setImageLabelText:(NSString *)imageLabelText {
-    [_imageLabel setText:imageLabelText];
-    [self setNeedsDisplay];
-}
-
-- (void)setImageLabelColor:(UIColor *)imageLabelColor {
-    [_imageLabel setTextColor:imageLabelColor];
-    [self setNeedsDisplay];
-}
-
 - (UIImage *)imageToDisplay {
     return _imageView.image;
-}
-
-- (NSString *)imageLabelText {
-    return _imageLabel.text;
-}
-
-- (UIColor *)imageLabelColor {
-    return _imageLabel.textColor;
 }
 
 - (void)setUpConstraints {
     
     NSMutableArray *constraints = [[NSMutableArray alloc] init];
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(_imageLabel, _imageView, _buttonStackView);
+    NSDictionary *views = NSDictionaryOfVariableBindings(_imageView, _buttonStackView);
     
-    [constraints addObjectsFromArray: [NSLayoutConstraint
-                                       constraintsWithVisualFormat:@"V:|-[_imageView]-(==140)-|"
-                                       options:(NSLayoutFormatOptions)0
-                                       metrics: nil
-                                       views:views]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint
+                                      constraintsWithVisualFormat:@"V:|-(==30)-[_imageView]-(>=10)-[_buttonStackView]-(==30)-|"
+                                      //constraintsWithVisualFormat:@"V:|-[_buttonStackView]-(==30)-|"
+                                      options:NSLayoutFormatAlignAllCenterX
+                                      metrics:nil
+                                      views:views]];
     
     [constraints addObjectsFromArray: [NSLayoutConstraint
                                        constraintsWithVisualFormat:@"H:|-(==30)-[_imageView]-(==30)-|"
                                        options:0
                                        metrics: nil
                                        views:views]];
-    
-    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(==30)-[_imageLabel]-(>=10)-[_buttonStackView]-(==30)-|"
-                                                                             options:NSLayoutFormatAlignAllCenterX
-                                                                             metrics:nil
-                                                                               views:views]];
     
     [constraints addObjectsFromArray:@[
                                        [NSLayoutConstraint constraintWithItem:_buttonStackView
@@ -186,4 +147,3 @@ static const CGFloat buttonStackViewSpacing = 100.0;
 }
 
 @end
-
