@@ -62,6 +62,8 @@
     NSArray *_imageQueue;
     NSArray *_imagePaths;
     NSInteger _imageCount;
+    NSString *_sideSelected;
+    BOOL _stepMatch;
     
     // to be deleted once replaced
     UIColor *_red;
@@ -135,21 +137,32 @@
  
 // Method to set action of buttons
 - (void)buttonPressed:(id)sender {
-    // TODO: see containsString when comparing button presses to image filenames
+    
     if (![self.leftRightJudgementContentView.imageLabelText isEqualToString:@" "]) {
         [self setButtonsDisabled];
         
         if (sender == self.leftRightJudgementContentView.leftButton) {
-            
-            // left button actions
-            [self createResult:[self.colors allKeysForObject:self.leftRightJudgementContentView.imageLabelColor][0] withText:self.leftRightJudgementContentView.imageLabelText withColorSelected:_redString];
+            _sideSelected = @"Left";
+            NSString *sidePresented = [self sidePresented];
+            if ([sidePresented isEqualToString:_sideSelected]) {
+                _stepMatch = YES;
+            } else {
+                _stepMatch = NO;
+            }
+            [self createResult:[self nextFilenameInQueue] withSidePresented:sidePresented withSideSelected:_sideSelected toMatch:_stepMatch];
         }
         else if (sender == self.leftRightJudgementContentView.rightButton) {
-            
-            // right button actions
-            [self createResult:[self.colors allKeysForObject:self.leftRightJudgementContentView.imageLabelColor][0] withText:self.leftRightJudgementContentView.imageLabelText withColorSelected:_redString];
+            _sideSelected = @"Right";
+            NSString *sidePresented = [self sidePresented];
+            if ([sidePresented isEqualToString:_sideSelected]) {
+                _stepMatch = YES;
+            } else {
+                _stepMatch = NO;
+            }
+            [self createResult:[self nextFilenameInQueue] withSidePresented:sidePresented withSideSelected:_sideSelected toMatch:_stepMatch];
         }
-        self.leftRightJudgementContentView.imageLabelText = @" ";
+        self.leftRightJudgementContentView.imageLabelText = @" "; // delete this?
+        
         _nextQuestionTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
                                                              target:self
                                                            selector:@selector(startNextQuestionOrFinish)
@@ -179,21 +192,32 @@
     [super start];
     [self startQuestion];
 }
-
-- (UIImage *) nextImageInQueue {
-    _imageQueue = [self arrayOfImagesForEachAttempt]; // TODO: only workd when calling this
+             
+- (NSString *)sidePresented {
+    NSString *fileName = [self nextFilenameInQueue];
+    NSString *sidePresented;
+    if ([fileName containsString:@"LH"]) {
+        sidePresented = @"Left";
+    } else if ([fileName containsString:@"RH"]) {
+        sidePresented = @"Right";
+    }
+    return sidePresented;
+}
+             
+- (UIImage *)nextImageInQueue {
+    _imageQueue = [self arrayOfImagesForEachAttempt];
     UIImage *image = [_imageQueue objectAtIndex:_imageCount];
     _imageCount++; // increment after call
     return image;
 }
 
-- (NSString *) nextFilenameInQueue {
+- (NSString *)nextFilenameInQueue {
     NSString *path = [_imagePaths objectAtIndex:_imageCount];
     NSString *fileName = [[path lastPathComponent] stringByDeletingPathExtension];
     return fileName;
 }
 
-- (NSArray *) arrayOfImagesForEachAttempt { //):(NSInteger)imageQueueLength {
+- (NSArray *)arrayOfImagesForEachAttempt {
     NSInteger imageQueueLength = ([self leftRightJudgementStep].numberOfAttempts);
     if (_imageCount == 0) { // build shuffled array only once
         _imagePaths = [self arrayOfShuffledPaths:@"png" fromDirectory:@"Images/Hands"];
@@ -204,18 +228,17 @@
         UIImage *image = [UIImage imageWithContentsOfFile:[_imagePaths objectAtIndex:(i - 1)]];
         [imageQueueArray addObject:image];
     }
-    // Return the final array, by convention immutable (NSArray) so copy
     return [imageQueueArray copy];
 }
 
-- (NSArray *) arrayOfShuffledPaths:(NSString*)type fromDirectory:(NSString*)directory {
+- (NSArray *)arrayOfShuffledPaths:(NSString*)type fromDirectory:(NSString*)directory {
     NSArray *pathArray = [[NSBundle bundleForClass:[self class]] pathsForResourcesOfType:type inDirectory:directory];
     NSArray *shuffled;
     shuffled = [self shuffleArray:pathArray];
     return shuffled;
 }
 
-- (NSArray *) shuffleArray:(NSArray*)array {
+- (NSArray *)shuffleArray:(NSArray*)array {
     NSMutableArray *shuffledArray = [NSMutableArray arrayWithArray:array];
     for (NSUInteger i = 0; i < [shuffledArray count] - 1; ++i) {
         NSInteger remainingCount = [shuffledArray count] - i;
@@ -236,13 +259,15 @@
     return stepResult;
 }
 
-- (void)createResult:(NSString *)color withText:(NSString *)sidePresented withColorSelected:(NSString *)sideSelected {
+- (void)createResult:(NSString *)imageName withSidePresented:(NSString *)sidePresented withSideSelected:(NSString *)sideSelected toMatch:(BOOL)stepMatch {
     ORKLeftRightJudgementResult *leftRightJudgementResult = [[ORKLeftRightJudgementResult alloc] initWithIdentifier:self.step.identifier];
     leftRightJudgementResult.startTime = _startTime;
     leftRightJudgementResult.endTime =  [NSProcessInfo processInfo].systemUptime;
-    leftRightJudgementResult.color = color;
+    leftRightJudgementResult.stepTime = _endTime - _startTime;
+    leftRightJudgementResult.imageName = imageName;
     leftRightJudgementResult.sidePresented = sidePresented;
     leftRightJudgementResult.sideSelected = sideSelected;
+    leftRightJudgementResult.stepMatch = stepMatch;
     [_results addObject:leftRightJudgementResult];
 }
 

@@ -39,7 +39,8 @@
     [super encodeWithCoder:aCoder];
     ORK_ENCODE_DOUBLE(aCoder, startTime);
     ORK_ENCODE_DOUBLE(aCoder, endTime);
-    ORK_ENCODE_OBJ(aCoder, color);
+    ORK_ENCODE_DOUBLE(aCoder, stepTime);
+    ORK_ENCODE_OBJ(aCoder, imageName);
     ORK_ENCODE_OBJ(aCoder, sidePresented);
     ORK_ENCODE_OBJ(aCoder, sideSelected);
 }
@@ -49,7 +50,8 @@
     if (self) {
         ORK_DECODE_DOUBLE(aDecoder, startTime);
         ORK_DECODE_DOUBLE(aDecoder, endTime);
-        ORK_DECODE_OBJ_CLASS(aDecoder, color, NSString);
+        ORK_DECODE_DOUBLE(aDecoder, stepTime);
+        ORK_DECODE_OBJ_CLASS(aDecoder, imageName, NSString);
         ORK_DECODE_OBJ_CLASS(aDecoder, sidePresented, NSString);
         ORK_DECODE_OBJ_CLASS(aDecoder, sideSelected, NSString);
     }
@@ -67,7 +69,9 @@
     return (isParentSame &&
             (self.startTime == castObject.startTime) &&
             (self.endTime == castObject.endTime) &&
-            ORKEqualObjects(self.color, castObject.color) &&
+            (self.stepTime == castObject.stepTime) &&
+            (self.stepMatch == castObject.stepMatch) &&
+            ORKEqualObjects(self.imageName, castObject.imageName) &&
             ORKEqualObjects(self.sidePresented, castObject.sidePresented) &&
             ORKEqualObjects(self.sideSelected, castObject.sideSelected));
 }
@@ -76,14 +80,16 @@
     ORKLeftRightJudgementResult *result = [super copyWithZone:zone];
     result.startTime = self.startTime;
     result.endTime = self.endTime;
-    result -> _color = [self.color copy];
+    result.stepTime = self.stepTime;
+    result.stepMatch = self.stepMatch;
+    result -> _imageName = [self.imageName copy];
     result -> _sidePresented = [self.sidePresented copy];
     result -> _sideSelected = [self.sideSelected copy];
     return result;
 }
 
 - (NSString *)descriptionWithNumberOfPaddingSpaces:(NSUInteger)numberOfPaddingSpaces {
-    return [NSString stringWithFormat:@"%@; color: %@; text: %@; colorselected: %@ %@", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces], self.color, self.sidePresented, self.sideSelected, self.descriptionSuffix];
+    return [NSString stringWithFormat:@"%@; imageName: %@; sidePresented: %@; sideSelected: %@ %@", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces], self.imageName, self.sidePresented, self.sideSelected, self.descriptionSuffix];
 }
 
 @end

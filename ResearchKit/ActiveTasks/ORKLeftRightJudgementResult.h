@@ -53,22 +53,28 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, assign) NSTimeInterval endTime;
 
 /**
- The `color` property is the color of the question string.
+ The `stepTime` property is equal to the difference between the startTime and the endTime for each step.
  */
-// @property (nonatomic, copy) NSString *color;
-@property (nonatomic, copy) NSString *color; // TODO: not sure what this maps onto - orientation?
+@property (nonatomic, assign) NSTimeInterval stepTime;
 
+/**
+ The `imageName` property is the name of the image presented during the step.
+ */
+@property (nonatomic, copy) NSString *imageName;
 /**
  The `sidePresented` property is the side of the body presented in the image.
  */
-// @property (nonatomic, copy) NSString *text;
 @property (nonatomic, copy) NSString *sidePresented;
 
 /**
- The `sideSelected` corresponds to the button tapped by the user as an answer.
+ The `sideSelected` property corresponds to the button tapped by the user as an answer.
  */
-// @property (nonatomic, copy, nullable) NSString *colorSelected;
 @property (nonatomic, copy, nullable) NSString *sideSelected;
+
+/**
+ The `stepMatch` property corresponds to whether the side selected matches the side presented within the step.
+ */
+@property (nonatomic) BOOL stepMatch;
 
 @end
 
