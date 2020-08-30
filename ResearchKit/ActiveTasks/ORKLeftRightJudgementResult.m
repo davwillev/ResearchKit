@@ -89,7 +89,7 @@
 }
 
 - (NSString *)descriptionWithNumberOfPaddingSpaces:(NSUInteger)numberOfPaddingSpaces {
-    return [NSString stringWithFormat:@"%@; imageName: %@; sidePresented: %@; sideSelected: %@ %@", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces], self.imageName, self.sidePresented, self.sideSelected, self.descriptionSuffix];
+    return [NSString stringWithFormat:@"%@; startTime: %f; endTime: %f; stepTime: %f; correct: %d; imageName: %@; sidePresented: %@; sideSelected: %@ %@", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces], self.startTime, self.endTime, self.stepTime, self.correct, self.imageName, self.sidePresented, self.sideSelected, self.descriptionSuffix];
 }
 
 @end
