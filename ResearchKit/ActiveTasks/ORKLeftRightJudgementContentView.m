@@ -40,7 +40,6 @@ static const CGFloat minimumButtonHeight = 80;
 static const CGFloat buttonStackViewSpacing = 100.0;
 
 @implementation ORKLeftRightJudgementContentView {
-    //UILabel *_imageLabel;
     UIStackView *_buttonStackView;
     UIImageView *_imageView;
 }
@@ -103,7 +102,6 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     
     [constraints addObjectsFromArray:[NSLayoutConstraint
                                       constraintsWithVisualFormat:@"V:|-(==30)-[_imageView]-(>=10)-[_buttonStackView]-(==30)-|"
-                                      //constraintsWithVisualFormat:@"V:|-[_buttonStackView]-(==30)-|"
                                       options:NSLayoutFormatAlignAllCenterX
                                       metrics:nil
                                       views:views]];
