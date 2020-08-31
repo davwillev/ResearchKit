@@ -1571,9 +1571,6 @@ NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
         step.text = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
         step.spokenInstruction = step.text;
         step.numberOfAttempts = numberOfAttempts;
-        //step.image = [UIImage imageNamed:@"phonestroopbutton" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
-        step.imageContentMode = UIViewContentModeCenter;
-        step.shouldTintImages = YES;
         ORKStepArrayAddStep(steps, step);
     }
     
