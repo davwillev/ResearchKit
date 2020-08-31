@@ -1,5 +1,4 @@
 /*
- Copyright (c) 2017, Apple Inc. All rights reserved.
  Copyright (c) 2020, Dr David W. Evans. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
@@ -73,12 +72,10 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, copy, nullable) NSString *sideSelected;
 
 /**
- A Boolean value indicating whether the side selected matched matched that presented.
+ A Boolean value indicating whether the side selected matched that presented.
  
- The value of this property is `YES` when the addition result is the correct
- one, and `NO` otherwise.
+ The value of this property is `YES` when the result is the correct one, and `NO` otherwise.
  */
-//@property (nonatomic, assign, getter=isCorrect) BOOL correct;
 @property (nonatomic, assign) BOOL correct;
 
 @end

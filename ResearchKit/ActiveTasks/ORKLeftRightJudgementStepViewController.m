@@ -1,5 +1,4 @@
 /*
- Copyright (c) 2017, Apple Inc. All rights reserved.
  Copyright (c) 2020, Dr David W. Evans. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
@@ -46,8 +45,6 @@
 @interface ORKLeftRightJudgementStepViewController ()
 
 @property (nonatomic, strong) ORKLeftRightJudgementContentView *leftRightJudgementContentView;
-@property (nonatomic, strong) NSDictionary *colors;
-@property (nonatomic, strong) NSDictionary *differentColorLabels;
 @property (nonatomic) NSUInteger questionNumber;
 
 @end
@@ -58,23 +55,11 @@
     NSTimer *_nextQuestionTimer;
     NSMutableArray *_results;
     NSTimeInterval _startTime;
-    //NSTimeInterval _endTime;
-    //NSTimeInterval _stepTime;
     NSArray *_imageQueue;
     NSArray *_imagePaths;
     NSInteger _imageCount;
     NSString *_sideSelected;
     BOOL _correct;
-    
-    // to be deleted once replaced
-    //UIColor *_red;
-    //UIColor *_green;
-    //UIColor *_blue;
-    //UIColor *_yellow;
-    //NSString *_redString;
-    //NSString *_greenString;
-    //NSString *_blueString;
-    //NSString *_yellowString;
 }
 
 - (instancetype)initWithStep:(ORKStep *)step {
@@ -229,7 +214,7 @@
     NSTimeInterval stepTime;
     leftRightJudgementResult.imageName = imageName;
     leftRightJudgementResult.startTime = _startTime;
-    endTime =  [NSProcessInfo processInfo].systemUptime;
+    endTime = [NSProcessInfo processInfo].systemUptime;
     leftRightJudgementResult.endTime = endTime;
     stepTime = endTime - _startTime;
     leftRightJudgementResult.stepTime = stepTime;

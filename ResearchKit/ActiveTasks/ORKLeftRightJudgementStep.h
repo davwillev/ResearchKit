@@ -1,5 +1,4 @@
 /*
- Copyright (c) 2017, Apple Inc. All rights reserved.
  Copyright (c) 2020, Dr David W. Evans. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
@@ -40,7 +39,6 @@ ORK_CLASS_AVAILABLE
 
 @property (nonatomic, assign) NSInteger numberOfAttempts;
 
-- (nullable UIImage *)leftRightJudgementImage; // added this
 
 @end
 
