@@ -414,6 +414,20 @@
 "STROOP_COLOR_BLUE_INITIAL" = "B";
 "STROOP_COLOR_YELLOW_INITIAL" = "Y";
 
+/* Left/Right Judgement active task.*/
+"LEFT_RIGHT_JUDGEMENT_TASK_TITLE" = "Left/Right Judgement";
+"LEFT_RIGHT_JUDGEMENT_TASK_INTRO1_DETAIL_TEXT_HAND" = "Every time an image of a hand appears, select the side of the body to which it belongs (left or right).";
+"LEFT_RIGHT_JUDGEMENT_TASK_INTRO1_DETAIL_TEXT_FOOT" = "Every time an image of a foot appears, select the side of the body to which it belongs (left or right).";
+"LEFT_RIGHT_JUDGEMENT_TASK_INTRO2_DETAIL_TEXT" = "Tap Get Started when you are ready to begin.";
+"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND" = "Select the side of the body to which each hand belongs.";
+"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_FOOT" = "Select the side of the body to which each foot belongs.";
+"LEFT_RIGHT_JUDGEMENT_COLOR_RED" = "RED";
+"LEFT_RIGHT_JUDGEMENT_COLOR_GREEN" = "GREEN";
+"LEFT_RIGHT_JUDGEMENT_COLOR_BLUE" = "BLUE";
+"LEFT_RIGHT_JUDGEMENT_COLOR_YELLOW" = "YELLOW";
+"LEFT_RIGHT_JUDGEMENT_LEFT_BUTTON" = "Left";
+"LEFT_RIGHT_JUDGEMENT_RIGHT_BUTTON" = "Right";
+
 /* Tower of Hanoi active task */
 "TOWER_OF_HANOI_TASK_TITLE" = "Tower of Hanoi";
 "TOWER_OF_HANOI_TASK_INTENDED_USE" = "This activity evaluates your puzzle solving skills.";
