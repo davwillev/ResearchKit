@@ -109,8 +109,8 @@
 }
  
 - (void)buttonPressed:(id)sender {
-    //if (![self.leftRightJudgementContentView.imageLabelText isEqualToString:@" "]) { // TODO: replace?
-        [self setButtonsDisabled]; // delete?
+    if (!(self.leftRightJudgementContentView.imageToDisplay == [UIImage imageNamed:@" "])) {
+        [self setButtonsDisabled];
         
         if (sender == self.leftRightJudgementContentView.leftButton) {
             _sideSelected = @"Left";
@@ -124,25 +124,25 @@
             _correct = ([sidePresented isEqualToString:_sideSelected]) ? YES : NO;
             [self createResult:[self nextFilenameInQueue] withSidePresented:sidePresented withSideSelected:_sideSelected toMatch:_correct];
         }
-        //self.leftRightJudgementContentView.imageLabelText = @" "; // TODO: replace this to remove image before starting next image?
+    self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@" "];
         
         _nextQuestionTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
                                                              target:self
                                                            selector:@selector(startNextQuestionOrFinish)
                                                            userInfo:nil
                                                             repeats:NO];
-    //}
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self start];
-    // _shouldIndicateFailure = YES; // based on reaction time
+    // _shouldIndicateFailure = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    //_shouldIndicateFailure = NO; // based on reaction time
+    //_shouldIndicateFailure = NO;
 }
 
 - (void)stepDidFinish {
@@ -170,7 +170,7 @@
 - (UIImage *)nextImageInQueue {
     _imageQueue = [self arrayOfImagesForEachAttempt];
     UIImage *image = [_imageQueue objectAtIndex:_imageCount];
-    _imageCount++; // increment after method called
+    _imageCount++; // increment every time method is called
     return image;
 }
 
@@ -188,7 +188,8 @@
     NSMutableArray *imageQueueArray = [NSMutableArray arrayWithCapacity:imageQueueLength];
     // Allocate images
     for(NSUInteger i = 1; i <= imageQueueLength; i++) {
-        UIImage *image = [UIImage imageWithContentsOfFile:[_imagePaths objectAtIndex:(i - 1)]];
+        //UIImage *image = [UIImage imageWithContentsOfFile:[_imagePaths objectAtIndex:(i - 1)]];
+        UIImage *image = [UIImage imageWithContentsOfFile:[_imagePaths objectAtIndex:(i)]]; // this works
         [imageQueueArray addObject:image];
     }
     return [imageQueueArray copy];
