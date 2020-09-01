@@ -808,13 +808,11 @@ class LeftRightJudgementResultTableViewProvider: ResultTableViewProvider {
             return rows
         }
         return [
+            ResultRow(text: "Duration", detail: leftRightJudgementResult.duration),
+            ResultRow(text: "Correct Answer", detail: leftRightJudgementResult.correct),
             ResultRow(text: "Image Name", detail: leftRightJudgementResult.imageName),
-            ResultRow(text: "Start Time", detail: leftRightJudgementResult.startTime),
-            ResultRow(text: "End Time", detail: leftRightJudgementResult.endTime),
-            ResultRow(text: "Step Time", detail: leftRightJudgementResult.stepTime),
             ResultRow(text: "Side Presented", detail: leftRightJudgementResult.sidePresented),
-            ResultRow(text: "Side Selected", detail: leftRightJudgementResult.sideSelected),
-            ResultRow(text: "Correct Answer", detail: leftRightJudgementResult.correct)
+            ResultRow(text: "Side Selected", detail: leftRightJudgementResult.sideSelected)
         ]
     }
 }
