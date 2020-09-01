@@ -45,6 +45,7 @@
 @interface ORKLeftRightJudgementStepViewController ()
 
 @property (nonatomic, strong) ORKLeftRightJudgementContentView *leftRightJudgementContentView;
+
 @property (nonatomic) NSUInteger questionNumber;
 
 @end
@@ -97,17 +98,20 @@
     if (!(self.leftRightJudgementContentView.imageToDisplay == [UIImage imageNamed:@" "])) {
         [self setButtonsDisabled];
         
+        NSTimeInterval endTime = [NSProcessInfo processInfo].systemUptime;
+        NSTimeInterval duration = (endTime - _startTime);
+
         if (sender == self.leftRightJudgementContentView.leftButton) {
             _sideSelected = @"Left";
             NSString *sidePresented = [self sidePresented];
             _correct = ([sidePresented isEqualToString:_sideSelected]) ? YES : NO;
-            [self createResult:[self nextFilenameInQueue] withSidePresented:sidePresented withSideSelected:_sideSelected toMatch:_correct];
+            [self createResult:[self nextFileNameInQueue] ofMatching:_correct sidePresented:sidePresented withSideSelected:_sideSelected inDuration:duration];
         }
         else if (sender == self.leftRightJudgementContentView.rightButton) {
             _sideSelected = @"Right";
             NSString *sidePresented = [self sidePresented];
             _correct = ([sidePresented isEqualToString:_sideSelected]) ? YES : NO;
-            [self createResult:[self nextFilenameInQueue] withSidePresented:sidePresented withSideSelected:_sideSelected toMatch:_correct];
+            [self createResult:[self nextFileNameInQueue] ofMatching:_correct sidePresented:sidePresented withSideSelected:_sideSelected inDuration:duration];
         }
     self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@" "];
         
@@ -142,7 +146,7 @@
 }
              
 - (NSString *)sidePresented {
-    NSString *fileName = [self nextFilenameInQueue];
+    NSString *fileName = [self nextFileNameInQueue];
     NSString *sidePresented;
     if ([fileName containsString:@"LH"]) {
         sidePresented = @"Left";
@@ -159,7 +163,7 @@
     return image;
 }
 
-- (NSString *)nextFilenameInQueue {
+- (NSString *)nextFileNameInQueue {
     NSString *path = [_imagePaths objectAtIndex:_imageCount];
     NSString *fileName = [[path lastPathComponent] stringByDeletingPathExtension];
     return fileName;
@@ -208,16 +212,10 @@
     return stepResult;
 }
 
-- (void)createResult:(NSString *)imageName withSidePresented:(NSString *)sidePresented withSideSelected:(NSString *)sideSelected toMatch:(BOOL)correct {
+- (void)createResult:(NSString *)imageName ofMatching:(BOOL)correct sidePresented:(NSString *)sidePresented withSideSelected:(NSString *)sideSelected inDuration:(NSTimeInterval)duration {
     ORKLeftRightJudgementResult *leftRightJudgementResult = [[ORKLeftRightJudgementResult alloc] initWithIdentifier:self.step.identifier];
-    NSTimeInterval endTime;
-    NSTimeInterval stepTime;
     leftRightJudgementResult.imageName = imageName;
-    leftRightJudgementResult.startTime = _startTime;
-    endTime = [NSProcessInfo processInfo].systemUptime;
-    leftRightJudgementResult.endTime = endTime;
-    stepTime = endTime - _startTime;
-    leftRightJudgementResult.stepTime = stepTime;
+    leftRightJudgementResult.duration = duration;
     leftRightJudgementResult.sidePresented = sidePresented;
     leftRightJudgementResult.sideSelected = sideSelected;
     leftRightJudgementResult.correct = correct;

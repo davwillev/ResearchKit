@@ -41,25 +41,22 @@ NS_ASSUME_NONNULL_BEGIN
 ORK_CLASS_AVAILABLE
 @interface ORKLeftRightJudgementResult: ORKResult
 
+
+/**
+ The `duration` property is the time taken for each step, equal to the difference between the timestamp from when the image is displayed to the timestamp when the button is pressed.
+ */
+@property (nonatomic, assign) NSTimeInterval duration;
+
+/**
+ A Boolean value indicating whether the side of the body selected matches that which is presented.
+ The value of this property is `YES` when the result is correct, and `NO` otherwise.
+ */
+@property (nonatomic, assign) BOOL correct;
+
 /**
  The `imageName` property is the name of the image presented during the step.
  */
 @property (nonatomic, copy) NSString *imageName;
-
-/**
- The `startTime` property is equal to the start time of the each step.
- */
-@property (nonatomic, assign) NSTimeInterval startTime;
-
-/**
- The `endTime` property is equal to the timestamp when user answers a particular step by selecting a side.
- */
-@property (nonatomic, assign) NSTimeInterval endTime;
-
-/**
- The `stepTime` property is equal to the difference between the startTime and the endTime for each step.
- */
-@property (nonatomic, assign) NSTimeInterval stepTime;
 
 /**
  The `sidePresented` property is the side of the body presented in the image.
@@ -71,12 +68,6 @@ ORK_CLASS_AVAILABLE
  */
 @property (nonatomic, copy, nullable) NSString *sideSelected;
 
-/**
- A Boolean value indicating whether the side selected matched that presented.
- 
- The value of this property is `YES` when the result is the correct one, and `NO` otherwise.
- */
-@property (nonatomic, assign) BOOL correct;
 
 @end
 

@@ -36,9 +36,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_DOUBLE(aCoder, startTime);
-    ORK_ENCODE_DOUBLE(aCoder, endTime);
-    ORK_ENCODE_DOUBLE(aCoder, stepTime);
+    ORK_ENCODE_DOUBLE(aCoder, duration);
     ORK_ENCODE_BOOL(aCoder, correct);
     ORK_ENCODE_OBJ(aCoder, imageName);
     ORK_ENCODE_OBJ(aCoder, sidePresented);
@@ -48,9 +46,7 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_DOUBLE(aDecoder, startTime);
-        ORK_DECODE_DOUBLE(aDecoder, endTime);
-        ORK_DECODE_DOUBLE(aDecoder, stepTime);
+        ORK_DECODE_DOUBLE(aDecoder, duration);
         ORK_DECODE_BOOL(aDecoder, correct);
         ORK_DECODE_OBJ_CLASS(aDecoder, imageName, NSString);
         ORK_DECODE_OBJ_CLASS(aDecoder, sidePresented, NSString);
@@ -68,9 +64,7 @@
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            (self.startTime == castObject.startTime) &&
-            (self.endTime == castObject.endTime) &&
-            (self.stepTime == castObject.stepTime) &&
+            (self.duration == castObject.duration) &&
             (self.correct == castObject.correct) &&
             ORKEqualObjects(self.imageName, castObject.imageName) &&
             ORKEqualObjects(self.sidePresented, castObject.sidePresented) &&
@@ -79,9 +73,7 @@
 
 - (instancetype)copyWithZone:(NSZone *)zone {
     ORKLeftRightJudgementResult *result = [super copyWithZone:zone];
-    result.startTime = self.startTime;
-    result.endTime = self.endTime;
-    result.stepTime = self.stepTime;
+    result.duration = self.duration;
     result.correct = self.correct;
     result -> _imageName = [self.imageName copy];
     result -> _sidePresented = [self.sidePresented copy];
@@ -90,7 +82,7 @@
 }
 
 - (NSString *)descriptionWithNumberOfPaddingSpaces:(NSUInteger)numberOfPaddingSpaces {
-    return [NSString stringWithFormat:@"%@; startTime: %f; endTime: %f; stepTime: %f; correct: %d; imageName: %@; sidePresented: %@; sideSelected: %@ %@", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces], self.startTime, self.endTime, self.stepTime, self.correct, self.imageName, self.sidePresented, self.sideSelected, self.descriptionSuffix];
+    return [NSString stringWithFormat:@"%@; duration: %f; correct: %d; imageName: %@; sidePresented: %@; sideSelected: %@ %@", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces], self.duration, self.correct, self.imageName, self.sidePresented, self.sideSelected, self.descriptionSuffix];
 }
 
 
