@@ -811,6 +811,7 @@ class LeftRightJudgementResultTableViewProvider: ResultTableViewProvider {
             ResultRow(text: "Duration", detail: leftRightJudgementResult.duration),
             ResultRow(text: "Correct Answer", detail: leftRightJudgementResult.correct),
             ResultRow(text: "Image Name", detail: leftRightJudgementResult.imageName),
+            ResultRow(text: "Orientation", detail: leftRightJudgementResult.orientation),
             ResultRow(text: "Side Presented", detail: leftRightJudgementResult.sidePresented),
             ResultRow(text: "Side Selected", detail: leftRightJudgementResult.sideSelected)
         ]
