@@ -80,9 +80,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _results = [NSMutableArray new];
     
     self.questionNumber = 0;
-    
     _leftRightJudgementContentView = [ORKLeftRightJudgementContentView new];
     self.activeStepView.activeCustomView = _leftRightJudgementContentView;
     
@@ -100,18 +100,19 @@
         
         NSTimeInterval endTime = [NSProcessInfo processInfo].systemUptime;
         NSTimeInterval duration = (endTime - _startTime);
-
+        NSString *orientation = [self orientationPresented];
+        
         if (sender == self.leftRightJudgementContentView.leftButton) {
             _sideSelected = @"Left";
             NSString *sidePresented = [self sidePresented];
             _correct = ([sidePresented isEqualToString:_sideSelected]) ? YES : NO;
-            [self createResult:[self nextFileNameInQueue] ofMatching:_correct sidePresented:sidePresented withSideSelected:_sideSelected inDuration:duration];
+            [self createResultfromImage:[self nextFileNameInQueue] inOrientation:orientation matching:_correct sidePresented:sidePresented withSideSelected:_sideSelected inDuration:duration];
         }
         else if (sender == self.leftRightJudgementContentView.rightButton) {
             _sideSelected = @"Right";
             NSString *sidePresented = [self sidePresented];
             _correct = ([sidePresented isEqualToString:_sideSelected]) ? YES : NO;
-            [self createResult:[self nextFileNameInQueue] ofMatching:_correct sidePresented:sidePresented withSideSelected:_sideSelected inDuration:duration];
+            [self createResultfromImage:[self nextFileNameInQueue] inOrientation:orientation matching:_correct sidePresented:sidePresented withSideSelected:_sideSelected inDuration:duration];
         }
     self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@" "];
         
@@ -155,11 +156,34 @@
     }
     return sidePresented;
 }
+
+- (NSString *)orientationPresented {
+    NSString *fileName = [self nextFileNameInQueue];
+    NSString *anglePresented;
+    if ([fileName containsString:@"330y"] ||
+        [fileName containsString:@"000y"] ||
+        [fileName containsString:@"030y"]) {
+        anglePresented = @"Anterior";
+    } else if ([fileName containsString:@"060y"] ||
+               [fileName containsString:@"090y"] ||
+               [fileName containsString:@"120y"]) {
+        anglePresented = @"Medial";
+    } else if ([fileName containsString:@"150y"] ||
+               [fileName containsString:@"180y"] ||
+               [fileName containsString:@"210y"]) {
+        anglePresented = @"Posterior";
+    } else if ([fileName containsString:@"240y"] ||
+               [fileName containsString:@"270y"] ||
+               [fileName containsString:@"300y"]) {
+        anglePresented = @"Lateral";
+    }
+    return anglePresented;
+}
              
 - (UIImage *)nextImageInQueue {
     _imageQueue = [self arrayOfImagesForEachAttempt];
     UIImage *image = [_imageQueue objectAtIndex:_imageCount];
-    _imageCount++; // increment every time method is called
+    _imageCount++; // increment when called
     return image;
 }
 
@@ -177,8 +201,7 @@
     NSMutableArray *imageQueueArray = [NSMutableArray arrayWithCapacity:imageQueueLength];
     // Allocate images
     for(NSUInteger i = 1; i <= imageQueueLength; i++) {
-        //UIImage *image = [UIImage imageWithContentsOfFile:[_imagePaths objectAtIndex:(i - 1)]];
-        UIImage *image = [UIImage imageWithContentsOfFile:[_imagePaths objectAtIndex:(i)]]; // this works
+        UIImage *image = [UIImage imageWithContentsOfFile:[_imagePaths objectAtIndex:(i)]];
         [imageQueueArray addObject:image];
     }
     return [imageQueueArray copy];
@@ -212,9 +235,10 @@
     return stepResult;
 }
 
-- (void)createResult:(NSString *)imageName ofMatching:(BOOL)correct sidePresented:(NSString *)sidePresented withSideSelected:(NSString *)sideSelected inDuration:(NSTimeInterval)duration {
+- (void)createResultfromImage:(NSString *)imageName inOrientation:(NSString *)orientation matching:(BOOL)correct sidePresented:(NSString *)sidePresented withSideSelected:(NSString *)sideSelected inDuration:(NSTimeInterval)duration {
     ORKLeftRightJudgementResult *leftRightJudgementResult = [[ORKLeftRightJudgementResult alloc] initWithIdentifier:self.step.identifier];
     leftRightJudgementResult.imageName = imageName;
+    leftRightJudgementResult.orientation = orientation;
     leftRightJudgementResult.duration = duration;
     leftRightJudgementResult.sidePresented = sidePresented;
     leftRightJudgementResult.sideSelected = sideSelected;

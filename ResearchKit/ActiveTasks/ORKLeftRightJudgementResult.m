@@ -39,6 +39,7 @@
     ORK_ENCODE_DOUBLE(aCoder, duration);
     ORK_ENCODE_BOOL(aCoder, correct);
     ORK_ENCODE_OBJ(aCoder, imageName);
+    ORK_ENCODE_OBJ(aCoder, orientation);
     ORK_ENCODE_OBJ(aCoder, sidePresented);
     ORK_ENCODE_OBJ(aCoder, sideSelected);
 }
@@ -49,6 +50,7 @@
         ORK_DECODE_DOUBLE(aDecoder, duration);
         ORK_DECODE_BOOL(aDecoder, correct);
         ORK_DECODE_OBJ_CLASS(aDecoder, imageName, NSString);
+        ORK_DECODE_OBJ_CLASS(aDecoder, orientation, NSString);
         ORK_DECODE_OBJ_CLASS(aDecoder, sidePresented, NSString);
         ORK_DECODE_OBJ_CLASS(aDecoder, sideSelected, NSString);
     }
@@ -67,6 +69,7 @@
             (self.duration == castObject.duration) &&
             (self.correct == castObject.correct) &&
             ORKEqualObjects(self.imageName, castObject.imageName) &&
+            ORKEqualObjects(self.orientation, castObject.orientation) &&
             ORKEqualObjects(self.sidePresented, castObject.sidePresented) &&
             ORKEqualObjects(self.sideSelected, castObject.sideSelected));
 }
@@ -76,13 +79,14 @@
     result.duration = self.duration;
     result.correct = self.correct;
     result -> _imageName = [self.imageName copy];
+    result -> _orientation = [self.orientation copy];
     result -> _sidePresented = [self.sidePresented copy];
     result -> _sideSelected = [self.sideSelected copy];
     return result;
 }
 
 - (NSString *)descriptionWithNumberOfPaddingSpaces:(NSUInteger)numberOfPaddingSpaces {
-    return [NSString stringWithFormat:@"%@; duration: %f; correct: %d; imageName: %@; sidePresented: %@; sideSelected: %@ %@", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces], self.duration, self.correct, self.imageName, self.sidePresented, self.sideSelected, self.descriptionSuffix];
+    return [NSString stringWithFormat:@"%@; duration: %f; correct: %d; imageName: %@; orientation: %@; sidePresented: %@; sideSelected: %@ %@", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces], self.duration, self.correct, self.imageName, self.orientation, self.sidePresented, self.sideSelected, self.descriptionSuffix];
 }
 
 

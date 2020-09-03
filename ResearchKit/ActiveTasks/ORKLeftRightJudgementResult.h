@@ -54,6 +54,11 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, assign) BOOL correct;
 
 /**
+ The `orientation` property is the anatomical direction towards which the hand (or foot) points within the image.
+ */
+@property (nonatomic, copy) NSString *orientation;
+
+/**
  The `imageName` property is the name of the image presented during the step.
  */
 @property (nonatomic, copy) NSString *imageName;
