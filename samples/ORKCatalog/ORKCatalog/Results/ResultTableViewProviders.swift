@@ -808,12 +808,19 @@ class LeftRightJudgementResultTableViewProvider: ResultTableViewProvider {
             return rows
         }
         return [
-            ResultRow(text: "Duration", detail: leftRightJudgementResult.duration),
-            ResultRow(text: "Correct Answer", detail: leftRightJudgementResult.correct),
+            ResultRow(text: "Image Number", detail: leftRightJudgementResult.imageNumber),
             ResultRow(text: "Image Name", detail: leftRightJudgementResult.imageName),
-            ResultRow(text: "Orientation", detail: leftRightJudgementResult.orientation),
+            ResultRow(text: "Image Duration", detail: leftRightJudgementResult.imageDuration),
+            ResultRow(text: "Correct Match", detail: leftRightJudgementResult.sideMatch),
+            ResultRow(text: "Orientation", detail: leftRightJudgementResult.orientationPresented),
             ResultRow(text: "Side Presented", detail: leftRightJudgementResult.sidePresented),
-            ResultRow(text: "Side Selected", detail: leftRightJudgementResult.sideSelected)
+            ResultRow(text: "Side Selected", detail: leftRightJudgementResult.sideSelected),
+            ResultRow(text: "Left Percent Correct", detail: leftRightJudgementResult.leftPercentCorrect),
+            ResultRow(text: "Right Percent Correct", detail: leftRightJudgementResult.rightPercentCorrect),
+            ResultRow(text: "Left Mean Duration", detail: leftRightJudgementResult.leftMeanDuration),
+            ResultRow(text: "Left SD Duration", detail: leftRightJudgementResult.leftSDDuration),
+            ResultRow(text: "Right Mean Duration", detail: leftRightJudgementResult.rightMeanDuration),
+            ResultRow(text: "Right SD Duration", detail: leftRightJudgementResult.rightSDDuration)
         ]
     }
 }
