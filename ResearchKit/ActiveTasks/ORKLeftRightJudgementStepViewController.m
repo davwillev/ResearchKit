@@ -59,8 +59,27 @@
     NSArray *_imageQueue;
     NSArray *_imagePaths;
     NSInteger _imageCount;
-    NSString *_sideSelected;
-    BOOL _correct;
+    NSInteger _leftCount;
+    NSInteger _rightCount;
+    NSInteger _leftSumCorrect;
+    NSInteger _rightSumCorrect;
+    double _leftPercentCorrect;
+    double _rightPercentCorrect;
+    double _meanLeftDuration;
+    double _varianceLeftDuration;
+    double _stdLeftDuration;
+    double _prevMl;
+    double _newMl;
+    double _prevSl;
+    double _newSl;
+    double _meanRightDuration;
+    double _varianceRightDuration;
+    double _stdRightDuration;
+    double _prevMr;
+    double _newMr;
+    double _prevSr;
+    double _newSr;
+    BOOL _match;
 }
 
 - (instancetype)initWithStep:(ORKStep *)step {
@@ -97,22 +116,62 @@
 - (void)buttonPressed:(id)sender {
     if (!(self.leftRightJudgementContentView.imageToDisplay == [UIImage imageNamed:@" "])) {
         [self setButtonsDisabled];
-        
+        NSString *sidePresented = [self sidePresented];
         NSTimeInterval endTime = [NSProcessInfo processInfo].systemUptime;
-        NSTimeInterval duration = (endTime - _startTime);
+        double duration = (endTime - _startTime);
+        // analyse durations for each side presented separately
+        if ([sidePresented isEqualToString: @"Left"]) {
+            // calculate mean and standard deviation of duration (using Welford's algorithm: Welford. (1962) Technometrics 4(3): 419-420)
+            if (_leftCount == 1) {
+                _prevMl = _newMl = duration;
+                _prevSl = 0;
+            } else {
+                _newMl = _prevMl + (duration - _prevMl) / _leftCount;
+                _newSl += _prevSl + (duration - _prevMl) * (duration - _newMl);
+                _prevMl = _newMl;
+            }
+            _meanLeftDuration = (_leftCount > 0) ? _newMl : 0;
+            _varianceLeftDuration = ((_leftCount > 1) ? _newSl / (_leftCount - 1) : 0);
+            if (_varianceLeftDuration > 0) {
+                _stdLeftDuration = sqrt(_varianceLeftDuration);
+            }
+        } else if ([sidePresented isEqualToString: @"Right"]) {
+            
+            // use Welford's algorithm
+            if (_rightCount == 1) {
+                _prevMr = _newMr = duration;
+                _prevSr = 0;
+            } else {
+                _newMr = _prevMr + (duration - _prevMr) / _imageCount;
+                _newSr += _prevSr + (duration - _prevMr) * (duration - _newMr);
+                _prevMr = _newMr;
+            }
+            _meanRightDuration = (_rightCount > 0) ? _newMr : 0;
+            _varianceRightDuration = ((_rightCount > 1) ? _newSr / (_rightCount - 1) : 0);
+            if (_varianceRightDuration > 0) {
+                _stdRightDuration = sqrt(_varianceRightDuration);
+            }
+        }
+        // evaluate matches according to the button that is pressed
+        NSString *sideSelected;
         NSString *orientation = [self orientationPresented];
-        
         if (sender == self.leftRightJudgementContentView.leftButton) {
-            _sideSelected = @"Left";
-            NSString *sidePresented = [self sidePresented];
-            _correct = ([sidePresented isEqualToString:_sideSelected]) ? YES : NO;
-            [self createResultfromImage:[self nextFileNameInQueue] inOrientation:orientation matching:_correct sidePresented:sidePresented withSideSelected:_sideSelected inDuration:duration];
+            sideSelected = @"Left";
+            _match = ([sidePresented isEqualToString:sideSelected]) ? YES : NO;
+            _leftSumCorrect = (_match) ? _leftSumCorrect + 1 : _leftSumCorrect;
+            if (_leftCount > 0) { // prevent zero denominator
+                _leftPercentCorrect = (100 * _leftSumCorrect) / _leftCount;
+            }
+            [self createResultfromImage:[self nextFileNameInQueue] inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
         }
         else if (sender == self.leftRightJudgementContentView.rightButton) {
-            _sideSelected = @"Right";
-            NSString *sidePresented = [self sidePresented];
-            _correct = ([sidePresented isEqualToString:_sideSelected]) ? YES : NO;
-            [self createResultfromImage:[self nextFileNameInQueue] inOrientation:orientation matching:_correct sidePresented:sidePresented withSideSelected:_sideSelected inDuration:duration];
+            sideSelected = @"Right";
+            _match = ([sidePresented isEqualToString:sideSelected]) ? YES : NO;
+            _rightSumCorrect = (_match) ? _rightSumCorrect + 1 : _rightSumCorrect;
+            if (_rightCount > 0) { // prevent zero denominator
+                _rightPercentCorrect = (100 * _rightSumCorrect) / _rightCount;
+            }
+            [self createResultfromImage:[self nextFileNameInQueue] inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
         }
     self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@" "];
         
@@ -151,8 +210,10 @@
     NSString *sidePresented;
     if ([fileName containsString:@"LH"]) {
         sidePresented = @"Left";
+        _leftCount ++;
     } else if ([fileName containsString:@"RH"]) {
         sidePresented = @"Right";
+        _rightCount ++;
     }
     return sidePresented;
 }
@@ -235,14 +296,23 @@
     return stepResult;
 }
 
-- (void)createResultfromImage:(NSString *)imageName inOrientation:(NSString *)orientation matching:(BOOL)correct sidePresented:(NSString *)sidePresented withSideSelected:(NSString *)sideSelected inDuration:(NSTimeInterval)duration {
+- (void)createResultfromImage:(NSString *)imageName inOrientation:(NSString *)orientation matching:(BOOL)match sidePresented:(NSString *)sidePresented withSideSelected:(NSString *)sideSelected inDuration:(double)duration {
     ORKLeftRightJudgementResult *leftRightJudgementResult = [[ORKLeftRightJudgementResult alloc] initWithIdentifier:self.step.identifier];
+    // image results
+    leftRightJudgementResult.imageNumber = _imageCount;
     leftRightJudgementResult.imageName = imageName;
-    leftRightJudgementResult.orientation = orientation;
-    leftRightJudgementResult.duration = duration;
+    leftRightJudgementResult.orientationPresented = orientation;
+    leftRightJudgementResult.imageDuration = duration;
     leftRightJudgementResult.sidePresented = sidePresented;
     leftRightJudgementResult.sideSelected = sideSelected;
-    leftRightJudgementResult.correct = correct;
+    leftRightJudgementResult.sideMatch = match;
+    // task results
+    leftRightJudgementResult.leftPercentCorrect = _leftPercentCorrect;
+    leftRightJudgementResult.rightPercentCorrect = _rightPercentCorrect;
+    leftRightJudgementResult.leftMeanDuration = _meanLeftDuration;
+    leftRightJudgementResult.rightMeanDuration = _meanRightDuration;
+    leftRightJudgementResult.leftSDDuration = _stdLeftDuration;;
+    leftRightJudgementResult.rightSDDuration = _stdRightDuration;;
     [_results addObject:leftRightJudgementResult];
 }
 
