@@ -47,6 +47,16 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, assign) NSInteger imageNumber;
 
 /**
+ The `leftAttempts` property is the number of left images presented so far during the task.
+ */
+@property (nonatomic, assign) NSInteger leftAttempts;
+
+/**
+ The `rightAttempts` property is the number of right images presented so far during the task.
+ */
+@property (nonatomic, assign) NSInteger rightAttempts;
+
+/**
  The `imageName` property is the file name of the image presented (without the extension).
  */
 @property (nonatomic, copy) NSString *imageName;

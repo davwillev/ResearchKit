@@ -45,6 +45,8 @@
     ORK_ENCODE_DOUBLE(aCoder, rightSDDuration);
     ORK_ENCODE_BOOL(aCoder, sideMatch);
     ORK_ENCODE_INTEGER(aCoder, imageNumber);
+    ORK_ENCODE_INTEGER(aCoder, leftAttempts);
+    ORK_ENCODE_INTEGER(aCoder, rightAttempts);
     ORK_ENCODE_OBJ(aCoder, imageName);
     ORK_ENCODE_OBJ(aCoder, orientationPresented);
     ORK_ENCODE_OBJ(aCoder, sidePresented);
@@ -63,6 +65,8 @@
         ORK_DECODE_DOUBLE(aDecoder, rightSDDuration);
         ORK_DECODE_BOOL(aDecoder, sideMatch);
         ORK_DECODE_INTEGER(aDecoder, imageNumber);
+        ORK_DECODE_INTEGER(aDecoder, leftAttempts);
+        ORK_DECODE_INTEGER(aDecoder, rightAttempts);
         ORK_DECODE_OBJ_CLASS(aDecoder, imageName, NSString);
         ORK_DECODE_OBJ_CLASS(aDecoder, orientationPresented, NSString);
         ORK_DECODE_OBJ_CLASS(aDecoder, sidePresented, NSString);
@@ -89,6 +93,8 @@
             (self.rightSDDuration == castObject.rightSDDuration) &&
             (self.sideMatch == castObject.sideMatch) &&
             (self.imageNumber == castObject.imageNumber) &&
+            (self.leftAttempts == castObject.leftAttempts) &&
+            (self.rightAttempts == castObject.rightAttempts) &&
             ORKEqualObjects(self.imageName, castObject.imageName) &&
             ORKEqualObjects(self.orientationPresented, castObject.orientationPresented) &&
             ORKEqualObjects(self.sidePresented, castObject.sidePresented) &&
@@ -106,6 +112,8 @@
     result.rightSDDuration = self.rightSDDuration;
     result.sideMatch = self.sideMatch;
     result.imageNumber = self.imageNumber;
+    result.leftAttempts = self.leftAttempts;
+    result.rightAttempts = self.rightAttempts;
     result -> _imageName = [self.imageName copy];
     result -> _orientationPresented = [self.orientationPresented copy];
     result -> _sidePresented = [self.sidePresented copy];
@@ -114,7 +122,7 @@
 }
 
 - (NSString *)descriptionWithNumberOfPaddingSpaces:(NSUInteger)numberOfPaddingSpaces {
-    return [NSString stringWithFormat:@"%@; imageDuration: %f; leftPercentCorrect: %f; rightPercentCorrect: %f; leftMeanDuration: %f; rightMeanDuration: %f; leftSDDuration: %f; rightSDDuration: %f; sideMatch: %d; imageName: %@; orientationPresented: %@; sidePresented: %@; sideSelected: %@ %@", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces], self.imageDuration, self.leftPercentCorrect, self.rightPercentCorrect, self.leftMeanDuration, self.rightMeanDuration, self.leftSDDuration, self.rightSDDuration, self.sideMatch, self.imageName, self.orientationPresented, self.sidePresented, self.sideSelected, self.descriptionSuffix];
+    return [NSString stringWithFormat:@"%@; imageDuration: %f; imageNumber: %li; leftAttempts: %li; rightAttempts: %li; leftPercentCorrect: %f; rightPercentCorrect: %f; leftMeanDuration: %f; rightMeanDuration: %f; leftSDDuration: %f; rightSDDuration: %f; sideMatch: %d; imageName: %@; orientationPresented: %@; sidePresented: %@; sideSelected: %@ %@", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces], self.imageDuration, self.imageNumber, self.leftAttempts, (long)self.rightAttempts, self.leftPercentCorrect, self.rightPercentCorrect, self.leftMeanDuration, self.rightMeanDuration, self.leftSDDuration, self.rightSDDuration, self.sideMatch, self.imageName, self.orientationPresented, self.sidePresented, self.sideSelected, self.descriptionSuffix];
 }
 
 

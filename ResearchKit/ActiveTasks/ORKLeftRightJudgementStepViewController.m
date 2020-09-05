@@ -307,6 +307,8 @@
     leftRightJudgementResult.sideSelected = sideSelected;
     leftRightJudgementResult.sideMatch = match;
     // task results
+    leftRightJudgementResult.leftAttempts = _leftCount;
+    leftRightJudgementResult.rightAttempts = _rightCount;
     leftRightJudgementResult.leftPercentCorrect = _leftPercentCorrect;
     leftRightJudgementResult.rightPercentCorrect = _rightPercentCorrect;
     leftRightJudgementResult.leftMeanDuration = _meanLeftDuration;
