@@ -1540,7 +1540,7 @@ NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
             step.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
             step.text = intendedUseDescription;
             step.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO1_DETAIL_TEXT_HAND", nil);
-            step.image = [UIImage imageNamed:@"phonestrooplabel" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil]; // TODO: change image
+            step.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil]; // TODO: change image
             step.imageContentMode = UIViewContentModeCenter;
             step.shouldTintImages = YES;
             
@@ -1550,7 +1550,7 @@ NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
             ORKInstructionStep *step = [[ORKInstructionStep alloc] initWithIdentifier:ORKInstruction1StepIdentifier];
             step.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
             step.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO2_DETAIL_TEXT", nil);
-            step.image = [UIImage imageNamed:@"phonestroopbutton" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil]; // TODO: change image
+            step.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.imageContentMode = UIViewContentModeCenter;
             step.shouldTintImages = YES;
             
@@ -1560,7 +1560,9 @@ NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
     {
         ORKCountdownStep *step = [[ORKCountdownStep alloc] initWithIdentifier:ORKCountdownStepIdentifier];
         step.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
-        step.stepDuration = 3.0;
+        NSString *text = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
+        step.spokenInstruction = text;
+        step.stepDuration = 5.0;
         step.optional = YES;
         
         ORKStepArrayAddStep(steps, step);
@@ -1569,7 +1571,6 @@ NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
         ORKLeftRightJudgementStep *step = [[ORKLeftRightJudgementStep alloc] initWithIdentifier:ORKLeftRightJudgementStepIdentifier];
         step.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
         step.text = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
-        step.spokenInstruction = step.text;
         step.numberOfAttempts = numberOfAttempts;
         ORKStepArrayAddStep(steps, step);
     }
@@ -1784,7 +1785,6 @@ NSString *const ORKdBHLToneAudiometryStep3Identifier = @"dBHL3.tone.audiometry";
     
     return task;
 }
-
 
 
 #pragma mark - towerOfHanoiTask
