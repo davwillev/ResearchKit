@@ -254,6 +254,24 @@ typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskLimbOption) {
 
 
 /**
+ Values that identify the image collection to be used in an active task.
+ */
+typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskImageOption) {
+    /// Which images to use is undefined
+    ORKPredefinedTaskImageOptionUnspecified = 0,
+    
+    /// Task should use the hand images
+    ORKPredefinedTaskImageOptionHand = 1 << 1,
+    
+    /// Task should use the foot images
+    ORKPredefinedTaskImageOptionFoot = 1 << 2,
+    
+    /// Task should test both hand and foot images (random order)
+    ORKPredefinedTaskImageOptionBoth = ORKPredefinedTaskImageOptionHand | ORKPredefinedTaskImageOptionFoot,
+} ORK_ENUM_AVAILABLE;
+
+
+/**
  Values that identify the presentation mode of paced serial addition tests that are auditory and/or visual (PSAT).
  */
 typedef NS_OPTIONS(NSInteger, ORKPSATPresentationMode) {
