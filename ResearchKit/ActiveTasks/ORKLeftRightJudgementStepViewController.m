@@ -119,6 +119,7 @@
         NSString *sidePresented = [self sidePresented];
         NSTimeInterval endTime = [NSProcessInfo processInfo].systemUptime;
         double duration = (endTime - _startTime);
+        
         // analyse durations for each side presented separately
         if ([sidePresented isEqualToString: @"Left"]) {
             // calculate mean and standard deviation of duration (using Welford's algorithm: Welford. (1962) Technometrics 4(3): 419-420)
@@ -136,7 +137,6 @@
                 _stdLeftDuration = sqrt(_varianceLeftDuration);
             }
         } else if ([sidePresented isEqualToString: @"Right"]) {
-            
             // use Welford's algorithm
             if (_rightCount == 1) {
                 _prevMr = _newMr = duration;
@@ -152,7 +152,7 @@
                 _stdRightDuration = sqrt(_varianceRightDuration);
             }
         }
-        // evaluate matches according to the button that is pressed
+        // evaluate matches according to the button pressed
         NSString *sideSelected;
         NSString *orientation = [self orientationPresented];
         if (sender == self.leftRightJudgementContentView.leftButton) {
@@ -307,8 +307,8 @@
     leftRightJudgementResult.sideSelected = sideSelected;
     leftRightJudgementResult.sideMatch = match;
     // task results
-    leftRightJudgementResult.leftAttempts = _leftCount;
-    leftRightJudgementResult.rightAttempts = _rightCount;
+    leftRightJudgementResult.leftImages = _leftCount;
+    leftRightJudgementResult.rightImages = _rightCount;
     leftRightJudgementResult.leftPercentCorrect = _leftPercentCorrect;
     leftRightJudgementResult.rightPercentCorrect = _rightPercentCorrect;
     leftRightJudgementResult.leftMeanDuration = _meanLeftDuration;
