@@ -122,7 +122,7 @@
         
         // analyse durations for each side presented separately
         if ([sidePresented isEqualToString: @"Left"]) {
-            // calculate mean and standard deviation of duration (using Welford's algorithm: Welford. (1962) Technometrics 4(3): 419-420)
+            // calculate mean and standard deviation of duration (using Welford's algorithm: Welford. (1962) Technometrics 4(3), 419-420)
             if (_leftCount == 1) {
                 _prevMl = _newMl = duration;
                 _prevSl = 0;
@@ -142,7 +142,7 @@
                 _prevMr = _newMr = duration;
                 _prevSr = 0;
             } else {
-                _newMr = _prevMr + (duration - _prevMr) / _imageCount;
+                _newMr = _prevMr + (duration - _prevMr) / _rightCount;
                 _newSr += _prevSr + (duration - _prevMr) * (duration - _newMr);
                 _prevMr = _newMr;
             }
@@ -256,8 +256,9 @@
 
 - (NSArray *)arrayOfImagesForEachAttempt {
     NSInteger imageQueueLength = ([self leftRightJudgementStep].numberOfAttempts);
+    NSString directory = @"Images/Hands";
     if (_imageCount == 0) { // build shuffled array only once
-        _imagePaths = [self arrayOfShuffledPaths:@"png" fromDirectory:@"Images/Hands"];
+        _imagePaths = [self arrayOfShuffledPaths:@"png" fromDirectory:directory];
     }
     NSMutableArray *imageQueueArray = [NSMutableArray arrayWithCapacity:imageQueueLength];
     // Allocate images
@@ -277,9 +278,9 @@
 
 - (NSArray *)shuffleArray:(NSArray*)array {
     NSMutableArray *shuffledArray = [NSMutableArray arrayWithArray:array];
-    for (NSUInteger i = 0; i < [shuffledArray count] - 1; ++i) {
+    for (NSUInteger i = 0; i < ([shuffledArray count]) - 1; ++i) {
         NSInteger remainingCount = [shuffledArray count] - i;
-        NSInteger exchangeIndex = i + arc4random_uniform((u_int32_t )remainingCount);
+        NSInteger exchangeIndex = i + arc4random_uniform((u_int32_t)remainingCount);
         [shuffledArray exchangeObjectAtIndex:i withObjectAtIndex:exchangeIndex];
     }
     return [shuffledArray copy];
