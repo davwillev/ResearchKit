@@ -256,7 +256,7 @@
 
 - (NSArray *)arrayOfImagesForEachAttempt {
     NSInteger imageQueueLength = ([self leftRightJudgementStep].numberOfAttempts);
-    NSString directory = @"Images/Hands";
+    NSString *directory = @"Images/Hands";
     if (_imageCount == 0) { // build shuffled array only once
         _imagePaths = [self arrayOfShuffledPaths:@"png" fromDirectory:directory];
     }
