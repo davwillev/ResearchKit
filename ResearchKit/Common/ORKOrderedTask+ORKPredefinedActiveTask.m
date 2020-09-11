@@ -128,6 +128,9 @@ NSString *const ORKActiveTaskMostAffectedHandIdentifier = @"mostAffected";
 NSString *const ORKActiveTaskRightHandIdentifier = @"right";
 NSString *const ORKActiveTaskSkipHandStepIdentifier = @"skipHand";
 
+NSString *const ORKActiveTaskHandImagesIdentifier = @"hand";
+NSString *const ORKActiveTaskFootImagesIdentifier = @"foot";
+
 NSString *const ORKTouchAnywhereStepIdentifier = @"touch.anywhere";
 
 NSString *const ORKAudioRecorderIdentifier = @"audio";
