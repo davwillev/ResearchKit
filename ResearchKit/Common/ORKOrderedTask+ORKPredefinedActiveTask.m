@@ -1532,58 +1532,170 @@ NSString *const ORKStroopStepIdentifier = @"stroop";
 NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
 
 + (ORKOrderedTask *)leftRightJudgementTaskWithIdentifier:(NSString *)identifier
-                      intendedUseDescription:(nullable NSString *)intendedUseDescription
-                            numberOfAttempts:(NSInteger)numberOfAttempts
-                                     options:(ORKPredefinedTaskOption)options {
+                                  intendedUseDescription:(nullable NSString *)intendedUseDescription
+                                             imageOption:(ORKPredefinedTaskImageOption)imageOption
+                                        numberOfAttempts:(NSInteger)numberOfAttempts
+                                                 options:(ORKPredefinedTaskOption)options {
+    
     NSMutableArray *steps = [NSMutableArray array];
-    
-    if (!(options & ORKPredefinedTaskOptionExcludeInstructions)) {
-        {
-            ORKInstructionStep *step = [[ORKInstructionStep alloc] initWithIdentifier:ORKInstruction0StepIdentifier];
-            step.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
-            step.text = intendedUseDescription;
-            step.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO1_DETAIL_TEXT_HAND", nil);
-            step.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil]; // TODO: change image
-            step.imageContentMode = UIViewContentModeCenter;
-            step.shouldTintImages = YES;
-            
-            ORKStepArrayAddStep(steps, step);
-        }
-        {
-            ORKInstructionStep *step = [[ORKInstructionStep alloc] initWithIdentifier:ORKInstruction1StepIdentifier];
-            step.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
-            step.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO2_DETAIL_TEXT", nil);
-            step.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
-            step.imageContentMode = UIViewContentModeCenter;
-            step.shouldTintImages = YES;
-            
-            ORKStepArrayAddStep(steps, step);
-        }
-    }
-    {
-        ORKCountdownStep *step = [[ORKCountdownStep alloc] initWithIdentifier:ORKCountdownStepIdentifier];
-        step.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
-        NSString *text = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
-        step.spokenInstruction = text;
-        step.stepDuration = 5.0;
-        step.optional = YES;
         
-        ORKStepArrayAddStep(steps, step);
-    }
-    {
-        ORKLeftRightJudgementStep *step = [[ORKLeftRightJudgementStep alloc] initWithIdentifier:ORKLeftRightJudgementStepIdentifier];
-        step.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
-        step.text = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
-        step.numberOfAttempts = numberOfAttempts;
-        ORKStepArrayAddStep(steps, step);
-    }
-    
-    if (!(options & ORKPredefinedTaskOptionExcludeConclusion)) {
-        ORKInstructionStep *step = [self makeCompletionStep];
+        // Setup which image sets (hands or feet) to start with and how many image sets (1 or both) to add, based on the imageOption parameter. If both image sets are selected, the order is randomly allocated
+        NSUInteger imageSetCount = ((imageOption & ORKPredefinedTaskImageOptionBoth) == ORKPredefinedTaskImageOptionBoth) ? 2 : 1;
+        BOOL doingBoth = (imageSetCount == 2);
+        BOOL handImages;
         
-        ORKStepArrayAddStep(steps, step);
+        switch (imageOption) {
+            case ORKPredefinedTaskImageOptionFeet:
+                handImages = NO; break;
+            case ORKPredefinedTaskImageOptionHands:
+            case ORKPredefinedTaskImageOptionUnspecified:
+                handImages = YES; break;
+            default:
+                handImages = (arc4random()%2 == 0); break;
+            }
+        
+        for (NSUInteger imageSets = 1; imageSets <= imageSetCount; imageSets++) {
+            
+            // Create unique identifiers when both image sets are selected
+            NSString * (^appendIdentifier) (NSString *) = ^ (NSString * stepIdentifier) {
+                if (!doingBoth) {
+                    return stepIdentifier;
+                } else {
+                    NSString *imageIdentifier = handImages ? ORKActiveTaskHandImagesIdentifier : ORKActiveTaskFootImagesIdentifier;
+                    return [NSString stringWithFormat:@"%@.%@", stepIdentifier, imageIdentifier];
+                }
+            };
+            
+            if (!(options & ORKPredefinedTaskOptionExcludeInstructions)) {
+            
+            {   /* Instruction step 0 */
+                
+                ORKInstructionStep *instructionStep0 = [[ORKInstructionStep alloc] initWithIdentifier:appendIdentifier(ORKInstruction0StepIdentifier)];
+                
+                if (doingBoth) {
+                    // Set the title and instructions based on the image set(s) selected
+                    if (imageSets == 1) {
+                        if (handImages) {
+                            instructionStep0.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
+                            instructionStep0.text = intendedUseDescription;
+                            instructionStep0.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO1_DETAIL_TEXT_HAND_FIRST", nil);// different instructions for hand images being first
+                            instructionStep0.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                        } else {
+                            instructionStep0.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
+                            instructionStep0.text = intendedUseDescription;
+                            instructionStep0.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO1_DETAIL_TEXT_FOOT_FIRST", nil);// different instructions for foot images being first
+                            instructionStep0.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                        }
+                    } else { // imageSets == 2
+                        if (handImages) {
+                            instructionStep0.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
+                            instructionStep0.text = intendedUseDescription;
+                            instructionStep0.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO1_DETAIL_TEXT_HAND_SECOND", nil); // different instruction for hand images being second
+                            instructionStep0.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                        } else {
+                            instructionStep0.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
+                            instructionStep0.text = intendedUseDescription;
+                            instructionStep0.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO1_DETAIL_TEXT_FOOT_SECOND", nil); // different instruction for hand images being second
+                            instructionStep0.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                        }
+                    }
+                } else { // not doing both
+                    if (handImages) {
+                        instructionStep0.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
+                        instructionStep0.text = intendedUseDescription;
+                        instructionStep0.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO1_DETAIL_TEXT_HAND", nil);
+                        instructionStep0.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                    } else {
+                        instructionStep0.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
+                        instructionStep0.text = intendedUseDescription;
+                        instructionStep0.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO1_DETAIL_TEXT_FOOT", nil);
+                        instructionStep0.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                    }
+                }
+                instructionStep0.shouldTintImages = YES;
+                instructionStep0.imageContentMode = UIViewContentModeCenter;
+                ORKStepArrayAddStep(steps, instructionStep0);
+            }
+                
+            {   /* Instruction step 1 */
+        
+                ORKInstructionStep *instructionStep1 = [[ORKInstructionStep alloc] initWithIdentifier:appendIdentifier(ORKInstruction1StepIdentifier)];
+        
+                if (imageSets == 1) {
+                    if (handImages) {
+                        instructionStep1.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE_HAND", nil);
+                        instructionStep1.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO2_DETAIL_TEXT", nil);
+                        instructionStep1.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                    } else {
+                        instructionStep1.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE_FOOT", nil);
+                        instructionStep1.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO2_DETAIL_TEXT", nil);
+                        instructionStep1.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                    }
+                } else { // imageSets == 2
+                    if (handImages) {
+                        instructionStep1.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE_HAND", nil);
+                        instructionStep1.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO2_DETAIL_TEXT", nil);
+                        instructionStep1.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                    } else {
+                        instructionStep1.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE_FOOT", nil);
+                        instructionStep1.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO2_DETAIL_TEXT", nil);
+                        instructionStep1.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                    }
+                }
+                instructionStep1.shouldTintImages = YES;
+                instructionStep1.imageContentMode = UIViewContentModeCenter;
+                ORKStepArrayAddStep(steps, instructionStep1);
+            }
+                
+            {   /* Countdown step */
+                
+                NSString *countdownStepText;
+                // Set the instructions to be displayed and spoken
+                if (handImages) {
+                    countdownStepText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
+                } else {
+                    countdownStepText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_FOOT", nil);
+                }
+                ORKCountdownStep *countdownStep = [[ORKCountdownStep alloc] initWithIdentifier:appendIdentifier(ORKCountdownStepIdentifier)];
+                countdownStep.spokenInstruction = countdownStepText;
+                countdownStep.stepDuration = 5.0;
+                countdownStep.optional = YES;
+                // Set title based on the selected image set(s)
+                if (handImages) {
+                    countdownStep.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE_HAND", nil);
+                } else {
+                    countdownStep.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE_FOOT", nil);
+                }
+                ORKStepArrayAddStep(steps, countdownStep);
+            }
+                
+            {   /* Left/Right Judgement step */
+                
+                ORKLeftRightJudgementStep *leftRightJudgementStep = [[ORKLeftRightJudgementStep alloc] initWithIdentifier:appendIdentifier(ORKLeftRightJudgementStepIdentifier)];
+                
+                leftRightJudgementStep.numberOfAttempts = numberOfAttempts;
+
+                // Set title and instructions based on the selected image set(s)
+                if (handImages) {
+                    leftRightJudgementStep.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
+                    leftRightJudgementStep.text = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
+                } else {
+                    leftRightJudgementStep.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
+                    leftRightJudgementStep.text = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_FOOT", nil);
+                }
+                leftRightJudgementStep.optional = NO;
+                ORKStepArrayAddStep(steps, leftRightJudgementStep);
+            }}
+            // Flip to the other image set if doing both (ignored if imageSetCount == 1)
+            handImages = !handImages;
+        }
+        
+        /* Conclusion step */
+                
+        if (!(options & ORKPredefinedTaskOptionExcludeConclusion)) {
+        ORKCompletionStep *completionStep = [self makeCompletionStep];
+        ORKStepArrayAddStep(steps, completionStep);
     }
-    
     ORKOrderedTask *task = [[ORKOrderedTask alloc] initWithIdentifier:identifier steps:steps];
     return task;
 }
