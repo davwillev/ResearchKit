@@ -261,13 +261,13 @@ typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskImageOption) {
     ORKPredefinedTaskImageOptionUnspecified = 0,
     
     /// Task should use the hand images
-    ORKPredefinedTaskImageOptionHand = 1 << 1,
+    ORKPredefinedTaskImageOptionHands = 1 << 1,
     
     /// Task should use the foot images
-    ORKPredefinedTaskImageOptionFoot = 1 << 2,
+    ORKPredefinedTaskImageOptionFeet = 1 << 2,
     
-    /// Task should test both hand and foot images (random order)
-    ORKPredefinedTaskImageOptionBoth = ORKPredefinedTaskImageOptionHand | ORKPredefinedTaskImageOptionFoot,
+    /// Task should test both hand and foot image sequences (random order)
+    ORKPredefinedTaskImageOptionBoth = ORKPredefinedTaskImageOptionHands | ORKPredefinedTaskImageOptionFeet,
 } ORK_ENUM_AVAILABLE;
 
 
