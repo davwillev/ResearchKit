@@ -41,9 +41,6 @@
     return [ORKLeftRightJudgementStepViewController class];
 }
 
-+ (BOOL)supportsSecureCoding {
-    return YES;
-}
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
     self = [super initWithIdentifier:identifier];
@@ -51,16 +48,29 @@
         self.shouldVibrateOnStart = YES;
         self.shouldShowDefaultTimer = NO;
         self.shouldContinueOnFinish = YES;
+        self.shouldStartTimerAutomatically = YES;
         self.stepDuration = NSIntegerMax;
+        self.imageOption = _imageOption;
     }
     return self;
+}
+
++ (BOOL)supportsSecureCoding {
+    return YES;
 }
 
 - (void)validateParameters {
     [super validateParameters];
     NSInteger minimumAttempts = 10;
     if (self.numberOfAttempts < minimumAttempts) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"number of attempts should be greater or equal to %ld.", (long)minimumAttempts]  userInfo:nil];
+        @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                       reason:[NSString stringWithFormat:@"number of attempts should be greater or equal to %ld.", (long)minimumAttempts]
+                                     userInfo:nil];
+    }
+    if (self.imageOption != ORKPredefinedTaskImageOptionHands && self.imageOption != ORKPredefinedTaskImageOptionFeet && self.imageOption != ORKPredefinedTaskImageOptionBoth) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                       reason:ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_IMAGE_OPTION_ERROR", nil)
+                                     userInfo:nil];
     }
 }
 
@@ -75,6 +85,7 @@
 - (instancetype)copyWithZone:(NSZone *)zone {
     ORKLeftRightJudgementStep *step = [super copyWithZone:zone];
     step.numberOfAttempts = self.numberOfAttempts;
+    step.imageOption = self.imageOption;
     return step;
 }
 
@@ -82,6 +93,7 @@
     self = [super initWithCoder:aDecoder];
     if (self ) {
         ORK_DECODE_INTEGER(aDecoder, numberOfAttempts);
+        ORK_DECODE_ENUM(aDecoder, imageOption);
     }
     return self;
 }
@@ -89,13 +101,16 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
     ORK_ENCODE_INTEGER(aCoder, numberOfAttempts);
+    ORK_ENCODE_ENUM(aCoder, imageOption);
 }
 
 - (BOOL)isEqual:(id)object {
     BOOL isParentSame = [super isEqual:object];
     
     __typeof(self) castObject = object;
-    return (isParentSame && (self.numberOfAttempts == castObject.numberOfAttempts));
+    return (isParentSame &&
+            (self.numberOfAttempts == castObject.numberOfAttempts) &&
+            (self.imageOption == castObject.imageOption));
 }
 
 

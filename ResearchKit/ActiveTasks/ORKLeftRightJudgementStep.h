@@ -39,6 +39,8 @@ ORK_CLASS_AVAILABLE
 
 @property (nonatomic, assign) NSInteger numberOfAttempts;
 
+@property (nonatomic, assign) ORKPredefinedTaskImageOption imageOption;
+
 
 @end
 

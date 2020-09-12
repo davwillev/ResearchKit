@@ -100,8 +100,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _results = [NSMutableArray new];
-    
     self.questionNumber = 0;
+    
     _leftRightJudgementContentView = [ORKLeftRightJudgementContentView new];
     self.activeStepView.activeCustomView = _leftRightJudgementContentView;
     
@@ -175,11 +175,11 @@
         }
     self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@" "];
         
-        _nextQuestionTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
-                                                             target:self
-                                                           selector:@selector(startNextQuestionOrFinish)
-                                                           userInfo:nil
-                                                            repeats:NO];
+    _nextQuestionTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
+                                                          target:self
+                                                        selector:@selector(startNextQuestionOrFinish)
+                                                        userInfo:nil
+                                                         repeats:NO];
     }
 }
 
@@ -254,9 +254,19 @@
     return fileName;
 }
 
+- (NSString *)getDirectoryForImages {
+    NSString *directory;
+    if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionHands) {
+        directory = @"Images/Hands";
+    } else if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionFeet) {
+        directory = @"Images/Feet";
+    }
+    return directory;
+}
+
 - (NSArray *)arrayOfImagesForEachAttempt {
     NSInteger imageQueueLength = ([self leftRightJudgementStep].numberOfAttempts);
-    NSString *directory = @"Images/Hands";
+    NSString *directory = [self getDirectoryForImages];
     if (_imageCount == 0) { // build shuffled array only once
         _imagePaths = [self arrayOfShuffledPaths:@"png" fromDirectory:directory];
     }
