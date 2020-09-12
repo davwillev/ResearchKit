@@ -1595,7 +1595,7 @@ NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
                         } else {
                             instructionStep0.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
                             instructionStep0.text = intendedUseDescription;
-                            instructionStep0.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO1_DETAIL_TEXT_FOOT_SECOND", nil); // different instruction for hand images being second
+                            instructionStep0.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO1_DETAIL_TEXT_FOOT_SECOND", nil); // different instruction for foot images being second
                             instructionStep0.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                         }
                     }
@@ -1675,13 +1675,15 @@ NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
                 
                 leftRightJudgementStep.numberOfAttempts = numberOfAttempts;
 
-                // Set title and instructions based on the selected image set(s)
+                // Set title, instructions and image set(s)
                 if (handImages) {
                     leftRightJudgementStep.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
                     leftRightJudgementStep.text = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
+                    leftRightJudgementStep.imageOption = ORKPredefinedTaskImageOptionHands;
                 } else {
                     leftRightJudgementStep.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
                     leftRightJudgementStep.text = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_FOOT", nil);
+                    leftRightJudgementStep.imageOption = ORKPredefinedTaskImageOptionFeet;
                 }
                 leftRightJudgementStep.optional = NO;
                 ORKStepArrayAddStep(steps, leftRightJudgementStep);
