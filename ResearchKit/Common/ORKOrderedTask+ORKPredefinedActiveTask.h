@@ -372,88 +372,27 @@ NS_ASSUME_NONNULL_BEGIN
                             numberOfAttempts:(NSInteger)numberOfAttempts
                                      options:(ORKPredefinedTaskOption)options;
 
-#pragma mark - leftRightJudgementTask
-
-NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
-
-+ (ORKOrderedTask *)leftRightJudgementTaskWithIdentifier:(NSString *)identifier
-                      intendedUseDescription:(nullable NSString *)intendedUseDescription
-                            numberOfAttempts:(NSInteger)numberOfAttempts
-                                     options:(ORKPredefinedTaskOption)options {
-    NSMutableArray *steps = [NSMutableArray array];
-    
-    if (!(options & ORKPredefinedTaskOptionExcludeInstructions)) {
-        {
-            ORKInstructionStep *step = [[ORKInstructionStep alloc] initWithIdentifier:ORKInstruction0StepIdentifier];
-            step.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
-            step.text = intendedUseDescription;
-            step.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO1_DETAIL_TEXT_HAND", nil);
-            step.image = [UIImage imageNamed:@"phonestrooplabel" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil]; // TODO: change image
-            step.imageContentMode = UIViewContentModeCenter;
-            step.shouldTintImages = YES;
-            
-            ORKStepArrayAddStep(steps, step);
-        }
-        {
-            ORKInstructionStep *step = [[ORKInstructionStep alloc] initWithIdentifier:ORKInstruction1StepIdentifier];
-            step.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
-            step.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO2_DETAIL_TEXT", nil);
-            step.image = [UIImage imageNamed:@"phonestroopbutton" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil]; // TODO: change image
-            step.imageContentMode = UIViewContentModeCenter;
-            step.shouldTintImages = YES;
-            
-            ORKStepArrayAddStep(steps, step);
-        }
-    }
-    {
-        ORKCountdownStep *step = [[ORKCountdownStep alloc] initWithIdentifier:ORKCountdownStepIdentifier];
-        step.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
-        step.stepDuration = 3.0;
-        step.optional = YES;
-        
-        ORKStepArrayAddStep(steps, step);
-    }
-    {
-        ORKLeftRightJudgementStep *step = [[ORKLeftRightJudgementStep alloc] initWithIdentifier:ORKLeftRightJudgementStepIdentifier];
-        step.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
-        step.text = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
-        step.spokenInstruction = step.text;
-        step.numberOfAttempts = numberOfAttempts;
-        // test appearance of images in this step
-        //step.image = [UIImage imageNamed:@"phonestroopbutton" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
-        step.imageContentMode = UIViewContentModeCenter;
-        step.shouldTintImages = YES;
-        ORKStepArrayAddStep(steps, step);
-    }
-    
-    if (!(options & ORKPredefinedTaskOptionExcludeConclusion)) {
-        ORKInstructionStep *step = [self makeCompletionStep];
-        
-        ORKStepArrayAddStep(steps, step);
-    }
-    
-    ORKOrderedTask *task = [[ORKOrderedTask alloc] initWithIdentifier:identifier steps:steps];
-    return task;
-}
-
 /**
  Returns a predefined Left/Right Judgement task that tests participants ability to recognise the laterality (side of the body) of a limb presented in an image.
  
- In a left/right judgement task, the participant is shown a series of images. Each image displays a limb (a hand or foot, depending on options set), but the 3D orientation of the displayed limb varies. In each attempt of the task, which can be set in the parameters, the participant has to press the button that corresponds to the side of the body to which the limb belongs (i.e. left or right).
+ The left/right judgement task is essentially an image recognition task. The participant is shown a series of images. Each image displays a limb (a hand or foot, depending on image options set), but the 3D orientation of the displayed limb varies. In each attempt of the task, the number of which can be set in the parameters, the participant has to press the button that corresponds to the side of the body to which the limb belongs (i.e. left or right).
  
  A left/right judgement task finishes when the user has completed all of the attempts, irrespective of correct or incorrect answers.
  
  Data collected by the task is in the form of an `ORKLeftRightJudgementResult` object.
  
  @param identifier              The task identifier to use for this task, appropriate to the study.
- @param intendedUseDescription  A localized string describing the intended use of the data collected. If the value of this parameter is `nil`, the default localized text is displayed.
+ @param intendedUseDescription  A localized string describing the intended use of the data
+ collected. If the value of this parameter is `nil`, the default localized text is displayed.
+ @param imageOptions             Options for determining which images to display.
  @param numberOfAttempts        Total number of left right judgement questions to include in the task.
  @param options                 Options that affect the features of the predefined task.
  */
 + (ORKOrderedTask *)leftRightJudgementTaskWithIdentifier:(NSString *)identifier
-                      intendedUseDescription:(nullable NSString *)intendedUseDescription
-                            numberOfAttempts:(NSInteger)numberOfAttempts
-                                     options:(ORKPredefinedTaskOption)options;
+                                  intendedUseDescription:(nullable NSString *)intendedUseDescription
+                                             imageOption:(ORKPredefinedTaskImageOption)imageOption
+                                        numberOfAttempts:(NSInteger)numberOfAttempts
+                                                 options:(ORKPredefinedTaskOption)options;
 
 /**
  Returns a predefined Speech Recognition task that transcribes participant's speech.
