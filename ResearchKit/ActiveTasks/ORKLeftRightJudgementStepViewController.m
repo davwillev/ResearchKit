@@ -208,10 +208,10 @@
 - (NSString *)sidePresented {
     NSString *fileName = [self nextFileNameInQueue];
     NSString *sidePresented;
-    if ([fileName containsString:@"LH"]) {
+    if ([fileName containsString:@"LH"] || [fileName containsString:@"LF"]) {
         sidePresented = @"Left";
         _leftCount ++;
-    } else if ([fileName containsString:@"RH"]) {
+    } else if ([fileName containsString:@"RH"] || [fileName containsString:@"RF"]) {
         sidePresented = @"Right";
         _rightCount ++;
     }
