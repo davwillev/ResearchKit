@@ -1584,7 +1584,7 @@ NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
                             instructionStep0.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
                             instructionStep0.text = intendedUseDescription;
                             instructionStep0.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO1_DETAIL_TEXT_FOOT_FIRST", nil);// different instructions for foot images being first
-                            instructionStep0.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                            instructionStep0.image = [UIImage imageNamed:@"phone_left_right_foot_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                         }
                     } else { // imageSets == 2
                         if (handImages) {
@@ -1596,7 +1596,7 @@ NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
                             instructionStep0.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
                             instructionStep0.text = intendedUseDescription;
                             instructionStep0.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO1_DETAIL_TEXT_FOOT_SECOND", nil); // different instruction for foot images being second
-                            instructionStep0.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                            instructionStep0.image = [UIImage imageNamed:@"phone_left_right_foot_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                         }
                     }
                 } else { // not doing both
@@ -1609,7 +1609,7 @@ NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
                         instructionStep0.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
                         instructionStep0.text = intendedUseDescription;
                         instructionStep0.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO1_DETAIL_TEXT_FOOT", nil);
-                        instructionStep0.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                        instructionStep0.image = [UIImage imageNamed:@"phone_left_foot_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                     }
                 }
                 instructionStep0.shouldTintImages = YES;
@@ -1629,7 +1629,7 @@ NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
                     } else {
                         instructionStep1.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE_FOOT", nil);
                         instructionStep1.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO2_DETAIL_TEXT", nil);
-                        instructionStep1.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                        instructionStep1.image = [UIImage imageNamed:@"phone_left_right_foot_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                     }
                 } else { // imageSets == 2
                     if (handImages) {
@@ -1639,7 +1639,7 @@ NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
                     } else {
                         instructionStep1.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE_FOOT", nil);
                         instructionStep1.detailText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO2_DETAIL_TEXT", nil);
-                        instructionStep1.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                        instructionStep1.image = [UIImage imageNamed:@"phone_left_right_foot_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                     }
                 }
                 instructionStep1.shouldTintImages = YES;
