@@ -62,6 +62,11 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, copy) NSString *imageName;
 
 /**
+ The `viewPresented` property is the view of the hand or foot presented in the image and as seen by the user.
+ */
+@property (nonatomic, copy) NSString *viewPresented;
+
+/**
  The `orientationPresented` property is the anatomical direction towards which the fingers (hand) or toes (foot) point as presented within the image.
  */
 @property (nonatomic, copy) NSString *orientationPresented;
