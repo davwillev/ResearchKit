@@ -223,21 +223,25 @@
 - (NSString *)viewPresented {
     NSString *fileName = [self nextFileNameInQueue];
     NSString *anglePresented;
-    if ([fileName containsString:@"LH1"] ||
-        [fileName containsString:@"RH1"]) {
-        anglePresented = @"Back";
-    } else if ([fileName containsString:@"LH2"] ||
-               [fileName containsString:@"RH2"]) {
-        anglePresented = @"Palm";
-    } else if ([fileName containsString:@"LH3"] ||
-               [fileName containsString:@"RH3"]) {
-        anglePresented = @"Pinkie";
-    } else if ([fileName containsString:@"LH4"] ||
-               [fileName containsString:@"RH4"]) {
-        anglePresented = @"Thumb";
-    } else if ([fileName containsString:@"LH5"] ||
-               [fileName containsString:@"RH5"]) {
-        anglePresented = @"Wrist";
+    if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionHands) {
+        if ([fileName containsString:@"LH1"] ||
+            [fileName containsString:@"RH1"]) {
+            anglePresented = @"Back";
+        } else if ([fileName containsString:@"LH2"] ||
+                   [fileName containsString:@"RH2"]) {
+            anglePresented = @"Palm";
+        } else if ([fileName containsString:@"LH3"] ||
+                   [fileName containsString:@"RH3"]) {
+            anglePresented = @"Pinkie";
+        } else if ([fileName containsString:@"LH4"] ||
+                   [fileName containsString:@"RH4"]) {
+            anglePresented = @"Thumb";
+        } else if ([fileName containsString:@"LH5"] ||
+                   [fileName containsString:@"RH5"]) {
+            anglePresented = @"Wrist";
+        }
+    } else if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionFeet) {
+        // add feet equivalent here
     }
     return anglePresented;
 }
@@ -246,89 +250,92 @@
     NSString *fileName = [self nextFileNameInQueue];
     NSString *anglePresented;
     NSString *viewPresented = [self viewPresented];
-    if ([fileName containsString:@"LH"]) { // left hand
-        if ([viewPresented isEqualToString: @"Back"] ||
-            [viewPresented isEqualToString: @"Palm"] ||
-            [viewPresented isEqualToString: @"Pinkie"] ||
-            [viewPresented isEqualToString: @"Thumb"]) {
-            if ([fileName containsString:@"000y"]) {
-                anglePresented = @"Neutral";
-            } else if ([fileName containsString:@"030y"] ||
-                       [fileName containsString:@"060y"] ||
-                       [fileName containsString:@"090y"] ||
-                       [fileName containsString:@"120y"] ||
-                       [fileName containsString:@"150y"]) {
-                anglePresented = @"Medial";
-            } else if ([fileName containsString:@"180y"]) {
-                anglePresented = @"Neutral";
-            } else if ([fileName containsString:@"210y"] ||
-                       [fileName containsString:@"240y"] ||
-                       [fileName containsString:@"270y"] ||
-                       [fileName containsString:@"300y"] ||
-                       [fileName containsString:@"330y"]) {
-                anglePresented = @"Lateral";
+    if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionHands) {
+        if ([fileName containsString:@"LH"]) { // left hand
+            if ([viewPresented isEqualToString: @"Back"] ||
+                [viewPresented isEqualToString: @"Palm"] ||
+                [viewPresented isEqualToString: @"Pinkie"] ||
+                [viewPresented isEqualToString: @"Thumb"]) {
+                    if ([fileName containsString:@"000y"]) {
+                        anglePresented = @"Neutral";
+                    } else if ([fileName containsString:@"030y"] ||
+                               [fileName containsString:@"060y"] ||
+                               [fileName containsString:@"090y"] ||
+                               [fileName containsString:@"120y"] ||
+                               [fileName containsString:@"150y"]) {
+                        anglePresented = @"Medial";
+                    } else if ([fileName containsString:@"180y"]) {
+                        anglePresented = @"Neutral";
+                    } else if ([fileName containsString:@"210y"] ||
+                               [fileName containsString:@"240y"] ||
+                               [fileName containsString:@"270y"] ||
+                               [fileName containsString:@"300y"] ||
+                               [fileName containsString:@"330y"]) {
+                        anglePresented = @"Lateral";
+                    }
+            } else if ([viewPresented isEqualToString: @"Wrist"]) {
+                if ([fileName containsString:@"000y"]) {
+                    anglePresented = @"Neutral";
+                } else if ([fileName containsString:@"030y"] ||
+                           [fileName containsString:@"060y"] ||
+                           [fileName containsString:@"090y"] ||
+                           [fileName containsString:@"120y"] ||
+                           [fileName containsString:@"150y"]) {
+                    anglePresented = @"Lateral";
+                } else if ([fileName containsString:@"180y"]) {
+                    anglePresented = @"Neutral";
+                } else if ([fileName containsString:@"210y"] ||
+                           [fileName containsString:@"240y"] ||
+                           [fileName containsString:@"270y"] ||
+                           [fileName containsString:@"300y"] ||
+                           [fileName containsString:@"330y"]) {
+                    anglePresented = @"Medial";
+                }
             }
-            
-        } else if ([viewPresented isEqualToString: @"Wrist"]) {
-            if ([fileName containsString:@"000y"]) {
-                anglePresented = @"Neutral";
-            } else if ([fileName containsString:@"030y"] ||
-                       [fileName containsString:@"060y"] ||
-                       [fileName containsString:@"090y"] ||
-                       [fileName containsString:@"120y"] ||
-                       [fileName containsString:@"150y"]) {
-                anglePresented = @"Lateral";
-            } else if ([fileName containsString:@"180y"]) {
-                anglePresented = @"Neutral";
-            } else if ([fileName containsString:@"210y"] ||
-                       [fileName containsString:@"240y"] ||
-                       [fileName containsString:@"270y"] ||
-                       [fileName containsString:@"300y"] ||
-                       [fileName containsString:@"330y"]) {
-                anglePresented = @"Medial";
+        } else if ([fileName containsString:@"RH"]) { // right hand
+            if ([viewPresented isEqualToString: @"Back"] ||
+                [viewPresented isEqualToString: @"Palm"] ||
+                [viewPresented isEqualToString: @"Pinkie"] ||
+                [viewPresented isEqualToString: @"Thumb"]) {
+                if ([fileName containsString:@"000y"]) {
+                    anglePresented = @"Neutral";
+                } else if ([fileName containsString:@"030y"] ||
+                           [fileName containsString:@"060y"] ||
+                           [fileName containsString:@"090y"] ||
+                           [fileName containsString:@"120y"] ||
+                           [fileName containsString:@"150y"]) {
+                    anglePresented = @"Lateral";
+                } else if ([fileName containsString:@"180y"]) {
+                    anglePresented = @"Neutral";
+                } else if ([fileName containsString:@"210y"] ||
+                           [fileName containsString:@"240y"] ||
+                           [fileName containsString:@"270y"] ||
+                           [fileName containsString:@"300y"] ||
+                           [fileName containsString:@"330y"]) {
+                    anglePresented = @"Medial";
+                }
+            } else if ([viewPresented isEqualToString: @"Wrist"]) {
+                if ([fileName containsString:@"000y"]) {
+                    anglePresented = @"Neutral";
+                } else if ([fileName containsString:@"030y"] ||
+                           [fileName containsString:@"060y"] ||
+                           [fileName containsString:@"090y"] ||
+                           [fileName containsString:@"120y"] ||
+                           [fileName containsString:@"150y"]) {
+                    anglePresented = @"Medial";
+                } else if ([fileName containsString:@"180y"]) {
+                    anglePresented = @"Neutral";
+                } else if ([fileName containsString:@"210y"] ||
+                           [fileName containsString:@"240y"] ||
+                           [fileName containsString:@"270y"] ||
+                           [fileName containsString:@"300y"] ||
+                           [fileName containsString:@"330y"]) {
+                    anglePresented = @"Lateral";
+                }
             }
         }
-    } else if ([fileName containsString:@"RH"]) { // right hand
-        if ([viewPresented isEqualToString: @"Back"] ||
-            [viewPresented isEqualToString: @"Palm"] ||
-            [viewPresented isEqualToString: @"Pinkie"] ||
-            [viewPresented isEqualToString: @"Thumb"]) {
-            if ([fileName containsString:@"000y"]) {
-                anglePresented = @"Neutral";
-            } else if ([fileName containsString:@"030y"] ||
-                        [fileName containsString:@"060y"] ||
-                        [fileName containsString:@"090y"] ||
-                        [fileName containsString:@"120y"] ||
-                        [fileName containsString:@"150y"]) {
-                anglePresented = @"Lateral";
-            } else if ([fileName containsString:@"180y"]) {
-                anglePresented = @"Neutral";
-            } else if ([fileName containsString:@"210y"] ||
-                        [fileName containsString:@"240y"] ||
-                        [fileName containsString:@"270y"] ||
-                        [fileName containsString:@"300y"] ||
-                        [fileName containsString:@"330y"]) {
-                anglePresented = @"Medial";
-            }
-        } else if ([viewPresented isEqualToString: @"Wrist"]) {
-            if ([fileName containsString:@"000y"]) {
-                anglePresented = @"Neutral";
-            } else if ([fileName containsString:@"030y"] ||
-                        [fileName containsString:@"060y"] ||
-                        [fileName containsString:@"090y"] ||
-                        [fileName containsString:@"120y"] ||
-                        [fileName containsString:@"150y"]) {
-                anglePresented = @"Medial";
-            } else if ([fileName containsString:@"180y"]) {
-                anglePresented = @"Neutral";
-            } else if ([fileName containsString:@"210y"] ||
-                        [fileName containsString:@"240y"] ||
-                        [fileName containsString:@"270y"] ||
-                        [fileName containsString:@"300y"] ||
-                        [fileName containsString:@"330y"]) {
-                anglePresented = @"Lateral";
-            }
-        }
+    } else if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionFeet) {
+            // add feet equivalent here
     }
     return anglePresented;
 }
@@ -406,6 +413,7 @@
 
 - (NSArray *)shuffleArray:(NSArray*)array {
     NSMutableArray *shuffledArray = [NSMutableArray arrayWithArray:array];
+    // Use a Fisher–Yates shuffle
     for (NSUInteger i = 0; i < ([shuffledArray count]) - 1; ++i) {
         NSInteger remainingCount = [shuffledArray count] - i;
         NSInteger exchangeIndex = i + arc4random_uniform((u_int32_t)remainingCount);
