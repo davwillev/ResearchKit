@@ -808,8 +808,7 @@ class LeftRightJudgementResultTableViewProvider: ResultTableViewProvider {
             return rows
         }
         return [
-            ResultRow(text: "Task Results", detail: ""), // header
-            ResultRow(text: "Image Number", detail: leftRightJudgementResult.imageNumber),
+            ResultRow(text: "Task Results:", detail: ""), // header
             ResultRow(text: "Left Images", detail: leftRightJudgementResult.leftImages),
             ResultRow(text: "Right Images", detail: leftRightJudgementResult.rightImages),
             ResultRow(text: "Left Percent Correct", detail: leftRightJudgementResult.leftPercentCorrect),
@@ -818,14 +817,16 @@ class LeftRightJudgementResultTableViewProvider: ResultTableViewProvider {
             ResultRow(text: "Left SD Duration", detail: leftRightJudgementResult.leftSDDuration),
             ResultRow(text: "Right Mean Duration", detail: leftRightJudgementResult.rightMeanDuration),
             ResultRow(text: "Right SD Duration", detail: leftRightJudgementResult.rightSDDuration),
-            ResultRow(text: "Image Results", detail: ""), // separator
+            ResultRow(text: "Image Results:", detail: ""), // separator
+            ResultRow(text: "Image Number", detail: leftRightJudgementResult.imageNumber),
             ResultRow(text: "Image Name", detail: leftRightJudgementResult.imageName),
             ResultRow(text: "Image Duration", detail: leftRightJudgementResult.imageDuration),
-            ResultRow(text: "Correct Match", detail: leftRightJudgementResult.sideMatch),
             ResultRow(text: "View", detail: leftRightJudgementResult.viewPresented),
             ResultRow(text: "Orientation", detail: leftRightJudgementResult.orientationPresented),
+            ResultRow(text: "Rotation", detail: leftRightJudgementResult.rotationPresented),
             ResultRow(text: "Side Presented", detail: leftRightJudgementResult.sidePresented),
-            ResultRow(text: "Side Selected", detail: leftRightJudgementResult.sideSelected)
+            ResultRow(text: "Side Selected", detail: leftRightJudgementResult.sideSelected),
+            ResultRow(text: "Correct Match", detail: leftRightJudgementResult.sideMatch)
         ]
     }
 }
