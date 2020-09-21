@@ -152,9 +152,11 @@
                 _stdRightDuration = sqrt(_varianceRightDuration);
             }
         }
-        // evaluate matches according to the button pressed
-        NSString *sideSelected;
+        NSString *view = [self viewPresented];
         NSString *orientation = [self orientationPresented];
+        NSInteger rotation = [self rotationPresented];
+        // evaluate matches according to button pressed
+        NSString *sideSelected;
         if (sender == self.leftRightJudgementContentView.leftButton) {
             sideSelected = @"Left";
             _match = ([sidePresented isEqualToString:sideSelected]) ? YES : NO;
@@ -162,7 +164,7 @@
             if (_leftCount > 0) { // prevent zero denominator
                 _leftPercentCorrect = (100 * _leftSumCorrect) / _leftCount;
             }
-            [self createResultfromImage:[self nextFileNameInQueue] inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
+            [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
         }
         else if (sender == self.leftRightJudgementContentView.rightButton) {
             sideSelected = @"Right";
@@ -171,7 +173,7 @@
             if (_rightCount > 0) { // prevent zero denominator
                 _rightPercentCorrect = (100 * _rightSumCorrect) / _rightCount;
             }
-            [self createResultfromImage:[self nextFileNameInQueue] inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
+            [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
         }
     self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@" "];
         
@@ -218,29 +220,145 @@
     return sidePresented;
 }
 
-- (NSString *)orientationPresented {
+- (NSString *)viewPresented {
     NSString *fileName = [self nextFileNameInQueue];
     NSString *anglePresented;
-    if ([fileName containsString:@"330y"] ||
-        [fileName containsString:@"000y"] ||
-        [fileName containsString:@"030y"]) {
-        anglePresented = @"Anterior";
-    } else if ([fileName containsString:@"060y"] ||
-               [fileName containsString:@"090y"] ||
-               [fileName containsString:@"120y"]) {
-        anglePresented = @"Medial";
-    } else if ([fileName containsString:@"150y"] ||
-               [fileName containsString:@"180y"] ||
-               [fileName containsString:@"210y"]) {
-        anglePresented = @"Posterior";
-    } else if ([fileName containsString:@"240y"] ||
-               [fileName containsString:@"270y"] ||
-               [fileName containsString:@"300y"]) {
-        anglePresented = @"Lateral";
+    if ([fileName containsString:@"LH1"] ||
+        [fileName containsString:@"RH1"]) {
+        anglePresented = @"Back";
+    } else if ([fileName containsString:@"LH2"] ||
+               [fileName containsString:@"RH2"]) {
+        anglePresented = @"Palm";
+    } else if ([fileName containsString:@"LH3"] ||
+               [fileName containsString:@"RH3"]) {
+        anglePresented = @"Pinkie";
+    } else if ([fileName containsString:@"LH4"] ||
+               [fileName containsString:@"RH4"]) {
+        anglePresented = @"Thumb";
+    } else if ([fileName containsString:@"LH5"] ||
+               [fileName containsString:@"RH5"]) {
+        anglePresented = @"Wrist";
     }
     return anglePresented;
 }
-             
+
+- (NSString *)orientationPresented {
+    NSString *fileName = [self nextFileNameInQueue];
+    NSString *anglePresented;
+    NSString *viewPresented = [self viewPresented];
+    if ([fileName containsString:@"LH"]) { // left hand
+        if ([viewPresented isEqualToString: @"Back"] ||
+            [viewPresented isEqualToString: @"Palm"] ||
+            [viewPresented isEqualToString: @"Pinkie"] ||
+            [viewPresented isEqualToString: @"Thumb"]) {
+            if ([fileName containsString:@"000y"]) {
+                anglePresented = @"Neutral";
+            } else if ([fileName containsString:@"030y"] ||
+                       [fileName containsString:@"060y"] ||
+                       [fileName containsString:@"090y"] ||
+                       [fileName containsString:@"120y"] ||
+                       [fileName containsString:@"150y"]) {
+                anglePresented = @"Medial";
+            } else if ([fileName containsString:@"180y"]) {
+                anglePresented = @"Neutral";
+            } else if ([fileName containsString:@"210y"] ||
+                       [fileName containsString:@"240y"] ||
+                       [fileName containsString:@"270y"] ||
+                       [fileName containsString:@"300y"] ||
+                       [fileName containsString:@"330y"]) {
+                anglePresented = @"Lateral";
+            }
+            
+        } else if ([viewPresented isEqualToString: @"Wrist"]) {
+            if ([fileName containsString:@"000y"]) {
+                anglePresented = @"Neutral";
+            } else if ([fileName containsString:@"030y"] ||
+                       [fileName containsString:@"060y"] ||
+                       [fileName containsString:@"090y"] ||
+                       [fileName containsString:@"120y"] ||
+                       [fileName containsString:@"150y"]) {
+                anglePresented = @"Lateral";
+            } else if ([fileName containsString:@"180y"]) {
+                anglePresented = @"Neutral";
+            } else if ([fileName containsString:@"210y"] ||
+                       [fileName containsString:@"240y"] ||
+                       [fileName containsString:@"270y"] ||
+                       [fileName containsString:@"300y"] ||
+                       [fileName containsString:@"330y"]) {
+                anglePresented = @"Medial";
+            }
+        }
+    } else if ([fileName containsString:@"RH"]) { // right hand
+        if ([viewPresented isEqualToString: @"Back"] ||
+            [viewPresented isEqualToString: @"Palm"] ||
+            [viewPresented isEqualToString: @"Pinkie"] ||
+            [viewPresented isEqualToString: @"Thumb"]) {
+            if ([fileName containsString:@"000y"]) {
+                anglePresented = @"Neutral";
+            } else if ([fileName containsString:@"030y"] ||
+                        [fileName containsString:@"060y"] ||
+                        [fileName containsString:@"090y"] ||
+                        [fileName containsString:@"120y"] ||
+                        [fileName containsString:@"150y"]) {
+                anglePresented = @"Lateral";
+            } else if ([fileName containsString:@"180y"]) {
+                anglePresented = @"Neutral";
+            } else if ([fileName containsString:@"210y"] ||
+                        [fileName containsString:@"240y"] ||
+                        [fileName containsString:@"270y"] ||
+                        [fileName containsString:@"300y"] ||
+                        [fileName containsString:@"330y"]) {
+                anglePresented = @"Medial";
+            }
+        } else if ([viewPresented isEqualToString: @"Wrist"]) {
+            if ([fileName containsString:@"000y"]) {
+                anglePresented = @"Neutral";
+            } else if ([fileName containsString:@"030y"] ||
+                        [fileName containsString:@"060y"] ||
+                        [fileName containsString:@"090y"] ||
+                        [fileName containsString:@"120y"] ||
+                        [fileName containsString:@"150y"]) {
+                anglePresented = @"Medial";
+            } else if ([fileName containsString:@"180y"]) {
+                anglePresented = @"Neutral";
+            } else if ([fileName containsString:@"210y"] ||
+                        [fileName containsString:@"240y"] ||
+                        [fileName containsString:@"270y"] ||
+                        [fileName containsString:@"300y"] ||
+                        [fileName containsString:@"330y"]) {
+                anglePresented = @"Lateral";
+            }
+        }
+    }
+    return anglePresented;
+}
+
+- (NSInteger)rotationPresented {
+    NSString *fileName = [self nextFileNameInQueue];
+    NSInteger rotationPresented = 0;
+    if ([fileName containsString:@"000y"]) {
+        rotationPresented = 0;
+    } else if ([fileName containsString:@"030y"] ||
+        [fileName containsString:@"330y"]) {
+        rotationPresented = 30;
+    } else if ([fileName containsString:@"060y"] ||
+            [fileName containsString:@"300y"]) {
+        rotationPresented = 60;
+    } else if ([fileName containsString:@"090y"] ||
+            [fileName containsString:@"270y"]) {
+        rotationPresented = 90;
+    } else if ([fileName containsString:@"120y"] ||
+            [fileName containsString:@"240y"]) {
+        rotationPresented = 120;
+    } else if ([fileName containsString:@"150y"] ||
+            [fileName containsString:@"210y"]) {
+        rotationPresented = 150;
+    } else if ([fileName containsString:@"180y"]) {
+        rotationPresented = 180;
+    }
+    return rotationPresented;
+}
+
 - (UIImage *)nextImageInQueue {
     _imageQueue = [self arrayOfImagesForEachAttempt];
     UIImage *image = [_imageQueue objectAtIndex:_imageCount];
@@ -307,12 +425,14 @@
     return stepResult;
 }
 
-- (void)createResultfromImage:(NSString *)imageName inOrientation:(NSString *)orientation matching:(BOOL)match sidePresented:(NSString *)sidePresented withSideSelected:(NSString *)sideSelected inDuration:(double)duration {
+- (void)createResultfromImage:(NSString *)imageName withView:(NSString *)view inRotation:(NSInteger)rotation inOrientation:(NSString *)orientation matching:(BOOL)match sidePresented:(NSString *)sidePresented withSideSelected:(NSString *)sideSelected inDuration:(double)duration {
     ORKLeftRightJudgementResult *leftRightJudgementResult = [[ORKLeftRightJudgementResult alloc] initWithIdentifier:self.step.identifier];
     // image results
     leftRightJudgementResult.imageNumber = _imageCount;
     leftRightJudgementResult.imageName = imageName;
+    leftRightJudgementResult.viewPresented = view;
     leftRightJudgementResult.orientationPresented = orientation;
+    leftRightJudgementResult.rotationPresented = rotation;
     leftRightJudgementResult.imageDuration = duration;
     leftRightJudgementResult.sidePresented = sidePresented;
     leftRightJudgementResult.sideSelected = sideSelected;

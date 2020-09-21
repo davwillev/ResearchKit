@@ -67,9 +67,14 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, copy) NSString *viewPresented;
 
 /**
- The `orientationPresented` property is the anatomical direction towards which the fingers (hand) or toes (foot) point as presented within the image.
+ The `orientationPresented` property is the relative anatomical description (medial or lateral for hands, ?? or ?? for feet, and neutral for all), of the direction towards which the fingers (hand) or toes (foot) point as presented within the image.
  */
 @property (nonatomic, copy) NSString *orientationPresented;
+
+/**
+ The `rotationPresented` property is the angle (measured in degrees, with 30 degree intervals), in either a clockwise or anti-clockwise direction (with 12 o'clock as zero), towards which the fingers (hand) or toes (foot) point as presented within the image.
+ */
+@property (nonatomic, assign) NSInteger rotationPresented;
 
 /**
  The `sidePresented` property is the side of the body presented in the image.
