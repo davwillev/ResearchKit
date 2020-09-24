@@ -385,6 +385,8 @@ NS_ASSUME_NONNULL_BEGIN
  @param intendedUseDescription  A localized string describing the intended use of the data
  collected. If the value of this parameter is `nil`, the default localized text is displayed.
  @param imageOptions             Options for determining which images to display.
+ @param minimumStimulusInterval     The minimum interval (in seconds) before the stimulus (image) is delivered.
+ @param maximumStimulusInterval     The maximum interval (in seconds) before the stimulus (image) is delivered.
  @param numberOfAttempts        Total number of left right judgement questions to include in the task.
  @param options                 Options that affect the features of the predefined task.
  */
@@ -392,6 +394,8 @@ NS_ASSUME_NONNULL_BEGIN
                                   intendedUseDescription:(nullable NSString *)intendedUseDescription
                                              imageOption:(ORKPredefinedTaskImageOption)imageOption
                                         numberOfAttempts:(NSInteger)numberOfAttempts
+                                 minimumStimulusInterval:(NSTimeInterval)minimumStimulusInterval
+                                 maximumStimulusInterval:(NSTimeInterval)maximumStimulusInterval
                                                  options:(ORKPredefinedTaskOption)options;
 
 /**
