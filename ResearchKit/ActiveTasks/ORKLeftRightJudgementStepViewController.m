@@ -190,7 +190,8 @@
     ORKLeftRightJudgementStep *step = [self leftRightJudgementStep];
     NSTimeInterval range = step.maximumStimulusInterval - step.minimumStimulusInterval;
     NSTimeInterval randomFactor = (arc4random_uniform(range * 1000) + 1); // non-zero random number of milliseconds between min/max limits
-    if (_imageCount == step.numberOfAttempts) { // use min interval after last image
+    if (step.maximumStimulusInterval == step.minimumStimulusInterval ||
+        _imageCount == step.numberOfAttempts) { // use min interval after last image
         timeInterval = step.minimumStimulusInterval;
     } else {
         timeInterval = (randomFactor / 1000) + step.minimumStimulusInterval; // in seconds
