@@ -1535,6 +1535,8 @@ NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
                                   intendedUseDescription:(nullable NSString *)intendedUseDescription
                                              imageOption:(ORKPredefinedTaskImageOption)imageOption
                                         numberOfAttempts:(NSInteger)numberOfAttempts
+                                 minimumStimulusInterval:(NSTimeInterval)minimumStimulusInterval
+                                 maximumStimulusInterval:(NSTimeInterval)maximumStimulusInterval
                                                  options:(ORKPredefinedTaskOption)options {
     
     NSMutableArray *steps = [NSMutableArray array];
@@ -1674,6 +1676,8 @@ NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
                 ORKLeftRightJudgementStep *leftRightJudgementStep = [[ORKLeftRightJudgementStep alloc] initWithIdentifier:appendIdentifier(ORKLeftRightJudgementStepIdentifier)];
                 
                 leftRightJudgementStep.numberOfAttempts = numberOfAttempts;
+                leftRightJudgementStep.maximumStimulusInterval = maximumStimulusInterval;
+                leftRightJudgementStep.minimumStimulusInterval = minimumStimulusInterval;
 
                 // Set title, instructions and image set(s)
                 if (handImages) {
