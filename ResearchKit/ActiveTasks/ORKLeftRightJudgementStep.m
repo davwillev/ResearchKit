@@ -67,6 +67,16 @@
                                        reason:[NSString stringWithFormat:@"number of attempts should be greater or equal to %ld.", (long)minimumAttempts]
                                      userInfo:nil];
     }
+    if (self.minimumStimulusInterval <= 0) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                       reason:@"minimumStimulusInterval must be greater than zero"
+                                     userInfo:nil];
+    }
+    if (self.maximumStimulusInterval < self.minimumStimulusInterval) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                       reason:@"maximumStimulusInterval cannot be less than minimumStimulusInterval"
+                                     userInfo:nil];
+    }
     if (self.imageOption != ORKPredefinedTaskImageOptionHands && self.imageOption != ORKPredefinedTaskImageOptionFeet && self.imageOption != ORKPredefinedTaskImageOptionBoth) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
                                        reason:ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_IMAGE_OPTION_ERROR", nil)
@@ -85,6 +95,8 @@
 - (instancetype)copyWithZone:(NSZone *)zone {
     ORKLeftRightJudgementStep *step = [super copyWithZone:zone];
     step.numberOfAttempts = self.numberOfAttempts;
+    step.maximumStimulusInterval = self.maximumStimulusInterval;
+    step.minimumStimulusInterval = self.minimumStimulusInterval;
     step.imageOption = self.imageOption;
     return step;
 }
@@ -93,6 +105,8 @@
     self = [super initWithCoder:aDecoder];
     if (self ) {
         ORK_DECODE_INTEGER(aDecoder, numberOfAttempts);
+        ORK_DECODE_DOUBLE(aDecoder, maximumStimulusInterval);
+        ORK_DECODE_DOUBLE(aDecoder, minimumStimulusInterval);
         ORK_DECODE_ENUM(aDecoder, imageOption);
     }
     return self;
@@ -101,6 +115,8 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
     ORK_ENCODE_INTEGER(aCoder, numberOfAttempts);
+    ORK_ENCODE_DOUBLE(aCoder, maximumStimulusInterval);
+    ORK_ENCODE_DOUBLE(aCoder, minimumStimulusInterval);
     ORK_ENCODE_ENUM(aCoder, imageOption);
 }
 

@@ -176,13 +176,26 @@
             [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
         }
     self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@" "];
-        
-    _nextQuestionTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
+
+    _nextQuestionTimer = [NSTimer scheduledTimerWithTimeInterval:[self stimulusInterval]
                                                           target:self
                                                         selector:@selector(startNextQuestionOrFinish)
                                                         userInfo:nil
                                                          repeats:NO];
     }
+}
+
+- (NSTimeInterval)stimulusInterval {
+    NSTimeInterval timeInterval;
+    ORKLeftRightJudgementStep *step = [self leftRightJudgementStep];
+    NSTimeInterval range = step.maximumStimulusInterval - step.minimumStimulusInterval;
+    NSTimeInterval randomFactor = (arc4random_uniform(range * 1000) + 1); // non-zero random number of milliseconds between min/max limits
+    if (_imageCount == step.numberOfAttempts) { // use min interval after last image
+        timeInterval = step.minimumStimulusInterval;
+    } else {
+        timeInterval = (randomFactor / 1000) + step.minimumStimulusInterval; // in seconds
+    }
+    return timeInterval;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -232,7 +245,7 @@
             anglePresented = @"Palm";
         } else if ([fileName containsString:@"LH3"] ||
                    [fileName containsString:@"RH3"]) {
-            anglePresented = @"Pinkie";
+            anglePresented = @"Little Finger";
         } else if ([fileName containsString:@"LH4"] ||
                    [fileName containsString:@"RH4"]) {
             anglePresented = @"Thumb";
@@ -241,7 +254,25 @@
             anglePresented = @"Wrist";
         }
     } else if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionFeet) {
-        // add feet equivalent here
+        if ([fileName containsString:@"LF1"] ||
+            [fileName containsString:@"RF1"]) {
+            anglePresented = @"Dorsum";
+        } else if ([fileName containsString:@"LF2"] ||
+                   [fileName containsString:@"RF2"]) {
+            anglePresented = @"Sole";
+        } else if ([fileName containsString:@"LF3"] ||
+                   [fileName containsString:@"RF3"]) {
+            anglePresented = @"Heel";
+        } else if ([fileName containsString:@"LF4"] ||
+                   [fileName containsString:@"RF4"]) {
+            anglePresented = @"Big Toe";
+        } else if ([fileName containsString:@"LF5"] ||
+                   [fileName containsString:@"RF5"]) {
+            anglePresented = @"Medial Malleolus";
+        } else if ([fileName containsString:@"LF6"] ||
+                   [fileName containsString:@"RF6"]) {
+            anglePresented = @"Lateral Malleolus";
+        }
     }
     return anglePresented;
 }
@@ -254,7 +285,7 @@
         if ([fileName containsString:@"LH"]) { // left hand
             if ([viewPresented isEqualToString: @"Back"] ||
                 [viewPresented isEqualToString: @"Palm"] ||
-                [viewPresented isEqualToString: @"Pinkie"] ||
+                [viewPresented isEqualToString: @"Little Finger"] ||
                 [viewPresented isEqualToString: @"Thumb"]) {
                     if ([fileName containsString:@"000y"]) {
                         anglePresented = @"Neutral";
@@ -295,7 +326,7 @@
         } else if ([fileName containsString:@"RH"]) { // right hand
             if ([viewPresented isEqualToString: @"Back"] ||
                 [viewPresented isEqualToString: @"Palm"] ||
-                [viewPresented isEqualToString: @"Pinkie"] ||
+                [viewPresented isEqualToString: @"Little Finger"] ||
                 [viewPresented isEqualToString: @"Thumb"]) {
                 if ([fileName containsString:@"000y"]) {
                     anglePresented = @"Neutral";
@@ -413,7 +444,7 @@
 
 - (NSArray *)shuffleArray:(NSArray*)array {
     NSMutableArray *shuffledArray = [NSMutableArray arrayWithArray:array];
-    // Use a Fisher–Yates shuffle
+    // use a Fisher–Yates shuffle
     for (NSUInteger i = 0; i < ([shuffledArray count]) - 1; ++i) {
         NSInteger remainingCount = [shuffledArray count] - i;
         NSInteger exchangeIndex = i + arc4random_uniform((u_int32_t)remainingCount);
