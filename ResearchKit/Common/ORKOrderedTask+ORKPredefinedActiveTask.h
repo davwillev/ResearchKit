@@ -196,12 +196,14 @@ NS_ASSUME_NONNULL_BEGIN
  The knee range of motion task returns a task that measures the range of motion for either a left or right knee, or both.
  
  @param identifier              The task identifier to use for this task, appropriate to the study.
- @param limbOption              Which knee is being measured.
+ @param limbOption              Which knee(s) are being measured.
+ @param questionOption          Optional question(s) before and after the active step.
  @param intendedUseDescription  A localized string describing the intended use of the data collected. If the value of this parameter is `nil`, default localized text is used.
  @param options                 Options that affect the features of the predefined task.
  */
 + (ORKOrderedTask *)kneeRangeOfMotionTaskWithIdentifier:(NSString *)identifier
                                              limbOption:(ORKPredefinedTaskLimbOption)limbOption
+                                         questionOption:(ORKPredefinedTaskQuestionOption)questionOption
                                  intendedUseDescription:(nullable NSString *)intendedUseDescription
                                                 options:(ORKPredefinedTaskOption)options;
 
@@ -210,12 +212,14 @@ NS_ASSUME_NONNULL_BEGIN
  The shoulder range of motion task returns a task that measures the range of motion for either a left or right shoulder, or both.
  
  @param identifier              The task identifier to use for this task, appropriate to the study.
- @param limbOption              Which shoulder is being measured.
+ @param limbOption              Which shoulder(s) are being measured.
+ @param questionOption          Optional question(s) before and after the active step.
  @param intendedUseDescription  A localized string describing the intended use of the data collected. If the value of this parameter is `nil`, default localized text is used.
  @param options                 Options that affect the features of the predefined task.
  */
 + (ORKOrderedTask *)shoulderRangeOfMotionTaskWithIdentifier:(NSString *)identifier
                                                  limbOption:(ORKPredefinedTaskLimbOption)limbOption
+                                             questionOption:(ORKPredefinedTaskQuestionOption)questionOption
                                      intendedUseDescription:(nullable NSString *)intendedUseDescription
                                                     options:(ORKPredefinedTaskOption)options;
 
