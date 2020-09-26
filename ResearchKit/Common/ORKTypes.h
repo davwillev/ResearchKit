@@ -254,6 +254,30 @@ typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskLimbOption) {
 
 
 /**
+ Values that identify question(s) to be used before and after the active steps of an active task.
+ */
+typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskQuestionOption) {
+    /// Assessment options are undefined
+    ORKPredefinedTaskQuestionOptionUnspecified = 0,
+    
+    /// Should assess pain experienced before activity
+    ORKPredefinedTaskQuestionOptionPainBefore = 1 << 1,
+    
+    /// Should assess pain experienced during activity
+    ORKPredefinedTaskQuestionOptionPainDuring = 1 << 2,
+    
+    /// Should assess pain experienced after activity
+    ORKPredefinedTaskQuestionOptionPainAfter = 1 << 3,
+    
+    /// Should assess pain experienced before and after activity
+    ORKPredefinedTaskQuestionOptionPainBeforeAfter = ORKPredefinedTaskQuestionOptionPainBefore | ORKPredefinedTaskQuestionOptionPainAfter,
+    
+    /// Should assess pain experienced before, during and after activity
+    ORKPredefinedTaskQuestionOptionPainAll = ORKPredefinedTaskQuestionOptionPainBefore | ORKPredefinedTaskQuestionOptionPainDuring | ORKPredefinedTaskQuestionOptionPainAfter,
+} ORK_ENUM_AVAILABLE;
+
+
+/**
  Values that identify the presentation mode of paced serial addition tests that are auditory and/or visual (PSAT).
  */
 typedef NS_OPTIONS(NSInteger, ORKPSATPresentationMode) {
