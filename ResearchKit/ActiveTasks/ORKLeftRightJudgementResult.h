@@ -93,39 +93,39 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, assign) BOOL sideMatch;
 
 /**
- The `imageDuration` property is the time taken (in seconds) for a response to an image, equal to the difference between timestamps from when the image is displayed to when the button is pressed.
+ The `reactionTime` property is the time taken (in seconds) for a response to an image, equal to the difference between timestamps from when the image is displayed to when the button is pressed.
  */
-@property (nonatomic, assign) double imageDuration;
+@property (nonatomic, assign) double reactionTime;
 
 /**
-The `leftPercentCorrect` property is the percentage of correct 'sideMatch' answers imageDuration (in seconds) for all images in the task so far where sidePresented value was 'Left'. This updates with every image presented..
+The `leftPercentCorrect` property is the percentage of correct 'sideMatch' answers for all images in the task so far where sidePresented value was 'Left'. This updates with every image presented in the set.
 */
 @property (nonatomic, assign) double leftPercentCorrect;
 
 /**
-The `rightPercentCorrect` property is the percentage of correct 'sideMatch' answers imageDuration (in seconds) for all images in the task so far where sidePresented value was 'Right'. This updates with every image presented.
+The `rightPercentCorrect` property is the percentage of correct 'sideMatch' answers reactionTime (in seconds) for all images in the task so far where sidePresented value was 'Right'. This updates with every image presented in the set.
 */
 @property (nonatomic, assign) double rightPercentCorrect;
 
 /**
- The `leftMeanDuration` property is the mean (average) of imageDuration (in seconds) for all images in the task so far where sidePresented value was 'Left'. This updates with every image presented.
+ The `leftMeanReactionTime` property is the mean (average) of reactionTime (in seconds) for all images in the task so far where sidePresented value was 'Left'. This updates with every image presented in the set.
  */
-@property (nonatomic, assign) double leftMeanDuration;
+@property (nonatomic, assign) double leftMeanReactionTime;
 
 /**
- The `meanRightDuration` property is the mean (average) of imageDuration (in seconds) for all images in the task so far where sidePresented value was 'Right'. This updates with every image presented.
+ The `rightMeanReactionTime` property is the mean (average) of reactionTime (in seconds) for all images in the task so far where sidePresented value was 'Right'. This updates with every image presented in the set.
  */
-@property (nonatomic, assign) double rightMeanDuration;;
+@property (nonatomic, assign) double rightMeanReactionTime;
 
 /**
- The `leftSDDuration` property is the standard deviation (a measure of distribution) of imageDuration (in seconds) for all images in the task so far where sidePresented value was 'Left'. This updates with every image presented.
+ The `leftSDReactionTime` property is the standard deviation (a measure of distribution) of reactionTime (in seconds) for all images in the task so far where sidePresented value was 'Left'. This updates with every image presented in the set.
  */
-@property (nonatomic, assign) double leftSDDuration;
+@property (nonatomic, assign) double leftSDReactionTime;
 
 /**
- The `rightSDDuration` property is the standard deviation (a measure of distribution) of imageDuration (in seconds) for all images in the task so far where sidePresented value was 'Right'. This updates with every image presented.
+ The `rightSDReactionTime` property is the standard deviation (a measure of distribution) of reactionTime (in seconds) for all images in the task so far where sidePresented value was 'Right'. This updates with every image presented in the set.
  */
-@property (nonatomic, assign) double rightSDDuration;
+@property (nonatomic, assign) double rightSDReactionTime;
 
 
 @end
