@@ -95,8 +95,8 @@
 - (instancetype)copyWithZone:(NSZone *)zone {
     ORKLeftRightJudgementStep *step = [super copyWithZone:zone];
     step.numberOfAttempts = self.numberOfAttempts;
-    step.maximumStimulusInterval = self.maximumStimulusInterval;
     step.minimumStimulusInterval = self.minimumStimulusInterval;
+    step.maximumStimulusInterval = self.maximumStimulusInterval;
     step.imageOption = self.imageOption;
     return step;
 }
@@ -105,8 +105,8 @@
     self = [super initWithCoder:aDecoder];
     if (self ) {
         ORK_DECODE_INTEGER(aDecoder, numberOfAttempts);
-        ORK_DECODE_DOUBLE(aDecoder, maximumStimulusInterval);
         ORK_DECODE_DOUBLE(aDecoder, minimumStimulusInterval);
+        ORK_DECODE_DOUBLE(aDecoder, maximumStimulusInterval);
         ORK_DECODE_ENUM(aDecoder, imageOption);
     }
     return self;
@@ -115,8 +115,8 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
     ORK_ENCODE_INTEGER(aCoder, numberOfAttempts);
-    ORK_ENCODE_DOUBLE(aCoder, maximumStimulusInterval);
     ORK_ENCODE_DOUBLE(aCoder, minimumStimulusInterval);
+    ORK_ENCODE_DOUBLE(aCoder, maximumStimulusInterval);
     ORK_ENCODE_ENUM(aCoder, imageOption);
 }
 
@@ -126,6 +126,8 @@
     __typeof(self) castObject = object;
     return (isParentSame &&
             (self.numberOfAttempts == castObject.numberOfAttempts) &&
+            (self.minimumStimulusInterval == castObject.minimumStimulusInterval) &&
+            (self.maximumStimulusInterval == castObject.maximumStimulusInterval) &&
             (self.imageOption == castObject.imageOption));
 }
 
