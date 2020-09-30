@@ -36,13 +36,13 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_DOUBLE(aCoder, imageDuration);
+    ORK_ENCODE_DOUBLE(aCoder, reactionTime);
     ORK_ENCODE_DOUBLE(aCoder, leftPercentCorrect);
     ORK_ENCODE_DOUBLE(aCoder, rightPercentCorrect);
-    ORK_ENCODE_DOUBLE(aCoder, leftMeanDuration);
-    ORK_ENCODE_DOUBLE(aCoder, rightMeanDuration);
-    ORK_ENCODE_DOUBLE(aCoder, leftSDDuration);
-    ORK_ENCODE_DOUBLE(aCoder, rightSDDuration);
+    ORK_ENCODE_DOUBLE(aCoder, leftMeanReactionTime);
+    ORK_ENCODE_DOUBLE(aCoder, rightMeanReactionTime);
+    ORK_ENCODE_DOUBLE(aCoder, leftSDReactionTime);
+    ORK_ENCODE_DOUBLE(aCoder, rightSDReactionTime);
     ORK_ENCODE_BOOL(aCoder, sideMatch);
     ORK_ENCODE_INTEGER(aCoder, imageNumber);
     ORK_ENCODE_INTEGER(aCoder, leftImages);
@@ -58,13 +58,13 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_DOUBLE(aDecoder, imageDuration);
+        ORK_DECODE_DOUBLE(aDecoder, reactionTime);
         ORK_DECODE_DOUBLE(aDecoder, leftPercentCorrect);
         ORK_DECODE_DOUBLE(aDecoder, rightPercentCorrect);
-        ORK_DECODE_DOUBLE(aDecoder, leftMeanDuration);
-        ORK_DECODE_DOUBLE(aDecoder, rightMeanDuration);
-        ORK_DECODE_DOUBLE(aDecoder, leftSDDuration);
-        ORK_DECODE_DOUBLE(aDecoder, rightSDDuration);
+        ORK_DECODE_DOUBLE(aDecoder, leftMeanReactionTime);
+        ORK_DECODE_DOUBLE(aDecoder, rightMeanReactionTime);
+        ORK_DECODE_DOUBLE(aDecoder, leftSDReactionTime);
+        ORK_DECODE_DOUBLE(aDecoder, rightSDReactionTime);
         ORK_DECODE_BOOL(aDecoder, sideMatch);
         ORK_DECODE_INTEGER(aDecoder, imageNumber);
         ORK_DECODE_INTEGER(aDecoder, leftImages);
@@ -88,13 +88,13 @@
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            (self.imageDuration == castObject.imageDuration) &&
+            (self.reactionTime == castObject.reactionTime) &&
             (self.leftPercentCorrect == castObject.leftPercentCorrect) &&
             (self.rightPercentCorrect == castObject.rightPercentCorrect) &&
-            (self.leftMeanDuration == castObject.leftMeanDuration) &&
-            (self.rightMeanDuration == castObject.rightMeanDuration) &&
-            (self.leftSDDuration == castObject.leftSDDuration) &&
-            (self.rightSDDuration == castObject.rightSDDuration) &&
+            (self.leftMeanReactionTime == castObject.leftMeanReactionTime) &&
+            (self.rightMeanReactionTime == castObject.rightMeanReactionTime) &&
+            (self.leftSDReactionTime == castObject.leftSDReactionTime) &&
+            (self.rightSDReactionTime == castObject.rightSDReactionTime) &&
             (self.sideMatch == castObject.sideMatch) &&
             (self.imageNumber == castObject.imageNumber) &&
             (self.leftImages == castObject.leftImages) &&
@@ -109,13 +109,13 @@
 
 - (instancetype)copyWithZone:(NSZone *)zone {
     ORKLeftRightJudgementResult *result = [super copyWithZone:zone];
-    result.imageDuration = self.imageDuration;
+    result.reactionTime = self.reactionTime;
     result.leftPercentCorrect = self.leftPercentCorrect;
     result.rightPercentCorrect = self.rightPercentCorrect;
-    result.leftMeanDuration = self.leftMeanDuration;
-    result.rightMeanDuration = self.rightMeanDuration;
-    result.leftSDDuration = self.leftSDDuration;
-    result.rightSDDuration = self.rightSDDuration;
+    result.leftMeanReactionTime = self.leftMeanReactionTime;
+    result.rightMeanReactionTime = self.rightMeanReactionTime;
+    result.leftSDReactionTime = self.leftSDReactionTime;
+    result.rightSDReactionTime = self.rightSDReactionTime;
     result.sideMatch = self.sideMatch;
     result.imageNumber = self.imageNumber;
     result.leftImages = self.leftImages;
@@ -130,7 +130,7 @@
 }
 
 - (NSString *)descriptionWithNumberOfPaddingSpaces:(NSUInteger)numberOfPaddingSpaces {
-    return [NSString stringWithFormat:@"%@; imageDuration: %f; imageNumber: %li; leftImages: %li; rightImages: %li; rotationPresented: %li; leftPercentCorrect: %f; rightPercentCorrect: %f; leftMeanDuration: %f; rightMeanDuration: %f; leftSDDuration: %f; rightSDDuration: %f; sideMatch: %d; imageName: %@; viewPresented: %@; orientationPresented: %@; sidePresented: %@; sideSelected: %@ %@", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces], self.imageDuration, self.imageNumber, self.leftImages, self.rightImages, self.rotationPresented, self.leftPercentCorrect, self.rightPercentCorrect, self.leftMeanDuration, self.rightMeanDuration, self.leftSDDuration, self.rightSDDuration, self.sideMatch, self.imageName, self.orientationPresented, self.viewPresented, self.sidePresented, self.sideSelected, self.descriptionSuffix];
+    return [NSString stringWithFormat:@"%@; reactionTime: %f; imageNumber: %li; leftImages: %li; rightImages: %li; rotationPresented: %li; leftPercentCorrect: %f; rightPercentCorrect: %f; leftMeanReactionTime: %f; rightMeanReactionTime: %f; leftSDReactionTime: %f; rightSDReactionTime: %f; sideMatch: %d; imageName: %@; viewPresented: %@; orientationPresented: %@; sidePresented: %@; sideSelected: %@ %@", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces], self.reactionTime, self.imageNumber, self.leftImages, self.rightImages, self.rotationPresented, self.leftPercentCorrect, self.rightPercentCorrect, self.leftMeanReactionTime, self.rightMeanReactionTime, self.leftSDReactionTime, self.rightSDReactionTime, self.sideMatch, self.imageName, self.orientationPresented, self.viewPresented, self.sidePresented, self.sideSelected, self.descriptionSuffix];
 }
 
 

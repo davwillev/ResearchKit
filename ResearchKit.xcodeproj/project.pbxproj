@@ -207,12 +207,12 @@
 		6146D0A41B84A91E0068491D /* ORKGraphChartAccessibilityElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 6146D0A21B84A91E0068491D /* ORKGraphChartAccessibilityElement.m */; };
 		618AA6D5252491F70090A993 /* ORKLeftRightJudgementContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 618AA6CF252491F60090A993 /* ORKLeftRightJudgementContentView.m */; };
 		618AA6D6252491F70090A993 /* ORKLeftRightJudgementStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 618AA6D0252491F60090A993 /* ORKLeftRightJudgementStep.m */; };
-		618AA6D7252491F70090A993 /* ORKLeftRightJudgementResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 618AA6D1252491F60090A993 /* ORKLeftRightJudgementResult.h */; };
+		618AA6D7252491F70090A993 /* ORKLeftRightJudgementResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 618AA6D1252491F60090A993 /* ORKLeftRightJudgementResult.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		618AA6D8252491F70090A993 /* ORKLeftRightJudgementResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 618AA6D2252491F60090A993 /* ORKLeftRightJudgementResult.m */; };
-		618AA6D9252491F70090A993 /* ORKLeftRightJudgementContentView.h in Headers */ = {isa = PBXBuildFile; fileRef = 618AA6D3252491F70090A993 /* ORKLeftRightJudgementContentView.h */; };
-		618AA6DA252491F70090A993 /* ORKLeftRightJudgementStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 618AA6D4252491F70090A993 /* ORKLeftRightJudgementStep.h */; };
+		618AA6D9252491F70090A993 /* ORKLeftRightJudgementContentView.h in Headers */ = {isa = PBXBuildFile; fileRef = 618AA6D3252491F70090A993 /* ORKLeftRightJudgementContentView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		618AA6DA252491F70090A993 /* ORKLeftRightJudgementStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 618AA6D4252491F70090A993 /* ORKLeftRightJudgementStep.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		618AA6DD2524930E0090A993 /* ORKLeftRightJudgementStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 618AA6DB2524930D0090A993 /* ORKLeftRightJudgementStepViewController.m */; };
-		618AA6DE2524930E0090A993 /* ORKLeftRightJudgementStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 618AA6DC2524930D0090A993 /* ORKLeftRightJudgementStepViewController.h */; };
+		618AA6DE2524930E0090A993 /* ORKLeftRightJudgementStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 618AA6DC2524930D0090A993 /* ORKLeftRightJudgementStepViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		618AA6E0252493CB0090A993 /* Images in Resources */ = {isa = PBXBuildFile; fileRef = 618AA6DF252493CA0090A993 /* Images */; };
 		618DA04E1A93D0D600E63AA8 /* ORKAccessibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 618DA0481A93D0D600E63AA8 /* ORKAccessibility.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		618DA0501A93D0D600E63AA8 /* ORKAccessibilityFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 618DA0491A93D0D600E63AA8 /* ORKAccessibilityFunctions.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -3993,7 +3993,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				618AA6D7252491F70090A993 /* ORKLeftRightJudgementResult.h in Headers */,
 				D3C8072A21891EBE00F9A231 /* ORKEnvironmentSPLMeterResult.h in Headers */,
 				BF1D43851D4904C6007EE90B /* ORKVideoInstructionStep.h in Headers */,
 				BF5161501BE9C53D00174DDD /* ORKWaitStep.h in Headers */,
@@ -4120,6 +4119,10 @@
 				65EF3C0221B7BAA8007BE0D6 /* ORKTouchAbilitySwipeResult.h in Headers */,
 				F7EC216624787338000C1F46 /* ORKCustomSignatureFooterView.h in Headers */,
 				618DA0541A93D0D600E63AA8 /* UIView+ORKAccessibility.h in Headers */,
+				618AA6DE2524930E0090A993 /* ORKLeftRightJudgementStepViewController.h in Headers */,
+				618AA6DA252491F70090A993 /* ORKLeftRightJudgementStep.h in Headers */,
+				618AA6D9252491F70090A993 /* ORKLeftRightJudgementContentView.h in Headers */,
+				618AA6D7252491F70090A993 /* ORKLeftRightJudgementResult.h in Headers */,
 				86C40C3A1A8D7C5C00081FAC /* ORKSpatialSpanGameState.h in Headers */,
 				10864CA21B27146B000F4158 /* ORKPSATContentView.h in Headers */,
 				618DA0501A93D0D600E63AA8 /* ORKAccessibilityFunctions.h in Headers */,
@@ -4147,7 +4150,6 @@
 				65EEE15A21B12CFD007858E8 /* ORKTouchAbilityLongPressStepViewController.h in Headers */,
 				B183A4A21A8535D100C76870 /* ResearchKit_Private.h in Headers */,
 				242C9E111BBE06DE0088B7F4 /* ORKVerificationStepView.h in Headers */,
-				618AA6D9252491F70090A993 /* ORKLeftRightJudgementContentView.h in Headers */,
 				86C40CE81A8D7C5C00081FAC /* ORKAnswerFormat_Internal.h in Headers */,
 				106FF29E1B663FCE004EACF2 /* ORKHolePegTestPlaceStep.h in Headers */,
 				BC94EF361E96394C00143081 /* ORKRegistrationStep_Internal.h in Headers */,
@@ -4295,7 +4297,6 @@
 				86C40C881A8D7C5C00081FAC /* ORKActiveStepTimerView.h in Headers */,
 				517514522459EF5D009E8FFC /* ORK3DModelStepViewController.h in Headers */,
 				86C40C161A8D7C5C00081FAC /* ORKAudioContentView.h in Headers */,
-				618AA6DA252491F70090A993 /* ORKLeftRightJudgementStep.h in Headers */,
 				86C40CB41A8D7C5C00081FAC /* ORKTouchRecorder.h in Headers */,
 				86C40DEA1A8D7C5C00081FAC /* UIBarButtonItem+ORKBarButtonItem.h in Headers */,
 				BA2FE3EE20B109C600AAC231 /* ORKAmslerGridResult.h in Headers */,
@@ -4313,7 +4314,6 @@
 				10864CA01B27146B000F4158 /* ORKPSATStepViewController.h in Headers */,
 				86C40C3E1A8D7C5C00081FAC /* ORKSpatialSpanMemoryContentView.h in Headers */,
 				24C296771BD055B800B42EF1 /* ORKLoginStep_Internal.h in Headers */,
-				618AA6DE2524930E0090A993 /* ORKLeftRightJudgementStepViewController.h in Headers */,
 				257FCE231B4D37A80001EF06 /* ORKTowerOfHanoiTower.h in Headers */,
 				6500FC9D21CA3C0B00AC1CA3 /* ORKTouchAbilityRotationTrial.h in Headers */,
 				86C40CC01A8D7C5C00081FAC /* ORKCompletionStep.h in Headers */,

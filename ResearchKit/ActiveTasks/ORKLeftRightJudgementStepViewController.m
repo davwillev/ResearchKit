@@ -473,7 +473,7 @@
     leftRightJudgementResult.viewPresented = view;
     leftRightJudgementResult.orientationPresented = orientation;
     leftRightJudgementResult.rotationPresented = rotation;
-    leftRightJudgementResult.imageDuration = duration;
+    leftRightJudgementResult.reactionTime = duration;
     leftRightJudgementResult.sidePresented = sidePresented;
     leftRightJudgementResult.sideSelected = sideSelected;
     leftRightJudgementResult.sideMatch = match;
@@ -482,10 +482,10 @@
     leftRightJudgementResult.rightImages = _rightCount;
     leftRightJudgementResult.leftPercentCorrect = _leftPercentCorrect;
     leftRightJudgementResult.rightPercentCorrect = _rightPercentCorrect;
-    leftRightJudgementResult.leftMeanDuration = _meanLeftDuration;
-    leftRightJudgementResult.rightMeanDuration = _meanRightDuration;
-    leftRightJudgementResult.leftSDDuration = _stdLeftDuration;;
-    leftRightJudgementResult.rightSDDuration = _stdRightDuration;;
+    leftRightJudgementResult.leftMeanReactionTime = _meanLeftDuration;
+    leftRightJudgementResult.rightMeanReactionTime = _meanRightDuration;
+    leftRightJudgementResult.leftSDReactionTime = _stdLeftDuration;;
+    leftRightJudgementResult.rightSDReactionTime = _stdRightDuration;;
     [_results addObject:leftRightJudgementResult];
 }
 
