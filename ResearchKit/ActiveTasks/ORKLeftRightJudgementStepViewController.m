@@ -122,7 +122,7 @@
         
         // analyse durations for each side presented separately
         if ([sidePresented isEqualToString: @"Left"]) {
-            // calculate mean and standard deviation of duration (using Welford's algorithm: Welford. (1962) Technometrics 4(3), 419-420)
+            // calculate mean and unbiased standard deviation of duration (using Welford's algorithm: Welford. (1962) Technometrics 4(3), 419-420)
             if (_leftCount == 1) {
                 _prevMl = _newMl = duration;
                 _prevSl = 0;

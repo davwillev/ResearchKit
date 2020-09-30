@@ -813,14 +813,14 @@ class LeftRightJudgementResultTableViewProvider: ResultTableViewProvider {
             ResultRow(text: "Right Images", detail: leftRightJudgementResult.rightImages),
             ResultRow(text: "Left Percent Correct", detail: leftRightJudgementResult.leftPercentCorrect),
             ResultRow(text: "Right Percent Correct", detail: leftRightJudgementResult.rightPercentCorrect),
-            ResultRow(text: "Left Mean Duration", detail: leftRightJudgementResult.leftMeanDuration),
-            ResultRow(text: "Left SD Duration", detail: leftRightJudgementResult.leftSDDuration),
-            ResultRow(text: "Right Mean Duration", detail: leftRightJudgementResult.rightMeanDuration),
-            ResultRow(text: "Right SD Duration", detail: leftRightJudgementResult.rightSDDuration),
+            ResultRow(text: "Left Mean Reaction Time", detail: leftRightJudgementResult.leftMeanReactionTime),
+            ResultRow(text: "Left SD Reaction Time", detail: leftRightJudgementResult.leftSDReactionTime),
+            ResultRow(text: "Right Mean Reaction Time", detail: leftRightJudgementResult.rightMeanReactionTime),
+            ResultRow(text: "Right SD Reaction Time", detail: leftRightJudgementResult.rightSDReactionTime),
             ResultRow(text: "Image Results:", detail: ""), // separator
             ResultRow(text: "Image Number", detail: leftRightJudgementResult.imageNumber),
             ResultRow(text: "Image Name", detail: leftRightJudgementResult.imageName),
-            ResultRow(text: "Image Duration", detail: leftRightJudgementResult.imageDuration),
+            ResultRow(text: "Reaction Time", detail: leftRightJudgementResult.reactionTime),
             ResultRow(text: "View", detail: leftRightJudgementResult.viewPresented),
             ResultRow(text: "Orientation", detail: leftRightJudgementResult.orientationPresented),
             ResultRow(text: "Rotation", detail: leftRightJudgementResult.rotationPresented),
@@ -1011,7 +1011,6 @@ class RangeOfMotionResultTableViewProvider: ResultTableViewProvider {
         let rangeOfMotionResult = result as! ORKRangeOfMotionResult
         let rows = super.resultRowsForSection(section)
         return rows + [
-            ResultRow(text: "orientation", detail: rangeOfMotionResult.orientation),
             ResultRow(text: "start", detail: rangeOfMotionResult.start),
             ResultRow(text: "finish", detail: rangeOfMotionResult.finish),
             ResultRow(text: "minimum", detail: rangeOfMotionResult.minimum),
