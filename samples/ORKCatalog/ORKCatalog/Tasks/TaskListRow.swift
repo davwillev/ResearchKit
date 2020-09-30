@@ -1801,7 +1801,7 @@ enum TaskListRow: Int, CustomStringConvertible {
     
     /// This task presents a shoulder range of motion task
     private var shoulderRangeOfMotion: ORKTask {
-        return ORKOrderedTask.shoulderRangeOfMotionTask(withIdentifier: String(describing: Identifier.shoulderRangeOfMotion), limbOption: .both, questionOption: .painAll, intendedUseDescription: exampleDescription, options: [])
+        return ORKOrderedTask.shoulderRangeOfMotionTask(withIdentifier: String(describing: Identifier.shoulderRangeOfMotion), limbOption: .both, questionOption: [], intendedUseDescription: exampleDescription, options: [])
     }
     
     /// This task presents a trail making task
