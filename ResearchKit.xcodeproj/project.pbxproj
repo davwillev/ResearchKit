@@ -213,6 +213,7 @@
 		618AA6DA252491F70090A993 /* ORKLeftRightJudgementStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 618AA6D4252491F70090A993 /* ORKLeftRightJudgementStep.h */; };
 		618AA6DD2524930E0090A993 /* ORKLeftRightJudgementStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 618AA6DB2524930D0090A993 /* ORKLeftRightJudgementStepViewController.m */; };
 		618AA6DE2524930E0090A993 /* ORKLeftRightJudgementStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 618AA6DC2524930D0090A993 /* ORKLeftRightJudgementStepViewController.h */; };
+		618AA6E0252493CB0090A993 /* Images in Resources */ = {isa = PBXBuildFile; fileRef = 618AA6DF252493CA0090A993 /* Images */; };
 		618DA04E1A93D0D600E63AA8 /* ORKAccessibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 618DA0481A93D0D600E63AA8 /* ORKAccessibility.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		618DA0501A93D0D600E63AA8 /* ORKAccessibilityFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 618DA0491A93D0D600E63AA8 /* ORKAccessibilityFunctions.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		618DA0521A93D0D600E63AA8 /* ORKAccessibilityFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 618DA04A1A93D0D600E63AA8 /* ORKAccessibilityFunctions.m */; };
@@ -1158,6 +1159,7 @@
 		618AA6D4252491F70090A993 /* ORKLeftRightJudgementStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORKLeftRightJudgementStep.h; sourceTree = "<group>"; };
 		618AA6DB2524930D0090A993 /* ORKLeftRightJudgementStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORKLeftRightJudgementStepViewController.m; sourceTree = "<group>"; };
 		618AA6DC2524930D0090A993 /* ORKLeftRightJudgementStepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORKLeftRightJudgementStepViewController.h; sourceTree = "<group>"; };
+		618AA6DF252493CA0090A993 /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
 		618DA0481A93D0D600E63AA8 /* ORKAccessibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORKAccessibility.h; sourceTree = "<group>"; };
 		618DA0491A93D0D600E63AA8 /* ORKAccessibilityFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORKAccessibilityFunctions.h; sourceTree = "<group>"; };
 		618DA04A1A93D0D600E63AA8 /* ORKAccessibilityFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORKAccessibilityFunctions.m; sourceTree = "<group>"; };
@@ -2770,6 +2772,7 @@
 				2429D56D1BBB52E4003A512F /* Onboarding */,
 				618DA0471A93D0D600E63AA8 /* Accessibility */,
 				B1A860D91A9693C400EA57B7 /* Animations */,
+				618AA6DF252493CA0090A993 /* Images */,
 				861610BF1A8D8EDD00245F7A /* Artwork.xcassets */,
 				B1C0F4E01A9BA65F0022C153 /* Localized */,
 				86C40C101A8D7C5C00081FAC /* Info.plist */,
@@ -4591,6 +4594,7 @@
 				714E7EA82405F08600536298 /* frequency_dBSPL_AIRPODSPRO.plist in Resources */,
 				713D4B1020FE4702002BE28D /* volume_curve_WIRED.plist in Resources */,
 				713D4B1C20FE5464002BE28D /* frequency_dBSPL_EARPODS.plist in Resources */,
+				618AA6E0252493CB0090A993 /* Images in Resources */,
 				B1A860F21A9693C400EA57B7 /* consent_02@3x.m4v in Resources */,
 				B1A860EB1A9693C400EA57B7 /* consent_02@2x.m4v in Resources */,
 				B1A860F61A9693C400EA57B7 /* consent_06@3x.m4v in Resources */,
