@@ -134,7 +134,6 @@
 #import <ResearchKit/ORKStepView_Private.h>
 #import <ResearchKit/ORKCustomStepView.h>
 #import <ResearchKit/ORKTappingContentView.h>
-#import <ResearchKit/ORKLeftRightJudgementContentView.h>
 #import <ResearchKit/ORKVerticalContainerView.h>
 #import <ResearchKit/ORKVerticalContainerView_Internal.h>
 #import <ResearchKit/ORKStepContainerView.h>
