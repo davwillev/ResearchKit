@@ -43,6 +43,8 @@ ORK_CLASS_AVAILABLE
 
 @property (nonatomic, assign) NSTimeInterval maximumStimulusInterval;
 
+@property (nonatomic, assign) NSTimeInterval timeout;
+
 @property (nonatomic, assign) ORKPredefinedTaskImageOption imageOption;
 
 

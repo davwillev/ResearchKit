@@ -381,14 +381,15 @@ NS_ASSUME_NONNULL_BEGIN
  
  Data collected by the task is in the form of an `ORKLeftRightJudgementResult` object.
  
- @param identifier              The task identifier to use for this task, appropriate to the study.
+ @param identifier          The task identifier to use for this task, appropriate to the study.
  @param intendedUseDescription  A localized string describing the intended use of the data
  collected. If the value of this parameter is `nil`, the default localized text is displayed.
- @param imageOptions             Options for determining which images to display.
- @param minimumStimulusInterval     The minimum interval (in seconds) before the stimulus (image) is delivered.
- @param maximumStimulusInterval     The maximum interval (in seconds) before the stimulus (image) is delivered.
- @param numberOfAttempts        Total number of left right judgement questions to include in the task.
- @param options                 Options that affect the features of the predefined task.
+ @param imageOptions          Options for determining which images to display.
+ @param minimumStimulusInterval          The minimum interval (in seconds) before the stimulus (image) is delivered.
+ @param maximumStimulusInterval          The maximum interval (in seconds) before the stimulus (image) is delivered.
+ @param timeout          The interval permitted after the stimulus until the test fails, if a button is not pressed.
+ @param numberOfAttempts          Total number of left right judgement questions to include in the task.
+ @param options          Options that affect the features of the predefined task.
  */
 + (ORKOrderedTask *)leftRightJudgementTaskWithIdentifier:(NSString *)identifier
                                   intendedUseDescription:(nullable NSString *)intendedUseDescription
@@ -396,6 +397,7 @@ NS_ASSUME_NONNULL_BEGIN
                                         numberOfAttempts:(NSInteger)numberOfAttempts
                                  minimumStimulusInterval:(NSTimeInterval)minimumStimulusInterval
                                  maximumStimulusInterval:(NSTimeInterval)maximumStimulusInterval
+                                                 timeout:(NSTimeInterval)timeout
                                                  options:(ORKPredefinedTaskOption)options;
 
 /**

@@ -77,6 +77,11 @@
                                        reason:@"maximumStimulusInterval cannot be less than minimumStimulusInterval"
                                      userInfo:nil];
     }
+    if (self.timeout <= 0) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                       reason:@"timeout must be greater than zero"
+                                     userInfo:nil];
+    }
     if (self.imageOption != ORKPredefinedTaskImageOptionHands && self.imageOption != ORKPredefinedTaskImageOptionFeet && self.imageOption != ORKPredefinedTaskImageOptionBoth) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
                                        reason:ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_IMAGE_OPTION_ERROR", nil)
@@ -97,6 +102,7 @@
     step.numberOfAttempts = self.numberOfAttempts;
     step.minimumStimulusInterval = self.minimumStimulusInterval;
     step.maximumStimulusInterval = self.maximumStimulusInterval;
+    step.timeout = self.timeout;
     step.imageOption = self.imageOption;
     return step;
 }
@@ -107,6 +113,7 @@
         ORK_DECODE_INTEGER(aDecoder, numberOfAttempts);
         ORK_DECODE_DOUBLE(aDecoder, minimumStimulusInterval);
         ORK_DECODE_DOUBLE(aDecoder, maximumStimulusInterval);
+        ORK_DECODE_DOUBLE(aDecoder, timeout);
         ORK_DECODE_ENUM(aDecoder, imageOption);
     }
     return self;
@@ -117,6 +124,7 @@
     ORK_ENCODE_INTEGER(aCoder, numberOfAttempts);
     ORK_ENCODE_DOUBLE(aCoder, minimumStimulusInterval);
     ORK_ENCODE_DOUBLE(aCoder, maximumStimulusInterval);
+    ORK_ENCODE_DOUBLE(aCoder, timeout);
     ORK_ENCODE_ENUM(aCoder, imageOption);
 }
 
@@ -128,6 +136,7 @@
             (self.numberOfAttempts == castObject.numberOfAttempts) &&
             (self.minimumStimulusInterval == castObject.minimumStimulusInterval) &&
             (self.maximumStimulusInterval == castObject.maximumStimulusInterval) &&
+            (self.timeout == castObject.timeout) &&
             (self.imageOption == castObject.imageOption));
 }
 

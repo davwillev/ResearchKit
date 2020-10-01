@@ -2784,7 +2784,6 @@
 		86C40AF91A8D7C5B00081FAC /* Active Tasks */ = {
 			isa = PBXGroup;
 			children = (
-				618AA6CE252491DE0090A993 /* Left Right Judgement */,
 				5157808A22984C280058FF6C /* Vision Tasks */,
 				65E36367217726AF00AEE2F6 /* Touch Ability */,
 				5175144B2459EBD3009E8FFC /* 3D Model */,
@@ -2796,6 +2795,7 @@
 				2E80C1AB1FA2B2CC00399A0C /* SpeechRecognition */,
 				B12EFF5D1AB2177700A80147 /* Fitness */,
 				106FF29B1B663F5C004EACF2 /* Hole Peg Test */,
+				618AA6CE252491DE0090A993 /* Left Right Judgement */,
 				10864C951B271456000F4158 /* PSAT */,
 				95E25CF71D39FB240089C0B8 /* Range of Motion */,
 				25ECC0921AFBD64800F3D63B /* Reaction Time */,
