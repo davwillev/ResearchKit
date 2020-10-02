@@ -144,12 +144,14 @@
 }
 
 - (void)timeoutTimerDidFire {
+    NSString *sidePresented = [self sidePresented];
+    [self calculateMeansAndStandardDeviations:sidePresented];
+    [self calculatePercentages:sidePresented];
     NSString *view = [self viewPresented];
     NSString *orientation = [self orientationPresented];
     NSInteger rotation = [self rotationPresented];
-    NSString *sidePresented = [self sidePresented];
     NSString *sideSelected = @"None";
-    double duration = [self reactionTime];
+    double duration = [self reactionTime]; // TODO: do we want this to be the timeout duration?
     _validResult = NO;
     _timedOut = YES;
     _match = NO;
@@ -190,48 +192,12 @@
 - (void)buttonPressed:(id)sender {
     if (!(self.leftRightJudgementContentView.imageToDisplay == [UIImage imageNamed:@" "])) {
         [self setButtonsDisabled];
-        _validResult = YES;
         [_timeoutTimer invalidate];
+        _validResult = YES;
         _timedOut = NO;
         NSString *sidePresented = [self sidePresented];
+        [self calculateMeansAndStandardDeviations:sidePresented];
         double duration = [self reactionTime];
-        [self calculateMeanAndStandardDeviation];
-        
-        /*
-        // analyse durations for each side presented separately
-        if ([sidePresented isEqualToString: @"Left"]) {
-            // calculate mean and unbiased standard deviation of duration (using Welford's algorithm: Welford. (1962) Technometrics 4(3), 419-420)
-            if (_leftCount == 1) {
-                _prevMl = _newMl = duration;
-                _prevSl = 0;
-            } else {
-                _newMl = _prevMl + (duration - _prevMl) / _leftCount;
-                _newSl += _prevSl + (duration - _prevMl) * (duration - _newMl);
-                _prevMl = _newMl;
-            }
-            _meanLeftDuration = (_leftCount > 0) ? _newMl : 0;
-            _varianceLeftDuration = ((_leftCount > 1) ? _newSl / (_leftCount - 1) : 0);
-            if (_varianceLeftDuration > 0) {
-                _stdLeftDuration = sqrt(_varianceLeftDuration);
-            }
-        } else if ([sidePresented isEqualToString: @"Right"]) {
-            // use Welford's algorithm
-            if (_rightCount == 1) {
-                _prevMr = _newMr = duration;
-                _prevSr = 0;
-            } else {
-                _newMr = _prevMr + (duration - _prevMr) / _rightCount;
-                _newSr += _prevSr + (duration - _prevMr) * (duration - _newMr);
-                _prevMr = _newMr;
-            }
-            _meanRightDuration = (_rightCount > 0) ? _newMr : 0;
-            _varianceRightDuration = ((_rightCount > 1) ? _newSr / (_rightCount - 1) : 0);
-            if (_varianceRightDuration > 0) {
-                _stdRightDuration = sqrt(_varianceRightDuration);
-            }
-        }
-        */
-        
         NSString *view = [self viewPresented];
         NSString *orientation = [self orientationPresented];
         NSInteger rotation = [self rotationPresented];
@@ -240,31 +206,36 @@
         if (sender == self.leftRightJudgementContentView.leftButton) {
             sideSelected = @"Left";
             _match = ([sidePresented isEqualToString:sideSelected]) ? YES : NO;
-            _leftSumCorrect = (_match) ? _leftSumCorrect + 1 : _leftSumCorrect;
-            if (_leftCount > 0) { // prevent zero denominator
-                _leftPercentCorrect = (100 * _leftSumCorrect) / _leftCount;
-            }
             [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
         }
         else if (sender == self.leftRightJudgementContentView.rightButton) {
             sideSelected = @"Right";
             _match = ([sidePresented isEqualToString:sideSelected]) ? YES : NO;
-            _rightSumCorrect = (_match) ? _rightSumCorrect + 1 : _rightSumCorrect;
-            if (_rightCount > 0) { // prevent zero denominator
-                _rightPercentCorrect = (100 * _rightSumCorrect) / _rightCount;
-            }
             [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
         }
+    [self calculatePercentages:sidePresented];
     [self startStimulusInterval];
     }
 }
 
-- (void)calculateMeanAndStandardDeviation {
-    NSString *sidePresented = [self sidePresented];
+-(void)calculatePercentages:(NSString *)sidePresented {
+    if ([sidePresented isEqualToString:@"Left"] && _match == YES) {
+        _leftSumCorrect = (_match) ? _leftSumCorrect + 1 : _leftSumCorrect;
+        if (_leftCount > 0) { // prevent zero denominator
+            _leftPercentCorrect = (100 * _leftSumCorrect) / _leftCount;
+        }
+    } else if ([sidePresented isEqualToString:@"Right"] && _match == YES) {
+        _rightSumCorrect = (_match) ? _rightSumCorrect + 1 : _rightSumCorrect;
+        if (_rightCount > 0) { // prevent zero denominator
+            _rightPercentCorrect = (100 * _rightSumCorrect) / _rightCount;
+        }
+    }
+}
+
+-(void)calculateMeansAndStandardDeviations:(NSString *)sidePresented {
     double duration = [self reactionTime];
-    // analyse durations for each side presented separately
+    // // calculate mean and unbiased standard deviation of duration (using Welford's algorithm: Welford. (1962) Technometrics 4(3), 419-420)
     if ([sidePresented isEqualToString: @"Left"]) {
-        // calculate mean and unbiased standard deviation of duration (using Welford's algorithm: Welford. (1962) Technometrics 4(3), 419-420)
         if (_leftCount == 1) {
             _prevMl = _newMl = duration;
             _prevSl = 0;
@@ -279,7 +250,6 @@
             _stdLeftDuration = sqrt(_varianceLeftDuration);
         }
     } else if ([sidePresented isEqualToString: @"Right"]) {
-        // use Welford's algorithm
         if (_rightCount == 1) {
             _prevMr = _newMr = duration;
             _prevSr = 0;
