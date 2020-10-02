@@ -55,7 +55,7 @@
     
     NSMutableArray *_results;
     NSTimeInterval _startTime;
-    NSTimer *_stimulusTimer;
+    NSTimer *_stimulusIntervalTimer;
     NSTimer *_timeoutTimer;
     NSArray *_imageQueue;
     NSArray *_imagePaths;
@@ -132,17 +132,6 @@
     [self.activeStepView updateTitle:ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil) text:text];
 }
 
-- (void)startInterval {
-    // remove image and count from screen
-    self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@" "];
-    [self removeCountText];
-    _stimulusTimer = [NSTimer scheduledTimerWithTimeInterval:[self stimulusInterval]
-                                                          target:self
-                                                        selector:@selector(startNextQuestionOrFinish)
-                                                        userInfo:nil
-                                                         repeats:NO];
-}
-
 - (void)startTimeoutTimer {
     NSTimeInterval timeout = [self leftRightJudgementStep].timeout;
     if (timeout > 0) {
@@ -155,22 +144,60 @@
 }
 
 - (void)timeoutTimerDidFire {
+    NSString *view = [self viewPresented];
+    NSString *orientation = [self orientationPresented];
+    NSInteger rotation = [self rotationPresented];
+    NSString *sidePresented = [self sidePresented];
+    NSString *sideSelected = @"None";
+    double duration = [self reactionTime];
     _validResult = NO;
     _timedOut = YES;
-    // remove image and count from screen
+    _match = NO;
+    [self startStimulusInterval];
+    [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
+}
+
+- (void)startStimulusInterval {
     self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@" "];
-    [self startInterval];
+    [self removeCountText];
+    _stimulusIntervalTimer = [NSTimer scheduledTimerWithTimeInterval:[self stimulusInterval]
+                                                          target:self
+                                                        selector:@selector(startNextQuestionOrFinish)
+                                                        userInfo:nil
+                                                         repeats:NO];
+}
+
+- (NSTimeInterval)stimulusInterval {
+    NSTimeInterval timeInterval;
+    ORKLeftRightJudgementStep *step = [self leftRightJudgementStep];
+    NSTimeInterval range = step.maximumStimulusInterval - step.minimumStimulusInterval;
+    NSTimeInterval randomFactor = (arc4random_uniform(range * 1000) + 1); // non-zero random number of milliseconds between min/max limits
+    if (range == 0 || step.maximumStimulusInterval == step.minimumStimulusInterval ||
+        _imageCount == step.numberOfAttempts) { // use min interval after last image
+        timeInterval = step.minimumStimulusInterval;
+    } else {
+        timeInterval = (randomFactor / 1000) + step.minimumStimulusInterval; // in seconds
+    }
+    return timeInterval;
+}
+
+- (NSTimeInterval)reactionTime {
+    NSTimeInterval endTime = [NSProcessInfo processInfo].systemUptime;
+    double duration = (endTime - _startTime);
+    return duration;
 }
  
 - (void)buttonPressed:(id)sender {
     if (!(self.leftRightJudgementContentView.imageToDisplay == [UIImage imageNamed:@" "])) {
         [self setButtonsDisabled];
         _validResult = YES;
+        [_timeoutTimer invalidate];
         _timedOut = NO;
         NSString *sidePresented = [self sidePresented];
-        NSTimeInterval endTime = [NSProcessInfo processInfo].systemUptime;
-        double duration = (endTime - _startTime);
+        double duration = [self reactionTime];
+        [self calculateMeanAndStandardDeviation];
         
+        /*
         // analyse durations for each side presented separately
         if ([sidePresented isEqualToString: @"Left"]) {
             // calculate mean and unbiased standard deviation of duration (using Welford's algorithm: Welford. (1962) Technometrics 4(3), 419-420)
@@ -203,6 +230,8 @@
                 _stdRightDuration = sqrt(_varianceRightDuration);
             }
         }
+        */
+        
         NSString *view = [self viewPresented];
         NSString *orientation = [self orientationPresented];
         NSInteger rotation = [self rotationPresented];
@@ -226,22 +255,45 @@
             }
             [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
         }
-    [self startInterval];
+    [self startStimulusInterval];
     }
 }
 
-- (NSTimeInterval)stimulusInterval {
-    NSTimeInterval timeInterval;
-    ORKLeftRightJudgementStep *step = [self leftRightJudgementStep];
-    NSTimeInterval range = step.maximumStimulusInterval - step.minimumStimulusInterval;
-    NSTimeInterval randomFactor = (arc4random_uniform(range * 1000) + 1); // non-zero random number of milliseconds between min/max limits
-    if (range == 0 || step.maximumStimulusInterval == step.minimumStimulusInterval ||
-        _imageCount == step.numberOfAttempts) { // use min interval after last image
-        timeInterval = step.minimumStimulusInterval;
-    } else {
-        timeInterval = (randomFactor / 1000) + step.minimumStimulusInterval; // in seconds
+- (void)calculateMeanAndStandardDeviation {
+    NSString *sidePresented = [self sidePresented];
+    double duration = [self reactionTime];
+    // analyse durations for each side presented separately
+    if ([sidePresented isEqualToString: @"Left"]) {
+        // calculate mean and unbiased standard deviation of duration (using Welford's algorithm: Welford. (1962) Technometrics 4(3), 419-420)
+        if (_leftCount == 1) {
+            _prevMl = _newMl = duration;
+            _prevSl = 0;
+        } else {
+            _newMl = _prevMl + (duration - _prevMl) / _leftCount;
+            _newSl += _prevSl + (duration - _prevMl) * (duration - _newMl);
+            _prevMl = _newMl;
+        }
+        _meanLeftDuration = (_leftCount > 0) ? _newMl : 0;
+        _varianceLeftDuration = ((_leftCount > 1) ? _newSl / (_leftCount - 1) : 0);
+        if (_varianceLeftDuration > 0) {
+            _stdLeftDuration = sqrt(_varianceLeftDuration);
+        }
+    } else if ([sidePresented isEqualToString: @"Right"]) {
+        // use Welford's algorithm
+        if (_rightCount == 1) {
+            _prevMr = _newMr = duration;
+            _prevSr = 0;
+        } else {
+            _newMr = _prevMr + (duration - _prevMr) / _rightCount;
+            _newSr += _prevSr + (duration - _prevMr) * (duration - _newMr);
+            _prevMr = _newMr;
+        }
+        _meanRightDuration = (_rightCount > 0) ? _newMr : 0;
+        _varianceRightDuration = ((_rightCount > 1) ? _newSr / (_rightCount - 1) : 0);
+        if (_varianceRightDuration > 0) {
+            _stdRightDuration = sqrt(_varianceRightDuration);
+        }
     }
-    return timeInterval;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -628,6 +680,7 @@
 }
 
 - (void)startQuestion {
+    [_stimulusIntervalTimer invalidate];
     UIImage *image = [self nextImageInQueue];
     self.leftRightJudgementContentView.imageToDisplay = image;
     [self configureTitleAndText];
