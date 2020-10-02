@@ -53,9 +53,10 @@
 
 @implementation ORKLeftRightJudgementStepViewController {
     
-    NSTimer *_nextQuestionTimer;
     NSMutableArray *_results;
     NSTimeInterval _startTime;
+    NSTimer *_stimulusTimer;
+    NSTimer *_timeoutTimer;
     NSArray *_imageQueue;
     NSArray *_imagePaths;
     NSInteger _imageCount;
@@ -80,6 +81,8 @@
     double _prevSr;
     double _newSr;
     BOOL _match;
+    BOOL _timedOut;
+    BOOL _validResult;
 }
 
 - (instancetype)initWithStep:(ORKStep *)step {
@@ -112,10 +115,58 @@
                                        action:@selector(buttonPressed:)
                              forControlEvents:UIControlEventTouchUpInside];
 }
+
+- (void)configureTitleAndText {
+    NSString *count = [NSString stringWithFormat:
+                       ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_IMAGE_COUNT", nil),
+                       ORKLocalizedStringFromNumber(@(_imageCount)),
+                       ORKLocalizedStringFromNumber(@([self leftRightJudgementStep].numberOfAttempts))];
+    NSString *instruction = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
+    NSString *text = [NSString stringWithFormat:@"%@\n\n%@", instruction, count];
+    [self.activeStepView updateTitle:ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil) text:text];
+}
+
+- (void)removeCountText {
+    NSString *instruction = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
+    NSString *text = [NSString stringWithFormat:@"%@\n\n%@", instruction, @""];
+    [self.activeStepView updateTitle:ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil) text:text];
+}
+
+- (void)startInterval {
+    // remove image and count from screen
+    self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@" "];
+    [self removeCountText];
+    _stimulusTimer = [NSTimer scheduledTimerWithTimeInterval:[self stimulusInterval]
+                                                          target:self
+                                                        selector:@selector(startNextQuestionOrFinish)
+                                                        userInfo:nil
+                                                         repeats:NO];
+}
+
+- (void)startTimeoutTimer {
+    NSTimeInterval timeout = [self leftRightJudgementStep].timeout;
+    if (timeout > 0) {
+        _timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:timeout
+                                                         target:self
+                                                       selector:@selector(timeoutTimerDidFire)
+                                                       userInfo:nil
+                                                        repeats:NO];
+    }
+}
+
+- (void)timeoutTimerDidFire {
+    _validResult = NO;
+    _timedOut = YES;
+    // remove image and count from screen
+    self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@" "];
+    [self startInterval];
+}
  
 - (void)buttonPressed:(id)sender {
     if (!(self.leftRightJudgementContentView.imageToDisplay == [UIImage imageNamed:@" "])) {
         [self setButtonsDisabled];
+        _validResult = YES;
+        _timedOut = NO;
         NSString *sidePresented = [self sidePresented];
         NSTimeInterval endTime = [NSProcessInfo processInfo].systemUptime;
         double duration = (endTime - _startTime);
@@ -175,13 +226,7 @@
             }
             [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
         }
-    self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@" "];
-
-    _nextQuestionTimer = [NSTimer scheduledTimerWithTimeInterval:[self stimulusInterval]
-                                                          target:self
-                                                        selector:@selector(startNextQuestionOrFinish)
-                                                        userInfo:nil
-                                                         repeats:NO];
+    [self startInterval];
     }
 }
 
@@ -585,7 +630,9 @@
 - (void)startQuestion {
     UIImage *image = [self nextImageInQueue];
     self.leftRightJudgementContentView.imageToDisplay = image;
+    [self configureTitleAndText];
     [self setButtonsEnabled];
+    [self startTimeoutTimer];
     _startTime = [NSProcessInfo processInfo].systemUptime;
 }
 

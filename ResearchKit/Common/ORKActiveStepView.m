@@ -57,6 +57,10 @@
     self.stepText = text;
 }
 
+- (void)updateText:(NSString *)text {
+    self.stepText = text;
+}
+
 - (void)setActiveCustomView:(ORKActiveStepCustomView *)activeCustomView {
     _activeCustomView = activeCustomView;
     if (_activeCustomView) {
