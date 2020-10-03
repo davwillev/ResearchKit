@@ -124,6 +124,7 @@
     NSString *instruction = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
     NSString *text = [NSString stringWithFormat:@"%@\n\n%@", instruction, count];
     [self.activeStepView updateTitle:ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil) text:text];
+    // TODO: use task factory (hand or foot) to set text
 }
 
 - (void)removeCountText {
@@ -144,19 +145,19 @@
 }
 
 - (void)timeoutTimerDidFire {
+    double duration = [self reactionTime];
     NSString *sidePresented = [self sidePresented];
-    [self calculateMeansAndStandardDeviations:sidePresented];
-    [self calculatePercentages:sidePresented];
     NSString *view = [self viewPresented];
     NSString *orientation = [self orientationPresented];
     NSInteger rotation = [self rotationPresented];
     NSString *sideSelected = @"None";
-    double duration = [self reactionTime]; // TODO: do we want this to be the timeout duration?
     _validResult = NO;
     _timedOut = YES;
     _match = NO;
     [self startStimulusInterval];
     [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
+    [self calculatePercentages:sidePresented];
+    [self calculateMeansAndStandardDeviations:sidePresented ofDuration:duration forMatches:_match]; // TODO: not needed here unless means & SDs of timeouts should be added to mean/SD method
 }
 
 - (void)startStimulusInterval {
@@ -193,11 +194,10 @@
     if (!(self.leftRightJudgementContentView.imageToDisplay == [UIImage imageNamed:@" "])) {
         [self setButtonsDisabled];
         [_timeoutTimer invalidate];
+        double duration = [self reactionTime];
         _validResult = YES;
         _timedOut = NO;
         NSString *sidePresented = [self sidePresented];
-        [self calculateMeansAndStandardDeviations:sidePresented];
-        double duration = [self reactionTime];
         NSString *view = [self viewPresented];
         NSString *orientation = [self orientationPresented];
         NSInteger rotation = [self rotationPresented];
@@ -214,11 +214,12 @@
             [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
         }
     [self calculatePercentages:sidePresented];
+    [self calculateMeansAndStandardDeviations:sidePresented ofDuration: duration forMatches:_match];
     [self startStimulusInterval];
     }
 }
 
--(void)calculatePercentages:(NSString *)sidePresented {
+- (void)calculatePercentages:(NSString *)sidePresented {
     if ([sidePresented isEqualToString:@"Left"] && _match == YES) {
         _leftSumCorrect = (_match) ? _leftSumCorrect + 1 : _leftSumCorrect;
         if (_leftCount > 0) { // prevent zero denominator
@@ -232,34 +233,33 @@
     }
 }
 
--(void)calculateMeansAndStandardDeviations:(NSString *)sidePresented {
-    double duration = [self reactionTime];
-    // // calculate mean and unbiased standard deviation of duration (using Welford's algorithm: Welford. (1962) Technometrics 4(3), 419-420)
-    if ([sidePresented isEqualToString: @"Left"]) {
-        if (_leftCount == 1) {
+- (void)calculateMeansAndStandardDeviations:(NSString *)sidePresented ofDuration:(NSTimeInterval)duration forMatches:(BOOL)match {
+    // calculate mean and unbiased standard deviation of duration for correct matches only (using Welford's algorithm: Welford. (1962) Technometrics 4(3), 419-420)
+    if ([sidePresented isEqualToString: @"Left"] && match == YES) {
+        if (_leftSumCorrect == 1) {
             _prevMl = _newMl = duration;
             _prevSl = 0;
         } else {
-            _newMl = _prevMl + (duration - _prevMl) / _leftCount;
+            _newMl = _prevMl + (duration - _prevMl) / _leftSumCorrect;
             _newSl += _prevSl + (duration - _prevMl) * (duration - _newMl);
             _prevMl = _newMl;
         }
-        _meanLeftDuration = (_leftCount > 0) ? _newMl : 0;
-        _varianceLeftDuration = ((_leftCount > 1) ? _newSl / (_leftCount - 1) : 0);
+        _meanLeftDuration = (_leftSumCorrect > 0) ? _newMl : 0;
+        _varianceLeftDuration = ((_leftSumCorrect > 1) ? _newSl / (_leftSumCorrect - 1) : 0);
         if (_varianceLeftDuration > 0) {
             _stdLeftDuration = sqrt(_varianceLeftDuration);
         }
-    } else if ([sidePresented isEqualToString: @"Right"]) {
-        if (_rightCount == 1) {
+    } else if ([sidePresented isEqualToString: @"Right"] && match == YES) {
+        if (_rightSumCorrect == 1) {
             _prevMr = _newMr = duration;
             _prevSr = 0;
         } else {
-            _newMr = _prevMr + (duration - _prevMr) / _rightCount;
+            _newMr = _prevMr + (duration - _prevMr) / _rightSumCorrect;
             _newSr += _prevSr + (duration - _prevMr) * (duration - _newMr);
             _prevMr = _newMr;
         }
-        _meanRightDuration = (_rightCount > 0) ? _newMr : 0;
-        _varianceRightDuration = ((_rightCount > 1) ? _newSr / (_rightCount - 1) : 0);
+        _meanRightDuration = (_rightSumCorrect > 0) ? _newMr : 0;
+        _varianceRightDuration = ((_rightSumCorrect > 1) ? _newSr / (_rightSumCorrect - 1) : 0);
         if (_varianceRightDuration > 0) {
             _stdRightDuration = sqrt(_varianceRightDuration);
         }
