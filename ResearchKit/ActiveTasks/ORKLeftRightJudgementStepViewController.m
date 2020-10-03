@@ -105,7 +105,7 @@
     [super viewDidLoad];
     _results = [NSMutableArray new];
     self.questionNumber = 0;
-    [self configureTitleWithoutCount];
+    [self configureTextWithoutCount];
     _leftRightJudgementContentView = [ORKLeftRightJudgementContentView new];
     self.activeStepView.activeCustomView = _leftRightJudgementContentView;
     [self.leftRightJudgementContentView.leftButton addTarget:self
@@ -116,7 +116,7 @@
                              forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)configureTitleWithCount {
+- (void)configureTextWithCount {
     NSString *count = [NSString stringWithFormat:
                        ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_IMAGE_COUNT", nil),
                        ORKLocalizedStringFromNumber(@(_imageCount)),
@@ -128,10 +128,10 @@
         instruction= ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_FOOT", nil);
     }
     NSString *text = [NSString stringWithFormat:@"%@\n\n%@", instruction, count];
-    [self.activeStepView updateTitle:ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil) text:text];
+    [self.activeStepView updateText:text];
 }
 
-- (void)configureTitleWithoutCount {
+- (void)configureTextWithoutCount {
     NSString *instruction;
     if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionHands) {
         instruction= ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
@@ -139,7 +139,7 @@
         instruction= ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_FOOT", nil);
     }
     NSString *text = [NSString stringWithFormat:@"%@\n\n%@", instruction, @""];
-    [self.activeStepView updateTitle:ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil) text:text];
+    [self.activeStepView updateText:text];
 }
 
 - (void)startTimeoutTimer {
@@ -170,7 +170,7 @@
 
 - (void)startStimulusInterval {
     self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@" "];
-    [self configureTitleWithoutCount];
+    [self configureTextWithoutCount];
     _stimulusIntervalTimer = [NSTimer scheduledTimerWithTimeInterval:[self stimulusInterval]
                                                           target:self
                                                         selector:@selector(startNextQuestionOrFinish)
@@ -666,7 +666,7 @@
     [_stimulusIntervalTimer invalidate];
     UIImage *image = [self nextImageInQueue];
     self.leftRightJudgementContentView.imageToDisplay = image;
-    [self configureTitleWithCount];
+    [self configureTextWithCount];
     [self setButtonsEnabled];
     [self startTimeoutTimer];
     _startTime = [NSProcessInfo processInfo].systemUptime;
