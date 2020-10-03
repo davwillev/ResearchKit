@@ -160,8 +160,9 @@
     NSString *orientation = [self orientationPresented];
     NSInteger rotation = [self rotationPresented];
     NSString *sideSelected = @"None";
+    _match = NO;
     _timedOut = YES;
-    _timedOutCount++;    _match = NO;
+    _timedOutCount++;
     [self startStimulusInterval];
     [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
     [self calculatePercentages:sidePresented];
