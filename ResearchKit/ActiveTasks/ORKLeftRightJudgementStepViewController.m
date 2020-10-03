@@ -84,7 +84,6 @@
     double _newSr;
     BOOL _match;
     BOOL _timedOut;
-    BOOL _validResult; // needed?
 }
 
 - (instancetype)initWithStep:(ORKStep *)step {
@@ -106,10 +105,9 @@
     [super viewDidLoad];
     _results = [NSMutableArray new];
     self.questionNumber = 0;
-    
+    [self configureTitleWithoutCount];
     _leftRightJudgementContentView = [ORKLeftRightJudgementContentView new];
     self.activeStepView.activeCustomView = _leftRightJudgementContentView;
-    
     [self.leftRightJudgementContentView.leftButton addTarget:self
                                        action:@selector(buttonPressed:)
                              forControlEvents:UIControlEventTouchUpInside];
@@ -118,19 +116,28 @@
                              forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)configureTitleAndText {
+- (void)configureTitleWithCount {
     NSString *count = [NSString stringWithFormat:
                        ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_IMAGE_COUNT", nil),
                        ORKLocalizedStringFromNumber(@(_imageCount)),
                        ORKLocalizedStringFromNumber(@([self leftRightJudgementStep].numberOfAttempts))];
-    NSString *instruction = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
+    NSString *instruction;
+    if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionHands) {
+        instruction= ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
+    } else if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionFeet) {
+        instruction= ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_FOOT", nil);
+    }
     NSString *text = [NSString stringWithFormat:@"%@\n\n%@", instruction, count];
     [self.activeStepView updateTitle:ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil) text:text];
-    // TODO: use task factory (hand or foot) to set text
 }
 
-- (void)removeCountText {
-    NSString *instruction = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
+- (void)configureTitleWithoutCount {
+    NSString *instruction;
+    if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionHands) {
+        instruction= ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
+    } else if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionFeet) {
+        instruction= ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_FOOT", nil);
+    }
     NSString *text = [NSString stringWithFormat:@"%@\n\n%@", instruction, @""];
     [self.activeStepView updateTitle:ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil) text:text];
 }
@@ -154,18 +161,16 @@
     NSInteger rotation = [self rotationPresented];
     NSString *sideSelected = @"None";
     _timedOut = YES;
-    _timedOutCount++;
-    _validResult = NO; // needed?
-    _match = NO;
+    _timedOutCount++;    _match = NO;
     [self startStimulusInterval];
     [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
     [self calculatePercentages:sidePresented];
-    [self calculateMeansAndStandardDeviations:sidePresented ofDuration:duration forMatches:_match]; // TODO: not needed here unless means & SDs of timeouts should be added to mean/SD method
+    //[self calculateMeansAndStandardDeviations:sidePresented ofDuration:duration forMatches:_match]; // TODO: add mean/SDs of timeouts to mean/SD method?
 }
 
 - (void)startStimulusInterval {
     self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@" "];
-    [self removeCountText];
+    [self configureTitleWithoutCount];
     _stimulusIntervalTimer = [NSTimer scheduledTimerWithTimeInterval:[self stimulusInterval]
                                                           target:self
                                                         selector:@selector(startNextQuestionOrFinish)
@@ -179,7 +184,7 @@
     NSTimeInterval range = step.maximumStimulusInterval - step.minimumStimulusInterval;
     NSTimeInterval randomFactor = (arc4random_uniform(range * 1000) + 1); // non-zero random number of milliseconds between min/max limits
     if (range == 0 || step.maximumStimulusInterval == step.minimumStimulusInterval ||
-        _imageCount == step.numberOfAttempts) { // use min interval after last image
+        _imageCount == step.numberOfAttempts) { // use min interval after last image of set
         timeInterval = step.minimumStimulusInterval;
     } else {
         timeInterval = (randomFactor / 1000) + step.minimumStimulusInterval; // in seconds
@@ -198,7 +203,6 @@
         [self setButtonsDisabled];
         [_timeoutTimer invalidate];
         _timedOut = NO;
-        _validResult = YES; // needed?
         double duration = [self reactionTime];
         NSString *sidePresented = [self sidePresented];
         NSString *view = [self viewPresented];
@@ -662,7 +666,7 @@
     [_stimulusIntervalTimer invalidate];
     UIImage *image = [self nextImageInQueue];
     self.leftRightJudgementContentView.imageToDisplay = image;
-    [self configureTitleAndText];
+    [self configureTitleWithCount];
     [self setButtonsEnabled];
     [self startTimeoutTimer];
     _startTime = [NSProcessInfo processInfo].systemUptime;
