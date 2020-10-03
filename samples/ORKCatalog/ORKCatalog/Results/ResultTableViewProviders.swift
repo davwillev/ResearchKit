@@ -811,6 +811,7 @@ class LeftRightJudgementResultTableViewProvider: ResultTableViewProvider {
             ResultRow(text: "Task Results:", detail: ""), // header
             ResultRow(text: "Left Images", detail: leftRightJudgementResult.leftImages),
             ResultRow(text: "Right Images", detail: leftRightJudgementResult.rightImages),
+            ResultRow(text: "Percent Timed Out", detail: leftRightJudgementResult.percentTimedOut),
             ResultRow(text: "Left Percent Correct", detail: leftRightJudgementResult.leftPercentCorrect),
             ResultRow(text: "Right Percent Correct", detail: leftRightJudgementResult.rightPercentCorrect),
             ResultRow(text: "Left Mean Reaction Time", detail: leftRightJudgementResult.leftMeanReactionTime),
@@ -826,7 +827,8 @@ class LeftRightJudgementResultTableViewProvider: ResultTableViewProvider {
             ResultRow(text: "Rotation", detail: leftRightJudgementResult.rotationPresented),
             ResultRow(text: "Side Presented", detail: leftRightJudgementResult.sidePresented),
             ResultRow(text: "Side Selected", detail: leftRightJudgementResult.sideSelected),
-            ResultRow(text: "Correct Match", detail: leftRightJudgementResult.sideMatch)
+            ResultRow(text: "Correct Match", detail: leftRightJudgementResult.sideMatch),
+            ResultRow(text: "Timed Out", detail: leftRightJudgementResult.timedOut)
         ]
     }
 }

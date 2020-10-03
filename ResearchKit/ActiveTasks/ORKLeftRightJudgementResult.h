@@ -107,9 +107,14 @@ The `leftPercentCorrect` property is the percentage of correct 'sideMatch' answe
 @property (nonatomic, assign) double leftPercentCorrect;
 
 /**
-The `rightPercentCorrect` property is the percentage of correct 'sideMatch' answers reactionTime (in seconds) for all images in the task so far where sidePresented value was 'Right'. This updates with every image presented in the set.
+The `rightPercentCorrect` property is the percentage of correct 'sideMatch' answers for all images in the task so far where sidePresented value was 'Right'. This updates with every image presented in the set.
 */
 @property (nonatomic, assign) double rightPercentCorrect;
+
+/**
+The `timedOutPercent` property is the percentage of attempts in the task so far where 'timedOut' value was YES. This updates with every image presented in the set.
+*/
+@property (nonatomic, assign) double percentTimedOut;
 
 /**
  The `leftMeanReactionTime` property is the mean (average) of reactionTime (in seconds) for all images in the task so far where sidePresented value was 'Left' and sideMatch value was YES (i.e. correct matches only). This updates with every image presented in the set.

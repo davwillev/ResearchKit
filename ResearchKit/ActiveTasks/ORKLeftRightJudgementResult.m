@@ -44,6 +44,7 @@
     ORK_ENCODE_DOUBLE(aCoder, leftSDReactionTime);
     ORK_ENCODE_DOUBLE(aCoder, rightSDReactionTime);
     ORK_ENCODE_BOOL(aCoder, sideMatch);
+    ORK_ENCODE_BOOL(aCoder, timedOut);
     ORK_ENCODE_INTEGER(aCoder, imageNumber);
     ORK_ENCODE_INTEGER(aCoder, leftImages);
     ORK_ENCODE_INTEGER(aCoder, rightImages);
@@ -66,6 +67,7 @@
         ORK_DECODE_DOUBLE(aDecoder, leftSDReactionTime);
         ORK_DECODE_DOUBLE(aDecoder, rightSDReactionTime);
         ORK_DECODE_BOOL(aDecoder, sideMatch);
+        ORK_DECODE_BOOL(aDecoder, timedOut);
         ORK_DECODE_INTEGER(aDecoder, imageNumber);
         ORK_DECODE_INTEGER(aDecoder, leftImages);
         ORK_DECODE_INTEGER(aDecoder, rightImages);
@@ -96,6 +98,7 @@
             (self.leftSDReactionTime == castObject.leftSDReactionTime) &&
             (self.rightSDReactionTime == castObject.rightSDReactionTime) &&
             (self.sideMatch == castObject.sideMatch) &&
+            (self.timedOut == castObject.timedOut) &&
             (self.imageNumber == castObject.imageNumber) &&
             (self.leftImages == castObject.leftImages) &&
             (self.rightImages == castObject.rightImages) &&
@@ -117,6 +120,7 @@
     result.leftSDReactionTime = self.leftSDReactionTime;
     result.rightSDReactionTime = self.rightSDReactionTime;
     result.sideMatch = self.sideMatch;
+    result.timedOut = self.timedOut;
     result.imageNumber = self.imageNumber;
     result.leftImages = self.leftImages;
     result.rightImages = self.rightImages;
@@ -130,7 +134,7 @@
 }
 
 - (NSString *)descriptionWithNumberOfPaddingSpaces:(NSUInteger)numberOfPaddingSpaces {
-    return [NSString stringWithFormat:@"%@; reactionTime: %f; imageNumber: %li; leftImages: %li; rightImages: %li; rotationPresented: %li; leftPercentCorrect: %f; rightPercentCorrect: %f; leftMeanReactionTime: %f; rightMeanReactionTime: %f; leftSDReactionTime: %f; rightSDReactionTime: %f; sideMatch: %d; imageName: %@; viewPresented: %@; orientationPresented: %@; sidePresented: %@; sideSelected: %@ %@", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces], self.reactionTime, self.imageNumber, self.leftImages, self.rightImages, self.rotationPresented, self.leftPercentCorrect, self.rightPercentCorrect, self.leftMeanReactionTime, self.rightMeanReactionTime, self.leftSDReactionTime, self.rightSDReactionTime, self.sideMatch, self.imageName, self.orientationPresented, self.viewPresented, self.sidePresented, self.sideSelected, self.descriptionSuffix];
+    return [NSString stringWithFormat:@"%@; reactionTime: %f; imageNumber: %li; leftImages: %li; rightImages: %li; rotationPresented: %li; leftPercentCorrect: %f; rightPercentCorrect: %f; leftMeanReactionTime: %f; rightMeanReactionTime: %f; leftSDReactionTime: %f; rightSDReactionTime: %f; sideMatch: %d; timedOut: %d; imageName: %@; viewPresented: %@; orientationPresented: %@; sidePresented: %@; sideSelected: %@ %@", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces], self.reactionTime, self.imageNumber, self.leftImages, self.rightImages, self.rotationPresented, self.leftPercentCorrect, self.rightPercentCorrect, self.leftMeanReactionTime, self.rightMeanReactionTime, self.leftSDReactionTime, self.rightSDReactionTime, self.sideMatch, self.timedOut, self.imageName, self.orientationPresented, self.viewPresented, self.sidePresented, self.sideSelected, self.descriptionSuffix];
 }
 
 

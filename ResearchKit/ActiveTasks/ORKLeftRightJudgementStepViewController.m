@@ -64,6 +64,8 @@
     NSInteger _rightCount;
     NSInteger _leftSumCorrect;
     NSInteger _rightSumCorrect;
+    NSInteger _timedOutCount;
+    double _percentTimedOut;
     double _leftPercentCorrect;
     double _rightPercentCorrect;
     double _meanLeftDuration;
@@ -82,7 +84,7 @@
     double _newSr;
     BOOL _match;
     BOOL _timedOut;
-    BOOL _validResult;
+    BOOL _validResult; // needed?
 }
 
 - (instancetype)initWithStep:(ORKStep *)step {
@@ -151,8 +153,9 @@
     NSString *orientation = [self orientationPresented];
     NSInteger rotation = [self rotationPresented];
     NSString *sideSelected = @"None";
-    _validResult = NO;
     _timedOut = YES;
+    _timedOutCount++;
+    _validResult = NO; // needed?
     _match = NO;
     [self startStimulusInterval];
     [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
@@ -194,9 +197,9 @@
     if (!(self.leftRightJudgementContentView.imageToDisplay == [UIImage imageNamed:@" "])) {
         [self setButtonsDisabled];
         [_timeoutTimer invalidate];
-        double duration = [self reactionTime];
-        _validResult = YES;
         _timedOut = NO;
+        _validResult = YES; // needed?
+        double duration = [self reactionTime];
         NSString *sidePresented = [self sidePresented];
         NSString *view = [self viewPresented];
         NSString *orientation = [self orientationPresented];
@@ -229,6 +232,10 @@
         _rightSumCorrect = (_match) ? _rightSumCorrect + 1 : _rightSumCorrect;
         if (_rightCount > 0) { // prevent zero denominator
             _rightPercentCorrect = (100 * _rightSumCorrect) / _rightCount;
+        }
+    } else if (_timedOut) {
+        if (_imageCount > 0) { // prevent zero denominator
+        _percentTimedOut = (100 * _timedOutCount) / _imageCount;
         }
     }
 }
@@ -628,9 +635,11 @@
     leftRightJudgementResult.sidePresented = sidePresented;
     leftRightJudgementResult.sideSelected = sideSelected;
     leftRightJudgementResult.sideMatch = match;
+    leftRightJudgementResult.timedOut = _timedOut;
     // task results
     leftRightJudgementResult.leftImages = _leftCount;
     leftRightJudgementResult.rightImages = _rightCount;
+    leftRightJudgementResult.percentTimedOut = _percentTimedOut;
     leftRightJudgementResult.leftPercentCorrect = _leftPercentCorrect;
     leftRightJudgementResult.rightPercentCorrect = _rightPercentCorrect;
     leftRightJudgementResult.leftMeanReactionTime = _meanLeftDuration;
