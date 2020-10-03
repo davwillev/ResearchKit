@@ -42,22 +42,12 @@ ORK_CLASS_AVAILABLE
 @interface ORKLeftRightJudgementResult: ORKResult
 
 /**
- The `imageNumber` property is the number (the first of which has the value '1') within the sequence of images presented during the task.
+ The `imageNumber` property is the current number of the image (beginning with '1') presented within the entire sequence of the task.
  */
 @property (nonatomic, assign) NSInteger imageNumber;
 
 /**
- The `leftImages` property is the number of left images presented so far during the task.
- */
-@property (nonatomic, assign) NSInteger leftImages;
-
-/**
- The `rightImages` property is the number of right images presented so far during the task.
- */
-@property (nonatomic, assign) NSInteger rightImages;
-
-/**
- The `imageName` property is the file name of the image presented (without the extension).
+ The `imageName` property is the file name of the image presented (without the .png extension).
  */
 @property (nonatomic, copy) NSString *imageName;
 
@@ -67,7 +57,7 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, copy) NSString *viewPresented;
 
 /**
- The `orientationPresented` property is the relative anatomical description (medial or lateral for hands, ?? or ?? for feet, and neutral for all), of the direction towards which the fingers (hand) or toes (foot) point as presented within the image.
+ The `orientationPresented` property is the relative anatomical description (medial, lateral or neutral), of the direction towards which the fingers (hand) or toes (foot) point, as presented within the image.
  */
 @property (nonatomic, copy) NSString *orientationPresented;
 
@@ -87,15 +77,29 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, copy, nullable) NSString *sideSelected;
 
 /**
- The 'sideMatch' property is a Boolean value indicating whether the value of sideSelected matches that of sidePresented.
- The value of this property is `YES` when there is a match, and `NO` otherwise.
+ The 'sideMatch' property is a Boolean value indicating whether the value of sideSelected matches that of sidePresented. The value of this property is `YES` when there is a match, and `NO` otherwise.
  */
 @property (nonatomic, assign) BOOL sideMatch;
 
 /**
- The `reactionTime` property is the time taken (in seconds) for a response to an image, equal to the difference between timestamps from when the image is displayed to when the button is pressed.
+ The 'timedOut' property is a Boolean value indicating whether the the attempt timed out, based on the value set in the non-zero 'timeout' parameter (in seconds), before a selection was made. The value of this property is `YES` when the timeout value was reached, and `NO` otherwise. When YES, reactionTime values will not contribute to task summaries (means and standard deviations).
+ */
+@property (nonatomic, assign) BOOL timedOut;
+
+/**
+ The `reactionTime` property is the time taken (in seconds) for a response to an image, whether the 'sideMatch' value is YES or NO, equal to the difference between timestamps from when the image is displayed to when the button is pressed.
  */
 @property (nonatomic, assign) double reactionTime;
+
+/**
+ The `leftImages` property is the total number of left images presented so far during the task.
+ */
+@property (nonatomic, assign) NSInteger leftImages;
+
+/**
+ The `rightImages` property is the total number of right images presented so far during the task.
+ */
+@property (nonatomic, assign) NSInteger rightImages;
 
 /**
 The `leftPercentCorrect` property is the percentage of correct 'sideMatch' answers for all images in the task so far where sidePresented value was 'Left'. This updates with every image presented in the set.
@@ -108,12 +112,12 @@ The `rightPercentCorrect` property is the percentage of correct 'sideMatch' answ
 @property (nonatomic, assign) double rightPercentCorrect;
 
 /**
- The `leftMeanReactionTime` property is the mean (average) of reactionTime (in seconds) for all images in the task so far where sidePresented value was 'Left'. This updates with every image presented in the set.
+ The `leftMeanReactionTime` property is the mean (average) of reactionTime (in seconds) for all images in the task so far where sidePresented value was 'Left' and sideMatch value was YES (i.e. correct matches only). This updates with every image presented in the set.
  */
 @property (nonatomic, assign) double leftMeanReactionTime;
 
 /**
- The `rightMeanReactionTime` property is the mean (average) of reactionTime (in seconds) for all images in the task so far where sidePresented value was 'Right'. This updates with every image presented in the set.
+ The `rightMeanReactionTime` property is the mean (average) of reactionTime (in seconds) for all images in the task so far where sidePresented value was 'Right' and sideMatch value was YES (i.e. correct matches only). This updates with every image presented in the set.
  */
 @property (nonatomic, assign) double rightMeanReactionTime;
 
