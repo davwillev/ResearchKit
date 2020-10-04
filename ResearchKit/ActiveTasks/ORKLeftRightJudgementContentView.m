@@ -42,7 +42,7 @@ static const CGFloat buttonStackViewSpacing = 100.0;
 @implementation ORKLeftRightJudgementContentView {
     UIStackView *_buttonStackView;
     UIImageView *_imageView;
-    UILabel *_timeout;
+    UILabel *_timeoutView;
 }
  
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -51,9 +51,9 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     if (self) {
         self.translatesAutoresizingMaskIntoConstraints = NO;
         [self setUpImageView];
+        [self setUpTimeoutView];
         [self setUpButtons];
         [self setUpConstraints];
-        [self addSubview:_timeout];
     }
     return self;
 }
@@ -61,10 +61,22 @@ static const CGFloat buttonStackViewSpacing = 100.0;
 - (void)setUpImageView {
     if (!_imageView) {
         _imageView = [UIImageView new];
-        //_imageView.contentMode = UIViewContentModeScaleAspectFit;
         _imageView.contentMode = UIViewContentModeCenter;
         _imageView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_imageView];
+    }
+}
+
+- (void)setUpTimeoutView {
+    if (!_timeoutView) {
+        _timeoutView = [UILabel new];
+        _timeoutView.numberOfLines = 1;
+        _timeoutView.textAlignment = NSTextAlignmentCenter;
+        [_timeoutView setTextColor:[UIColor blueColor]];
+        [_timeoutView setFont:[UIFont systemFontOfSize:30]];
+        [_timeoutView setAdjustsFontSizeToFitWidth:YES];
+        _timeoutView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addSubview:_timeoutView];
     }
 }
 
@@ -94,7 +106,7 @@ static const CGFloat buttonStackViewSpacing = 100.0;
 }
 
 - (void)setTimeoutText:(NSString *)timeoutText {
-    [_timeout setText:timeoutText];
+    [_timeoutView setText:timeoutText];
     [self setNeedsDisplay];
 }
 
@@ -103,7 +115,7 @@ static const CGFloat buttonStackViewSpacing = 100.0;
 }
 
 - (NSString *)timeoutText {
-    return _timeout.text;
+    return _timeoutView.text;
 }
 
 - (void)setUpConstraints {

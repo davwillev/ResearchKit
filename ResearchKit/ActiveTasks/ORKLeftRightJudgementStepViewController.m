@@ -170,10 +170,10 @@
 }
 
 -(void)displayTimeoutNotification {
-    [self clearImageAndCount];
+    self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@""];
     NSString *text = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TIMEOUT_NOTIFIFCATION", nil);
     self.leftRightJudgementContentView.timeoutText = text;
-    _timeoutNotificationTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
+    _timeoutNotificationTimer = [NSTimer scheduledTimerWithTimeInterval:2.0
                                                                  target:self
                                                                selector:@selector(startStimulusInterval)
                                                                userInfo:nil
@@ -182,18 +182,14 @@
 
 - (void)startStimulusInterval {
     [_timeoutNotificationTimer invalidate];
-    [self clearImageAndCount];
+    self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@""];
+    [self configureTextWithoutCount];
     self.leftRightJudgementContentView.timeoutText = @"";
     _stimulusIntervalTimer = [NSTimer scheduledTimerWithTimeInterval:[self stimulusInterval]
                                                               target:self
                                                             selector:@selector(startNextQuestionOrFinish)
                                                             userInfo:nil
                                                              repeats:NO];
-}
-
-- (void)clearImageAndCount {
-    self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@""];
-    [self configureTextWithoutCount];
 }
 
 - (NSTimeInterval)stimulusInterval {
