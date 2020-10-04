@@ -416,6 +416,7 @@
 
 /* Left/Right Judgement active task.*/
 "LEFT_RIGHT_JUDGEMENT_IMAGE_OPTION_ERROR" = "Image sets must be hands or feet";
+"LEFT_RIGHT_JUDGEMENT_TIMEOUT_NOTIFIFCATION" = "Image timed out!";
 "LEFT_RIGHT_JUDGEMENT_TASK_TITLE" = "Left/Right Judgement";
 "LEFT_RIGHT_JUDGEMENT_TASK_TITLE_HAND" = "Hand Left/Right Judgement";
 "LEFT_RIGHT_JUDGEMENT_TASK_TITLE_FOOT" = "Foot Left/Right Judgement";

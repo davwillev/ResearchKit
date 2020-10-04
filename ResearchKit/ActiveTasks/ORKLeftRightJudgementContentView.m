@@ -42,6 +42,7 @@ static const CGFloat buttonStackViewSpacing = 100.0;
 @implementation ORKLeftRightJudgementContentView {
     UIStackView *_buttonStackView;
     UIImageView *_imageView;
+    UILabel *_timeout;
 }
  
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -52,6 +53,7 @@ static const CGFloat buttonStackViewSpacing = 100.0;
         [self setUpImageView];
         [self setUpButtons];
         [self setUpConstraints];
+        [self addSubview:_timeout];
     }
     return self;
 }
@@ -91,8 +93,17 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     [self setNeedsDisplay];
 }
 
+- (void)setTimeoutText:(NSString *)timeoutText {
+    [_timeout setText:timeoutText];
+    [self setNeedsDisplay];
+}
+
 - (UIImage *)imageToDisplay {
     return _imageView.image;
+}
+
+- (NSString *)timeoutText {
+    return _timeout.text;
 }
 
 - (void)setUpConstraints {
