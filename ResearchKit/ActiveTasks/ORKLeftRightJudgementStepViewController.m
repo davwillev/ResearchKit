@@ -166,7 +166,11 @@
     [self startStimulusInterval];
     [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
     [self calculatePercentages:sidePresented];
-    //[self calculateMeansAndStandardDeviations:sidePresented ofDuration:duration forMatches:_match]; // TODO: add mean/SDs of timeouts to mean/SD method?
+    [self displayTimeoutImage];
+}
+
+-(void)displayTimeoutImage {
+    // TODO: 
 }
 
 - (void)startStimulusInterval {
