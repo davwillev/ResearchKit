@@ -246,15 +246,21 @@
         _leftSumCorrect = (_match) ? _leftSumCorrect + 1 : _leftSumCorrect;
         if (_leftCount > 0) { // prevent zero denominator
             _leftPercentCorrect = (100 * _leftSumCorrect) / _leftCount;
+        } else {
+            _leftPercentCorrect = NAN;
         }
     } else if ([sidePresented isEqualToString:@"Right"]) {
         _rightSumCorrect = (_match) ? _rightSumCorrect + 1 : _rightSumCorrect;
         if (_rightCount > 0) { // prevent zero denominator
             _rightPercentCorrect = (100 * _rightSumCorrect) / _rightCount;
+        } else {
+            _rightPercentCorrect = NAN;
         }
     } else if (_timedOut) {
         if (_imageCount > 0) { // prevent zero denominator
         _percentTimedOut = (100 * _timedOutCount) / _imageCount;
+        } else {
+            _percentTimedOut = NAN;
         }
     }
 }
@@ -581,7 +587,7 @@
 }
 
 - (NSString *)nextFileNameInQueue {
-    NSString *path = [_imagePaths objectAtIndex:_imageCount];
+    NSString *path = [_imagePaths objectAtIndex:(_imageCount - 1)];
     NSString *fileName = [[path lastPathComponent] stringByDeletingPathExtension];
     return fileName;
 }
