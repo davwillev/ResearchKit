@@ -604,7 +604,7 @@
     NSMutableArray *imageQueueArray = [NSMutableArray arrayWithCapacity:imageQueueLength];
     // Allocate images
     for(NSUInteger i = 1; i <= imageQueueLength; i++) {
-        UIImage *image = [UIImage imageWithContentsOfFile:[_imagePaths objectAtIndex:(i)]];
+        UIImage *image = [UIImage imageWithContentsOfFile:[_imagePaths objectAtIndex:(i - 1)]];
         [imageQueueArray addObject:image];
     }
     return [imageQueueArray copy];
