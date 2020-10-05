@@ -236,7 +236,7 @@
             [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
         }
     [self calculatePercentages:sidePresented];
-    [self calculateMeansAndStandardDeviations:sidePresented ofDuration: duration forMatches:_match];
+    [self calculateMeanAndStdReactionTimes:sidePresented ofDuration: duration forMatches:_match];
     [self startStimulusInterval];
     }
 }
@@ -266,7 +266,7 @@
     }
 }
 
-- (void)calculateMeansAndStandardDeviations:(NSString *)sidePresented ofDuration:(NSTimeInterval)duration forMatches:(BOOL)match {
+- (void)calculateMeanAndStdReactionTimes:(NSString *)sidePresented ofDuration:(NSTimeInterval)duration forMatches:(BOOL)match {
     // calculate mean and unbiased standard deviation of duration for correct matches only (using Welford's algorithm: Welford. (1962) Technometrics 4(3), 419-420)
     if ([sidePresented isEqualToString: @"Left"] && match == YES) {
         if (_leftSumCorrect == 1) {
