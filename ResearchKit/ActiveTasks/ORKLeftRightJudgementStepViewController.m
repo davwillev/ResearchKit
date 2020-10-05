@@ -241,12 +241,12 @@
 }
 
 - (void)calculatePercentages:(NSString *)sidePresented {
-    if ([sidePresented isEqualToString:@"Left"] && _match == YES) {
+    if ([sidePresented isEqualToString:@"Left"]) {
         _leftSumCorrect = (_match) ? _leftSumCorrect + 1 : _leftSumCorrect;
         if (_leftCount > 0) { // prevent zero denominator
             _leftPercentCorrect = (100 * _leftSumCorrect) / _leftCount;
         }
-    } else if ([sidePresented isEqualToString:@"Right"] && _match == YES) {
+    } else if ([sidePresented isEqualToString:@"Right"]) {
         _rightSumCorrect = (_match) ? _rightSumCorrect + 1 : _rightSumCorrect;
         if (_rightCount > 0) { // prevent zero denominator
             _rightPercentCorrect = (100 * _rightSumCorrect) / _rightCount;
