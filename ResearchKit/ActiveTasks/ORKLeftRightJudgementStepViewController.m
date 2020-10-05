@@ -378,39 +378,39 @@
                 [viewPresented isEqualToString: @"Palm"] ||
                 [viewPresented isEqualToString: @"Pinkie"] ||
                 [viewPresented isEqualToString: @"Thumb"]) {
-                    if ([fileName containsString:@"000y"]) {
+                    if ([fileName containsString:@"000cw"]) {
                         anglePresented = @"Neutral";
-                    } else if ([fileName containsString:@"030y"] ||
-                               [fileName containsString:@"060y"] ||
-                               [fileName containsString:@"090y"] ||
-                               [fileName containsString:@"120y"] ||
-                               [fileName containsString:@"150y"]) {
+                    } else if ([fileName containsString:@"030cw"] ||
+                               [fileName containsString:@"060cw"] ||
+                               [fileName containsString:@"090cw"] ||
+                               [fileName containsString:@"120cw"] ||
+                               [fileName containsString:@"150cw"]) {
                         anglePresented = @"Medial";
-                    } else if ([fileName containsString:@"180y"]) {
+                    } else if ([fileName containsString:@"180cw"]) {
                         anglePresented = @"Neutral";
-                    } else if ([fileName containsString:@"210y"] ||
-                               [fileName containsString:@"240y"] ||
-                               [fileName containsString:@"270y"] ||
-                               [fileName containsString:@"300y"] ||
-                               [fileName containsString:@"330y"]) {
+                    } else if ([fileName containsString:@"210cw"] ||
+                               [fileName containsString:@"240cw"] ||
+                               [fileName containsString:@"270cw"] ||
+                               [fileName containsString:@"300cw"] ||
+                               [fileName containsString:@"330cw"]) {
                         anglePresented = @"Lateral";
                     }
             } else if ([viewPresented isEqualToString: @"Wrist"]) {
-                if ([fileName containsString:@"000y"]) {
+                if ([fileName containsString:@"000cw"]) {
                     anglePresented = @"Neutral";
-                } else if ([fileName containsString:@"030y"] ||
-                           [fileName containsString:@"060y"] ||
-                           [fileName containsString:@"090y"] ||
-                           [fileName containsString:@"120y"] ||
-                           [fileName containsString:@"150y"]) {
+                } else if ([fileName containsString:@"030cw"] ||
+                           [fileName containsString:@"060cw"] ||
+                           [fileName containsString:@"090cw"] ||
+                           [fileName containsString:@"120cw"] ||
+                           [fileName containsString:@"150cw"]) {
                     anglePresented = @"Lateral";
-                } else if ([fileName containsString:@"180y"]) {
+                } else if ([fileName containsString:@"180cw"]) {
                     anglePresented = @"Neutral";
-                } else if ([fileName containsString:@"210y"] ||
-                           [fileName containsString:@"240y"] ||
-                           [fileName containsString:@"270y"] ||
-                           [fileName containsString:@"300y"] ||
-                           [fileName containsString:@"330y"]) {
+                } else if ([fileName containsString:@"210cw"] ||
+                           [fileName containsString:@"240cw"] ||
+                           [fileName containsString:@"270cw"] ||
+                           [fileName containsString:@"300cw"] ||
+                           [fileName containsString:@"330cw"]) {
                     anglePresented = @"Medial";
                 }
             }
@@ -419,39 +419,39 @@
                 [viewPresented isEqualToString: @"Palm"] ||
                 [viewPresented isEqualToString: @"Pinkie"] ||
                 [viewPresented isEqualToString: @"Thumb"]) {
-                if ([fileName containsString:@"000y"]) {
+                if ([fileName containsString:@"000cw"]) {
                     anglePresented = @"Neutral";
-                } else if ([fileName containsString:@"030y"] ||
-                           [fileName containsString:@"060y"] ||
-                           [fileName containsString:@"090y"] ||
-                           [fileName containsString:@"120y"] ||
-                           [fileName containsString:@"150y"]) {
+                } else if ([fileName containsString:@"030cw"] ||
+                           [fileName containsString:@"060cw"] ||
+                           [fileName containsString:@"090cw"] ||
+                           [fileName containsString:@"120cw"] ||
+                           [fileName containsString:@"150cw"]) {
                     anglePresented = @"Lateral";
-                } else if ([fileName containsString:@"180y"]) {
+                } else if ([fileName containsString:@"180cw"]) {
                     anglePresented = @"Neutral";
-                } else if ([fileName containsString:@"210y"] ||
-                           [fileName containsString:@"240y"] ||
-                           [fileName containsString:@"270y"] ||
-                           [fileName containsString:@"300y"] ||
-                           [fileName containsString:@"330y"]) {
+                } else if ([fileName containsString:@"210cw"] ||
+                           [fileName containsString:@"240cw"] ||
+                           [fileName containsString:@"270cw"] ||
+                           [fileName containsString:@"300cw"] ||
+                           [fileName containsString:@"330cw"]) {
                     anglePresented = @"Medial";
                 }
             } else if ([viewPresented isEqualToString: @"Wrist"]) {
-                if ([fileName containsString:@"000y"]) {
+                if ([fileName containsString:@"000cw"]) {
                     anglePresented = @"Neutral";
-                } else if ([fileName containsString:@"030y"] ||
-                           [fileName containsString:@"060y"] ||
-                           [fileName containsString:@"090y"] ||
-                           [fileName containsString:@"120y"] ||
-                           [fileName containsString:@"150y"]) {
+                } else if ([fileName containsString:@"030cw"] ||
+                           [fileName containsString:@"060cw"] ||
+                           [fileName containsString:@"090cw"] ||
+                           [fileName containsString:@"120cw"] ||
+                           [fileName containsString:@"150cw"]) {
                     anglePresented = @"Medial";
-                } else if ([fileName containsString:@"180y"]) {
+                } else if ([fileName containsString:@"180cw"]) {
                     anglePresented = @"Neutral";
-                } else if ([fileName containsString:@"210y"] ||
-                           [fileName containsString:@"240y"] ||
-                           [fileName containsString:@"270y"] ||
-                           [fileName containsString:@"300y"] ||
-                           [fileName containsString:@"330y"]) {
+                } else if ([fileName containsString:@"210cw"] ||
+                           [fileName containsString:@"240cw"] ||
+                           [fileName containsString:@"270cw"] ||
+                           [fileName containsString:@"300cw"] ||
+                           [fileName containsString:@"330cw"]) {
                     anglePresented = @"Lateral";
                 }
             }
@@ -460,84 +460,84 @@
         if ([fileName containsString:@"LF"]) { // left foot
             if ([viewPresented isEqualToString: @"Top"] ||
                 [viewPresented isEqualToString: @"Heel"]) {
-                    if ([fileName containsString:@"000y"]) {
+                    if ([fileName containsString:@"000cw"]) {
                         anglePresented = @"Neutral";
-                    } else if ([fileName containsString:@"030y"] ||
-                               [fileName containsString:@"060y"] ||
-                               [fileName containsString:@"090y"] ||
-                               [fileName containsString:@"120y"] ||
-                               [fileName containsString:@"150y"]) {
+                    } else if ([fileName containsString:@"030cw"] ||
+                               [fileName containsString:@"060cw"] ||
+                               [fileName containsString:@"090cw"] ||
+                               [fileName containsString:@"120cw"] ||
+                               [fileName containsString:@"150cw"]) {
                         anglePresented = @"Medial";
-                    } else if ([fileName containsString:@"180y"]) {
+                    } else if ([fileName containsString:@"180cw"]) {
                         anglePresented = @"Neutral";
-                    } else if ([fileName containsString:@"210y"] ||
-                               [fileName containsString:@"240y"] ||
-                               [fileName containsString:@"270y"] ||
-                               [fileName containsString:@"300y"] ||
-                               [fileName containsString:@"330y"]) {
+                    } else if ([fileName containsString:@"210cw"] ||
+                               [fileName containsString:@"240cw"] ||
+                               [fileName containsString:@"270cw"] ||
+                               [fileName containsString:@"300cw"] ||
+                               [fileName containsString:@"330cw"]) {
                         anglePresented = @"Lateral";
                     }
             } else if ([viewPresented isEqualToString: @"Sole"] ||
                        [viewPresented isEqualToString: @"Toes"] ||
                        [viewPresented isEqualToString: @"Inside"] ||
                        [viewPresented isEqualToString: @"Outside"]) {
-                if ([fileName containsString:@"000y"]) {
+                if ([fileName containsString:@"000cw"]) {
                     anglePresented = @"Neutral";
-                } else if ([fileName containsString:@"030y"] ||
-                           [fileName containsString:@"060y"] ||
-                           [fileName containsString:@"090y"] ||
-                           [fileName containsString:@"120y"] ||
-                           [fileName containsString:@"150y"]) {
+                } else if ([fileName containsString:@"030cw"] ||
+                           [fileName containsString:@"060cw"] ||
+                           [fileName containsString:@"090cw"] ||
+                           [fileName containsString:@"120cw"] ||
+                           [fileName containsString:@"150cw"]) {
                     anglePresented = @"Lateral";
-                } else if ([fileName containsString:@"180y"]) {
+                } else if ([fileName containsString:@"180cw"]) {
                     anglePresented = @"Neutral";
-                } else if ([fileName containsString:@"210y"] ||
-                           [fileName containsString:@"240y"] ||
-                           [fileName containsString:@"270y"] ||
-                           [fileName containsString:@"300y"] ||
-                           [fileName containsString:@"330y"]) {
+                } else if ([fileName containsString:@"210cw"] ||
+                           [fileName containsString:@"240cw"] ||
+                           [fileName containsString:@"270cw"] ||
+                           [fileName containsString:@"300cw"] ||
+                           [fileName containsString:@"330cw"]) {
                     anglePresented = @"Medial";
                 }
             }
         } else if ([fileName containsString:@"RF"]) { // right foot
             if ([viewPresented isEqualToString: @"Top"] ||
                 [viewPresented isEqualToString: @"Heel"]) {
-                if ([fileName containsString:@"000y"]) {
+                if ([fileName containsString:@"000cw"]) {
                     anglePresented = @"Neutral";
-                } else if ([fileName containsString:@"030y"] ||
-                           [fileName containsString:@"060y"] ||
-                           [fileName containsString:@"090y"] ||
-                           [fileName containsString:@"120y"] ||
-                           [fileName containsString:@"150y"]) {
+                } else if ([fileName containsString:@"030cw"] ||
+                           [fileName containsString:@"060cw"] ||
+                           [fileName containsString:@"090cw"] ||
+                           [fileName containsString:@"120cw"] ||
+                           [fileName containsString:@"150cw"]) {
                     anglePresented = @"Lateral";
-                } else if ([fileName containsString:@"180y"]) {
+                } else if ([fileName containsString:@"180cw"]) {
                     anglePresented = @"Neutral";
-                } else if ([fileName containsString:@"210y"] ||
-                           [fileName containsString:@"240y"] ||
-                           [fileName containsString:@"270y"] ||
-                           [fileName containsString:@"300y"] ||
-                           [fileName containsString:@"330y"]) {
+                } else if ([fileName containsString:@"210cw"] ||
+                           [fileName containsString:@"240cw"] ||
+                           [fileName containsString:@"270cw"] ||
+                           [fileName containsString:@"300cw"] ||
+                           [fileName containsString:@"330cw"]) {
                     anglePresented = @"Medial";
                 }
             } else if ([viewPresented isEqualToString: @"Sole"] ||
                        [viewPresented isEqualToString: @"Toes"] ||
                        [viewPresented isEqualToString: @"Inside"] ||
                        [viewPresented isEqualToString: @"Outside"]) {
-                if ([fileName containsString:@"000y"]) {
+                if ([fileName containsString:@"000cw"]) {
                     anglePresented = @"Neutral";
-                } else if ([fileName containsString:@"030y"] ||
-                           [fileName containsString:@"060y"] ||
-                           [fileName containsString:@"090y"] ||
-                           [fileName containsString:@"120y"] ||
-                           [fileName containsString:@"150y"]) {
+                } else if ([fileName containsString:@"030cw"] ||
+                           [fileName containsString:@"060cw"] ||
+                           [fileName containsString:@"090cw"] ||
+                           [fileName containsString:@"120cw"] ||
+                           [fileName containsString:@"150cw"]) {
                     anglePresented = @"Medial";
-                } else if ([fileName containsString:@"180y"]) {
+                } else if ([fileName containsString:@"180cw"]) {
                     anglePresented = @"Neutral";
-                } else if ([fileName containsString:@"210y"] ||
-                           [fileName containsString:@"240y"] ||
-                           [fileName containsString:@"270y"] ||
-                           [fileName containsString:@"300y"] ||
-                           [fileName containsString:@"330y"]) {
+                } else if ([fileName containsString:@"210cw"] ||
+                           [fileName containsString:@"240cw"] ||
+                           [fileName containsString:@"270cw"] ||
+                           [fileName containsString:@"300cw"] ||
+                           [fileName containsString:@"330cw"]) {
                     anglePresented = @"Lateral";
                 }
             }
@@ -549,24 +549,24 @@
 - (NSInteger)rotationPresented {
     NSString *fileName = [self nextFileNameInQueue];
     NSInteger rotationPresented = 0;
-    if ([fileName containsString:@"000y"]) {
+    if ([fileName containsString:@"000cw"]) {
         rotationPresented = 0;
-    } else if ([fileName containsString:@"030y"] ||
-        [fileName containsString:@"330y"]) {
+    } else if ([fileName containsString:@"030cw"] ||
+        [fileName containsString:@"330cw"]) {
         rotationPresented = 30;
-    } else if ([fileName containsString:@"060y"] ||
-            [fileName containsString:@"300y"]) {
+    } else if ([fileName containsString:@"060cw"] ||
+            [fileName containsString:@"300cw"]) {
         rotationPresented = 60;
-    } else if ([fileName containsString:@"090y"] ||
-            [fileName containsString:@"270y"]) {
+    } else if ([fileName containsString:@"090cw"] ||
+            [fileName containsString:@"270cw"]) {
         rotationPresented = 90;
-    } else if ([fileName containsString:@"120y"] ||
-            [fileName containsString:@"240y"]) {
+    } else if ([fileName containsString:@"120cw"] ||
+            [fileName containsString:@"240cw"]) {
         rotationPresented = 120;
-    } else if ([fileName containsString:@"150y"] ||
-            [fileName containsString:@"210y"]) {
+    } else if ([fileName containsString:@"150cw"] ||
+            [fileName containsString:@"210cw"]) {
         rotationPresented = 150;
-    } else if ([fileName containsString:@"180y"]) {
+    } else if ([fileName containsString:@"180cw"]) {
         rotationPresented = 180;
     }
     return rotationPresented;
