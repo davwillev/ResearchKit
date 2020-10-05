@@ -171,6 +171,7 @@
 
 -(void)displayTimeoutNotification {
     self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@""];
+    [self setButtonsDisabled];
     NSString *text = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TIMEOUT_NOTIFICATION", nil);
     self.leftRightJudgementContentView.timeoutText = text;
     _timeoutNotificationTimer = [NSTimer scheduledTimerWithTimeInterval:2.0
