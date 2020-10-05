@@ -256,7 +256,8 @@
         } else {
             _rightPercentCorrect = NAN;
         }
-    } else if (_timedOut) {
+    }
+    if (_timedOut) {
         if (_imageCount > 0) { // prevent zero denominator
         _percentTimedOut = (100 * _timedOutCount) / _imageCount;
         } else {
