@@ -164,8 +164,8 @@
     _match = NO;
     _timedOut = YES;
     _timedOutCount++;
+    [self calculatePercentages:sidePresented forMatches:_match andTimeouts:_timedOut];
     [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
-    [self calculatePercentages:sidePresented];
     [self displayTimeoutNotification];
 }
 
@@ -225,39 +225,42 @@
         NSInteger rotation = [self rotationPresented];
         // evaluate matches according to button pressed
         NSString *sideSelected;
+        
         if (sender == self.leftRightJudgementContentView.leftButton) {
             sideSelected = @"Left";
             _match = ([sidePresented isEqualToString:sideSelected]) ? YES : NO;
+            [self calculateMeanAndStdReactionTimes:sidePresented fromDuration: duration forMatches:_match];
+            [self calculatePercentages:sidePresented forMatches:_match andTimeouts:_timedOut];
             [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
         }
         else if (sender == self.leftRightJudgementContentView.rightButton) {
             sideSelected = @"Right";
             _match = ([sidePresented isEqualToString:sideSelected]) ? YES : NO;
+            [self calculateMeanAndStdReactionTimes:sidePresented fromDuration: duration forMatches:_match];
+            [self calculatePercentages:sidePresented forMatches:_match andTimeouts:_timedOut];
             [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
         }
-    [self calculatePercentages:sidePresented];
-    [self calculateMeanAndStdReactionTimes:sidePresented fromDuration: duration forMatches:_match];
     [self startInterStimulusInterval];
     }
 }
 
-- (void)calculatePercentages:(NSString *)sidePresented {
+- (void)calculatePercentages:(NSString *)sidePresented forMatches:(BOOL)match andTimeouts:(BOOL)timeout {
     if ([sidePresented isEqualToString:@"Left"]) {
-        _leftSumCorrect = (_match) ? _leftSumCorrect + 1 : _leftSumCorrect;
+        _leftSumCorrect = (match) ? _leftSumCorrect + 1 : _leftSumCorrect;
         if (_leftCount > 0) { // prevent zero denominator
             _leftPercentCorrect = (100 * _leftSumCorrect) / _leftCount;
         } else {
             _leftPercentCorrect = NAN;
         }
     } else if ([sidePresented isEqualToString:@"Right"]) {
-        _rightSumCorrect = (_match) ? _rightSumCorrect + 1 : _rightSumCorrect;
+        _rightSumCorrect = (match) ? _rightSumCorrect + 1 : _rightSumCorrect;
         if (_rightCount > 0) { // prevent zero denominator
             _rightPercentCorrect = (100 * _rightSumCorrect) / _rightCount;
         } else {
             _rightPercentCorrect = NAN;
         }
     }
-    if (_timedOut) {
+    if (timeout) {
         if (_imageCount > 0) { // prevent zero denominator
         _percentTimedOut = (100 * _timedOutCount) / _imageCount;
         } else {
