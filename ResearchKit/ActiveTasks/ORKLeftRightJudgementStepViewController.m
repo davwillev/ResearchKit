@@ -262,7 +262,7 @@
 
 - (void)calculateMeanAndStdReactionTimes:(NSString *)sidePresented fromDuration:(NSTimeInterval)duration forMatches:(BOOL)match {
     // calculate mean and unbiased standard deviation of duration for correct matches only (using Welford's algorithm: Welford. (1962) Technometrics 4(3), 419-420)
-    if ([sidePresented isEqualToString: @"Left"] && match == YES) {
+    if ([sidePresented isEqualToString: @"Left"] && (match)) {
         if (_leftSumCorrect == 1) {
             _prevMl = _newMl = duration;
             _prevSl = 0;
@@ -276,7 +276,7 @@
         if (_varianceLeftDuration > 0) {
             _stdLeftDuration = sqrt(_varianceLeftDuration);
         }
-    } else if ([sidePresented isEqualToString: @"Right"] && match == YES) {
+    } else if ([sidePresented isEqualToString: @"Right"] && (match)) {
         if (_rightSumCorrect == 1) {
             _prevMr = _newMr = duration;
             _prevSr = 0;
