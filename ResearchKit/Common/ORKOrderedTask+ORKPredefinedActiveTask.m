@@ -1535,8 +1535,8 @@ NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
                                   intendedUseDescription:(nullable NSString *)intendedUseDescription
                                              imageOption:(ORKPredefinedTaskImageOption)imageOption
                                         numberOfAttempts:(NSInteger)numberOfAttempts
-                                 minimumStimulusInterval:(NSTimeInterval)minimumStimulusInterval
-                                 maximumStimulusInterval:(NSTimeInterval)maximumStimulusInterval
+                                 minimumInterStimulusInterval:(NSTimeInterval)minimumInterStimulusInterval
+                                 maximumInterStimulusInterval:(NSTimeInterval)maximumInterStimulusInterval
                                                  timeout:(NSTimeInterval)timeout
                                                  options:(ORKPredefinedTaskOption)options {
     
@@ -1685,8 +1685,8 @@ NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
                 ORKLeftRightJudgementStep *leftRightJudgementStep = [[ORKLeftRightJudgementStep alloc] initWithIdentifier:appendIdentifier(ORKLeftRightJudgementStepIdentifier)];
                 
                 leftRightJudgementStep.numberOfAttempts = numberOfAttempts;
-                leftRightJudgementStep.maximumStimulusInterval = maximumStimulusInterval;
-                leftRightJudgementStep.minimumStimulusInterval = minimumStimulusInterval;
+                leftRightJudgementStep.maximumInterStimulusInterval = maximumInterStimulusInterval;
+                leftRightJudgementStep.minimumInterStimulusInterval = minimumInterStimulusInterval;
                 leftRightJudgementStep.timeout = timeout;
                 leftRightJudgementStep.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
 

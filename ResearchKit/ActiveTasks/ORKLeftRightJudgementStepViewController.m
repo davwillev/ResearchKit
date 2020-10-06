@@ -55,7 +55,7 @@
     
     NSMutableArray *_results;
     NSTimeInterval _startTime;
-    NSTimer *_stimulusIntervalTimer;
+    NSTimer *_interStimulusIntervalTimer;
     NSTimer *_timeoutTimer;
     NSTimer *_timeoutNotificationTimer;
     NSArray *_imageQueue;
@@ -176,33 +176,33 @@
     self.leftRightJudgementContentView.timeoutText = text;
     _timeoutNotificationTimer = [NSTimer scheduledTimerWithTimeInterval:2.0
                                                                  target:self
-                                                               selector:@selector(startStimulusInterval)
+                                                               selector:@selector(startInterStimulusInterval)
                                                                userInfo:nil
                                                                 repeats:NO];
 }
 
-- (void)startStimulusInterval {
+- (void)startInterStimulusInterval {
     [_timeoutNotificationTimer invalidate];
     self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@""];
     [self configureTextWithoutCount];
     self.leftRightJudgementContentView.timeoutText = @"";
-    _stimulusIntervalTimer = [NSTimer scheduledTimerWithTimeInterval:[self stimulusInterval]
+    _interStimulusIntervalTimer = [NSTimer scheduledTimerWithTimeInterval:[self interStimulusInterval]
                                                               target:self
                                                             selector:@selector(startNextQuestionOrFinish)
                                                             userInfo:nil
                                                              repeats:NO];
 }
 
-- (NSTimeInterval)stimulusInterval {
+- (NSTimeInterval)interStimulusInterval {
     NSTimeInterval timeInterval;
     ORKLeftRightJudgementStep *step = [self leftRightJudgementStep];
-    NSTimeInterval range = step.maximumStimulusInterval - step.minimumStimulusInterval;
+    NSTimeInterval range = step.maximumInterStimulusInterval - step.minimumInterStimulusInterval;
     NSTimeInterval randomFactor = (arc4random_uniform(range * 1000) + 1); // non-zero random number of milliseconds between min/max limits
-    if (range == 0 || step.maximumStimulusInterval == step.minimumStimulusInterval ||
+    if (range == 0 || step.maximumInterStimulusInterval == step.minimumInterStimulusInterval ||
         _imageCount == step.numberOfAttempts) { // use min interval after last image of set
-        timeInterval = step.minimumStimulusInterval;
+        timeInterval = step.minimumInterStimulusInterval;
     } else {
-        timeInterval = (randomFactor / 1000) + step.minimumStimulusInterval; // in seconds
+        timeInterval = (randomFactor / 1000) + step.minimumInterStimulusInterval; // in seconds
     }
     return timeInterval;
 }
@@ -237,7 +237,7 @@
         }
     [self calculatePercentages:sidePresented];
     [self calculateMeanAndStdReactionTimes:sidePresented fromDuration: duration forMatches:_match];
-    [self startStimulusInterval];
+    [self startInterStimulusInterval];
     }
 }
 
@@ -674,7 +674,7 @@
 }
 
 - (void)startNextQuestionOrFinish {
-    [_stimulusIntervalTimer invalidate];
+    [_interStimulusIntervalTimer invalidate];
     self.questionNumber = self.questionNumber + 1;
     if (self.questionNumber == ([self leftRightJudgementStep].numberOfAttempts)) {
         [self finish];
@@ -686,10 +686,10 @@
 - (void)startQuestion {
     UIImage *image = [self nextImageInQueue];
     self.leftRightJudgementContentView.imageToDisplay = image;
+    _startTime = [NSProcessInfo processInfo].systemUptime;
+    [self startTimeoutTimer];
     [self configureTextWithCount];
     [self setButtonsEnabled];
-    [self startTimeoutTimer];
-    _startTime = [NSProcessInfo processInfo].systemUptime;
 }
 
 - (void)setButtonsDisabled {
