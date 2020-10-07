@@ -384,10 +384,10 @@ NS_ASSUME_NONNULL_BEGIN
  @param identifier          The task identifier to use for this task, appropriate to the study.
  @param intendedUseDescription  A localized string describing the intended use of the data
  collected. If the value of this parameter is `nil`, the default localized text is displayed.
- @param imageOptions          Options for determining which images to display.
+ @param imageOptions          Options for determining which images to display as stimuli.
  @param minimumInterStimulusInterval          The minimum interval (in seconds) before each stimulus (image) is delivered, during which the screen remains empty.
  @param maximumInterStimulusInterval          The maximum interval (in seconds) before each stimulus (image) is delivered, during which the screen remains empty.
- @param timeout          The time period permitted after the stimulus begins, until the test fails, if a button is not pressed.
+ @param timeout          The time period (in seconds) permitted after the stimulus begins, until the attempt fails, if a button is not pressed. (Note: this will currently display within the instructions to 1 post-decimal place, so argumants should be set to 0.1 second).
  @param numberOfAttempts          Total number of images to be presented during the task.
  @param options          Options that affect the features of the predefined task.
  */
