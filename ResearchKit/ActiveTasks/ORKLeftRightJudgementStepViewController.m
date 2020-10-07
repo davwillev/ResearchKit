@@ -230,6 +230,7 @@
             _match = ([sidePresented isEqualToString:sideSelected]) ? YES : NO;
             _leftSumCorrect = (_match) ? _leftSumCorrect + 1 : _leftSumCorrect;
             [self calculateMeanAndStdReactionTimes:sidePresented fromDuration: duration forMatches:_match];
+            [self calculatePercentagesForSides:sidePresented andTimeouts:_timedOut];
             [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
         }
         else if (sender == self.leftRightJudgementContentView.rightButton) {
@@ -237,9 +238,9 @@
             _match = ([sidePresented isEqualToString:sideSelected]) ? YES : NO;
             _rightSumCorrect = (_match) ? _rightSumCorrect + 1 : _rightSumCorrect;
             [self calculateMeanAndStdReactionTimes:sidePresented fromDuration: duration forMatches:_match];
+            [self calculatePercentagesForSides:sidePresented andTimeouts:_timedOut];
             [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
         }
-    [self calculatePercentagesForSides:sidePresented andTimeouts:_timedOut];
     [self startInterStimulusInterval];
     }
 }
