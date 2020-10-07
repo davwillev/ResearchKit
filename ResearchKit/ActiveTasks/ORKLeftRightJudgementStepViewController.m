@@ -164,7 +164,7 @@
     _match = NO;
     _timedOut = YES;
     _timedOutCount++;
-    [self calculatePercentages:sidePresented forMatches:_match andTimeouts:_timedOut];
+    [self calculatePercentagesForSides:sidePresented andTimeouts:_timedOut];
     [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
     [self displayTimeoutNotification];
 }
@@ -228,35 +228,34 @@
         if (sender == self.leftRightJudgementContentView.leftButton) {
             sideSelected = @"Left";
             _match = ([sidePresented isEqualToString:sideSelected]) ? YES : NO;
-            [self calculatePercentages:sidePresented forMatches:_match andTimeouts:_timedOut];
+            _leftSumCorrect = (_match) ? _leftSumCorrect + 1 : _leftSumCorrect;
             [self calculateMeanAndStdReactionTimes:sidePresented fromDuration: duration forMatches:_match];
             [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
         }
         else if (sender == self.leftRightJudgementContentView.rightButton) {
             sideSelected = @"Right";
             _match = ([sidePresented isEqualToString:sideSelected]) ? YES : NO;
-            [self calculatePercentages:sidePresented forMatches:_match andTimeouts:_timedOut];
+            _rightSumCorrect = (_match) ? _rightSumCorrect + 1 : _rightSumCorrect;
             [self calculateMeanAndStdReactionTimes:sidePresented fromDuration: duration forMatches:_match];
             [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
         }
+    [self calculatePercentagesForSides:sidePresented andTimeouts:_timedOut];
     [self startInterStimulusInterval];
     }
 }
 
-- (void)calculatePercentages:(NSString *)sidePresented forMatches:(BOOL)match andTimeouts:(BOOL)timeout {
+- (void)calculatePercentagesForSides:(NSString *)sidePresented andTimeouts:(BOOL)timeout {
     if ([sidePresented isEqualToString:@"Left"]) {
-        _leftSumCorrect = (match) ? _leftSumCorrect + 1 : _leftSumCorrect;
         if (_leftCount > 0) { // prevent zero denominator
-            _leftPercentCorrect = (100 * _leftSumCorrect) / _leftCount;
+            _leftPercentCorrect = (100 * (double)_leftSumCorrect) / (double)_leftCount;
         }
     } else if ([sidePresented isEqualToString:@"Right"]) {
-        _rightSumCorrect = (match) ? _rightSumCorrect + 1 : _rightSumCorrect;
         if (_rightCount > 0) { // prevent zero denominator
-            _rightPercentCorrect = (100 * _rightSumCorrect) / _rightCount;
+            _rightPercentCorrect = (100 * (double)_rightSumCorrect) / (double)_rightCount;
         }
     }
     if (_imageCount > 0) { // prevent zero denominator
-        _percentTimedOut = (100 * _timedOutCount) / _imageCount;
+        _percentTimedOut = (100 * (double)_timedOutCount) / (double)_imageCount;
     }
 }
 
@@ -267,12 +266,12 @@
             _prevMl = _newMl = duration;
             _prevSl = 0;
         } else {
-            _newMl = _prevMl + (duration - _prevMl) / _leftSumCorrect;
+            _newMl = _prevMl + (duration - _prevMl) / (double)_leftSumCorrect;
             _newSl += _prevSl + (duration - _prevMl) * (duration - _newMl);
             _prevMl = _newMl;
         }
         _meanLeftDuration = (_leftSumCorrect > 0) ? _newMl : 0;
-        _varianceLeftDuration = ((_leftSumCorrect > 1) ? _newSl / (_leftSumCorrect - 1) : 0);
+        _varianceLeftDuration = (_leftSumCorrect > 1) ? _newSl / ((double)_leftSumCorrect - 1) : 0;
         if (_varianceLeftDuration > 0) {
             _stdLeftDuration = sqrt(_varianceLeftDuration);
         }
@@ -281,12 +280,12 @@
             _prevMr = _newMr = duration;
             _prevSr = 0;
         } else {
-            _newMr = _prevMr + (duration - _prevMr) / _rightSumCorrect;
+            _newMr = _prevMr + (duration - _prevMr) / (double)_rightSumCorrect;
             _newSr += _prevSr + (duration - _prevMr) * (duration - _newMr);
             _prevMr = _newMr;
         }
         _meanRightDuration = (_rightSumCorrect > 0) ? _newMr : 0;
-        _varianceRightDuration = ((_rightSumCorrect > 1) ? _newSr / (_rightSumCorrect - 1) : 0);
+        _varianceRightDuration = (_rightSumCorrect > 1) ? _newSr / ((double)_rightSumCorrect - 1) : 0;
         if (_varianceRightDuration > 0) {
             _stdRightDuration = sqrt(_varianceRightDuration);
         }
