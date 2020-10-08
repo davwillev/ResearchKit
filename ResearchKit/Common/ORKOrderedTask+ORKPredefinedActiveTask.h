@@ -387,7 +387,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param imageOptions          Options for determining which images to display as stimuli.
  @param minimumInterStimulusInterval          The minimum interval (in seconds) before each stimulus (image) is delivered, during which the screen remains empty.
  @param maximumInterStimulusInterval          The maximum interval (in seconds) before each stimulus (image) is delivered, during which the screen remains empty.
- @param timeout          The time period (in seconds) permitted after the stimulus begins, until the attempt fails, if a button is not pressed. (Note: this will currently display within the instructions to 1 post-decimal place, so argumants should be set to 0.1 second).
+ @param timeout          The time period (in seconds) permitted after the stimulus begins, until the attempt fails, if a button is not pressed.
  @param numberOfAttempts          Total number of images to be presented during the task.
  @param options          Options that affect the features of the predefined task.
  */
