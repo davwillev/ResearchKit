@@ -1624,18 +1624,22 @@ NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
         
                 ORKInstructionStep *instructionStep1 = [[ORKInstructionStep alloc] initWithIdentifier:appendIdentifier(ORKInstruction1StepIdentifier)];
         
+                NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
+                numberFormatter.usesSignificantDigits = YES;
+                NSString *timeoutString = [numberFormatter stringFromNumber:@(timeout)];
+                
                 if (imageSets == 1) {
                     if (handImages) {
                         instructionStep1.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE_HAND", nil);
                         instructionStep1.detailText = [NSString localizedStringWithFormat:ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO2_DETAIL_TEXT_HAND", nil),
                             ORKLocalizedStringFromNumber(@(numberOfAttempts)),
-                            timeout];
+                            timeoutString];
                         instructionStep1.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                     } else {
                         instructionStep1.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE_FOOT", nil);
                         instructionStep1.detailText = [NSString localizedStringWithFormat:ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO2_DETAIL_TEXT_FOOT", nil),
                         ORKLocalizedStringFromNumber(@(numberOfAttempts)),
-                        timeout];
+                        timeoutString];
                         instructionStep1.image = [UIImage imageNamed:@"phone_left_right_foot_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                     }
                 } else { // imageSets == 2
@@ -1643,13 +1647,13 @@ NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
                         instructionStep1.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE_HAND", nil);
                         instructionStep1.detailText = [NSString localizedStringWithFormat:ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO2_DETAIL_TEXT_HAND", nil),
                         ORKLocalizedStringFromNumber(@(numberOfAttempts)),
-                        timeout];
+                        timeoutString];
                         instructionStep1.image = [UIImage imageNamed:@"phone_left_right_hand_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                     } else {
                         instructionStep1.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE_FOOT", nil);
                         instructionStep1.detailText = [NSString localizedStringWithFormat:ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_INTRO2_DETAIL_TEXT_FOOT", nil),
                         ORKLocalizedStringFromNumber(@(numberOfAttempts)),
-                        timeout];
+                        timeoutString];
                         instructionStep1.image = [UIImage imageNamed:@"phone_left_right_foot_button" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                     }
                 }
