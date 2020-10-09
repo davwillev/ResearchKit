@@ -115,7 +115,7 @@
     [self.leftRightJudgementContentView.rightButton addTarget:self
                                        action:@selector(buttonPressed:)
                              forControlEvents:UIControlEventTouchUpInside];
-    [self setButtonsDisabled]; // buttons should not appear until an image is displayed
+    [self setButtonsDisabled]; // buttons should not appear until a question starts and an image is displayed
 }
 
 - (void)configureTextWithCount {
