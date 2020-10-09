@@ -106,7 +106,7 @@
     [super viewDidLoad];
     _results = [NSMutableArray new];
     self.questionNumber = 0;
-    [self configureTextWithoutCount];
+    [self configureInstructions];
     _leftRightJudgementContentView = [ORKLeftRightJudgementContentView new];
     self.activeStepView.activeCustomView = _leftRightJudgementContentView;
     [self.leftRightJudgementContentView.leftButton addTarget:self
@@ -118,22 +118,7 @@
     [self setButtonsDisabled]; // buttons should not appear until a question starts and an image is displayed
 }
 
-- (void)configureTextWithCount {
-    NSString *count = [NSString stringWithFormat:
-                       ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_IMAGE_COUNT", nil),
-                       ORKLocalizedStringFromNumber(@(_imageCount)),
-                       ORKLocalizedStringFromNumber(@([self leftRightJudgementStep].numberOfAttempts))];
-    NSString *instruction;
-    if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionHands) {
-        instruction= ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
-    } else if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionFeet) {
-        instruction= ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_FOOT", nil);
-    }
-    NSString *text = [NSString stringWithFormat:@"%@\n\n%@", instruction, count];
-    [self.activeStepView updateText:text];
-}
-
-- (void)configureTextWithoutCount {
+- (void)configureInstructions {
     NSString *instruction;
     if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionHands) {
         instruction= ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
@@ -141,6 +126,18 @@
         instruction= ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_FOOT", nil);
     }
     [self.activeStepView updateText:instruction];
+}
+
+- (void)configureCountText {
+    NSString *countText = [NSString stringWithFormat:
+                       ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_IMAGE_COUNT", nil),
+                       ORKLocalizedStringFromNumber(@(_imageCount)),
+                       ORKLocalizedStringFromNumber(@([self leftRightJudgementStep].numberOfAttempts))];
+    self.leftRightJudgementContentView.countText = countText;
+}
+
+- (void) hideCountText {
+    self.leftRightJudgementContentView.countText = @"";
 }
 
 - (void)startTimeoutTimer {
@@ -185,7 +182,7 @@
 - (void)startInterStimulusInterval {
     [_timeoutNotificationTimer invalidate];
     self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@""];
-    [self configureTextWithoutCount];
+    [self hideCountText];
     self.leftRightJudgementContentView.timeoutText = @"";
     _interStimulusIntervalTimer = [NSTimer scheduledTimerWithTimeInterval:[self interStimulusInterval]
                                                               target:self
@@ -683,7 +680,7 @@
     self.leftRightJudgementContentView.imageToDisplay = image;
     _startTime = [NSProcessInfo processInfo].systemUptime;
     [self startTimeoutTimer];
-    [self configureTextWithCount];
+    [self configureCountText];
     [self setButtonsEnabled];
 }
 

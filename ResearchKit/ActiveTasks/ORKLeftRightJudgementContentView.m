@@ -43,6 +43,7 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     UIStackView *_buttonStackView;
     UIImageView *_imageView;
     UILabel *_timeoutView;
+    UILabel *_countView;
 }
  
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -51,6 +52,7 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     if (self) {
         self.translatesAutoresizingMaskIntoConstraints = NO;
         [self setUpImageView];
+        [self setUpCountView];
         [self setUpTimeoutView];
         [self setUpButtons];
         [self setUpConstraints];
@@ -64,6 +66,19 @@ static const CGFloat buttonStackViewSpacing = 100.0;
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
         _imageView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_imageView];
+    }
+}
+
+- (void)setUpCountView {
+    if (!_countView) {
+        _countView = [UILabel new];
+        _countView.numberOfLines = 1;
+        _countView.textAlignment = NSTextAlignmentLeft;
+        [_countView setTextColor:[UIColor blackColor]];
+        [_countView setFont:[UIFont systemFontOfSize:15]];
+        [_countView setAdjustsFontSizeToFitWidth:YES];
+        _countView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addSubview:_countView];
     }
 }
 
@@ -105,6 +120,11 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     [self setNeedsDisplay];
 }
 
+- (void)setCountText:(NSString *)countText {
+    [_countView setText:countText];
+    [self setNeedsDisplay];
+}
+
 - (void)setTimeoutText:(NSString *)timeoutText {
     [_timeoutView setText:timeoutText];
     [self setNeedsDisplay];
@@ -112,6 +132,10 @@ static const CGFloat buttonStackViewSpacing = 100.0;
 
 - (UIImage *)imageToDisplay {
     return _imageView.image;
+}
+
+- (NSString *)countText {
+    return _countView.text;
 }
 
 - (NSString *)timeoutText {

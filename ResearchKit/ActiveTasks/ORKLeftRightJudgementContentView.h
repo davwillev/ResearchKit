@@ -39,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ORKLeftRightJudgementContentView : ORKActiveStepCustomView
 
+@property (nonatomic) NSString * countText;
+
 @property (nonatomic) NSString * timeoutText;
 
 @property (nonatomic) UIImage * imageToDisplay;
