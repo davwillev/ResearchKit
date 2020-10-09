@@ -124,43 +124,50 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_imageView, _timeoutView, _buttonStackView);
     
-    [constraints addObjectsFromArray:[NSLayoutConstraint
-                                      constraintsWithVisualFormat:@"V:|-(==30)-[_imageView]-(>=10)-[_buttonStackView]-(==30)-|"
-                                      options:NSLayoutFormatAlignAllCenterX
-                                      metrics:nil
-                                      views:views]];
+    const CGFloat sideMargin = self.layoutMargins.left + (2 * ORKStandardLeftMarginForTableViewCell(self));
     
-    [constraints addObjectsFromArray: [NSLayoutConstraint
-                                       constraintsWithVisualFormat:@"H:|-(==30)-[_imageView]-(==30)-|"
-                                       options:0
-                                       metrics: nil
-                                       views:views]];
+    [constraints addObjectsFromArray:
+     [NSLayoutConstraint
+      constraintsWithVisualFormat:@"V:|-[_imageView]-(>=20)-[_buttonStackView]-|"
+      options:NSLayoutFormatAlignAllCenterX
+      metrics:nil
+      views:views]];
     
-    [constraints addObjectsFromArray:@[
-                                       [NSLayoutConstraint constraintWithItem:_buttonStackView
-                                                                    attribute:NSLayoutAttributeHeight
-                                                                    relatedBy:NSLayoutRelationEqual
-                                                                       toItem:nil
-                                                                    attribute:NSLayoutAttributeNotAnAttribute
-                                                                   multiplier:1.0
-                                                                     constant:minimumButtonHeight],
-                                       [NSLayoutConstraint constraintWithItem:_buttonStackView
-                                                                    attribute:NSLayoutAttributeCenterX
-                                                                    relatedBy:NSLayoutRelationEqual
-                                                                       toItem:self
-                                                                    attribute:NSLayoutAttributeCenterX
-                                                                   multiplier:1.0
-                                                                     constant:0.0]
-                                       ]];
+    [constraints addObjectsFromArray:
+     [NSLayoutConstraint
+      constraintsWithVisualFormat:@"H:|-sideMargin-[_timeoutView]-sideMargin-|"
+      options:0
+      metrics: @{@"sideMargin": @(sideMargin)}
+      views:views]];
+    
+    [constraints addObjectsFromArray:
+     @[[NSLayoutConstraint
+        constraintWithItem:_buttonStackView
+        attribute:NSLayoutAttributeHeight
+        relatedBy:NSLayoutRelationEqual
+        toItem:nil
+        attribute:NSLayoutAttributeNotAnAttribute
+        multiplier:1.0
+        constant:minimumButtonHeight],
+       
+    [NSLayoutConstraint constraintWithItem:_buttonStackView
+        attribute:NSLayoutAttributeCenterX
+        relatedBy:NSLayoutRelationEqual
+        toItem:self
+        attribute:NSLayoutAttributeCenterX
+        multiplier:1.0
+        constant:0.0]
+    ]];
 
     for (ORKBorderedButton *button in @[_leftButton, _rightButton]) {
-        [constraints addObject:[NSLayoutConstraint constraintWithItem:button
-                                                            attribute:NSLayoutAttributeWidth
-                                                            relatedBy:NSLayoutRelationEqual
-                                                               toItem:button
-                                                            attribute:NSLayoutAttributeHeight
-                                                           multiplier:1.0
-                                                             constant:0.0]];
+        [constraints addObject:
+         [NSLayoutConstraint constraintWithItem:button
+            attribute:NSLayoutAttributeWidth
+            relatedBy:NSLayoutRelationEqual
+            toItem:button
+            attribute:NSLayoutAttributeHeight
+            multiplier:1.0
+            constant:0.0]];
     }
 
     [self addConstraints:constraints];
