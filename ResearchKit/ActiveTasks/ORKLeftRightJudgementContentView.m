@@ -122,7 +122,7 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     
     NSMutableArray *constraints = [[NSMutableArray alloc] init];
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(_imageView, _buttonStackView);
+    NSDictionary *views = NSDictionaryOfVariableBindings(_imageView, _timeoutView, _buttonStackView);
     
     [constraints addObjectsFromArray:[NSLayoutConstraint
                                       constraintsWithVisualFormat:@"V:|-(==30)-[_imageView]-(>=10)-[_buttonStackView]-(==30)-|"
