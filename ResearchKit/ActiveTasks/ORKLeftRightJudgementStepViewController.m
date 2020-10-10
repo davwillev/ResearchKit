@@ -308,7 +308,7 @@
 
 - (void)start {
     [super start];
-    [self startQuestion];
+    [self startInterStimulusInterval];
 }
              
 - (NSString *)sidePresented {
