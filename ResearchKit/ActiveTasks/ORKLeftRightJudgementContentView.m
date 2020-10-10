@@ -54,7 +54,7 @@ static const CGFloat buttonStackViewSpacing = 100.0;
         [self setUpImageView];
         [self setUpCountView];
         [self setUpTimeoutView];
-        [self setUpButtons];
+        [self setUpButtonStackView];
         [self setUpConstraints];
     }
     return self;
@@ -95,7 +95,7 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     }
 }
 
-- (void)setUpButtons {
+- (void)setUpButtonStackView {
     _leftButton = [[ORKBorderedButton alloc] init];
     _leftButton.translatesAutoresizingMaskIntoConstraints = NO;
     [_leftButton setTitle:ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_LEFT_BUTTON", nil) forState:UIControlStateNormal];
@@ -146,13 +146,13 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     
     NSMutableArray *constraints = [[NSMutableArray alloc] init];
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(_imageView, _countView, _timeoutView, _buttonStackView);
+    NSDictionary *views = NSDictionaryOfVariableBindings(_countView, _timeoutView, _imageView, _buttonStackView);
     
     const CGFloat sideMargin = self.layoutMargins.left + (2 * ORKStandardLeftMarginForTableViewCell(self));
     
     [constraints addObjectsFromArray:
     [NSLayoutConstraint
-     constraintsWithVisualFormat:@"V:|[_countView]-(==40@250)-[_timeoutView][_imageView]-(>=20)-[_buttonStackView]-(==30@750)-|"
+     constraintsWithVisualFormat:@"V:|[_countView]-(==40@250)-[_timeoutView][_imageView]-(>=20)-[_buttonStackView]-(==30@1000)-|"
      options:0
      metrics: nil
      views:views]];
