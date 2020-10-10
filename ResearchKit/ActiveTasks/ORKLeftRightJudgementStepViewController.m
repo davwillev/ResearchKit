@@ -109,6 +109,9 @@
     [self configureInstructions];
     _leftRightJudgementContentView = [ORKLeftRightJudgementContentView new];
     self.activeStepView.activeCustomView = _leftRightJudgementContentView;
+}
+
+- (void)setupButtons {
     [self.leftRightJudgementContentView.leftButton addTarget:self
                                        action:@selector(buttonPressed:)
                              forControlEvents:UIControlEventTouchUpInside];
@@ -137,7 +140,7 @@
 }
 
 - (void) hideCountText {
-    self.leftRightJudgementContentView.countText = @"";
+    self.leftRightJudgementContentView.countText = @" ";
 }
 
 - (void)startTimeoutTimer {
@@ -678,10 +681,13 @@
 - (void)startQuestion {
     UIImage *image = [self nextImageInQueue];
     self.leftRightJudgementContentView.imageToDisplay = image;
+    if (self.questionNumber == 1) {
+        [self setupButtons];
+    }
+    [self setButtonsEnabled];
+    [self configureCountText];
     _startTime = [NSProcessInfo processInfo].systemUptime;
     [self startTimeoutTimer];
-    [self configureCountText];
-    [self setButtonsEnabled];
 }
 
 - (void)setButtonsDisabled {
