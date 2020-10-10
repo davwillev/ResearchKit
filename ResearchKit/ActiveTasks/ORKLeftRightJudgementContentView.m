@@ -146,23 +146,37 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     
     NSMutableArray *constraints = [[NSMutableArray alloc] init];
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(_imageView, _timeoutView, _buttonStackView);
+    NSDictionary *views = NSDictionaryOfVariableBindings(_imageView, _countView, _timeoutView, _buttonStackView);
     
     const CGFloat sideMargin = self.layoutMargins.left + (2 * ORKStandardLeftMarginForTableViewCell(self));
     
     [constraints addObjectsFromArray:
-     [NSLayoutConstraint
-      constraintsWithVisualFormat:@"V:|-[_imageView]-(>=20)-[_buttonStackView]-|"
-      options:NSLayoutFormatAlignAllCenterX
-      metrics:nil
-      views:views]];
+    [NSLayoutConstraint
+     constraintsWithVisualFormat:@"V:|[_countView]-(==40@250)-[_timeoutView][_imageView]-(>=20)-[_buttonStackView]-(==30@750)-|"
+     options:0
+     metrics: nil
+     views:views]];
     
     [constraints addObjectsFromArray:
-     [NSLayoutConstraint
-      constraintsWithVisualFormat:@"H:|-sideMargin-[_timeoutView]-sideMargin-|"
-      options:0
-      metrics: @{@"sideMargin": @(sideMargin)}
-      views:views]];
+    [NSLayoutConstraint
+     constraintsWithVisualFormat:@"H:|[_countView]-|"
+     options:0
+     metrics: nil
+     views:views]];
+    
+    [constraints addObjectsFromArray:
+    [NSLayoutConstraint
+     constraintsWithVisualFormat:@"H:|-sideMargin-[_timeoutView]-sideMargin-|"
+     options:0
+     metrics: @{@"sideMargin": @(sideMargin)}
+     views:views]];
+    
+    [constraints addObjectsFromArray:
+    [NSLayoutConstraint
+     constraintsWithVisualFormat:@"H:|-sideMargin-[_imageView]-sideMargin-|"
+     options:0
+     metrics: @{@"sideMargin": @(sideMargin)}
+     views:views]];
     
     [constraints addObjectsFromArray:
      @[[NSLayoutConstraint
@@ -174,7 +188,8 @@ static const CGFloat buttonStackViewSpacing = 100.0;
         multiplier:1.0
         constant:minimumButtonHeight],
        
-    [NSLayoutConstraint constraintWithItem:_buttonStackView
+    [NSLayoutConstraint
+        constraintWithItem:_buttonStackView
         attribute:NSLayoutAttributeCenterX
         relatedBy:NSLayoutRelationEqual
         toItem:self
