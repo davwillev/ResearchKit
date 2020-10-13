@@ -45,6 +45,8 @@ ORK_CLASS_AVAILABLE
 
 @property (nonatomic, assign) NSTimeInterval timeout;
 
+@property (nonatomic, assign) BOOL shouldDisplayAnswer;
+
 @property (nonatomic, assign) ORKPredefinedTaskImageOption imageOption;
 
 

@@ -1678,7 +1678,7 @@ enum TaskListRow: Int, CustomStringConvertible {
     
     /// This task presents the Left/Right Judgement pre-defined active task.
     private var leftRightJudgementTask: ORKTask {
-        return ORKOrderedTask.leftRightJudgementTask(withIdentifier: String(describing: Identifier.leftRightJudgementTask), intendedUseDescription: exampleDescription, imageOption: .both, numberOfAttempts: 20, minimumInterStimulusInterval: 0.5, maximumInterStimulusInterval: 2.5, timeout: 3.5, options: [])
+        return ORKOrderedTask.leftRightJudgementTask(withIdentifier: String(describing: Identifier.leftRightJudgementTask), intendedUseDescription: exampleDescription, imageOption: .both, numberOfAttempts: 20, minimumInterStimulusInterval: 0.5, maximumInterStimulusInterval: 2.5, timeout: 3.5, shouldDisplayAnswer: true, options: [])
     }
     
     /// This task presents the swift Stroop pre-defined active task.

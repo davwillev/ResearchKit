@@ -1538,6 +1538,7 @@ NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
                                  minimumInterStimulusInterval:(NSTimeInterval)minimumInterStimulusInterval
                                  maximumInterStimulusInterval:(NSTimeInterval)maximumInterStimulusInterval
                                                  timeout:(NSTimeInterval)timeout
+                                     shouldDisplayAnswer:(BOOL)shouldDisplayAnswer
                                                  options:(ORKPredefinedTaskOption)options {
     
     NSMutableArray *steps = [NSMutableArray array];
