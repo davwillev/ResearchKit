@@ -58,6 +58,7 @@
     NSTimer *_interStimulusIntervalTimer;
     NSTimer *_timeoutTimer;
     NSTimer *_timeoutNotificationTimer;
+    NSTimer *_displayAnswerTimer;
     NSArray *_imageQueue;
     NSArray *_imagePaths;
     NSInteger _imageCount;
@@ -139,10 +140,6 @@
     self.leftRightJudgementContentView.countText = countText;
 }
 
-- (void) hideCountText {
-    self.leftRightJudgementContentView.countText = @" ";
-}
-
 - (void)startTimeoutTimer {
     NSTimeInterval timeout = [self leftRightJudgementStep].timeout;
     if (timeout > 0) {
@@ -167,15 +164,54 @@
     _timedOutCount++;
     [self calculatePercentagesForSides:sidePresented andTimeouts:_timedOut];
     [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
-    [self displayTimeoutNotification];
+    [self displayTimeoutNotification:sidePresented];
 }
 
--(void)displayTimeoutNotification {
-    self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@""];
+-(void)displayTimeoutNotification:(NSString *)sidePresented {
+    [self hideImage];
     [self setButtonsDisabled];
-    NSString *text = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TIMEOUT_NOTIFICATION", nil);
-    self.leftRightJudgementContentView.timeoutText = text;
+    NSString *timeoutText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TIMEOUT_NOTIFICATION", nil);
+    self.leftRightJudgementContentView.timeoutText = timeoutText;
+    if ([self leftRightJudgementStep].shouldDisplayAnswer) {
+    self.leftRightJudgementContentView.answerText = [self answerForSidePresented:sidePresented];
+    }
     _timeoutNotificationTimer = [NSTimer scheduledTimerWithTimeInterval:2.0
+                                                                 target:self
+                                                               selector:@selector(startInterStimulusInterval)
+                                                               userInfo:nil
+                                                                repeats:NO];
+}
+
+- (NSString *)answerForSidePresented:(NSString *)sidePresented {
+    [self hideImage];
+    [self setButtonsDisabled];
+    NSString *answerText;
+    if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionHands) {
+        if ([sidePresented isEqualToString: @"Left"]) {
+            answerText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_ANSWER_LEFT_HAND", nil);
+        } else if ([sidePresented isEqualToString: @"Right"]) {
+            answerText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_ANSWER_RIGHT_HAND", nil);
+        }
+    } else if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionFeet) {
+        if ([sidePresented isEqualToString: @"Left"]) {
+            answerText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_ANSWER_LEFT_FOOT", nil);
+        } else if ([sidePresented isEqualToString: @"Right"]) {
+            answerText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_ANSWER_RIGHT_FOOT", nil);
+        }
+    }
+    return answerText;
+}
+
+- (void)displayAnswerWhenButtonPressed:(NSString *)sidePresented forMatches:(BOOL)match {
+    NSString *answerText = [self answerForSidePresented:sidePresented];
+    NSString *text;
+    if (match) {
+        text = [NSString stringWithFormat:@"%@\n%@", ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_ANSWER_CORRECT", nil), answerText];
+    } else {
+        text = [NSString stringWithFormat:@"%@\n%@", ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_ANSWER_INCORRECT", nil), answerText];
+    }
+    self.leftRightJudgementContentView.answerText = text;
+    _displayAnswerTimer = [NSTimer scheduledTimerWithTimeInterval:2.0
                                                                  target:self
                                                                selector:@selector(startInterStimulusInterval)
                                                                userInfo:nil
@@ -184,9 +220,11 @@
 
 - (void)startInterStimulusInterval {
     [_timeoutNotificationTimer invalidate];
-    self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@""];
+    [_displayAnswerTimer invalidate];
+    [self hideImage];
     [self hideCountText];
-    self.leftRightJudgementContentView.timeoutText = @"";
+    [self hideTimeoutText];
+    [self hideAnswerText];
     _interStimulusIntervalTimer = [NSTimer scheduledTimerWithTimeInterval:[self interStimulusInterval]
                                                               target:self
                                                             selector:@selector(startNextQuestionOrFinish)
@@ -242,7 +280,11 @@
             [self calculatePercentagesForSides:sidePresented andTimeouts:_timedOut];
             [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
         }
-    [self startInterStimulusInterval];
+        if ([self leftRightJudgementStep].shouldDisplayAnswer) {
+            [self displayAnswerWhenButtonPressed:sidePresented forMatches:_match];
+        } else {
+            [self startInterStimulusInterval];
+        }
     }
 }
 
@@ -698,6 +740,22 @@
 - (void)setButtonsEnabled {
     [self.leftRightJudgementContentView.leftButton setEnabled: YES];
     [self.leftRightJudgementContentView.rightButton setEnabled: YES];
+}
+
+- (void)hideCountText {
+    self.leftRightJudgementContentView.countText = @" ";
+}
+
+- (void)hideTimeoutText {
+    self.leftRightJudgementContentView.timeoutText = @" ";
+}
+
+- (void)hideAnswerText {
+    self.leftRightJudgementContentView.answerText = @" ";
+}
+
+- (void)hideImage {
+    self.leftRightJudgementContentView.imageToDisplay = [UIImage imageNamed:@""];
 }
 
 @end

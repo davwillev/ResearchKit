@@ -43,6 +43,7 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     UIStackView *_buttonStackView;
     UIImageView *_imageView;
     UILabel *_timeoutView;
+    UILabel *_answerView;
     UILabel *_countView;
 }
  
@@ -54,6 +55,7 @@ static const CGFloat buttonStackViewSpacing = 100.0;
         [self setUpImageView];
         [self setUpCountView];
         [self setUpTimeoutView];
+        [self setUpAnswerView];
         [self setUpButtonStackView];
         [self setUpConstraints];
     }
@@ -95,6 +97,19 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     }
 }
 
+- (void)setUpAnswerView {
+    if (!_answerView) {
+        _answerView = [UILabel new];
+        _answerView.numberOfLines = 2;
+        _answerView.textAlignment = NSTextAlignmentCenter;
+        [_answerView setTextColor:[UIColor blueColor]];
+        [_answerView setFont:[UIFont systemFontOfSize:20]];
+        [_answerView setAdjustsFontSizeToFitWidth:YES];
+        _answerView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addSubview:_answerView];
+    }
+}
+
 - (void)setUpButtonStackView {
     _leftButton = [[ORKBorderedButton alloc] init];
     _leftButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -130,6 +145,11 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     [self setNeedsDisplay];
 }
 
+- (void)setAnswerText:(NSString *)answerText {
+    [_answerView setText:answerText];
+    [self setNeedsDisplay];
+}
+
 - (UIImage *)imageToDisplay {
     return _imageView.image;
 }
@@ -142,13 +162,18 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     return _timeoutView.text;
 }
 
+- (NSString *)answerText {
+    return _answerView.text;
+}
+
 - (void)setUpConstraints {
     
     NSMutableArray *constraints = [[NSMutableArray alloc] init];
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(_countView, _timeoutView, _imageView, _buttonStackView);
+    NSDictionary *views = NSDictionaryOfVariableBindings(_countView, _timeoutView, _answerView, _imageView, _buttonStackView);
     
     const CGFloat sideMargin = self.layoutMargins.left + (2 * ORKStandardLeftMarginForTableViewCell(self));
+    //const CGFloat topMargin = self.layoutMargins.top;
     
     [constraints addObjectsFromArray:
     [NSLayoutConstraint
@@ -159,7 +184,7 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     
     [constraints addObjectsFromArray:
     [NSLayoutConstraint
-     constraintsWithVisualFormat:@"V:|[_countView]-(>=10)-[_timeoutView][_imageView]-(>=10)-[_buttonStackView]-(==30)-|"
+     constraintsWithVisualFormat:@"V:|[_countView]-(>=10)-[_timeoutView]-[_answerView]-[_imageView]-(>=10)-[_buttonStackView]-(==30)-|"
      options:0
      metrics: nil
      views:views]];
@@ -174,6 +199,13 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     [constraints addObjectsFromArray:
     [NSLayoutConstraint
      constraintsWithVisualFormat:@"H:|-sideMargin-[_timeoutView]-sideMargin-|"
+     options:0
+     metrics: @{@"sideMargin": @(sideMargin)}
+     views:views]];
+    
+    [constraints addObjectsFromArray:
+    [NSLayoutConstraint
+     constraintsWithVisualFormat:@"H:|-sideMargin-[_answerView]-sideMargin-|"
      options:0
      metrics: @{@"sideMargin": @(sideMargin)}
      views:views]];

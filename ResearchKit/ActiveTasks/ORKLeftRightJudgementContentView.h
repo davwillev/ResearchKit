@@ -43,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) NSString * timeoutText;
 
+@property (nonatomic) NSString * answerText;
+
 @property (nonatomic) UIImage * imageToDisplay;
 
 @property (nonatomic) ORKBorderedButton * leftButton;

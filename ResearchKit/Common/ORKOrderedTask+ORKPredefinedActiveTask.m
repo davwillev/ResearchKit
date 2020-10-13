@@ -1693,6 +1693,7 @@ NSString *const ORKLeftRightJudgementStepIdentifier = @"left.right.judgement";
                 leftRightJudgementStep.maximumInterStimulusInterval = maximumInterStimulusInterval;
                 leftRightJudgementStep.minimumInterStimulusInterval = minimumInterStimulusInterval;
                 leftRightJudgementStep.timeout = timeout;
+                leftRightJudgementStep.shouldDisplayAnswer = shouldDisplayAnswer;
                 leftRightJudgementStep.title = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_TITLE", nil);
 
                 // Set instructions and image set(s) within step view controller

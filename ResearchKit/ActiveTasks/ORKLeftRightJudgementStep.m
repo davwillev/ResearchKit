@@ -103,6 +103,7 @@
     step.minimumInterStimulusInterval = self.minimumInterStimulusInterval;
     step.maximumInterStimulusInterval = self.maximumInterStimulusInterval;
     step.timeout = self.timeout;
+    step.shouldDisplayAnswer = self.shouldDisplayAnswer;
     step.imageOption = self.imageOption;
     return step;
 }
@@ -114,6 +115,7 @@
         ORK_DECODE_DOUBLE(aDecoder, minimumInterStimulusInterval);
         ORK_DECODE_DOUBLE(aDecoder, maximumInterStimulusInterval);
         ORK_DECODE_DOUBLE(aDecoder, timeout);
+        ORK_DECODE_BOOL(aDecoder, shouldDisplayAnswer);
         ORK_DECODE_ENUM(aDecoder, imageOption);
     }
     return self;
@@ -125,6 +127,7 @@
     ORK_ENCODE_DOUBLE(aCoder, minimumInterStimulusInterval);
     ORK_ENCODE_DOUBLE(aCoder, maximumInterStimulusInterval);
     ORK_ENCODE_DOUBLE(aCoder, timeout);
+    ORK_DECODE_BOOL(aCoder, shouldDisplayAnswer);
     ORK_ENCODE_ENUM(aCoder, imageOption);
 }
 
@@ -137,6 +140,7 @@
             (self.minimumInterStimulusInterval == castObject.minimumInterStimulusInterval) &&
             (self.maximumInterStimulusInterval == castObject.maximumInterStimulusInterval) &&
             (self.timeout == castObject.timeout) &&
+            (self.shouldDisplayAnswer == castObject.shouldDisplayAnswer) &&
             (self.imageOption == castObject.imageOption));
 }
 
