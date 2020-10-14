@@ -46,7 +46,6 @@
 
 @property (nonatomic, strong) ORKLeftRightJudgementContentView *leftRightJudgementContentView;
 
-@property (nonatomic) NSUInteger questionNumber;
 
 @end
 
@@ -106,7 +105,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _results = [NSMutableArray new];
-    self.questionNumber = 0;
     [self configureInstructions];
     _leftRightJudgementContentView = [ORKLeftRightJudgementContentView new];
     self.activeStepView.activeCustomView = _leftRightJudgementContentView;
@@ -712,8 +710,7 @@
 
 - (void)startNextQuestionOrFinish {
     [_interStimulusIntervalTimer invalidate];
-    self.questionNumber = self.questionNumber + 1;
-    if (self.questionNumber == ([self leftRightJudgementStep].numberOfAttempts)) {
+    if (_imageCount == ([self leftRightJudgementStep].numberOfAttempts)) {
         [self finish];
     } else {
         [self startQuestion];
@@ -723,7 +720,7 @@
 - (void)startQuestion {
     UIImage *image = [self nextImageInQueue];
     self.leftRightJudgementContentView.imageToDisplay = image;
-    if (self.questionNumber == 1) {
+    if (_imageCount == 1) {
         [self setupButtons];
     }
     [self setButtonsEnabled];
