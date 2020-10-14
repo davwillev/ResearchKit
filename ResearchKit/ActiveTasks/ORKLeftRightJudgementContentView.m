@@ -90,7 +90,7 @@ static const CGFloat buttonStackViewSpacing = 100.0;
         _timeoutView.numberOfLines = 1;
         _timeoutView.textAlignment = NSTextAlignmentCenter;
         [_timeoutView setTextColor:[UIColor blueColor]];
-        [_timeoutView setFont:[UIFont systemFontOfSize:30]];
+        [_timeoutView setFont:[UIFont systemFontOfSize:20]];
         [_timeoutView setAdjustsFontSizeToFitWidth:YES];
         _timeoutView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_timeoutView];
