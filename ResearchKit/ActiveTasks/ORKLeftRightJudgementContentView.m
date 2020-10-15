@@ -172,26 +172,11 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_countView, _timeoutView, _answerView, _imageView, _buttonStackView);
     
-    const CGFloat sideMargin = self.layoutMargins.left + (2 * ORKStandardLeftMarginForTableViewCell(self));
-    //const CGFloat topMargin = self.layoutMargins.top;
+    const CGFloat sideMargin = self.layoutMargins.left + (1.5 * ORKStandardLeftMarginForTableViewCell(self));
     
     [constraints addObjectsFromArray:
     [NSLayoutConstraint
-     constraintsWithVisualFormat:@"V:|-(>=20)-[_imageView]-(>=40)-|"
-     options:NSLayoutFormatAlignAllCenterY
-     metrics: nil
-     views:views]];
-    
-    [constraints addObjectsFromArray:
-    [NSLayoutConstraint
-     constraintsWithVisualFormat:@"V:|[_countView]-(>=10)-[_timeoutView]-[_answerView]-[_imageView]-(>=10)-[_buttonStackView]-(==30)-|"
-     options:0
-     metrics: nil
-     views:views]];
-    
-    [constraints addObjectsFromArray:
-    [NSLayoutConstraint
-     constraintsWithVisualFormat:@"H:|[_countView]-|"
+     constraintsWithVisualFormat:@"V:|[_countView]-(>=50@750)-[_timeoutView]-(==3)-[_answerView]-(==1@250)-[_imageView]-(>=40)-[_buttonStackView]-(==30@1000)-|"
      options:0
      metrics: nil
      views:views]];
@@ -199,7 +184,7 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     [constraints addObjectsFromArray:
     [NSLayoutConstraint
      constraintsWithVisualFormat:@"H:|-sideMargin-[_timeoutView]-sideMargin-|"
-     options:0
+     options:NSLayoutFormatAlignAllCenterY
      metrics: @{@"sideMargin": @(sideMargin)}
      views:views]];
     
@@ -213,7 +198,7 @@ static const CGFloat buttonStackViewSpacing = 100.0;
     [constraints addObjectsFromArray:
     [NSLayoutConstraint
      constraintsWithVisualFormat:@"H:|-sideMargin-[_imageView]-sideMargin-|"
-     options:0
+     options:NSLayoutFormatAlignAllCenterY
      metrics: @{@"sideMargin": @(sideMargin)}
      views:views]];
     
