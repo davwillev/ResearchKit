@@ -432,13 +432,13 @@
 "LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_FOOT" = "Select the side of the body to which each foot belongs.";
 "LEFT_RIGHT_JUDGEMENT_LEFT_BUTTON" = "Left";
 "LEFT_RIGHT_JUDGEMENT_RIGHT_BUTTON" = "Right";
+"LEFT_RIGHT_JUDGEMENT_ANSWER_CORRECT" = "You are correct!";
+"LEFT_RIGHT_JUDGEMENT_ANSWER_INCORRECT" = "Sorry, you are incorrect.";
 "LEFT_RIGHT_JUDGEMENT_TIMEOUT_NOTIFICATION" = "Sorry, this image timed out.";
 "LEFT_RIGHT_JUDGEMENT_ANSWER_RIGHT_HAND" = "The image showed a right hand.";
 "LEFT_RIGHT_JUDGEMENT_ANSWER_LEFT_HAND" = "The image showed a left hand.";
 "LEFT_RIGHT_JUDGEMENT_ANSWER_RIGHT_FOOT" = "The image showed a right foot.";
 "LEFT_RIGHT_JUDGEMENT_ANSWER_LEFT_FOOT" = "The image showed a left foot.";
-"LEFT_RIGHT_JUDGEMENT_ANSWER_CORRECT" = "You are correct!";
-"LEFT_RIGHT_JUDGEMENT_ANSWER_INCORRECT" = "Sorry, you are incorrect.";
 
 /* Tower of Hanoi active task */
 "TOWER_OF_HANOI_TASK_TITLE" = "Tower of Hanoi";
