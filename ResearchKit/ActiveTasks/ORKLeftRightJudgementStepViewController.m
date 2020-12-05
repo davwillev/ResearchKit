@@ -131,14 +131,14 @@
                                 multiplier:1.0
                                 constant:0.0];
     
-    // Height is 80% of containing view (trial and error)
+    // Height set to 75% of containing view (allows 2 lines of instruction text)
     NSLayoutConstraint *height = [NSLayoutConstraint
                                  constraintWithItem:_leftRightJudgementContentView
                                  attribute:NSLayoutAttributeHeight
                                  relatedBy:NSLayoutRelationEqual
                                  toItem:self.activeStepView
                                  attribute:NSLayoutAttributeHeight
-                                 multiplier:0.80
+                                 multiplier:0.75
                                  constant:0.0];
     
     // Pin bottom to bottom of containing view
