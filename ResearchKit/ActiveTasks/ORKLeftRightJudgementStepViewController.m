@@ -46,7 +46,6 @@
 
 @property (nonatomic, strong) ORKLeftRightJudgementContentView *leftRightJudgementContentView;
 
-
 @end
 
 
@@ -106,8 +105,53 @@
     [super viewDidLoad];
     _results = [NSMutableArray new];
     [self configureInstructions];
+    [self setupCustomView];
+}
+
+- (void)setupCustomView {
     _leftRightJudgementContentView = [ORKLeftRightJudgementContentView new];
+    _leftRightJudgementContentView.translatesAutoresizingMaskIntoConstraints = NO;
     self.activeStepView.activeCustomView = _leftRightJudgementContentView;
+        
+    NSLayoutConstraint *center = [NSLayoutConstraint
+                                  constraintWithItem:_leftRightJudgementContentView
+                                  attribute:NSLayoutAttributeCenterX
+                                  relatedBy:NSLayoutRelationEqual
+                                  toItem:self.activeStepView
+                                  attribute:NSLayoutAttributeCenterX
+                                  multiplier:1.0
+                                  constant:0.0];
+    
+    NSLayoutConstraint *width = [NSLayoutConstraint
+                                constraintWithItem:_leftRightJudgementContentView
+                                attribute:NSLayoutAttributeWidth
+                                relatedBy:NSLayoutRelationEqual
+                                toItem:self.activeStepView
+                                attribute:NSLayoutAttributeWidth
+                                multiplier:1.0
+                                constant:0.0];
+    
+    // Height is 80% of containing view (trial and error)
+    NSLayoutConstraint *height = [NSLayoutConstraint
+                                 constraintWithItem:_leftRightJudgementContentView
+                                 attribute:NSLayoutAttributeHeight
+                                 relatedBy:NSLayoutRelationEqual
+                                 toItem:self.activeStepView
+                                 attribute:NSLayoutAttributeHeight
+                                 multiplier:0.80
+                                 constant:0.0];
+    
+    // Pin bottom to bottom of containing view
+    NSLayoutConstraint *bottom = [NSLayoutConstraint
+                                 constraintWithItem:_leftRightJudgementContentView
+                                 attribute:NSLayoutAttributeBottom
+                                 relatedBy:NSLayoutRelationEqual
+                                 toItem:self.activeStepView
+                                 attribute:NSLayoutAttributeBottom
+                                 multiplier:1.0
+                                 constant:0.0];
+    
+    [self.activeStepView addConstraints:@[center, width, height, bottom]];
 }
 
 - (void)setupButtons {
