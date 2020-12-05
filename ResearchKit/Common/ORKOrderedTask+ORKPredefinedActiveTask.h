@@ -222,6 +222,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
+ The back bending range of motion task returns a task that measures the motion during standing forward and/or backward bending, while the user holds the device against their upper chest with their hand.
+ 
+ @param identifier              The task identifier to use for this task, appropriate to the study.
+ @param movementOption              The movement(s) to be performed during the task.
+ @param intendedUseDescription  A localized string describing the intended use of the data collected. If the value of this parameter is `nil`, default localized text is used.
+ @param options                 Options that affect the features of the predefined task.
+ */
++ (ORKOrderedTask *)backBendingRangeOfMotionTaskWithIdentifier:(NSString *)identifier
+                                                 movementOption:(ORKPredefinedTaskMovementOption)movementOption
+                                     intendedUseDescription:(nullable NSString *)intendedUseDescription
+                                                    options:(ORKPredefinedTaskOption)options;
+
+
+/**
  Returns a predefined task that enables an audio recording WITH a check of the audio level.
  
  In an audio recording task, the participant is asked to make some kind of sound

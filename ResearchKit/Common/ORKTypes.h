@@ -230,7 +230,7 @@ typedef NS_ENUM(NSInteger, ORKBodySagittal) {
 
 
 /**
- Values that identify the left or right limb to be used in an active task.
+ Values that identify the limb(s) to be used in an active task.
  */
 typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskLimbOption) {
     /// Which limb to use is undefined
@@ -244,6 +244,42 @@ typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskLimbOption) {
     
     /// Task should test the both limbs (random order)
     ORKPredefinedTaskLimbOptionBoth = ORKPredefinedTaskLimbOptionLeft | ORKPredefinedTaskLimbOptionRight,
+} ORK_ENUM_AVAILABLE;
+
+
+/**
+ Values that identify the movement to be performed during an active task.
+ */
+typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskMovementOption) {
+    /// The movement is undefined
+    ORKPredefinedTaskMovementOptionUnspecified = 0,
+    
+    /// Movement should be rotation to the left
+    ORKPredefinedTaskMovementOptionRotationLeft = 1 << 1,
+    
+    /// Movement should be rotation to the right
+    ORKPredefinedTaskMovementOptionRotationRight = 1 << 2,
+    
+    /// Movement should be bending to the left
+    ORKPredefinedTaskMovementOptionBendingLeft = 1 << 3,
+    
+    /// Movement should be bending to the right
+    ORKPredefinedTaskMovementOptionBendingRight = 1 << 4,
+    
+    /// Movement should be bending forwards
+    ORKPredefinedTaskMovementOptionBendingForwards = 1 << 5,
+    
+    /// Movement should be bending backwards
+    ORKPredefinedTaskMovementOptionBendingBackwards = 1 << 6,
+
+    /// Movement should be rotation to the left and right (random order)
+    ORKPredefinedTaskMovementOptionRotationBoth = ORKPredefinedTaskMovementOptionRotationLeft | ORKPredefinedTaskMovementOptionRotationRight,
+    
+    /// Movement should be bending to the left and right (random order)
+    ORKPredefinedTaskMovementOptionBendingBoth = ORKPredefinedTaskMovementOptionBendingLeft | ORKPredefinedTaskMovementOptionBendingRight,
+    
+    /// Movement should be forwards and backwards bending (random order)
+    ORKPredefinedTaskMovementOptionBendingSagittal = ORKPredefinedTaskMovementOptionBendingForwards | ORKPredefinedTaskMovementOptionBendingBackwards,
 } ORK_ENUM_AVAILABLE;
 
 
