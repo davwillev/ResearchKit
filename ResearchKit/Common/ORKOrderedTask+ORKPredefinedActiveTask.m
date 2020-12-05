@@ -1131,7 +1131,7 @@ NSString *const ORKKneeRangeOfMotionStepIdentifier = @"knee.range.of.motion";
                     }
                 }
                 instructionStep0.shouldTintImages = YES;
-                instructionStep0.imageContentMode = UIViewContentModeCenter;
+                //instructionStep0.imageContentMode = UIViewContentModeCenter;
                 ORKStepArrayAddStep(steps, instructionStep0);
             }
             
@@ -1161,7 +1161,7 @@ NSString *const ORKKneeRangeOfMotionStepIdentifier = @"knee.range.of.motion";
                     }
                 }
                 instructionStep1.shouldTintImages = YES;
-                instructionStep1.imageContentMode = UIViewContentModeCenter;
+                //instructionStep1.imageContentMode = UIViewContentModeCenter;
                 ORKStepArrayAddStep(steps, instructionStep1);
             }
             
@@ -1197,7 +1197,7 @@ NSString *const ORKKneeRangeOfMotionStepIdentifier = @"knee.range.of.motion";
                     }
                 }
                 instructionStep2.image = kneeStartImage;
-                instructionStep2.imageContentMode = UIViewContentModeCenter;
+                //instructionStep2.imageContentMode = UIViewContentModeCenter;
                 instructionStep2.shouldTintImages = YES;
                 ORKStepArrayAddStep(steps, instructionStep2);
             }
@@ -1234,7 +1234,7 @@ NSString *const ORKKneeRangeOfMotionStepIdentifier = @"knee.range.of.motion";
                     }
                 }
                 instructionStep3.image = kneeMaximumImage;
-                instructionStep3.imageContentMode = UIViewContentModeCenter;
+                //instructionStep3.imageContentMode = UIViewContentModeCenter;
                 instructionStep3.shouldTintImages = YES;
                 ORKStepArrayAddStep(steps, instructionStep3);
             }
@@ -1377,7 +1377,7 @@ NSString *const ORKShoulderRangeOfMotionStepIdentifier = @"shoulder.range.of.mot
                 }
             }
             instructionStep0.shouldTintImages = YES;
-            instructionStep0.imageContentMode = UIViewContentModeCenter;
+            //instructionStep0.imageContentMode = UIViewContentModeCenter;
             ORKStepArrayAddStep(steps, instructionStep0);
         }
             
@@ -1407,7 +1407,7 @@ NSString *const ORKShoulderRangeOfMotionStepIdentifier = @"shoulder.range.of.mot
                 }
             }
             instructionStep1.shouldTintImages = YES;
-            instructionStep1.imageContentMode = UIViewContentModeCenter;
+            //instructionStep1.imageContentMode = UIViewContentModeCenter;
             ORKStepArrayAddStep(steps, instructionStep1);
         }
             
@@ -1443,7 +1443,7 @@ NSString *const ORKShoulderRangeOfMotionStepIdentifier = @"shoulder.range.of.mot
                 }
             }
             instructionStep2.image = shoulderStartImage;
-            instructionStep2.imageContentMode = UIViewContentModeCenter;
+            //instructionStep2.imageContentMode = UIViewContentModeCenter;
             instructionStep2.shouldTintImages = YES;
             ORKStepArrayAddStep(steps, instructionStep2);
         }
@@ -1480,7 +1480,7 @@ NSString *const ORKShoulderRangeOfMotionStepIdentifier = @"shoulder.range.of.mot
                 }
             }
             instructionStep3.image = shoulderMaximumImage;
-            instructionStep3.imageContentMode = UIViewContentModeCenter;
+            //instructionStep3.imageContentMode = UIViewContentModeCenter;
             instructionStep3.shouldTintImages = YES;
             ORKStepArrayAddStep(steps, instructionStep3);
             }
