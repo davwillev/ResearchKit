@@ -41,4 +41,14 @@
     return [ORKBackBendingRangeOfMotionStepViewController class];
 }
 
+- (void)validateParameters {
+    [super validateParameters];
+    
+    if (self.movementOption != ORKPredefinedTaskMovementOptionBendingForwards && self.movementOption != ORKPredefinedTaskMovementOptionBendingBackwards && self.movementOption != ORKPredefinedTaskMovementOptionBendingSagittal) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                       reason:ORKLocalizedString(@"MOVEMENT_OPTION_LEFT_OR_RIGHT_ERROR", nil)
+                                     userInfo:nil];
+    }
+}
+
 @end
