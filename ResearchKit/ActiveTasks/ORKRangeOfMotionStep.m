@@ -50,6 +50,7 @@
         self.shouldContinueOnFinish = YES;
         self.shouldStartTimerAutomatically = YES;
         self.limbOption = limbOption;
+        self.movementOption = _movementOption;
     }
     return self;
 }
@@ -75,6 +76,7 @@
 - (instancetype)copyWithZone:(NSZone *)zone {
     ORKRangeOfMotionStep *step = [super copyWithZone:zone];
     step.limbOption = self.limbOption;
+    step.movementOption = self.movementOption;
     return step;
 }
 
@@ -82,6 +84,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         ORK_DECODE_INTEGER(aDecoder, limbOption);
+        ORK_DECODE_ENUM(aDecoder, movementOption);
     }
     return self;
 }
@@ -89,13 +92,16 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
     ORK_ENCODE_INTEGER(aCoder, limbOption);
+    ORK_ENCODE_ENUM(aCoder, movementOption);
 }
 
 - (BOOL)isEqual:(id)object {
     BOOL isParentSame = [super isEqual:object];
     
     __typeof(self) castObject = object;
-    return (isParentSame && (self.limbOption == castObject.limbOption));
+    return (isParentSame &&
+            (self.limbOption == castObject.limbOption) &&
+            (self.movementOption == castObject.movementOption));
 }
 
 @end
