@@ -1564,7 +1564,7 @@ NSString *const ORKBackBendingRangeOfMotionStepIdentifier = @"back.bending.range
     BOOL doingBoth = (movementCount == 2);
     BOOL forwardBending;
     
-    switch (forwardBending) {
+    switch (movementOption) {
         case ORKPredefinedTaskMovementOptionBendingForwards:
             forwardBending = NO; break;
         case ORKPredefinedTaskMovementOptionBendingBackwards:
