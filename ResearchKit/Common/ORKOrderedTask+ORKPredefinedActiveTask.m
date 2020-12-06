@@ -1516,7 +1516,7 @@ NSString *const ORKShoulderRangeOfMotionStepIdentifier = @"shoulder.range.of.mot
                             
             ORKDeviceMotionRecorderConfiguration *deviceMotionRecorderConfig = [[ORKDeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORKDeviceMotionRecorderIdentifier frequency:100];
                 
-            ORKRangeOfMotionStep *shoulderRangeOfMotionStep = [[ORKRangeOfMotionStep alloc] initWithIdentifier:appendIdentifier(ORKShoulderRangeOfMotionStepIdentifier) limbOption:limbOption];
+            ORKShoulderRangeOfMotionStep *shoulderRangeOfMotionStep = [[ORKShoulderRangeOfMotionStep alloc] initWithIdentifier:appendIdentifier(ORKShoulderRangeOfMotionStepIdentifier) limbOption:limbOption];
                             
             // Set title and instructions based on the selected limb(s)
             if (rightLimb) {
@@ -1552,13 +1552,14 @@ NSString *const ORKShoulderRangeOfMotionStepIdentifier = @"shoulder.range.of.mot
 NSString *const ORKBackBendingRangeOfMotionStepIdentifier = @"back.bending.range.of.motion";
 
 + (ORKOrderedTask *)backBendingRangeOfMotionTaskWithIdentifier:(NSString *)identifier
-                                             movementOption:(ORKPredefinedTaskMovementOption)movementOption
+                                                    limbOption:(ORKPredefinedTaskLimbOption)limbOption
+                                                    movementOption:(ORKPredefinedTaskMovementOption)movementOption
                                  intendedUseDescription:(NSString *)intendedUseDescription
                                                 options:(ORKPredefinedTaskOption)options {
     
     NSMutableArray *steps = [NSMutableArray array];
     
-    // Setup which movement (forwards or backwards bending) to start with and how many movements (1 or both) to add, based on the movementOption parameter. If both directions are selected, the order in which they are presented is randomly allocated
+    // Setup which movement (forwards or backwards bending) to start with and how many movements (1 or both) to add, based on the movementOption parameter. If both movements are selected, the order in which they are presented is randomly allocated
     NSUInteger movementCount = ((movementOption & ORKPredefinedTaskMovementOptionBendingSagittal) == ORKPredefinedTaskMovementOptionBendingSagittal) ? 2 : 1;
     BOOL doingBoth = (movementCount == 2);
     BOOL forwardBending;
@@ -1762,7 +1763,7 @@ NSString *const ORKBackBendingRangeOfMotionStepIdentifier = @"back.bending.range
                             
             ORKDeviceMotionRecorderConfiguration *deviceMotionRecorderConfig = [[ORKDeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORKDeviceMotionRecorderIdentifier frequency:100];
                 
-            ORKRangeOfMotionStep *backBendingRangeOfMotionStep = [[ORKRangeOfMotionStep alloc] initWithIdentifier:appendIdentifier(ORKBackBendingRangeOfMotionStepIdentifier) limbOption:movementOption];
+            ORKBackBendingRangeOfMotionStep *backBendingRangeOfMotionStep = [[ORKBackBendingRangeOfMotionStep alloc] initWithIdentifier:appendIdentifier(ORKBackBendingRangeOfMotionStepIdentifier) limbOption:limbOption];
                             
             // Set title and instructions based on the selected limb(s)
             if (forwardBending) {
