@@ -251,14 +251,11 @@ typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskLimbOption) {
  Values that identify the movement to be performed during an active task.
  */
 typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskMovementOption) {
-    /// The movement is undefined
-    ORKPredefinedTaskMovementOptionUnspecified = 0,
+    /// Movement should be bending forwards
+    ORKPredefinedTaskMovementOptionBendingForwards = 1 << 1,
     
-    /// Movement should be rotation to the left
-    ORKPredefinedTaskMovementOptionRotationLeft = 1 << 1,
-    
-    /// Movement should be rotation to the right
-    ORKPredefinedTaskMovementOptionRotationRight = 1 << 2,
+    /// Movement should be bending backwards
+    ORKPredefinedTaskMovementOptionBendingBackwards = 1 << 2,
     
     /// Movement should be bending to the left
     ORKPredefinedTaskMovementOptionBendingLeft = 1 << 3,
@@ -266,25 +263,23 @@ typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskMovementOption) {
     /// Movement should be bending to the right
     ORKPredefinedTaskMovementOptionBendingRight = 1 << 4,
     
-    /// Movement should be bending forwards
-    ORKPredefinedTaskMovementOptionBendingForwards = 1 << 5,
+    /// Movement should be rotation to the left
+    ORKPredefinedTaskMovementOptionRotationLeft = 1 << 5,
     
-    /// Movement should be bending backwards
-    ORKPredefinedTaskMovementOptionBendingBackwards = 1 << 6,
+    /// Movement should be rotation to the right
+    ORKPredefinedTaskMovementOptionRotationRight = 1 << 6,
+    
+    /// The movement is undefined
+    ORKPredefinedTaskMovementOptionUnspecified = 0,
 
-    /// Movement should be rotation to the left and right (random order)
-    ORKPredefinedTaskMovementOptionRotationBoth =
-        ORKPredefinedTaskMovementOptionRotationLeft |
-        ORKPredefinedTaskMovementOptionRotationRight,
+    /// Movement should be forwards and backwards bending (random order)
+    ORKPredefinedTaskMovementOptionBendingBothSagittal = ORKPredefinedTaskMovementOptionBendingForwards |
+        ORKPredefinedTaskMovementOptionBendingBackwards,
     
     /// Movement should be bending to the left and right (random order)
-    ORKPredefinedTaskMovementOptionBendingBoth =
+    ORKPredefinedTaskMovementOptionBendingBothSides =
         ORKPredefinedTaskMovementOptionBendingLeft |
         ORKPredefinedTaskMovementOptionBendingRight,
-    
-    /// Movement should be forwards and backwards bending (random order)
-    ORKPredefinedTaskMovementOptionBendingSagittal = ORKPredefinedTaskMovementOptionBendingForwards |
-        ORKPredefinedTaskMovementOptionBendingBackwards,
     
     /// Movement should be forwards, backwards, left side and right side bending (random order)
     ORKPredefinedTaskMovementOptionBendingAll =
@@ -292,6 +287,11 @@ typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskMovementOption) {
         ORKPredefinedTaskMovementOptionBendingBackwards |
         ORKPredefinedTaskMovementOptionBendingLeft |
         ORKPredefinedTaskMovementOptionBendingRight,
+    
+    /// Movement should be rotation to the left and right (random order)
+    ORKPredefinedTaskMovementOptionRotationBoth =
+        ORKPredefinedTaskMovementOptionRotationLeft |
+        ORKPredefinedTaskMovementOptionRotationRight,
 } ORK_ENUM_AVAILABLE;
 
 
