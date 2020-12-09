@@ -30,13 +30,25 @@
  */
 
 
-#import "ORKRangeOfMotionStep.h"
+#import "ORKStandingBendingRangeOfMotionStep.h"
+#import "ORKStandingBendingRangeOfMotionStepViewController.h"
+#import "ORKHelpers_Internal.h"
 
 
-/**
- The `ORKForwardBendingRangeOfMotionStep` class represents a step that takes a range of motion measurement for standing forward bending, while holding the device against the chest in either the left or right hand.
- */
-ORK_CLASS_AVAILABLE
-@interface ORKBackBendingRangeOfMotionStep : ORKRangeOfMotionStep
+@implementation ORKStandingBendingRangeOfMotionStep
+
++ (Class)stepViewControllerClass {
+    return [ORKStandingBendingRangeOfMotionStepViewController class];
+}
+
+- (void)validateParameters {
+    [super validateParameters];
+    /*
+    if (self.movementOption != ORKPredefinedTaskMovementOptionBendingForwards && self.movementOption != ORKPredefinedTaskMovementOptionBendingBackwards && self.movementOption != ORKPredefinedTaskMovementOptionBendingSagittal) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                       reason:ORKLocalizedString(@"MOVEMENT_OPTION_ERROR", nil)
+                                     userInfo:nil];
+    } */
+}
 
 @end

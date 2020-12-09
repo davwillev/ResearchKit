@@ -108,7 +108,7 @@ enum TaskListRow: Int, CustomStringConvertible {
     case weightQuestion
     case kneeRangeOfMotion
     case shoulderRangeOfMotion
-    case backBendingRangeOfMotion
+    case standingBendingRangeOfMotion
     case trailMaking
     case videoInstruction
     case webView
@@ -185,7 +185,7 @@ enum TaskListRow: Int, CustomStringConvertible {
                     .walkBackAndForth,
                     .kneeRangeOfMotion,
                     .shoulderRangeOfMotion,
-                    .backBendingRangeOfMotion,
+                    .standingBendingRangeOfMotion,
                     .trailMaking
                 ]),
             TaskListRowSection(title: "Miscellaneous", rows:
@@ -346,7 +346,7 @@ enum TaskListRow: Int, CustomStringConvertible {
         case .shoulderRangeOfMotion:
             return NSLocalizedString("Shoulder Range of Motion", comment: "")
             
-        case .backBendingRangeOfMotion:
+        case .standingBendingRangeOfMotion:
         return NSLocalizedString("Back Bending Range of Motion", comment: "")
         
         case .trailMaking:
@@ -535,7 +535,7 @@ enum TaskListRow: Int, CustomStringConvertible {
         case walkBackAndForthTask
         case kneeRangeOfMotion
         case shoulderRangeOfMotion
-        case backBendingRangeOfMotion
+        case standingBendingRangeOfMotion
         case trailMaking
         
         // Video instruction tasks.
@@ -695,8 +695,8 @@ enum TaskListRow: Int, CustomStringConvertible {
         case .shoulderRangeOfMotion:
             return shoulderRangeOfMotion
             
-        case .backBendingRangeOfMotion:
-            return backBendingRangeOfMotion
+        case .standingBendingRangeOfMotion:
+            return standingBendingRangeOfMotion
             
         case .trailMaking:
             return trailMaking;
@@ -1591,8 +1591,8 @@ enum TaskListRow: Int, CustomStringConvertible {
     }
     
     /// This task presents a shoulder range of motion task
-    private var backBendingRangeOfMotion: ORKTask {
-        return ORKOrderedTask.backBendingRangeOfMotionTask(withIdentifier: String(describing: Identifier.backBendingRangeOfMotion), limbOption: .right, movementOption: .bendingForwards, intendedUseDescription: exampleDescription, options: [])
+    private var standingBendingRangeOfMotion: ORKTask {
+        return ORKOrderedTask.standingBendingRangeOfMotionTask(withIdentifier: String(describing: Identifier.standingBendingRangeOfMotion), limbOption: .right, movementOption: .bendingBothSagittal, intendedUseDescription: exampleDescription, options: [])
     }
     
     /// This task presents a trail making task

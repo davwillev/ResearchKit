@@ -30,25 +30,13 @@
  */
 
 
-#import "ORKBackBendingRangeOfMotionStep.h"
-#import "ORKBackBendingRangeOfMotionStepViewController.h"
-#import "ORKHelpers_Internal.h"
+#import "ORKRangeOfMotionStepViewController.h"
 
 
-@implementation ORKBackBendingRangeOfMotionStep
-
-+ (Class)stepViewControllerClass {
-    return [ORKBackBendingRangeOfMotionStepViewController class];
-}
-
-- (void)validateParameters {
-    [super validateParameters];
-    /*
-    if (self.movementOption != ORKPredefinedTaskMovementOptionBendingForwards && self.movementOption != ORKPredefinedTaskMovementOptionBendingBackwards && self.movementOption != ORKPredefinedTaskMovementOptionBendingSagittal) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                       reason:ORKLocalizedString(@"MOVEMENT_OPTION_ERROR", nil)
-                                     userInfo:nil];
-    } */
-}
+/**
+ This class overrides its parent's result because here a start result of 0 degrees would mean the device is at a 90 degree angle. Furthermore, device rotation during forward bending is the opposite to that during the knee and shoulder range of motion tasks.
+ */
+ORK_CLASS_AVAILABLE
+@interface ORKStandingBendingRangeOfMotionStepViewController : ORKRangeOfMotionStepViewController
 
 @end

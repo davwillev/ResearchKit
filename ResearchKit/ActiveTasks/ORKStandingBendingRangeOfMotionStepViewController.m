@@ -29,7 +29,7 @@
  */
 
 
-#import "ORKBackBendingRangeOfMotionStepViewController.h"
+#import "ORKStandingBendingRangeOfMotionStepViewController.h"
 
 #import "ORKRangeOfMotionResult.h"
 #import "ORKStepViewController_Internal.h"
@@ -55,7 +55,7 @@
 @end
 
 
-@interface ORKBackBendingRangeOfMotionStepViewController () <ORKDeviceMotionRecorderDelegate> {
+@interface ORKStandingBendingRangeOfMotionStepViewController () <ORKDeviceMotionRecorderDelegate> {
     ORKRangeOfMotionContentView *_contentView;
     UITapGestureRecognizer *_gestureRecognizer;
     CMAttitude *_referenceAttitude;
@@ -64,7 +64,7 @@
 @end
 
 
-@implementation ORKBackBendingRangeOfMotionStepViewController
+@implementation ORKStandingBendingRangeOfMotionStepViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -222,7 +222,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- The back bending range of motion task returns a task that measures the motion during standing forward and/or backward bending, while the user holds the device against their upper chest with their hand.
+ The standing bending range of motion task returns a task that measures the motion during standing forward and/or backward bending, while the user holds the device against their upper chest with their hand.
  
  @param identifier            The task identifier to use for this task, appropriate to the study.
  @param limbOption            The hand that is holding the device during the task.
@@ -230,7 +230,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param intendedUseDescription            A localized string describing the intended use of the data collected. If the value of this parameter is `nil`, default localized text is used.
  @param options            Options that affect the features of the predefined task.
  */
-+ (ORKOrderedTask *)backBendingRangeOfMotionTaskWithIdentifier:(NSString *)identifier
++ (ORKOrderedTask *)standingBendingRangeOfMotionTaskWithIdentifier:(NSString *)identifier
                                             limbOption:(ORKPredefinedTaskLimbOption)limbOption
                                             movementOption:(ORKPredefinedTaskMovementOption)movementOption
                                             intendedUseDescription:(nullable NSString *)intendedUseDescription
