@@ -1624,17 +1624,31 @@ NSString *const ORKstandingBendingRangeOfMotionStepIdentifier = @"back.bending.r
                     instructionStep0.detailText = ORKLocalizedString(@"RANGE_OF_MOTION_SOUND", nil);
                 }
             }
-            // Set the images for animation
-            if (limbOption == ORKPredefinedTaskLimbOptionRight) {
-                UIImage *fb1r = [UIImage imageNamed:@"forward_bending_1_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
-                UIImage *fb2r = [UIImage imageNamed:@"forward_bending_2_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
-                UIImage *fb3r = [UIImage imageNamed:@"forward_bending_3_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
-                instructionStep0.image = [UIImage animatedImageWithImages:@[fb1r, fb2r, fb3r, fb3r, fb2r, fb1r] duration:1];
-            } else if (limbOption == ORKPredefinedTaskLimbOptionLeft) {
-                UIImage *fb1l = [UIImage imageNamed:@"forward_bending_1_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
-                UIImage *fb2l = [UIImage imageNamed:@"forward_bending_2_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
-                UIImage *fb3l = [UIImage imageNamed:@"forward_bending_3_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
-                instructionStep0.image = [UIImage animatedImageWithImages:@[fb1l, fb2l, fb3l, fb3l, fb2l, fb1l] duration:1];
+            // Setup animation
+            if (forwardBending) {
+                if (limbOption == ORKPredefinedTaskLimbOptionRight) {
+                    UIImage *fb1r = [UIImage imageNamed:@"forward_bending_1_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                    UIImage *fb2r = [UIImage imageNamed:@"forward_bending_2_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                    UIImage *fb3r = [UIImage imageNamed:@"forward_bending_3_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                    instructionStep0.image = [UIImage animatedImageWithImages:@[fb1r, fb2r, fb3r, fb3r, fb2r, fb1r] duration:1];
+                } else if (limbOption == ORKPredefinedTaskLimbOptionLeft) {
+                    UIImage *fb1l = [UIImage imageNamed:@"forward_bending_1_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                    UIImage *fb2l = [UIImage imageNamed:@"forward_bending_2_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                    UIImage *fb3l = [UIImage imageNamed:@"forward_bending_3_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                    instructionStep0.image = [UIImage animatedImageWithImages:@[fb1l, fb2l, fb3l, fb3l, fb2l, fb1l] duration:1];
+                }
+            } else {
+                if (limbOption == ORKPredefinedTaskLimbOptionRight) {
+                    UIImage *bb1r = [UIImage imageNamed:@"backward_bending_1_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                    UIImage *bb2r = [UIImage imageNamed:@"backward_bending_2_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                    UIImage *bb3r = [UIImage imageNamed:@"backward_bending_3_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                    instructionStep0.image = [UIImage animatedImageWithImages:@[bb1r, bb2r, bb3r, bb3r, bb2r, bb1r] duration:1];
+                } else if (limbOption == ORKPredefinedTaskLimbOptionLeft) {
+                    UIImage *bb1l = [UIImage imageNamed:@"backward_bending_1_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                    UIImage *bb2l = [UIImage imageNamed:@"backward_bending_2_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                    UIImage *bb3l = [UIImage imageNamed:@"backward_bending_3_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
+                    instructionStep0.image = [UIImage animatedImageWithImages:@[bb1l, bb2l, bb3l, bb3l, bb2l, bb1l] duration:1];
+                }
             }
             instructionStep0.shouldTintImages = YES;
             //instructionStep0.imageContentMode = UIViewContentModeCenter;
