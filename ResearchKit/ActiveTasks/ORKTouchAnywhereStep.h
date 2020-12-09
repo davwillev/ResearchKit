@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  The `ORKTouchAnywhereStep` class represents a step that displays a title with custom instructions
- and the text "Touch anywhere to continue." The user can touch almost anywhere on the
+ and the text "Touch anywhere on the screen to continue." The user can touch almost anywhere on the
  screen and the step will end and the task will continue. The back button is still
  tappable.
  */
