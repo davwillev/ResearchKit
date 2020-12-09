@@ -1560,7 +1560,7 @@ NSString *const ORKBackBendingRangeOfMotionStepIdentifier = @"back.bending.range
     NSMutableArray *steps = [NSMutableArray array];
     
     // Setup which movement (forwards or backwards bending) to start with and how many movements (1 or both) to add, based on the movementOption parameter. If both movements are selected, the order in which they are presented is randomly allocated
-    NSUInteger movementCount = ((movementOption & ORKPredefinedTaskMovementOptionBendingSagittal) == ORKPredefinedTaskMovementOptionBendingSagittal) ? 2 : 1;
+    NSUInteger movementCount = ((movementOption & ORKPredefinedTaskMovementOptionBendingBothSagittal) == ORKPredefinedTaskMovementOptionBendingBothSagittal) ? 2 : 1;
     BOOL doingBoth = (movementCount == 2);
     BOOL forwardBending;
     
