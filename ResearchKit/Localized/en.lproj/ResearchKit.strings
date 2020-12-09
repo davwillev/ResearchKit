@@ -445,8 +445,8 @@
 "STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD" = "Backward Bending";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_FORWARD" = "This task measures how far you can bend forwards while standing, without bending your knees.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_BACKWARD" = "This task measures how far you can bend backwards while standing, without bending your knees.";
-"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_FORWARD_FIRST" = "This task measures how far you can bend forwards and then backwards while standing, without bending your knees.";
-"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_BACKWARD_FIRST" = "This task measures how far you can bend backwards and then forwards while standing, without bending your knees.";
+"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_FORWARD_FIRST" = "This task measures how far you can bend forwards and backwards while standing, without bending your knees. Forward bending will be tested first.";
+"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_BACKWARD_FIRST" = "This task measures how far you can bend backwards and forwards while standing, without bending your knees. Backward bending will be tested first.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_FORWARD_AFTER" = "Now repeat the same test while bending forwards.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_BACKWARD_AFTER" = "Now repeat the same test while bending backwards.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_STANDING_FIRST" = "You will need to be standing with your feet shoulder-width apart for a measurement.";
