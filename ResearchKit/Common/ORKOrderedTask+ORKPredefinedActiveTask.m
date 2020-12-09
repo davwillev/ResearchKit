@@ -1634,7 +1634,7 @@ NSString *const ORKstandingBendingRangeOfMotionStepIdentifier = @"back.bending.r
                 UIImage *fb1l = [UIImage imageNamed:@"forward_bending_1_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                 UIImage *fb2l = [UIImage imageNamed:@"forward_bending_2_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                 UIImage *fb3l = [UIImage imageNamed:@"forward_bending_3_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
-                instructionStep0.image = [UIImage animatedImageWithImages:@[fb1l, fb2l, fb3l, fb3l, fb2l, fb1] duration:1];
+                instructionStep0.image = [UIImage animatedImageWithImages:@[fb1l, fb2l, fb3l, fb3l, fb2l, fb1l] duration:1];
             }
             instructionStep0.shouldTintImages = YES;
             //instructionStep0.imageContentMode = UIViewContentModeCenter;
