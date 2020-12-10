@@ -43,12 +43,12 @@
 
 - (void)validateParameters {
     [super validateParameters];
-    /*
-    if (self.movementOption != ORKPredefinedTaskMovementOptionBendingForwards && self.movementOption != ORKPredefinedTaskMovementOptionBendingBackwards && self.movementOption != ORKPredefinedTaskMovementOptionBendingSagittal) {
+    
+    if (self.movementOption != ORKPredefinedTaskMovementOptionBendingForwards && self.movementOption != ORKPredefinedTaskMovementOptionBendingBackwards && self.movementOption != ORKPredefinedTaskMovementOptionBendingBothSagittal) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
                                        reason:ORKLocalizedString(@"MOVEMENT_OPTION_ERROR", nil)
                                      userInfo:nil];
-    } */
+    }
 }
 
 @end
