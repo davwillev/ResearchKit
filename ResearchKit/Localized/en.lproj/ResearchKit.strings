@@ -392,7 +392,7 @@
 
 /* Range of Motion active tasks */
 "RANGE_OF_MOTION_TITLE" = "Range of Motion";
-"RANGE_OF_MOTION_SOUND" = "Please ensure that the sound of your device is switched on so that you can hear the instructions during the test.";
+"RANGE_OF_MOTION_SOUND" = "Please ensure that the sound of your device is switched on so that you can hear the spoken instructions during the test.";
 "LIMB_OPTION_ERROR" = "limbOption must be left, right or both";
 "MOVEMENT_OPTION_ERROR" = "movementOption is not a recognized option for this task";
 
@@ -449,12 +449,14 @@
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_BACKWARD_FIRST" = "This task measures how far you can bend backwards and forwards while standing, without bending your knees. Backward bending will be tested first.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_FORWARD_AFTER" = "Now repeat the same test while bending forwards.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_BACKWARD_AFTER" = "Now repeat the same test while bending backwards.";
-"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_STANDING_FIRST" = "You will need to be standing with your feet shoulder-width apart for a measurement.";
-"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_STANDING_AFTER" = "Ensure you are still standing with your feet shoulder-width apart.";
+"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_STANDING_FIRST" = "You will need to be standing with your feet shoulder-width apart for the test.";
+"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_STANDING_AFTER" = "Please ensure that you are still standing with your feet shoulder-width apart.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_FORWARD_LEFT" = "The test will begin when you tap the screen. Then, bend forwards as far as you can so that your right hand reaches towards the top of your right foot. Finally, return to the upright position and tap the screen again to stop recording.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_FORWARD_RIGHT" = "The test will begin when you tap the screen. Then, bend forwards as far as you can so that your left hand reaches towards the top of your left foot. Finally, return to the upright position and tap the screen again to stop recording.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_BACKWARD_LEFT" = "The test will begin when you tap the screen. Then, bend backwards as far as you can. Finally, return to the upright position and tap the screen again to stop recording.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_BACKWARD_RIGHT" = "The test will begin when you tap the screen. Then, bend backwards as far as you can. Finally, return to the upright position and tap the screen again to stop recording.";
+"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_LEFT" = "During the test, you will need to hold your device firmly against the center of your upper chest with the screen facing out.";
+"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_RIGHT" = "During the test, you will need to hold your device firmly against the center of your upper chest with the screen facing out.";
 "STANDING_BENDING_RANGE_OF_MOTION_TOUCH_ANYWHERE_STEP_INSTRUCTION_LEFT" = "Using your left hand, hold your device firmly against the center of your upper chest with the screen facing out.";
 "STANDING_BENDING_RANGE_OF_MOTION_TOUCH_ANYWHERE_STEP_INSTRUCTION_RIGHT" = "Using your right hand, hold your device firmly against the center of your upper chest with the screen facing out.";
 "STANDING_BENDING_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_FORWARD" = "Bend forwards as far as you can. Then, return to the upright position and tap anywhere on the screen to finish.";
