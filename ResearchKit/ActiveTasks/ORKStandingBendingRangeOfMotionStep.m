@@ -1,5 +1,4 @@
 /*
- Copyright (c) 2016, Darren Levy. All rights reserved.
  Copyright (c) 2020, Dr David W. Evans. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
