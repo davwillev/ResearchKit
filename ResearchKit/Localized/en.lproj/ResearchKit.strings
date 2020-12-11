@@ -393,8 +393,9 @@
 /* Range of Motion active tasks */
 "RANGE_OF_MOTION_TITLE" = "Range of Motion";
 "RANGE_OF_MOTION_SOUND" = "Please ensure that the sound of your device is switched on so that you can hear the spoken instructions during the test.";
-"LIMB_OPTION_ERROR" = "limbOption must be left, right or both";
-"MOVEMENT_OPTION_ERROR" = "movementOption is not a recognized option for this task";
+"LIMB_OPTION_ERROR" = "The limbOption argument must be left, right or both";
+"LIMB_OPTION_BOTH_ERROR" = "The limbOption argument cannot be BOTH for this task";
+"MOVEMENT_OPTION_ERROR" = "The movementOption argument is not a recognized option for this task";
 
 /* Knee Range of Motion active task */
 "KNEE_RANGE_OF_MOTION_TITLE_LEFT" = "Left Knee";

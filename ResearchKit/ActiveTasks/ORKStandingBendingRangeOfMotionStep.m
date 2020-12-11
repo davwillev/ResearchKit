@@ -44,6 +44,11 @@
 - (void)validateParameters {
     [super validateParameters];
     
+    if (self.limbOption == ORKPredefinedTaskLimbOptionBoth) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                       reason:ORKLocalizedString(@"LIMB_OPTION_BOTH_ERROR", nil)
+                                     userInfo:nil];
+    }
     if (self.movementOption != ORKPredefinedTaskMovementOptionBendingForwards && self.movementOption != ORKPredefinedTaskMovementOptionBendingBackwards && self.movementOption != ORKPredefinedTaskMovementOptionBendingBothSagittal) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
                                        reason:ORKLocalizedString(@"MOVEMENT_OPTION_ERROR", nil)
