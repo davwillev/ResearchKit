@@ -412,7 +412,7 @@
 "RANGE_OF_MOTION_PAIN_SCALE_LOCATION_LEGS" = "Legs";
 "RANGE_OF_MOTION_PAIN_SCALE_LOCATION_BACK_LEGS" = "Back and Legs";
 "QUESTION_OPTION_ERROR" = "The questionOption argument is not a recognized option for this task";
-"LOCATION_OPTION_ERROR" = "questionOption requirea a valid locationOption";
+"LOCATION_OPTION_ERROR" = "questionOption requires a valid locationOption";
 
 /* Knee Range of Motion active task */
 "KNEE_RANGE_OF_MOTION_TITLE_LEFT" = "Left Knee";
