@@ -411,8 +411,8 @@
 "RANGE_OF_MOTION_PAIN_SCALE_LOCATION_BACK" = "Back";
 "RANGE_OF_MOTION_PAIN_SCALE_LOCATION_LEGS" = "Legs";
 "RANGE_OF_MOTION_PAIN_SCALE_LOCATION_BACK_LEGS" = "Back and Legs";
-"QUESTION_OPTION_ERROR" = "The questionOption argument is not a recognized option for this task";
-"LOCATION_OPTION_ERROR" = "The locationOption argument is not a recognized option for this task";
+"QUESTION_OPTION_ERROR" = "The questionOption argument used is not a recognized option for this task";
+"LOCATION_OPTION_ERROR" = "The locationOption argument used is not a recognized option for this task";
 "QUESTION_LOCATION_OPTION_ERROR" = "The questionOption parameter requires a valid locationOption argument";
 
 /* Knee Range of Motion active task */
