@@ -43,9 +43,13 @@ NS_ASSUME_NONNULL_BEGIN
 ORK_CLASS_AVAILABLE
 @interface ORKRangeOfMotionStep : ORKActiveStep
 
-@property (nonatomic, assign) ORKPredefinedTaskLimbOption limbOption; //The limb(s) to be tested during the task
+@property (nonatomic, assign) ORKPredefinedTaskLimbOption limbOption; //The limb(s) rom which a measurement is taken during the task
 
 @property (nonatomic, assign) ORKPredefinedTaskMovementOption movementOption; //The movement to be performed during the task
+
+@property (nonatomic, assign) ORKPredefinedTaskQuestionOption questionOption; //The question(s) to be used before, during and/or after the randge of motion step
+
+@property (nonatomic, assign) ORKPredefinedTaskLocationOption locationOption; //The anatomical location(s) to be assessed within the questions
 
 - (instancetype)initWithIdentifier:(NSString *)identifier limbOption:(ORKPredefinedTaskLimbOption)limbOption;
 

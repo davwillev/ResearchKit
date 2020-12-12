@@ -397,13 +397,30 @@
 "LIMB_OPTION_BOTH_ERROR" = "The limbOption argument cannot be BOTH for this task";
 "MOVEMENT_OPTION_ERROR" = "The movementOption argument is not a recognized option for this task";
 
+/* Optional questions for Range of Motion tasks*/
+"QUESTION_OPTION_ERROR" = "questionOption must be before, during, after or a combination of these";
+"RANGE_OF_MOTION_PAIN_SCALE_QUESTION_TITLE_NOW" = "Your current pain in your %@";
+"RANGE_OF_MOTION_PAIN_SCALE_QUESTION_NOW" = "What is your pain in your %@ now?";
+"RANGE_OF_MOTION_PAIN_SCALE_QUESTION_TITLE_DURING" = "Your pain in your %@ during the activity";
+"RANGE_OF_MOTION_QUESTION_TITLE_BEFORE" = "Before the test";
+"RANGE_OF_MOTION_QUESTION_TITLE_DURING" = "During the test";
+"RANGE_OF_MOTION_QUESTION_TITLE_AFTER" = "After the test";
+"RANGE_OF_MOTION_PAIN_SCALE_QUESTION_DURING" = "What was your pain in your %@ during this activity?";
+"RANGE_OF_MOTION_PAIN_SCALE_MAX" = "Worst possible pain";
+"RANGE_OF_MOTION_PAIN_SCALE_MIN" = "No pain";
+"RANGE_OF_MOTION_PAIN_SCALE_LOCATION_BACK" = "Back";
+"RANGE_OF_MOTION_PAIN_SCALE_LOCATION_LEGS" = "Legs";
+"RANGE_OF_MOTION_PAIN_SCALE_LOCATION_BACK_LEGS" = "Back and Legs";
+"QUESTION_OPTION_ERROR" = "The questionOption argument is not a recognized option for this task";
+"LOCATION_OPTION_ERROR" = "questionOption requirea a valid locationOption";
+
 /* Knee Range of Motion active task */
 "KNEE_RANGE_OF_MOTION_TITLE_LEFT" = "Left Knee";
 "KNEE_RANGE_OF_MOTION_TITLE_RIGHT" = "Right Knee";
-"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_LEFT" = "This activity measures how far you can extend your left knee. You will need to sit down on the edge of a chair.";
-"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_RIGHT" = "This activity measures how far you can extend your right knee. You will need to sit down on the edge of a chair.";
-"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_LEFT_FIRST" = "This activity measures how far you can extend each of your knees one at a time. Your left knee will be tested first.";
-"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_RIGHT_FIRST" = "This activity measures how far you can extend each of your knees one at a time. Your right knee will be tested first.";
+"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_LEFT" = "This activity will measure how far you can extend your left knee. You will need to sit down on the edge of a chair.";
+"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_RIGHT" = "This activity will measure how far you can extend your right knee. You will need to sit down on the edge of a chair.";
+"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_LEFT_FIRST" = "This activity will measure how far you can extend each of your knees one at a time. Your left knee will be tested first.";
+"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_RIGHT_FIRST" = "This activity will measure how far you can extend each of your knees one at a time. Your right knee will be tested first.";
 "KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_LEFT_SECOND" = "Now repeat the same test using your left knee.";
 "KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_RIGHT_SECOND" = "Now repeat the same test using your right knee.";
 "KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_LEFT" = "Sit down on the edge of a chair. When you begin you will need to put your device on your left knee for a measurement.";
@@ -422,10 +439,10 @@
 /* Shoulder Range of Motion active task */
 "SHOULDER_RANGE_OF_MOTION_TITLE_LEFT" = "Left Shoulder";
 "SHOULDER_RANGE_OF_MOTION_TITLE_RIGHT" = "Right Shoulder";
-"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_LEFT" = "This activity measures how far you can raise your left shoulder.";
-"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_RIGHT" = "This activity measures how far you can raise your right shoulder.";
-"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_LEFT_FIRST" = "This activity measures how far you can raise your shoulders one at a time. Your left shoulder will be tested first.";
-"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_RIGHT_FIRST" = "This activity measures how far you can raise your shoulders one at a time. Your right shoulder will be tested first.";
+"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_LEFT" = "This activity will measure how far you can raise your left shoulder.";
+"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_RIGHT" = "This activity will measure how far you can raise your right shoulder.";
+"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_LEFT_FIRST" = "This activity will measure how far you can raise your shoulders one at a time. Your left shoulder will be tested first.";
+"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_RIGHT_FIRST" = "This activity will measure how far you can raise your shoulders one at a time. Your right shoulder will be tested first.";
 "SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_LEFT_SECOND" = "Now repeat the same test using your left shoulder.";
 "SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_RIGHT_SECOND" = "Now repeat the same test using your right shoulder.";
 "SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_LEFT" = "When you begin you will need to put your device on your left shoulder for a measurement.";
@@ -444,8 +461,8 @@
 /* Standing Bending Range of Motion active task */
 "STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD" = "Forward Bending";
 "STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD" = "Backward Bending";
-"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_FORWARD" = "This task measures how far you can bend forwards while standing, without bending your knees.";
-"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_BACKWARD" = "This task measures how far you can bend backwards while standing, without bending your knees.";
+"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_FORWARD" = "This task will measure how far you can bend forwards while standing, without bending your knees.";
+"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_BACKWARD" = "This task will measure how far you can bend backwards while standing, without bending your knees.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_FORWARD_FIRST" = "This task will first measure how far you can bend forwards while standing, without bending your knees.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_BACKWARD_FIRST" = "This task will first measure how far you can bend backwards while standing, without bending your knees.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_FORWARD_NEXT" = "Next, the task will measure how far you can bend forwards while standing, without bending your knees.";

@@ -36,6 +36,8 @@
 
 @implementation ORKRangeOfMotionStep
 
+BOOL questionOptionNotValid;
+
 + (Class)stepViewControllerClass {
     return [ORKRangeOfMotionStepViewController class];
 }
@@ -51,6 +53,8 @@
         self.shouldStartTimerAutomatically = YES;
         self.limbOption = limbOption;
         self.movementOption = _movementOption;
+        self.questionOption = _questionOption;
+        self.locationOption = _locationOption;
     }
     return self;
 }
@@ -58,9 +62,24 @@
 - (void)validateParameters {
     [super validateParameters];
     
-    if (self.limbOption != ORKPredefinedTaskLimbOptionLeft && self.limbOption != ORKPredefinedTaskLimbOptionRight && self.limbOption != ORKPredefinedTaskLimbOptionBoth) {
+    //if (self.limbOption != ORKPredefinedTaskLimbOptionLeft && self.limbOption != ORKPredefinedTaskLimbOptionRight && self.limbOption != ORKPredefinedTaskLimbOptionBoth) {
+    if (!(self.limbOption & ORKPredefinedTaskLimbOptionLeft) &&
+        !(self.limbOption & ORKPredefinedTaskLimbOptionRight)) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
                                        reason:ORKLocalizedString(@"LIMB_OPTION_ERROR", nil)
+                                     userInfo:nil];
+    }
+    //if (self.questionOption != ORKPredefinedTaskQuestionOptionPainBefore && self.questionOption != ORKPredefinedTaskQuestionOptionPainAfter && self.questionOption != ORKPredefinedTaskQuestionOptionPainDuring && self.questionOption != ORKPredefinedTaskQuestionOptionPainBeforeDuring && self.questionOption != ORKPredefinedTaskQuestionOptionPainBeforeAfter && self.questionOption != ORKPredefinedTaskQuestionOptionPainAll) {
+    if (!(self.questionOption & ORKPredefinedTaskQuestionOptionPainBefore) && !(self.questionOption & ORKPredefinedTaskQuestionOptionPainDuring) && !(self.questionOption & ORKPredefinedTaskQuestionOptionPainAfter) &&
+        !(self.questionOption == ORKPredefinedTaskQuestionOptionUnspecified)) {
+        questionOptionNotValid = YES;
+        @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                       reason:ORKLocalizedString(@"QUESTION_OPTION_ERROR", nil)
+                                     userInfo:nil];
+    }
+    if (!(self.questionOption == ORKPredefinedTaskQuestionOptionUnspecified) && (!(questionOptionNotValid) && (self.locationOption == ORKPredefinedTaskLocationOptionUnspecified))) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                       reason:ORKLocalizedString(@"LOCATION_OPTION_ERROR", nil)
                                      userInfo:nil];
     }
 }
@@ -77,6 +96,8 @@
     ORKRangeOfMotionStep *step = [super copyWithZone:zone];
     step.limbOption = self.limbOption;
     step.movementOption = self.movementOption;
+    step.questionOption = self.questionOption;
+    step.locationOption = self.locationOption;
     return step;
 }
 
@@ -85,6 +106,8 @@
     if (self) {
         ORK_DECODE_INTEGER(aDecoder, limbOption);
         ORK_DECODE_ENUM(aDecoder, movementOption);
+        ORK_DECODE_ENUM(aDecoder, questionOption);
+        ORK_DECODE_ENUM(aDecoder, locationOption);
     }
     return self;
 }
@@ -93,6 +116,8 @@
     [super encodeWithCoder:aCoder];
     ORK_ENCODE_INTEGER(aCoder, limbOption);
     ORK_ENCODE_ENUM(aCoder, movementOption);
+    ORK_ENCODE_ENUM(aCoder, questionOption);
+    ORK_ENCODE_ENUM(aCoder, locationOption);
 }
 
 - (BOOL)isEqual:(id)object {
@@ -101,7 +126,9 @@
     __typeof(self) castObject = object;
     return (isParentSame &&
             (self.limbOption == castObject.limbOption) &&
-            (self.movementOption == castObject.movementOption));
+            (self.movementOption == castObject.movementOption) &&
+            (self.questionOption == castObject.questionOption) &&
+            (self.locationOption == castObject.locationOption));
 }
 
 @end
