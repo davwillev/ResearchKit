@@ -347,6 +347,9 @@ typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskLocationOption) {
     /// Task should test the legs
     ORKPredefinedTaskLocationOptionLegs = 1 << 2,
     
+    /// Task should test the neck
+    ORKPredefinedTaskLocationOptionNeck = 1 << 3,
+    
     /// Task should test back and legs (random order)
     ORKPredefinedTaskLocationOptionBackAndLegs = ORKPredefinedTaskLocationOptionBack | ORKPredefinedTaskLocationOptionLegs,
 } ORK_ENUM_AVAILABLE;

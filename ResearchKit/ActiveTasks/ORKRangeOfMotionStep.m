@@ -78,7 +78,7 @@ BOOL questionOptionNotValid;
     }
     if (!(self.questionOption == ORKPredefinedTaskQuestionOptionUnspecified) && (!(questionOptionNotValid) && (self.locationOption == ORKPredefinedTaskLocationOptionUnspecified))) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                       reason:ORKLocalizedString(@"LOCATION_OPTION_ERROR", nil)
+                                       reason:ORKLocalizedString(@"QUESTION_LOCATION_OPTION_ERROR", nil)
                                      userInfo:nil];
     }
 }
