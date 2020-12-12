@@ -1566,10 +1566,10 @@ NSString *const ORKstandingBendingRangeOfMotionStepIdentifier = @"back.bending.r
     
     switch (movementOption) {
         case ORKPredefinedTaskMovementOptionBendingForwards:
-            forwardBending = NO; break;
+            forwardBending = YES; break;
         case ORKPredefinedTaskMovementOptionBendingBackwards:
         case ORKPredefinedTaskMovementOptionUnspecified:
-            forwardBending = YES; break;
+            forwardBending = NO; break;
         default:
             forwardBending = (arc4random()%2 == 0); break;
         }
