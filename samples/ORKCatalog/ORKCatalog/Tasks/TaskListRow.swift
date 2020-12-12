@@ -1592,7 +1592,7 @@ enum TaskListRow: Int, CustomStringConvertible {
     
     /// This task presents a standing bending range of motion task
     private var standingBendingRangeOfMotion: ORKTask {
-        return ORKOrderedTask.standingBendingRangeOfMotionTask(withIdentifier: String(describing: Identifier.standingBendingRangeOfMotion), limbOption: .right, movementOption: .bendingBothSagittal, questionOption: [], locationOption: [], intendedUseDescription: exampleDescription, options: [])
+        return ORKOrderedTask.standingBendingRangeOfMotionTask(withIdentifier: String(describing: Identifier.standingBendingRangeOfMotion), limbOption: .right, movementOption: .bendingBothSagittal, questionOption: .painBeforeDuring, locationOption: .back, intendedUseDescription: exampleDescription, options: [])
     }
     
     /// This task presents a trail making task
