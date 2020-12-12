@@ -226,8 +226,8 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param identifier            The task identifier to use for this task, appropriate to the study.
  @param limbOption            The hand that is holding the device during the task.
- @param questionOption            Optional question(s) relating to before, during and/or after the active step. Requires a locationOption to be valid.
- @param locationOption            Location that will be the subject of the optional question(s). This must not be null for questionOption to be valid.
+ @param questionOption            Optional question(s) relating to before, during and/or after the active step. Requires a valid locationOption argument.
+ @param locationOption            The anatomical location that will be the subject of the optional question(s). This must not be unspecified for questionOption to be valid.
  @param movementOption            The movement(s) to be performed during the task.
  @param intendedUseDescription            A localized string describing the intended use of the data collected. If the value of this parameter is `nil`, default localized text is used.
  @param options            Options that affect the features of the predefined task.
