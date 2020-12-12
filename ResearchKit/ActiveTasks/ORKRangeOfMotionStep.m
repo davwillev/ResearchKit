@@ -1,5 +1,6 @@
 /*
  Copyright (c) 2016, Darren Levy. All rights reserved.
+ Copyright (c) 2020, Dr David W. Evans. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -62,14 +63,12 @@ BOOL questionOptionNotValid;
 - (void)validateParameters {
     [super validateParameters];
     
-    //if (self.limbOption != ORKPredefinedTaskLimbOptionLeft && self.limbOption != ORKPredefinedTaskLimbOptionRight && self.limbOption != ORKPredefinedTaskLimbOptionBoth) {
     if (!(self.limbOption & ORKPredefinedTaskLimbOptionLeft) &&
         !(self.limbOption & ORKPredefinedTaskLimbOptionRight)) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
                                        reason:ORKLocalizedString(@"LIMB_OPTION_ERROR", nil)
                                      userInfo:nil];
     }
-    //if (self.questionOption != ORKPredefinedTaskQuestionOptionPainBefore && self.questionOption != ORKPredefinedTaskQuestionOptionPainAfter && self.questionOption != ORKPredefinedTaskQuestionOptionPainDuring && self.questionOption != ORKPredefinedTaskQuestionOptionPainBeforeDuring && self.questionOption != ORKPredefinedTaskQuestionOptionPainBeforeAfter && self.questionOption != ORKPredefinedTaskQuestionOptionPainAll) {
     if (!(self.questionOption & ORKPredefinedTaskQuestionOptionPainBefore) && !(self.questionOption & ORKPredefinedTaskQuestionOptionPainDuring) && !(self.questionOption & ORKPredefinedTaskQuestionOptionPainAfter) &&
         !(self.questionOption == ORKPredefinedTaskQuestionOptionUnspecified)) {
         questionOptionNotValid = YES;
