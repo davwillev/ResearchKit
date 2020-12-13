@@ -43,6 +43,7 @@
 - (void)validateParameters {
     [super validateParameters];
     
+    // Validations specific to the standing bending rangs of motion task
     if (self.limbOption == ORKPredefinedTaskLimbOptionBoth) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
                                        reason:ORKLocalizedString(@"LIMB_OPTION_BOTH_ERROR", nil)

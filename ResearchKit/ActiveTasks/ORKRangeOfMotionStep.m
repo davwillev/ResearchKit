@@ -63,6 +63,7 @@ BOOL questionOptionNotValid;
 - (void)validateParameters {
     [super validateParameters];
     
+    // Validations relevant to all range of motion tasks
     if (!(self.limbOption & ORKPredefinedTaskLimbOptionLeft) &&
         !(self.limbOption & ORKPredefinedTaskLimbOptionRight)) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
