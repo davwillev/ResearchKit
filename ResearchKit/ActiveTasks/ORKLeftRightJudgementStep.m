@@ -82,10 +82,20 @@
                                        reason:@"timeout must be greater than zero"
                                      userInfo:nil];
     }
-    if (self.imageOption != ORKPredefinedTaskImageOptionHands && self.imageOption != ORKPredefinedTaskImageOptionFeet && self.imageOption != ORKPredefinedTaskImageOptionBoth) {
+    if (!(self.imageOption & ORKPredefinedTaskImageOptionHands) && !(self.imageOption & ORKPredefinedTaskImageOptionFeet)) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
                                        reason:ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_IMAGE_OPTION_ERROR", nil)
                                      userInfo:nil];
+    }
+    if ((self.imageOption & ORKPredefinedTaskImageOptionHands) && self.numberOfAttempts > 120)  {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                   reason:ORKLocalizedString(@"Number of attempts is beyond number of available hand images", nil)
+                                 userInfo:nil];
+    }
+    if ((self.imageOption & ORKPredefinedTaskImageOptionFeet) && self.numberOfAttempts > 144)  {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                   reason:ORKLocalizedString(@"Number of attempts is beyond number of available foot images", nil)
+                                 userInfo:nil];
     }
 }
 
