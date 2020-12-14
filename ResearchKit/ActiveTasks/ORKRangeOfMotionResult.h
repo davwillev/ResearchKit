@@ -1,5 +1,6 @@
 /*
  Copyright (c) 2016, Darren Levy. All rights reserved.
+ Copyright (c) 2020, Dr David W. Evans. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -43,7 +44,7 @@ ORK_CLASS_AVAILABLE
 @interface ORKRangeOfMotionResult : ORKResult
 
 /**
- The physical orientation of the device.
+ The physical orientation of the device at the start position (the commencement of recording).
  */
 @property (nonatomic, assign) NSInteger orientation;
 
