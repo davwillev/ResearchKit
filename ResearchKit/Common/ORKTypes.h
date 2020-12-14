@@ -359,11 +359,6 @@ typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskLocationOption) {
     ORKPredefinedTaskLocationOptionBackAndLegs = ORKPredefinedTaskLocationOptionBack | ORKPredefinedTaskLocationOptionLegs,
 } ORK_ENUM_AVAILABLE;
 
-    
-    /// Task should test the both limbs (random order)
-    ORKPredefinedTaskLimbOptionBoth = ORKPredefinedTaskLimbOptionLeft | ORKPredefinedTaskLimbOptionRight,
-} ORK_ENUM_AVAILABLE;
-
 
 /**
  Values that identify the presentation mode of paced serial addition tests that are auditory and/or visual (PSAT).
