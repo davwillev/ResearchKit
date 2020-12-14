@@ -235,7 +235,7 @@ typedef NS_ENUM(NSInteger, ORKBodySagittal) {
 
 
 /**
- Values that identify the left or right limb to be used in an active task.
+ Values that identify the limb(s) from which a measurement is taken during an active task.
  */
 typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskLimbOption) {
     /// Which limb to use is undefined
@@ -246,6 +246,119 @@ typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskLimbOption) {
     
     /// Task should test the right limb
     ORKPredefinedTaskLimbOptionRight = 1 << 2,
+    
+    /// Task should test the both limbs (random order)
+    ORKPredefinedTaskLimbOptionBoth = ORKPredefinedTaskLimbOptionLeft | ORKPredefinedTaskLimbOptionRight,
+} ORK_ENUM_AVAILABLE;
+
+
+/**
+ Values that identify the movement to be performed during an active task.
+ */
+typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskMovementOption) {
+    /// The movement is undefined
+    ORKPredefinedTaskMovementOptionUnspecified = 0,
+    
+    /// Movement should be flexion
+    ORKPredefinedTaskMovementOptionFlexion = 1 << 1,
+    
+    /// Movement should be extension
+    ORKPredefinedTaskMovementOptionExtension = 1 << 2,
+    
+    /// Movement should be abduction
+    ORKPredefinedTaskMovementOptionAbduction = 1 << 3,
+    
+    /// Movement should be adduction
+    ORKPredefinedTaskMovementOptionAdduction = 1 << 4,
+    
+    /// Movement should be bending forwards
+    ORKPredefinedTaskMovementOptionBendingForwards = 1 << 5,
+    
+    /// Movement should be bending backwards
+    ORKPredefinedTaskMovementOptionBendingBackwards = 1 << 6,
+    
+    /// Movement should be bending to the left
+    ORKPredefinedTaskMovementOptionBendingLeft = 1 << 7,
+    
+    /// Movement should be bending to the right
+    ORKPredefinedTaskMovementOptionBendingRight = 1 << 8,
+    
+    /// Movement should be rotation to the left
+    ORKPredefinedTaskMovementOptionRotationLeft = 1 << 9,
+    
+    /// Movement should be rotation to the right
+    ORKPredefinedTaskMovementOptionRotationRight = 1 << 10,
+    
+    /// Movement should be rotation to the left and right (random order)
+    ORKPredefinedTaskMovementOptionRotationBoth =
+        ORKPredefinedTaskMovementOptionRotationLeft |
+        ORKPredefinedTaskMovementOptionRotationRight,
+    
+    /// Movement should be bending to the left and right (random order)
+    ORKPredefinedTaskMovementOptionBendingBothSides =
+        ORKPredefinedTaskMovementOptionBendingLeft |
+        ORKPredefinedTaskMovementOptionBendingRight,
+    
+    /// Movement should be forwards and backwards bending (random order)
+    ORKPredefinedTaskMovementOptionBendingBothSagittal = ORKPredefinedTaskMovementOptionBendingForwards |
+        ORKPredefinedTaskMovementOptionBendingBackwards,
+    
+    /// Movement should be forwards, backwards, left side and right side bending (random order)
+    ORKPredefinedTaskMovementOptionBendingAll =
+        ORKPredefinedTaskMovementOptionBendingForwards |
+        ORKPredefinedTaskMovementOptionBendingBackwards |
+        ORKPredefinedTaskMovementOptionBendingLeft |
+        ORKPredefinedTaskMovementOptionBendingRight,
+} ORK_ENUM_AVAILABLE;
+
+
+/**
+ Values that identify question(s) to be used before, during and/or after the active steps of an active task.
+ */
+typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskQuestionOption) {
+    /// Assessment options are undefined
+    ORKPredefinedTaskQuestionOptionUnspecified = 0,
+    
+    /// Should assess pain experienced before activity
+    ORKPredefinedTaskQuestionOptionPainBefore = 1 << 1,
+    
+    /// Should assess pain experienced during activity
+    ORKPredefinedTaskQuestionOptionPainDuring = 1 << 2,
+    
+    /// Should assess pain experienced after activity
+    ORKPredefinedTaskQuestionOptionPainAfter = 1 << 3,
+    
+    /// Should assess pain experienced before and during activity
+    ORKPredefinedTaskQuestionOptionPainBeforeDuring = ORKPredefinedTaskQuestionOptionPainBefore | ORKPredefinedTaskQuestionOptionPainDuring,
+
+    /// Should assess pain experienced before and after activity
+    ORKPredefinedTaskQuestionOptionPainBeforeAfter = ORKPredefinedTaskQuestionOptionPainBefore | ORKPredefinedTaskQuestionOptionPainAfter,
+    
+    /// Should assess pain experienced before, during and after activity
+    ORKPredefinedTaskQuestionOptionPainAll = ORKPredefinedTaskQuestionOptionPainBefore | ORKPredefinedTaskQuestionOptionPainDuring | ORKPredefinedTaskQuestionOptionPainAfter,
+} ORK_ENUM_AVAILABLE;
+
+
+/**
+ Values that identify the anatomical location(s) to be assessed by an active task.
+ */
+typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskLocationOption) {
+    /// Location is undefined
+    ORKPredefinedTaskLocationOptionUnspecified = 0,
+    
+    /// Task should test the back
+    ORKPredefinedTaskLocationOptionBack = 1 << 1,
+    
+    /// Task should test the legs
+    ORKPredefinedTaskLocationOptionLegs = 1 << 2,
+    
+    /// Task should test the neck
+    ORKPredefinedTaskLocationOptionNeck = 1 << 3,
+    
+    /// Task should test back and legs (random order)
+    ORKPredefinedTaskLocationOptionBackAndLegs = ORKPredefinedTaskLocationOptionBack | ORKPredefinedTaskLocationOptionLegs,
+} ORK_ENUM_AVAILABLE;
+
     
     /// Task should test the both limbs (random order)
     ORKPredefinedTaskLimbOptionBoth = ORKPredefinedTaskLimbOptionLeft | ORKPredefinedTaskLimbOptionRight,
