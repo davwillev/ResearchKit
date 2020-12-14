@@ -2703,13 +2703,13 @@
 		95E25CF71D39FB240089C0B8 /* Range of Motion */ = {
 			isa = PBXGroup;
 			children = (
-				959A2C0A1D68C8F100841B04 /* Shoulder */,
 				FF919A281E81A94B005C2A1E /* ORKRangeOfMotionResult.h */,
 				FF919A291E81A94B005C2A1E /* ORKRangeOfMotionResult.m */,
 				959A2BFA1D68B98700841B04 /* ORKRangeOfMotionStep.h */,
 				959A2BFB1D68B98700841B04 /* ORKRangeOfMotionStep.m */,
 				959A2BFE1D68B9DA00841B04 /* ORKRangeOfMotionStepViewController.h */,
 				959A2BFF1D68B9DA00841B04 /* ORKRangeOfMotionStepViewController.m */,
+				959A2C0A1D68C8F100841B04 /* Shoulder */,
 			);
 			name = "Range of Motion";
 			sourceTree = "<group>";
@@ -4320,6 +4320,7 @@
 				ar,
 				no,
 				"es-419",
+				es_419,
 			);
 			mainGroup = 3FFF18341829DB1D00167070;
 			productRefGroup = 3FFF183E1829DB1D00167070 /* Products */;

@@ -1,5 +1,4 @@
 /*
- Copyright (c) 2016, Darren Levy. All rights reserved.
  Copyright (c) 2020, Dr David W. Evans. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
@@ -30,13 +29,13 @@
  */
 
 
-#import "ORKRangeOfMotionStep.h"
+#import "ORKRangeOfMotionStepViewController.h"
 
 
 /**
- The `ORKForwardBendingRangeOfMotionStep` class represents a step that takes a range of motion measurement for standing forward bending, while holding the device against the chest in either the left or right hand.
+ This class overrides its parent's result because here a start result of 0 degrees would mean the device is at a 90 degree angle. Furthermore, device rotation during forward bending is the opposite to that during the knee and shoulder range of motion tasks. Backward bending will be reported as a negative angle.
  */
 ORK_CLASS_AVAILABLE
-@interface ORKForwardBendingRangeOfMotionStep : ORKRangeOfMotionStep
+@interface ORKStandingBendingRangeOfMotionStepViewController : ORKRangeOfMotionStepViewController
 
 @end

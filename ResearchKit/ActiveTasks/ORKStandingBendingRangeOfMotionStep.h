@@ -1,5 +1,4 @@
 /*
- Copyright (c) 2016, Darren Levy. All rights reserved.
  Copyright (c) 2020, Dr David W. Evans. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
@@ -30,15 +29,13 @@
  */
 
 
-#import "ORKForwardBendingRangeOfMotionStep.h"
-#import "ORKForwardBendingRangeOfMotionStepViewController.h"
-#import "ORKHelpers_Internal.h"
+#import "ORKRangeOfMotionStep.h"
 
 
-@implementation ORKForwardBendingRangeOfMotionStep
-
-+ (Class)stepViewControllerClass {
-    return [ORKForwardBendingRangeOfMotionStepViewController class];
-}
+/**
+ The `ORKStandingBendingRangeOfMotionStep` class represents a step that takes a range of motion measurement for standing forward and backward bending, while holding the device against the chest in either the left or right hand.
+ */
+ORK_CLASS_AVAILABLE
+@interface ORKStandingBendingRangeOfMotionStep : ORKRangeOfMotionStep
 
 @end

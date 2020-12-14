@@ -1,5 +1,4 @@
 /*
- Copyright (c) 2016, Darren Levy. All rights reserved.
  Copyright (c) 2020, Dr David W. Evans. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification,
@@ -30,13 +29,38 @@
  */
 
 
-#import "ORKRangeOfMotionStepViewController.h"
+#import "ORKStandingBendingRangeOfMotionStep.h"
+#import "ORKStandingBendingRangeOfMotionStepViewController.h"
+#import "ORKHelpers_Internal.h"
 
 
-/**
- This class overrides its parent's result because here a start result of 0 degrees would mean the device is at a 90 degree angle. Furthermore, device rotation during forward bending is the opposite to that during the knee and shoulder range of motion tasks.
- */
-ORK_CLASS_AVAILABLE
-@interface ORKForwardBendingRangeOfMotionStepViewController : ORKRangeOfMotionStepViewController
+@implementation ORKStandingBendingRangeOfMotionStep
+
++ (Class)stepViewControllerClass {
+    return [ORKStandingBendingRangeOfMotionStepViewController class];
+}
+
+- (void)validateParameters {
+    [super validateParameters];
+    
+    if (self.limbOption == ORKPredefinedTaskLimbOptionBoth) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                       reason:ORKLocalizedString(@"LIMB_OPTION_BOTH_ERROR", nil)
+                                     userInfo:nil];
+    }
+    if (!(self.movementOption & ORKPredefinedTaskMovementOptionBendingForwards) &&
+    !(self.movementOption & ORKPredefinedTaskMovementOptionBendingBackwards)) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                       reason:ORKLocalizedString(@"MOVEMENT_OPTION_ERROR", nil)
+                                     userInfo:nil];
+    }
+    if (!(self.locationOption & ORKPredefinedTaskLocationOptionBack) &&
+    !(self.locationOption & ORKPredefinedTaskLocationOptionLegs) &&
+    !(self.locationOption == ORKPredefinedTaskLocationOptionUnspecified)) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                       reason:ORKLocalizedString(@"LOCATION_OPTION_ERROR", nil)
+                                     userInfo:nil];
+    }
+}
 
 @end
