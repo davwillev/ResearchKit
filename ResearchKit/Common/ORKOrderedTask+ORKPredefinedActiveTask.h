@@ -221,17 +221,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- The forward bending range of motion task returns a task that measures the range of motion during standing forward bending, while holding the device against the chest with either the left or right hand.
+ The standing bending range of motion task returns a task that measures the motion during standing forward and/or backward bending, while the user holds the device against their upper chest with their hand.
  
- @param identifier              The task identifier to use for this task, appropriate to the study.
- @param limbOption              With which hand the device is being held during the task.
- @param intendedUseDescription  A localized string describing the intended use of the data collected. If the value of this parameter is `nil`, default localized text is used.
- @param options                 Options that affect the features of the predefined task.
+ @param identifier            The task identifier to use for this task, appropriate to the study.
+ @param limbOption            The hand that is holding the device during the task.
+ @param questionOption            Optional question(s) relating to before, during and/or after the active step. Requires a valid locationOption argument.
+ @param locationOption            The anatomical location that will be the subject of the optional question(s). This must not be unspecified for questionOption to be valid.
+ @param movementOption            The movement(s) to be performed during the task.
+ @param intendedUseDescription            A localized string describing the intended use of the data collected. If the value of this parameter is `nil`, default localized text is used.
+ @param options            Options that affect the features of the predefined task.
  */
-+ (ORKOrderedTask *)forwardBendingRangeOfMotionTaskWithIdentifier:(NSString *)identifier
-                                                 limbOption:(ORKPredefinedTaskLimbOption)limbOption
-                                     intendedUseDescription:(nullable NSString *)intendedUseDescription
-                                                    options:(ORKPredefinedTaskOption)options;
++ (ORKOrderedTask *)standingBendingRangeOfMotionTaskWithIdentifier:(NSString *)identifier
+                                            limbOption:(ORKPredefinedTaskLimbOption)limbOption
+                                            movementOption:(ORKPredefinedTaskMovementOption)movementOption
+                                            questionOption:(ORKPredefinedTaskQuestionOption)questionOption
+                                            locationOption:(ORKPredefinedTaskLocationOption)locationOption
+                                            intendedUseDescription:(nullable NSString *)intendedUseDescription
+                                            options:(ORKPredefinedTaskOption)options;
 
 
 /**

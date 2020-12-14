@@ -110,7 +110,7 @@ enum TaskListRow: Int, CustomStringConvertible {
     case weightQuestion
     case kneeRangeOfMotion
     case shoulderRangeOfMotion
-    case forwardBendingRangeOfMotion
+    case standingBendingRangeOfMotion
     case trunkRotationRangeOfMotion
     case sideBendingRangeOfMotion
     case neckFlexionRangeOfMotion
@@ -202,7 +202,7 @@ enum TaskListRow: Int, CustomStringConvertible {
                     .trailMaking,
                     .visualAcuityLandoltC,
                     .contrastSensitivityPeakLandoltC
-                    .forwardBendingRangeOfMotion,
+                    .standingBendingRangeOfMotion,
                     .trunkRotationRangeOfMotion,
                     .sideBendingRangeOfMotion,
                     .neckFlexionRangeOfMotion,
@@ -375,8 +375,8 @@ enum TaskListRow: Int, CustomStringConvertible {
         case .shoulderRangeOfMotion:
             return NSLocalizedString("Shoulder Range of Motion", comment: "")
             
-        case .forwardBendingRangeOfMotion:
-            return NSLocalizedString("Forward Bending Range of Motion", comment: "")
+        case .standingBendingRangeOfMotion:
+            return NSLocalizedString("Standing Bending Range of Motion", comment: "")
         
         case .trunkRotationRangeOfMotion:
             return NSLocalizedString("Trunk Rotation Range of Motion", comment: "")
@@ -592,7 +592,7 @@ enum TaskListRow: Int, CustomStringConvertible {
         case walkBackAndForthTask
         case kneeRangeOfMotion
         case shoulderRangeOfMotion
-        case forwardBendingRangeOfMotion
+        case standingBendingRangeOfMotion
         case trunkRotationRangeOfMotion
         case sideBendingRangeOfMotion
         case neckFlexionRangeOfMotion
@@ -766,8 +766,8 @@ enum TaskListRow: Int, CustomStringConvertible {
         case .shoulderRangeOfMotion:
             return shoulderRangeOfMotion
             
-        case .forwardBendingRangeOfMotion:
-            return forwardBendingRangeOfMotion
+        case .standingBendingRangeOfMotion:
+            return standingBendingRangeOfMotion
         
         case .trunkRotationRangeOfMotion:
             return trunkRotationRangeOfMotion
@@ -1825,8 +1825,8 @@ enum TaskListRow: Int, CustomStringConvertible {
     }
     
     /// This task presents a forward bending range of motion task
-    private var forwardBendingRangeOfMotion: ORKTask {
-        return ORKOrderedTask.forwardBendingRangeOfMotionTask(withIdentifier: String(describing: Identifier.forwardBendingRangeOfMotion), limbOption: .left, intendedUseDescription: nil, options: [])
+    private var standingBendingRangeOfMotion: ORKTask {
+        return ORKOrderedTask.standingBendingRangeOfMotionTask(withIdentifier: String(describing: Identifier.standingBendingRangeOfMotion), limbOption: .left, movementOption: .bendingBothSagittal, questionOption: .painBeforeAfter, locationOption: .back, intendedUseDescription: nil, options: [])
     }
     
     /// This task presents a trunk rotation range of motion task
