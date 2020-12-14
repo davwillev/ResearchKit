@@ -178,24 +178,24 @@
 		618DA0561A93D0D600E63AA8 /* UIView+ORKAccessibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 618DA04C1A93D0D600E63AA8 /* UIView+ORKAccessibility.m */; };
 		61EFD1082587D8CB007AD8BC /* ORKStandingBendingRangeOfMotionStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EFD1042587D8CA007AD8BC /* ORKStandingBendingRangeOfMotionStepViewController.m */; };
 		61EFD1092587D8CB007AD8BC /* ORKStandingBendingRangeOfMotionStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD1052587D8CB007AD8BC /* ORKStandingBendingRangeOfMotionStepViewController.h */; };
-		61EFD10A2587D8CB007AD8BC /* ORKStandingBendingRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD1062587D8CB007AD8BC /* ORKStandingBendingRangeOfMotionStep.h */; };
+		61EFD10A2587D8CB007AD8BC /* ORKStandingBendingRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD1062587D8CB007AD8BC /* ORKStandingBendingRangeOfMotionStep.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		61EFD10B2587D8CB007AD8BC /* ORKStandingBendingRangeOfMotionStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EFD1072587D8CB007AD8BC /* ORKStandingBendingRangeOfMotionStep.m */; };
 		61EFD1122587D928007AD8BC /* ORKRangeOfMotionStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EFD10C2587D927007AD8BC /* ORKRangeOfMotionStepViewController.m */; };
-		61EFD1132587D928007AD8BC /* ORKRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD10D2587D927007AD8BC /* ORKRangeOfMotionStep.h */; };
+		61EFD1132587D928007AD8BC /* ORKRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD10D2587D927007AD8BC /* ORKRangeOfMotionStep.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		61EFD1142587D928007AD8BC /* ORKRangeOfMotionStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD10E2587D928007AD8BC /* ORKRangeOfMotionStepViewController.h */; };
-		61EFD1152587D928007AD8BC /* ORKRangeOfMotionResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD10F2587D928007AD8BC /* ORKRangeOfMotionResult.h */; };
+		61EFD1152587D928007AD8BC /* ORKRangeOfMotionResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD10F2587D928007AD8BC /* ORKRangeOfMotionResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		61EFD1162587D928007AD8BC /* ORKRangeOfMotionResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EFD1102587D928007AD8BC /* ORKRangeOfMotionResult.m */; };
 		61EFD1172587D928007AD8BC /* ORKRangeOfMotionStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EFD1112587D928007AD8BC /* ORKRangeOfMotionStep.m */; };
 		61EFD11C2587D992007AD8BC /* ORKShoulderRangeOfMotionStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD1182587D992007AD8BC /* ORKShoulderRangeOfMotionStepViewController.h */; };
 		61EFD11D2587D992007AD8BC /* ORKShoulderRangeOfMotionStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EFD1192587D992007AD8BC /* ORKShoulderRangeOfMotionStep.m */; };
-		61EFD11E2587D992007AD8BC /* ORKShoulderRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD11A2587D992007AD8BC /* ORKShoulderRangeOfMotionStep.h */; };
+		61EFD11E2587D992007AD8BC /* ORKShoulderRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD11A2587D992007AD8BC /* ORKShoulderRangeOfMotionStep.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		61EFD11F2587D992007AD8BC /* ORKShoulderRangeOfMotionStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EFD11B2587D992007AD8BC /* ORKShoulderRangeOfMotionStepViewController.m */; };
 		61EFD1242587DA07007AD8BC /* ORKTrunkRotationRangeOfMotionStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EFD1202587DA06007AD8BC /* ORKTrunkRotationRangeOfMotionStep.m */; };
 		61EFD1252587DA07007AD8BC /* ORKTrunkRotationRangeOfMotionStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EFD1212587DA06007AD8BC /* ORKTrunkRotationRangeOfMotionStepViewController.m */; };
 		61EFD1262587DA07007AD8BC /* ORKTrunkRotationRangeOfMotionStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD1222587DA06007AD8BC /* ORKTrunkRotationRangeOfMotionStepViewController.h */; };
-		61EFD1272587DA07007AD8BC /* ORKTrunkRotationRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD1232587DA06007AD8BC /* ORKTrunkRotationRangeOfMotionStep.h */; };
+		61EFD1272587DA07007AD8BC /* ORKTrunkRotationRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD1232587DA06007AD8BC /* ORKTrunkRotationRangeOfMotionStep.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		61EFD12C2587DA3B007AD8BC /* ORKSideBendingRangeOfMotionStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EFD1282587DA3A007AD8BC /* ORKSideBendingRangeOfMotionStep.m */; };
-		61EFD12D2587DA3B007AD8BC /* ORKSideBendingRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD1292587DA3A007AD8BC /* ORKSideBendingRangeOfMotionStep.h */; };
+		61EFD12D2587DA3B007AD8BC /* ORKSideBendingRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD1292587DA3A007AD8BC /* ORKSideBendingRangeOfMotionStep.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		61EFD12E2587DA3B007AD8BC /* ORKSideBendingRangeOfMotionStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD12A2587DA3A007AD8BC /* ORKSideBendingRangeOfMotionStepViewController.h */; };
 		61EFD12F2587DA3B007AD8BC /* ORKSideBendingRangeOfMotionStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EFD12B2587DA3A007AD8BC /* ORKSideBendingRangeOfMotionStepViewController.m */; };
 		61EFD1402587DA73007AD8BC /* ORKNeckSideBendingRangeOfMotionStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EFD1302587DA70007AD8BC /* ORKNeckSideBendingRangeOfMotionStepViewController.m */; };
@@ -203,17 +203,17 @@
 		61EFD1422587DA73007AD8BC /* ORKNeckRotationRangeOfMotionStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EFD1322587DA70007AD8BC /* ORKNeckRotationRangeOfMotionStepViewController.m */; };
 		61EFD1432587DA73007AD8BC /* ORKNeckRotationRangeOfMotionStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD1332587DA71007AD8BC /* ORKNeckRotationRangeOfMotionStepViewController.h */; };
 		61EFD1442587DA73007AD8BC /* ORKNeckExtensionRangeOfMotionStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD1342587DA71007AD8BC /* ORKNeckExtensionRangeOfMotionStepViewController.h */; };
-		61EFD1452587DA73007AD8BC /* ORKNeckRotationRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD1352587DA71007AD8BC /* ORKNeckRotationRangeOfMotionStep.h */; };
+		61EFD1452587DA73007AD8BC /* ORKNeckRotationRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD1352587DA71007AD8BC /* ORKNeckRotationRangeOfMotionStep.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		61EFD1462587DA73007AD8BC /* ORKNeckSideBendingRangeOfMotionStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EFD1362587DA71007AD8BC /* ORKNeckSideBendingRangeOfMotionStep.m */; };
 		61EFD1472587DA73007AD8BC /* ORKNeckFlexionRangeOfMotionStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EFD1372587DA71007AD8BC /* ORKNeckFlexionRangeOfMotionStep.m */; };
 		61EFD1482587DA73007AD8BC /* ORKNeckRotationRangeOfMotionStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EFD1382587DA71007AD8BC /* ORKNeckRotationRangeOfMotionStep.m */; };
 		61EFD1492587DA73007AD8BC /* ORKNeckFlexionRangeOfMotionStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EFD1392587DA72007AD8BC /* ORKNeckFlexionRangeOfMotionStepViewController.m */; };
-		61EFD14A2587DA73007AD8BC /* ORKNeckFlexionRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD13A2587DA72007AD8BC /* ORKNeckFlexionRangeOfMotionStep.h */; };
+		61EFD14A2587DA73007AD8BC /* ORKNeckFlexionRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD13A2587DA72007AD8BC /* ORKNeckFlexionRangeOfMotionStep.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		61EFD14B2587DA73007AD8BC /* ORKNeckExtensionRangeOfMotionStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EFD13B2587DA72007AD8BC /* ORKNeckExtensionRangeOfMotionStep.m */; };
 		61EFD14C2587DA73007AD8BC /* ORKNeckExtensionRangeOfMotionStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EFD13C2587DA72007AD8BC /* ORKNeckExtensionRangeOfMotionStepViewController.m */; };
-		61EFD14D2587DA73007AD8BC /* ORKNeckExtensionRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD13D2587DA72007AD8BC /* ORKNeckExtensionRangeOfMotionStep.h */; };
+		61EFD14D2587DA73007AD8BC /* ORKNeckExtensionRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD13D2587DA72007AD8BC /* ORKNeckExtensionRangeOfMotionStep.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		61EFD14E2587DA73007AD8BC /* ORKNeckFlexionRangeOfMotionStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD13E2587DA72007AD8BC /* ORKNeckFlexionRangeOfMotionStepViewController.h */; };
-		61EFD14F2587DA73007AD8BC /* ORKNeckSideBendingRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD13F2587DA73007AD8BC /* ORKNeckSideBendingRangeOfMotionStep.h */; };
+		61EFD14F2587DA73007AD8BC /* ORKNeckSideBendingRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 61EFD13F2587DA73007AD8BC /* ORKNeckSideBendingRangeOfMotionStep.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		6500FC9121CA3B1E00AC1CA3 /* ORKTouchAbilityRotationStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 6500FC8F21CA3B1E00AC1CA3 /* ORKTouchAbilityRotationStep.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		6500FC9221CA3B1E00AC1CA3 /* ORKTouchAbilityRotationStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 6500FC9021CA3B1E00AC1CA3 /* ORKTouchAbilityRotationStep.m */; };
 		6500FC9521CA3B5B00AC1CA3 /* ORKTouchAbilityRotationStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6500FC9321CA3B5B00AC1CA3 /* ORKTouchAbilityRotationStepViewController.h */; };
@@ -3886,6 +3886,7 @@
 			files = (
 				D3C8072A21891EBE00F9A231 /* ORKEnvironmentSPLMeterResult.h in Headers */,
 				BF1D43851D4904C6007EE90B /* ORKVideoInstructionStep.h in Headers */,
+				61EFD1152587D928007AD8BC /* ORKRangeOfMotionResult.h in Headers */,
 				BF5161501BE9C53D00174DDD /* ORKWaitStep.h in Headers */,
 				244EFAD21BCEFD83001850D9 /* ORKAnswerFormat_Private.h in Headers */,
 				BCA5C0351AEC05F20092AC8D /* ORKStepNavigationRule.h in Headers */,
@@ -3952,7 +3953,6 @@
 				86C40D3C1A8D7C5C00081FAC /* ORKImageChoiceLabel.h in Headers */,
 				65DA22F821BA4576007750B9 /* ORKTouchAbilityPinchContentView.h in Headers */,
 				BC4194291AE8453A00073D6B /* ORKObserver.h in Headers */,
-				61EFD1132587D928007AD8BC /* ORKRangeOfMotionStep.h in Headers */,
 				10FF9AD31B79F5EA00ECB5B4 /* ORKHolePegTestRemovePegView.h in Headers */,
 				FF919A5F1E81CF07005C2A1E /* ORKVideoInstructionStepResult.h in Headers */,
 				866DA5201D63D04700C9AF3F /* ORKCollector.h in Headers */,
@@ -3965,7 +3965,6 @@
 				BF91559B1BDE8D7D007FA459 /* ORKReviewStep_Internal.h in Headers */,
 				BF91559E1BDE8D7E007FA459 /* ORKReviewStepViewController_Internal.h in Headers */,
 				BA2CFBB02342935800B71919 /* ORKCompletionCheckmarkView.h in Headers */,
-				61EFD11E2587D992007AD8BC /* ORKShoulderRangeOfMotionStep.h in Headers */,
 				FF919A3B1E81AF1D005C2A1E /* ORKFileResult.h in Headers */,
 				FF919A561E81BEE0005C2A1E /* ORKCollectionResult_Private.h in Headers */,
 				FF919A661E81D168005C2A1E /* ORKSignatureResult_Private.h in Headers */,
@@ -3973,7 +3972,6 @@
 				FFAE71401DAEC66200AE82B4 /* ORKFootnoteLabel.h in Headers */,
 				FF5CA61B1D2C6453001660A3 /* ORKSignatureStep.h in Headers */,
 				71769E312088260B00A19914 /* ORKdBHLToneAudiometryOnboardingStepViewController.h in Headers */,
-				61EFD14A2587DA73007AD8BC /* ORKNeckFlexionRangeOfMotionStep.h in Headers */,
 				AE2CF2C123231C5A00FDD733 /* ORKTagLabel.h in Headers */,
 				61EFD12E2587DA3B007AD8BC /* ORKSideBendingRangeOfMotionStepViewController.h in Headers */,
 				FF919A471E81BA3D005C2A1E /* ORKHolePegTestResult.h in Headers */,
@@ -3998,7 +3996,6 @@
 				86C40DB61A8D7C5C00081FAC /* ORKSurveyAnswerCellForText.h in Headers */,
 				65991DBC21C7638C0064301A /* ORKTouchAbilityPinchGuideView.h in Headers */,
 				86C40E281A8D7C5C00081FAC /* ORKSignatureView.h in Headers */,
-				61EFD1272587DA07007AD8BC /* ORKTrunkRotationRangeOfMotionStep.h in Headers */,
 				BC37323622B76DC70021F665 /* ORKFormStepViewController_Private.h in Headers */,
 				00C2668E23022CD400337E0B /* ORKCustomStep.h in Headers */,
 				2489F7AF1D65214D008DEF20 /* ORKVideoCaptureCameraPreviewView.h in Headers */,
@@ -4025,12 +4022,20 @@
 				65DA22F421BA43DD007750B9 /* ORKTouchAbilityPinchStepViewController.h in Headers */,
 				6553165E21CCE97400D889BB /* ORKTouchAbilityScrollTrial.h in Headers */,
 				71769E2920880C4500A19914 /* ORKdBHLToneAudiometryResult.h in Headers */,
+				61EFD1132587D928007AD8BC /* ORKRangeOfMotionStep.h in Headers */,
+				61EFD11E2587D992007AD8BC /* ORKShoulderRangeOfMotionStep.h in Headers */,
+				61EFD14A2587DA73007AD8BC /* ORKNeckFlexionRangeOfMotionStep.h in Headers */,
+				61EFD1272587DA07007AD8BC /* ORKTrunkRotationRangeOfMotionStep.h in Headers */,
+				61EFD14F2587DA73007AD8BC /* ORKNeckSideBendingRangeOfMotionStep.h in Headers */,
+				61EFD14D2587DA73007AD8BC /* ORKNeckExtensionRangeOfMotionStep.h in Headers */,
+				61EFD10A2587D8CB007AD8BC /* ORKStandingBendingRangeOfMotionStep.h in Headers */,
+				61EFD12D2587DA3B007AD8BC /* ORKSideBendingRangeOfMotionStep.h in Headers */,
+				61EFD1452587DA73007AD8BC /* ORKNeckRotationRangeOfMotionStep.h in Headers */,
 				BABBB19D2093299A00CB29E5 /* ORKSurveyCardHeaderView.h in Headers */,
 				86C40CEA1A8D7C5C00081FAC /* ORKAnswerTextField.h in Headers */,
 				BA473FE8224DB38900A362E3 /* ORKBodyItem.h in Headers */,
 				2429D5721BBB5397003A512F /* ORKRegistrationStep.h in Headers */,
 				65EEE15A21B12CFD007858E8 /* ORKTouchAbilityLongPressStepViewController.h in Headers */,
-				61EFD14F2587DA73007AD8BC /* ORKNeckSideBendingRangeOfMotionStep.h in Headers */,
 				B183A4A21A8535D100C76870 /* ResearchKit_Private.h in Headers */,
 				242C9E111BBE06DE0088B7F4 /* ORKVerificationStepView.h in Headers */,
 				86C40CE81A8D7C5C00081FAC /* ORKAnswerFormat_Internal.h in Headers */,
@@ -4108,7 +4113,6 @@
 				65EEE16221B13018007858E8 /* ORKTouchAbilityLongPressResult.h in Headers */,
 				6500FCA121CA3C3000AC1CA3 /* ORKTouchAbilityRotationResult.h in Headers */,
 				BA95AA9A20ACD0BD00E7FF8E /* ORKAmslerGridStepViewController.h in Headers */,
-				61EFD1152587D928007AD8BC /* ORKRangeOfMotionResult.h in Headers */,
 				86C40CD41A8D7C5C00081FAC /* ORKTableContainerView.h in Headers */,
 				86C40D0E1A8D7C5C00081FAC /* ORKCustomStepView_Internal.h in Headers */,
 				716B126820A7A40400590264 /* ORKdBHLToneAudiometryAudioGenerator.h in Headers */,
@@ -4125,7 +4129,6 @@
 				86C40D7C1A8D7C5C00081FAC /* ORKScaleValueLabel.h in Headers */,
 				BAD65E4B2284EFF9008A5DCE /* ORKStepView.h in Headers */,
 				250F94081B4C5AA400FA23EB /* ORKTowerOfHanoiStepViewController.h in Headers */,
-				61EFD14D2587DA73007AD8BC /* ORKNeckExtensionRangeOfMotionStep.h in Headers */,
 				86C40E2C1A8D7C5C00081FAC /* ORKVisualConsentStep.h in Headers */,
 				257FCE1F1B4D14E50001EF06 /* ORKTowerOfHanoiTowerView.h in Headers */,
 				24A4DA181B8D13FE009C797A /* ORKPasscodeStepViewController.h in Headers */,
@@ -4169,7 +4172,6 @@
 				86C40C621A8D7C5C00081FAC /* CLLocation+ORKJSONDictionary.h in Headers */,
 				86C40D801A8D7C5C00081FAC /* ORKSelectionSubTitleLabel.h in Headers */,
 				D458520A1AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.h in Headers */,
-				61EFD10A2587D8CB007AD8BC /* ORKStandingBendingRangeOfMotionStep.h in Headers */,
 				D44239791AF17F5100559D96 /* ORKImageCaptureStep.h in Headers */,
 				86C40CB21A8D7C5C00081FAC /* ORKRecorder_Private.h in Headers */,
 				BCD192E71B81243900FCC08A /* ORKPieChartLegendView.h in Headers */,
@@ -4303,7 +4305,6 @@
 				24A4DA101B8D0F21009C797A /* ORKPasscodeStepView.h in Headers */,
 				BABBB1AE2097D97200CB29E5 /* ORKPDFViewerStep.h in Headers */,
 				BA8C5021226FFB04001896D0 /* ORKLearnMoreItem.h in Headers */,
-				61EFD12D2587DA3B007AD8BC /* ORKSideBendingRangeOfMotionStep.h in Headers */,
 				2489F7B11D65214D008DEF20 /* ORKVideoCaptureStep.h in Headers */,
 				861D11AD1AA7951F003C98A7 /* ORKChoiceAnswerFormatHelper.h in Headers */,
 				86C40C461A8D7C5C00081FAC /* ORKSpatialSpanMemoryStepViewController.h in Headers */,
@@ -4313,7 +4314,6 @@
 				61EFD1092587D8CB007AD8BC /* ORKStandingBendingRangeOfMotionStepViewController.h in Headers */,
 				8419D6721FB73EC60088D7E5 /* ORKWebViewStepViewController.h in Headers */,
 				86C40DFE1A8D7C5C00081FAC /* ORKConsentDocument.h in Headers */,
-				61EFD1452587DA73007AD8BC /* ORKNeckRotationRangeOfMotionStep.h in Headers */,
 				BA8078E3224A8D6E0013B554 /* ORKTitleLabel.h in Headers */,
 				D442397D1AF17F7600559D96 /* ORKImageCaptureStepViewController.h in Headers */,
 				86C40C4A1A8D7C5C00081FAC /* ORKSpatialSpanTargetView.h in Headers */,
