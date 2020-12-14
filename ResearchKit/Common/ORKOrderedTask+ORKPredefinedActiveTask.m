@@ -1353,6 +1353,7 @@ NSString *const ORKstandingBendingRangeOfMotionStepIdentifier = @"back.bending.r
             }
             instructionStep0.shouldTintImages = YES;
             //instructionStep0.imageContentMode = UIViewContentModeCenter;
+            instructionStep0.imageContentMode = UIViewContentModeScaleAspectFit;
             ORKStepArrayAddStep(steps, instructionStep0);
         }
             
@@ -1421,7 +1422,7 @@ NSString *const ORKstandingBendingRangeOfMotionStepIdentifier = @"back.bending.r
             }
             instructionStep1.image = sagittalBendingStartImage;
             instructionStep1.shouldTintImages = YES;
-            //instructionStep1.imageContentMode = UIViewContentModeCenter;
+            instructionStep1.imageContentMode = UIViewContentModeScaleAspectFit;
             ORKStepArrayAddStep(steps, instructionStep1);
         }
             
@@ -1492,7 +1493,7 @@ NSString *const ORKstandingBendingRangeOfMotionStepIdentifier = @"back.bending.r
                     instructionStep2.image = [UIImage animatedImageWithImages:@[im1, im1, im2, im2, im1, im1] duration:5];
                 }
             }
-            //instructionStep2.imageContentMode = UIViewContentModeCenter;
+            instructionStep2.imageContentMode = UIViewContentModeScaleAspectFit;
             instructionStep2.shouldTintImages = YES;
             ORKStepArrayAddStep(steps, instructionStep2);
         }
@@ -1523,7 +1524,7 @@ NSString *const ORKstandingBendingRangeOfMotionStepIdentifier = @"back.bending.r
             phoneAgainstChestImage = [UIImage imageNamed:@"phone_against_chest_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             }
             instructionStep3.image = phoneAgainstChestImage;
-            //instructionStep3.imageContentMode = UIViewContentModeCenter;
+            instructionStep3.imageContentMode = UIViewContentModeScaleAspectFit;
             instructionStep3.shouldTintImages = YES;
             ORKStepArrayAddStep(steps, instructionStep3);
             }
