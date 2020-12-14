@@ -68,6 +68,7 @@
 #import <ResearchKit/ORKRangeOfMotionStep.h>
 #import <ResearchKit/ORKReactionTimeStep.h>
 #import <ResearchKit/ORKShoulderRangeOfMotionStep.h>
+#import <ResearchKit/ORKStandingBendingRangeOfMotionStep.h>
 #import <ResearchKit/ORKSpatialSpanMemoryStep.h>
 #import <ResearchKit/ORKStroopStep.h>
 #import <ResearchKit/ORKTappingIntervalStep.h>
