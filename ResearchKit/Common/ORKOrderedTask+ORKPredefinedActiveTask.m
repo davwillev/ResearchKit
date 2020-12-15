@@ -1534,7 +1534,7 @@ NSString *const ORKstandingBendingRangeOfMotionStepIdentifier = @"back.bending.r
                             
             NSString *touchAnywhereStepText;
             NSString *spokenTouchAnywhereStepText;
-            // Set the instructions to be displayed and spoken
+            // Build the instructions to be displayed and spoken
             if (limbOption == ORKPredefinedTaskLimbOptionRight) {
                 touchAnywhereStepText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TOUCH_ANYWHERE_STEP_INSTRUCTION_RIGHT", nil);
                 spokenTouchAnywhereStepText = [NSString stringWithFormat:@"%@ %@", touchAnywhereStepText, ORKLocalizedString(@"TOUCH_ANYWHERE_LABEL", nil)];
