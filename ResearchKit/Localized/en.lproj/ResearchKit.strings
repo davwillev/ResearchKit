@@ -427,7 +427,6 @@
 "MOVEMENT_OPTION_ERROR" = "The movementOption argument is not a recognized option for this task";
 
 /* Optional questions for Range of Motion tasks*/
-"QUESTION_OPTION_ERROR" = "questionOption must be before, during, after or a combination of these";
 "RANGE_OF_MOTION_PAIN_SCALE_QUESTION_TITLE_NOW" = "Your current pain in your %@";
 "RANGE_OF_MOTION_PAIN_SCALE_QUESTION_NOW" = "How severe is the pain in your %@ now?";
 "RANGE_OF_MOTION_PAIN_SCALE_QUESTION_TITLE_DURING" = "Your pain in your %@ during the activity";
