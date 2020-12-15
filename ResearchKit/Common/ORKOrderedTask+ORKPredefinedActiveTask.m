@@ -1659,8 +1659,9 @@ NSString *const ORKstandingBendingRangeOfMotionStepIdentifier = @"back.bending.r
                     instructionStep0.image = [UIImage animatedImageWithImages:@[im1, im1, im2, im2, im1, im1] duration:5];
                 }
             }
+            //isStepLastBeginningInstructionStep = NO; // TODO: need to set this in ORKTaskViewController to avoid 'Get Started being shown when a 'before' questionOption is selected
             instructionStep0.shouldTintImages = YES;
-            //instructionStep0.imageContentMode = UIViewContentModeCenter;
+            //instructionStep0.imageContentMode = UIViewContentModeScaleAspectFit;
             ORKStepArrayAddStep(steps, instructionStep0);
         }
             
@@ -1729,7 +1730,7 @@ NSString *const ORKstandingBendingRangeOfMotionStepIdentifier = @"back.bending.r
             }
             instructionStep1.image = sagittalBendingStartImage;
             instructionStep1.shouldTintImages = YES;
-            //instructionStep1.imageContentMode = UIViewContentModeCenter;
+            //instructionStep1.imageContentMode = UIViewContentModeScaleAspectFit;
             ORKStepArrayAddStep(steps, instructionStep1);
         }
             
@@ -1800,7 +1801,7 @@ NSString *const ORKstandingBendingRangeOfMotionStepIdentifier = @"back.bending.r
                     instructionStep2.image = [UIImage animatedImageWithImages:@[im1, im1, im2, im2, im1, im1] duration:5];
                 }
             }
-            //instructionStep2.imageContentMode = UIViewContentModeCenter;
+            //instructionStep2.imageContentMode = UIViewContentModeScaleAspectFit;
             instructionStep2.shouldTintImages = YES;
             ORKStepArrayAddStep(steps, instructionStep2);
         }
@@ -1831,7 +1832,7 @@ NSString *const ORKstandingBendingRangeOfMotionStepIdentifier = @"back.bending.r
             phoneAgainstChestImage = [UIImage imageNamed:@"phone_against_chest_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             }
             instructionStep3.image = phoneAgainstChestImage;
-            //instructionStep3.imageContentMode = UIViewContentModeCenter;
+            //instructionStep3.imageContentMode = UIViewContentModeScaleAspectFit;
             instructionStep3.shouldTintImages = YES;
             ORKStepArrayAddStep(steps, instructionStep3);
             }
@@ -1840,28 +1841,25 @@ NSString *const ORKstandingBendingRangeOfMotionStepIdentifier = @"back.bending.r
         {   /* Touch anywhere step */
                             
             NSString *touchAnywhereStepText;
-            NSString *spokenTouchAnywhereStepText;
-            // Set the instructions to be displayed and spoken
+            // Build the instructions to be displayed and spoken
             if (limbOption == ORKPredefinedTaskLimbOptionRight) {
                 touchAnywhereStepText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TOUCH_ANYWHERE_STEP_INSTRUCTION_RIGHT", nil);
-                spokenTouchAnywhereStepText = [NSString stringWithFormat:@"%@ %@", touchAnywhereStepText, ORKLocalizedString(@"TOUCH_ANYWHERE_LABEL", nil)];
             } else {
                 touchAnywhereStepText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TOUCH_ANYWHERE_STEP_INSTRUCTION_LEFT", nil);
-                spokenTouchAnywhereStepText = [NSString stringWithFormat:@"%@ %@", touchAnywhereStepText, ORKLocalizedString(@"TOUCH_ANYWHERE_LABEL", nil)];
             }
             ORKTouchAnywhereStep *touchAnywhereStep = [[ORKTouchAnywhereStep alloc] initWithIdentifier:appendIdentifier(ORKTouchAnywhereStepIdentifier)];
             
-            touchAnywhereStep.spokenInstruction = spokenTouchAnywhereStepText;
+            touchAnywhereStep.spokenInstruction = touchAnywhereStepText;
                             
             // Set title and instructions based on the selected movement(s)
             if (forwardBending) {
                 touchAnywhereStep.title = ORKLocalizedString(@"RANGE_OF_MOTION_TEST_TITLE", nil);
-                touchAnywhereStep.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
-                touchAnywhereStep.detailText = touchAnywhereStepText;
+                //touchAnywhereStep.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
+                touchAnywhereStep.text = touchAnywhereStepText;
             } else {
                 touchAnywhereStep.title = ORKLocalizedString(@"RANGE_OF_MOTION_TEST_TITLE", nil);
-                touchAnywhereStep.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
-                touchAnywhereStep.detailText = touchAnywhereStepText;
+                //touchAnywhereStep.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
+                touchAnywhereStep.text = touchAnywhereStepText;
             }
             ORKStepArrayAddStep(steps, touchAnywhereStep);
         }
@@ -1875,14 +1873,15 @@ NSString *const ORKstandingBendingRangeOfMotionStepIdentifier = @"back.bending.r
             // Set title and instructions based on the selected movement(s)
             if (forwardBending) {
                 standingBendingRangeOfMotionStep.title = ORKLocalizedString(@"RANGE_OF_MOTION_TEST_TITLE", nil);
-                standingBendingRangeOfMotionStep.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
-                standingBendingRangeOfMotionStep.detailText =ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_FORWARD", nil);
+                //standingBendingRangeOfMotionStep.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
+                standingBendingRangeOfMotionStep.text =ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_FORWARD", nil);
             } else {
                 standingBendingRangeOfMotionStep.title = ORKLocalizedString(@"RANGE_OF_MOTION_TEST_TITLE", nil);
-                standingBendingRangeOfMotionStep.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
-                standingBendingRangeOfMotionStep.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_BACKWARD", nil);
+                //standingBendingRangeOfMotionStep.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
+                standingBendingRangeOfMotionStep.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_BACKWARD", nil);
                 }
-            standingBendingRangeOfMotionStep.spokenInstruction = standingBendingRangeOfMotionStep.detailText;
+            //standingBendingRangeOfMotionStep.spokenInstruction = standingBendingRangeOfMotionStep.detailText;
+            standingBendingRangeOfMotionStep.spokenInstruction = standingBendingRangeOfMotionStep.text;
             standingBendingRangeOfMotionStep.recorderConfigurations = @[deviceMotionRecorderConfig];
             standingBendingRangeOfMotionStep.movementOption = movementOption;
             standingBendingRangeOfMotionStep.questionOption = questionOption;
