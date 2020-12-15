@@ -1849,15 +1849,19 @@ NSString *const ORKstandingBendingRangeOfMotionStepIdentifier = @"back.bending.r
                 touchAnywhereStepText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TOUCH_ANYWHERE_STEP_INSTRUCTION_LEFT", nil);
                 spokenTouchAnywhereStepText = [NSString stringWithFormat:@"%@ %@", touchAnywhereStepText, ORKLocalizedString(@"TOUCH_ANYWHERE_LABEL", nil)];
             }
-            ORKTouchAnywhereStep *touchAnywhereStep = [[ORKTouchAnywhereStep alloc] initWithIdentifier:appendIdentifier(ORKTouchAnywhereStepIdentifier) instructionText:touchAnywhereStepText];
+            ORKTouchAnywhereStep *touchAnywhereStep = [[ORKTouchAnywhereStep alloc] initWithIdentifier:appendIdentifier(ORKTouchAnywhereStepIdentifier)];
             
             touchAnywhereStep.spokenInstruction = spokenTouchAnywhereStepText;
                             
-            // Set title based on the selected movement(s)
+            // Set title and instructions based on the selected movement(s)
             if (forwardBending) {
-                touchAnywhereStep.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
+                touchAnywhereStep.title = ORKLocalizedString(@"RANGE_OF_MOTION_TEST_TITLE", nil);
+                touchAnywhereStep.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
+                touchAnywhereStep.detailText = touchAnywhereStepText;
             } else {
-                touchAnywhereStep.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
+                touchAnywhereStep.title = ORKLocalizedString(@"RANGE_OF_MOTION_TEST_TITLE", nil);
+                touchAnywhereStep.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
+                touchAnywhereStep.detailText = touchAnywhereStepText;
             }
             ORKStepArrayAddStep(steps, touchAnywhereStep);
         }
@@ -1870,13 +1874,15 @@ NSString *const ORKstandingBendingRangeOfMotionStepIdentifier = @"back.bending.r
                             
             // Set title and instructions based on the selected movement(s)
             if (forwardBending) {
-                standingBendingRangeOfMotionStep.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
-                standingBendingRangeOfMotionStep.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_FORWARD", nil);
+                standingBendingRangeOfMotionStep.title = ORKLocalizedString(@"RANGE_OF_MOTION_TEST_TITLE", nil);
+                standingBendingRangeOfMotionStep.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
+                standingBendingRangeOfMotionStep.detailText =ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_FORWARD", nil);
             } else {
-                standingBendingRangeOfMotionStep.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
-                standingBendingRangeOfMotionStep.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_BACKWARD", nil);
+                standingBendingRangeOfMotionStep.title = ORKLocalizedString(@"RANGE_OF_MOTION_TEST_TITLE", nil);
+                standingBendingRangeOfMotionStep.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
+                standingBendingRangeOfMotionStep.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_BACKWARD", nil);
                 }
-            standingBendingRangeOfMotionStep.spokenInstruction = standingBendingRangeOfMotionStep.text;
+            standingBendingRangeOfMotionStep.spokenInstruction = standingBendingRangeOfMotionStep.detailText;
             standingBendingRangeOfMotionStep.recorderConfigurations = @[deviceMotionRecorderConfig];
             standingBendingRangeOfMotionStep.movementOption = movementOption;
             standingBendingRangeOfMotionStep.questionOption = questionOption;
