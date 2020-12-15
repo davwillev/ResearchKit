@@ -392,7 +392,7 @@
 
 /* Range of Motion active tasks */
 "RANGE_OF_MOTION_TITLE" = "Range of Motion";
-"RANGE_OF_MOTION_SOUND" = "Please ensure that the sound of your device is switched on so that you can hear the spoken instructions during the test.";
+"RANGE_OF_MOTION_SOUND" = "Ensure that the sound of your device is switched on so that you can hear the spoken instructions.";
 "LIMB_OPTION_ERROR" = "The limbOption argument must be left, right or both";
 "LIMB_OPTION_BOTH_ERROR" = "The limbOption argument cannot be BOTH for this task";
 "MOVEMENT_OPTION_ERROR" = "The movementOption argument is not a recognized option for this task";
