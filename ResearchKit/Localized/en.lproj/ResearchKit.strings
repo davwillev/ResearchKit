@@ -403,9 +403,9 @@
 "RANGE_OF_MOTION_PAIN_SCALE_QUESTION_TITLE_NOW" = "Your current pain in your %@";
 "RANGE_OF_MOTION_PAIN_SCALE_QUESTION_NOW" = "How severe is the pain in your %@ now?";
 "RANGE_OF_MOTION_PAIN_SCALE_QUESTION_TITLE_DURING" = "Your pain in your %@ during the activity";
-"RANGE_OF_MOTION_QUESTION_TITLE_BEFORE" = "Before the test";
-"RANGE_OF_MOTION_QUESTION_TITLE_DURING" = "During the test";
-"RANGE_OF_MOTION_QUESTION_TITLE_AFTER" = "After the test";
+"RANGE_OF_MOTION_QUESTION_TITLE_BEFORE" = "Before the test...";
+"RANGE_OF_MOTION_QUESTION_TITLE_DURING" = "During the test...";
+"RANGE_OF_MOTION_QUESTION_TITLE_AFTER" = "After the test...";
 "RANGE_OF_MOTION_PAIN_SCALE_QUESTION_DURING" = "How severe was the pain in your %@ during this activity?";
 "RANGE_OF_MOTION_PAIN_SCALE_MAX" = "Worst possible pain";
 "RANGE_OF_MOTION_PAIN_SCALE_MIN" = "No pain";
