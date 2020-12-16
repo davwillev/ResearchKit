@@ -1672,7 +1672,7 @@ NSString *const ORKTrunkRotationRangeOfMotionStepIdentifier = @"trunk.rotation.r
         instructionStep0.text = intendedUseDescription ? : ([limbType isEqualToString:ORKLocalizedString(@"LIMB_LEFT", nil)])? ORKLocalizedString(@"TRUNK_ROTATION_RANGE_OF_MOTION_TITLE_LEFT", nil) : ORKLocalizedString(@"TRUNK_ROTATION_RANGE_OF_MOTION_TITLE_RIGHT", nil);;
         instructionStep0.detailText = ([limbType isEqualToString:ORKLocalizedString(@"LIMB_LEFT", nil)])? ORKLocalizedString(@"TRUNK_ROTATION_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_LEFT", nil) : ORKLocalizedString(@"TRUNK_ROTATION_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_RIGHT", nil);
         instructionStep0.shouldTintImages = YES;
-        instructionStep0.imageContentMode = UIViewContentModeCenter; // added this
+        instructionStep0.imageContentMode = UIViewContentModeScaleAspectFit;
         ORKStepArrayAddStep(steps, instructionStep0);
         
         ORKInstructionStep *instructionStep1 = [[ORKInstructionStep alloc] initWithIdentifier:ORKInstruction1StepIdentifier];
@@ -1688,7 +1688,7 @@ NSString *const ORKTrunkRotationRangeOfMotionStepIdentifier = @"trunk.rotation.r
         
         instructionStep2.detailText = ([limbType isEqualToString:ORKLocalizedString(@"LIMB_LEFT", nil)])? ORKLocalizedString(@"TRUNK_ROTATION_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_LEFT", nil) : ORKLocalizedString(@"TRUNK_ROTATION_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_RIGHT", nil);
         instructionStep2.image = trunkRotationStartImage;
-        instructionStep2.imageContentMode = UIViewContentModeCenter;
+        instructionStep2.imageContentMode = UIViewContentModeScaleAspectFit;
         instructionStep2.shouldTintImages = YES;
         ORKStepArrayAddStep(steps, instructionStep2);
         
@@ -1698,7 +1698,7 @@ NSString *const ORKTrunkRotationRangeOfMotionStepIdentifier = @"trunk.rotation.r
         
         instructionStep3.detailText = ([limbType isEqualToString:ORKLocalizedString(@"LIMB_LEFT", nil)])? ORKLocalizedString(@"TRUNK_ROTATION_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_LEFT", nil) : ORKLocalizedString(@"TRUNK_ROTATION_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_RIGHT", nil);
         instructionStep3.image = trunkRotationMaximumImage;
-        instructionStep3.imageContentMode = UIViewContentModeCenter;
+        instructionStep3.imageContentMode = UIViewContentModeScaleAspectFit;
         instructionStep3.shouldTintImages = YES;
         ORKStepArrayAddStep(steps, instructionStep3);
     }
@@ -1775,7 +1775,7 @@ NSString *const ORKSideBendingRangeOfMotionStepIdentifier = @"side.bending.range
         
         instructionStep2.detailText = ([limbType isEqualToString:ORKLocalizedString(@"LIMB_LEFT", nil)])? ORKLocalizedString(@"SIDE_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_LEFT", nil) : ORKLocalizedString(@"SIDE_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_RIGHT", nil);
         instructionStep2.image = sideBendingStartImage;
-        instructionStep2.imageContentMode = UIViewContentModeCenter;
+        instructionStep2.imageContentMode = UIViewContentModeScaleAspectFit;
         instructionStep2.shouldTintImages = YES;
         ORKStepArrayAddStep(steps, instructionStep2);
         
@@ -1785,7 +1785,7 @@ NSString *const ORKSideBendingRangeOfMotionStepIdentifier = @"side.bending.range
         
         instructionStep3.detailText = ([limbType isEqualToString:ORKLocalizedString(@"LIMB_LEFT", nil)])? ORKLocalizedString(@"SIDE_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_LEFT", nil) : ORKLocalizedString(@"SIDE_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_RIGHT", nil);
         instructionStep3.image = sideBendingMaximumImage;
-        instructionStep3.imageContentMode = UIViewContentModeCenter;
+        instructionStep3.imageContentMode = UIViewContentModeScaleAspectFit;
         instructionStep3.shouldTintImages = YES;
         ORKStepArrayAddStep(steps, instructionStep3);
     }
