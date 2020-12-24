@@ -46,6 +46,7 @@
 
 @property (nonatomic, strong) ORKLeftRightJudgementContentView *leftRightJudgementContentView;
 
+
 @end
 
 
@@ -123,33 +124,33 @@
                                   constant:0.0];
     
     NSLayoutConstraint *width = [NSLayoutConstraint
-                                constraintWithItem:_leftRightJudgementContentView
-                                attribute:NSLayoutAttributeWidth
-                                relatedBy:NSLayoutRelationEqual
-                                toItem:self.activeStepView
-                                attribute:NSLayoutAttributeWidth
-                                multiplier:1.0
-                                constant:0.0];
-    
-    // Height set to 75% of containing view (allows 2 lines of instruction text)
-    NSLayoutConstraint *height = [NSLayoutConstraint
                                  constraintWithItem:_leftRightJudgementContentView
-                                 attribute:NSLayoutAttributeHeight
+                                 attribute:NSLayoutAttributeWidth
                                  relatedBy:NSLayoutRelationEqual
                                  toItem:self.activeStepView
-                                 attribute:NSLayoutAttributeHeight
-                                 multiplier:0.75
+                                 attribute:NSLayoutAttributeWidth
+                                 multiplier:1.0
                                  constant:0.0];
+    
+    // Height set to 75% of containing view
+    NSLayoutConstraint *height = [NSLayoutConstraint
+                                  constraintWithItem:_leftRightJudgementContentView
+                                  attribute:NSLayoutAttributeHeight
+                                  relatedBy:NSLayoutRelationEqual
+                                  toItem:self.activeStepView
+                                  attribute:NSLayoutAttributeHeight
+                                  multiplier:0.75
+                                  constant:0.0];
     
     // Pin bottom to bottom of containing view
     NSLayoutConstraint *bottom = [NSLayoutConstraint
-                                 constraintWithItem:_leftRightJudgementContentView
-                                 attribute:NSLayoutAttributeBottom
-                                 relatedBy:NSLayoutRelationEqual
-                                 toItem:self.activeStepView
-                                 attribute:NSLayoutAttributeBottom
-                                 multiplier:1.0
-                                 constant:0.0];
+                                  constraintWithItem:_leftRightJudgementContentView
+                                  attribute:NSLayoutAttributeBottom
+                                  relatedBy:NSLayoutRelationEqual
+                                  toItem:self.activeStepView
+                                  attribute:NSLayoutAttributeBottom
+                                  multiplier:1.0
+                                  constant:0.0];
     
     [self.activeStepView addConstraints:@[center, width, height, bottom]];
 }
@@ -672,19 +673,9 @@
     return fileName;
 }
 
-- (NSString *)getDirectoryForImages {
-    NSString *directory;
-    if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionHands) {
-        directory = @"Images/Hands";
-    } else if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionFeet) {
-        directory = @"Images/Feet";
-    }
-    return directory;
-}
-
 - (NSArray *)arrayOfImagesForEachAttempt {
     NSInteger imageQueueLength = ([self leftRightJudgementStep].numberOfAttempts);
-    NSString *directory = [self getDirectoryForImages];
+    NSString *directory = [self leftRightJudgementStep].getDirectoryForImages;
     if (_imageCount == 0) { // build shuffled array only once
         _imagePaths = [self arrayOfShuffledPaths:@"png" fromDirectory:directory];
     }
