@@ -399,6 +399,8 @@
 "MOVEMENT_OPTION_ERROR" = "The movementOption argument is not a recognized option for this task";
 
 /* Optional questions for Range of Motion tasks*/
+"RANGE_OF_MOTION_DOMINANT_HAND_QUESTION" = "To ensure that the correct instructions are displayed for you, which is your dominant hand?";
+"RANGE_OF_MOTION_DOMINANT_FOOT_QUESTION" = "To ensure that the correct instructions are displayed for you, which is your dominant foot?";
 "RANGE_OF_MOTION_PAIN_SCALE_QUESTION_TITLE_NOW" = "Your current pain in your %@";
 "RANGE_OF_MOTION_PAIN_SCALE_QUESTION_NOW" = "How severe is the pain in your %@ now?";
 "RANGE_OF_MOTION_PAIN_SCALE_QUESTION_TITLE_DURING" = "Your pain in your %@ during the activity";
