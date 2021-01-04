@@ -242,6 +242,9 @@ typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskLimbOption) {
     /// Task should test the right limb
     ORKPredefinedTaskLimbOptionRight = 1 << 2,
     
+    /// Task should test the dominant limb
+    ORKPredefinedTaskLimbOptionDominant = 1 << 3,
+    
     /// Task should test the both limbs (random order)
     ORKPredefinedTaskLimbOptionBoth = ORKPredefinedTaskLimbOptionLeft | ORKPredefinedTaskLimbOptionRight,
 } ORK_ENUM_AVAILABLE;
