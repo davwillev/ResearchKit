@@ -65,7 +65,8 @@ BOOL questionOptionNotValid;
     
     // Validations relevant to all range of motion tasks
     if (!(self.limbOption & ORKPredefinedTaskLimbOptionLeft) &&
-        !(self.limbOption & ORKPredefinedTaskLimbOptionRight)) {
+        !(self.limbOption & ORKPredefinedTaskLimbOptionRight) &&
+        !(self.limbOption & ORKPredefinedTaskLimbOptionDominant)) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
                                        reason:ORKLocalizedString(@"LIMB_OPTION_ERROR", nil)
                                      userInfo:nil];
