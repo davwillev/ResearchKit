@@ -180,7 +180,7 @@ ORK_CLASS_AVAILABLE
  answers) and navigate accordingly. You can match results both in an ongoing task or in previously
  completed tasks.
  
- You chose which question result to match by using an `ORKResultSelector` object.
+ You choose which question result to match by using an `ORKResultSelector` object.
 
  Note that each `ORKStep` object produces one `ORKStepResult` collection object. A step
  result produced by an `ORKQuestionStep` object contains one `ORKQuestionResult` object which has
@@ -195,7 +195,7 @@ ORK_CLASS_AVAILABLE
  For matching a form item result, you need to build a result selector with a `stepIdentifier` (the
  form step identifier) and a `resultIdentifier` (the form item result identifier).
  
- For matching results in the ongoing task, leave the `taskIdentifier` in the the form step identifier
+ For matching results in the ongoing task, leave the `taskIdentifier` in the form step identifier
  as `nil`. For matching results in different tasks, set the `taskIdentifier` appropriately.
 
  */
