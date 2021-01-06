@@ -399,7 +399,8 @@
 "MOVEMENT_OPTION_ERROR" = "The movementOption argument is not a recognized option for this task";
 
 /* Optional questions for Range of Motion tasks*/
-"RANGE_OF_MOTION_DOMINANT_HAND_QUESTION" = "To ensure that the correct instructions are displayed for you, which is your dominant hand?";
+//"RANGE_OF_MOTION_DOMINANT_HAND_QUESTION" = "To ensure that the correct instructions are displayed for you, which is your dominant hand?";
+"RANGE_OF_MOTION_DOMINANT_HAND_QUESTION" = "Which is your dominant hand?";
 "RANGE_OF_MOTION_DOMINANT_HAND_LEFT" = "My left hand is dominant";
 "RANGE_OF_MOTION_DOMINANT_HAND_RIGHT" = "My right hand is dominant";
 "RANGE_OF_MOTION_DOMINANT_HAND_NEITHER" = "Neither of my hands is dominant";
