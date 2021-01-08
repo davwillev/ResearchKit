@@ -1549,7 +1549,7 @@ NSString *const ORKShoulderRangeOfMotionStepIdentifier = @"shoulder.range.of.mot
 
 #pragma mark - standingBendingRangeOfMotionTask
 
-NSString *const ORKstandingBendingRangeOfMotionStepIdentifier = @"back.bending.range.of.motion";
+NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"back.bending.range.of.motion";
 
 + (ORKOrderedTask *)standingBendingRangeOfMotionTaskWithIdentifier:(NSString *)identifier
                                             limbOption:(ORKPredefinedTaskLimbOption)limbOption
@@ -1868,7 +1868,7 @@ NSString *const ORKstandingBendingRangeOfMotionStepIdentifier = @"back.bending.r
                             
             ORKDeviceMotionRecorderConfiguration *deviceMotionRecorderConfig = [[ORKDeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORKDeviceMotionRecorderIdentifier frequency:100];
                 
-            ORKStandingBendingRangeOfMotionStep *standingBendingRangeOfMotionStep = [[ORKStandingBendingRangeOfMotionStep alloc] initWithIdentifier:appendIdentifier(ORKstandingBendingRangeOfMotionStepIdentifier) limbOption:limbOption];
+            ORKStandingBendingRangeOfMotionStep *standingBendingRangeOfMotionStep = [[ORKStandingBendingRangeOfMotionStep alloc] initWithIdentifier:appendIdentifier(ORKStandingBendingRangeOfMotionStepIdentifier) limbOption:limbOption];
                             
             // Set title and instructions based on the selected movement(s)
             if (forwardBending) {
