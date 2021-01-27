@@ -168,7 +168,7 @@
 - (void)configureInstructions {
     NSString *instruction;
     if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionHands) {
-        instruction= ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
+        instruction = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_HAND", nil);
     } else if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionFeet) {
         instruction= ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_TASK_STEP_TEXT_FOOT", nil);
     }
@@ -201,7 +201,7 @@
     NSString *view = [self viewPresented];
     NSString *orientation = [self orientationPresented];
     NSInteger rotation = [self rotationPresented];
-    NSString *sideSelected = @"None";
+    NSString *sideSelected = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_BUTTON_NONE", nil);
     _match = NO;
     _timedOut = YES;
     _timedOutCount++;
@@ -676,7 +676,7 @@
     NSInteger imageQueueLength = ([self leftRightJudgementStep].numberOfAttempts);
     NSString *directory = [self leftRightJudgementStep].getDirectoryForImages;
     if (_imageCount == 0) { // build shuffled array only once
-        _imagePaths = [self arrayOfShuffledPaths:@"png" fromDirectory:directory];
+        _imagePaths = [self arrayOfShuffledPaths:[self leftRightJudgementStep].imageType fromDirectory:directory];
     }
     NSMutableArray *imageQueueArray = [NSMutableArray arrayWithCapacity:imageQueueLength];
     // Allocate images
