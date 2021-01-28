@@ -230,15 +230,15 @@
     [self setButtonsDisabled];
     NSString *answerText;
     if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionHands) {
-        if ([sidePresented isEqualToString: @"Left"]) {
+        if ([sidePresented isEqualToString: ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_LEFT_BUTTON", nil)) {
             answerText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_ANSWER_LEFT_HAND", nil);
-        } else if ([sidePresented isEqualToString: @"Right"]) {
+        } else if ([sidePresented isEqualToString: ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_RIGHT_BUTTON", nil)]) {
             answerText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_ANSWER_RIGHT_HAND", nil);
         }
     } else if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionFeet) {
-        if ([sidePresented isEqualToString: @"Left"]) {
+        if ([sidePresented isEqualToString: ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_LEFT_BUTTON", nil)]) {
             answerText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_ANSWER_LEFT_FOOT", nil);
-        } else if ([sidePresented isEqualToString: @"Right"]) {
+        } else if ([sidePresented isEqualToString: ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_RIGHT_BUTTON", nil)]) {
             answerText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_ANSWER_RIGHT_FOOT", nil);
         }
     }
@@ -308,7 +308,7 @@
         // evaluate matches according to button pressed
         NSString *sideSelected;
         if (sender == self.leftRightJudgementContentView.leftButton) {
-            sideSelected = @"Left";
+            sideSelected = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_LEFT_BUTTON", nil);
             _match = ([sidePresented isEqualToString:sideSelected]) ? YES : NO;
             _leftSumCorrect = (_match) ? _leftSumCorrect + 1 : _leftSumCorrect;
             [self calculateMeanAndStdReactionTimes:sidePresented fromDuration: duration forMatches:_match];
@@ -316,7 +316,7 @@
             [self createResultfromImage:[self nextFileNameInQueue] withView:view inRotation:rotation inOrientation:orientation matching:_match sidePresented:sidePresented withSideSelected:sideSelected inDuration:duration];
         }
         else if (sender == self.leftRightJudgementContentView.rightButton) {
-            sideSelected = @"Right";
+            sideSelected = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_RIGHT_BUTTON", nil);
             _match = ([sidePresented isEqualToString:sideSelected]) ? YES : NO;
             _rightSumCorrect = (_match) ? _rightSumCorrect + 1 : _rightSumCorrect;
             [self calculateMeanAndStdReactionTimes:sidePresented fromDuration: duration forMatches:_match];
@@ -332,11 +332,11 @@
 }
 
 - (void)calculatePercentagesForSides:(NSString *)sidePresented andTimeouts:(BOOL)timeout {
-    if ([sidePresented isEqualToString:@"Left"]) {
+    if ([sidePresented isEqualToString:ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_LEFT_BUTTON", nil)]) {
         if (_leftCount > 0) { // prevent zero denominator
             _leftPercentCorrect = (100 * (double)_leftSumCorrect) / (double)_leftCount;
         }
-    } else if ([sidePresented isEqualToString:@"Right"]) {
+    } else if ([sidePresented isEqualToString:ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_RIGHT_BUTTON", nil)]) {
         if (_rightCount > 0) { // prevent zero denominator
             _rightPercentCorrect = (100 * (double)_rightSumCorrect) / (double)_rightCount;
         }
@@ -348,7 +348,7 @@
 
 - (void)calculateMeanAndStdReactionTimes:(NSString *)sidePresented fromDuration:(NSTimeInterval)duration forMatches:(BOOL)match {
     // calculate mean and unbiased standard deviation of duration for correct matches only (using Welford's algorithm: Welford. (1962) Technometrics 4(3), 419-420)
-    if ([sidePresented isEqualToString: @"Left"] && (match)) {
+    if ([sidePresented isEqualToString: ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_LEFT_BUTTON", nil)] && (match)) {
         if (_leftSumCorrect == 1) {
             _prevMl = _newMl = duration;
             _prevSl = 0;
@@ -362,7 +362,7 @@
         if (_varianceLeftDuration > 0) {
             _stdLeftDuration = sqrt(_varianceLeftDuration);
         }
-    } else if ([sidePresented isEqualToString: @"Right"] && (match)) {
+    } else if ([sidePresented isEqualToString: ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_RIGHT_BUTTON", nil)] && (match)) {
         if (_rightSumCorrect == 1) {
             _prevMr = _newMr = duration;
             _prevSr = 0;
@@ -403,10 +403,10 @@
     NSString *fileName = [self nextFileNameInQueue];
     NSString *sidePresented;
     if ([fileName containsString:@"LH"] || [fileName containsString:@"LF"]) {
-        sidePresented = @"Left";
+        sidePresented = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_LEFT_BUTTON", nil);
         _leftCount ++;
     } else if ([fileName containsString:@"RH"] || [fileName containsString:@"RF"]) {
-        sidePresented = @"Right";
+        sidePresented = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_RIGHT_BUTTON", nil);
         _rightCount ++;
     }
     return sidePresented;
