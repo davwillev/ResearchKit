@@ -230,7 +230,7 @@
     [self setButtonsDisabled];
     NSString *answerText;
     if ([self leftRightJudgementStep].imageOption == ORKPredefinedTaskImageOptionHands) {
-        if ([sidePresented isEqualToString: ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_LEFT_BUTTON", nil)) {
+        if ([sidePresented isEqualToString: ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_LEFT_BUTTON", nil)]) {
             answerText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_ANSWER_LEFT_HAND", nil);
         } else if ([sidePresented isEqualToString: ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_RIGHT_BUTTON", nil)]) {
             answerText = ORKLocalizedString(@"LEFT_RIGHT_JUDGEMENT_ANSWER_RIGHT_HAND", nil);
