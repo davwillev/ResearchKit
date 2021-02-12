@@ -906,7 +906,8 @@ class RangeOfMotionResultTableViewProvider: ResultTableViewProvider {
             ResultRow(text: "finish", detail: rangeOfMotionResult.finish),
             ResultRow(text: "minimum", detail: rangeOfMotionResult.minimum),
             ResultRow(text: "maximum", detail: rangeOfMotionResult.maximum),
-            ResultRow(text: "range", detail: rangeOfMotionResult.range)
+            ResultRow(text: "range", detail: rangeOfMotionResult.range),
+            ResultRow(text: "orientation", detail: rangeOfMotionResult.orientation)
         ]
     }
 }
