@@ -45,12 +45,6 @@
     
     ORKRangeOfMotionResult *result = [[ORKRangeOfMotionResult alloc] initWithIdentifier:self.step.identifier];
     
-    int ORIENTATION_UNSPECIFIED = -1;
-    int ORIENTATION_LANDSCAPE_LEFT = 0; // equivalent to LANDSCAPE in Android
-    int ORIENTATION_PORTRAIT = 1;
-    int ORIENTATION_LANDSCAPE_RIGHT = 2; // equivalent to REVERSE_LANDSCAPE in Android
-    int ORIENTATION_PORTRAIT_UPSIDE_DOWN = 3;  // equivalent to REVERSE_PORTRAIT in Android
-    
     if (UIDeviceOrientationLandscapeLeft == _orientation) {
         result.orientation = ORIENTATION_LANDSCAPE_LEFT;
         result.start = 90.0 + _startAngle;

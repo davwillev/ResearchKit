@@ -46,6 +46,7 @@
 #define allOrientationsForRoll(x, w, y, z) (atan2(2.0 * (y*w - x*z), 1.0 - 2.0 * (y*y + z*z)))
 #define allOrientationsForYaw(x, w, y, z) (asin(2.0 * (x*y - w*z)))
 
+
 @interface ORKRangeOfMotionContentView : ORKActiveStepCustomView {
     NSLayoutConstraint *_topConstraint;
 }
@@ -89,12 +90,14 @@
         [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
     }
 }
+ 
 
 //This function records the angle of the device when the screen is tapped
 - (void)handleTap:(UIGestureRecognizer *)sender {
     [self calculateAndSetAngles];
     [self finish];
 }
+
 
 - (void)calculateAndSetAngles {
     _startAngle = ([self getDeviceAngleInDegreesFromAttitude:_referenceAttitude]);
@@ -107,7 +110,6 @@
         _minAngle = _newAngle;
     }
 }
-
 
 #pragma mark - ORKDeviceMotionRecorderDelegate
 
@@ -185,12 +187,6 @@
     ORKStepResult *stepResult = [super result];
     
     ORKRangeOfMotionResult *result = [[ORKRangeOfMotionResult alloc] initWithIdentifier:self.step.identifier];
-    
-    int ORIENTATION_UNSPECIFIED = -1;
-    int ORIENTATION_LANDSCAPE_LEFT = 0; // equivalent to LANDSCAPE in Android
-    int ORIENTATION_PORTRAIT = 1;
-    int ORIENTATION_LANDSCAPE_RIGHT = 2; // equivalent to REVERSE_LANDSCAPE in Android
-    int ORIENTATION_PORTRAIT_UPSIDE_DOWN = 3;  // equivalent to REVERSE_PORTRAIT in Android
     
     if (UIDeviceOrientationLandscapeLeft == _orientation) {
         result.orientation = ORIENTATION_LANDSCAPE_LEFT;
