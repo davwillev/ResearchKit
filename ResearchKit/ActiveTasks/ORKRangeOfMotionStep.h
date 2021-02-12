@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 ORK_CLASS_AVAILABLE
 @interface ORKRangeOfMotionStep : ORKActiveStep
 
-@property (nonatomic, assign) ORKPredefinedTaskLimbOption limbOption; //The limb(s) rom which a measurement is taken during the task
+@property (nonatomic, assign) ORKPredefinedTaskLimbOption limbOption; //The limb(s) from which a measurement is taken during the task
 
 @property (nonatomic, assign) ORKPredefinedTaskMovementOption movementOption; //The movement to be performed during the task
 
