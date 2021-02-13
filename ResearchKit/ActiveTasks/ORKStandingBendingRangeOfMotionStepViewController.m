@@ -91,13 +91,11 @@
     }
 }
  
-
 //This function records the angle of the device when the screen is tapped
 - (void)handleTap:(UIGestureRecognizer *)sender {
     [self calculateAndSetAngles];
     [self finish];
 }
-
 
 - (void)calculateAndSetAngles {
     _startAngle = ([self getDeviceAngleInDegreesFromAttitude:_referenceAttitude]);
