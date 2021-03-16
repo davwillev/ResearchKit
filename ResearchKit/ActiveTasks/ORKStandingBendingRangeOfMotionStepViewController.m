@@ -40,8 +40,9 @@
 #import "ORKActiveStepView.h"
 #import "ORKProgressView.h"
 
-NSString const *sagittal = @"sagittal";
-NSString const *frontal = @"frontal";
+
+NSString *const sagittal = @"sagittal";
+NSString *const frontal = @"frontal";
 
 #define radiansToDegrees(radians) ((radians) * 180.0 / M_PI)
 #define allOrientationsForPitch(x, w, y, z) (atan2(2.0 * (x*w + y*z), 1.0 - 2.0 * (x*x + z*z)))
@@ -78,7 +79,7 @@ NSString const *frontal = @"frontal";
     _gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     [self.activeStepView addGestureRecognizer:_gestureRecognizer];
     
-     // Initiates orientation notifications
+     // Initiate orientation notifications
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     _orientation = [[UIDevice currentDevice] orientation]; // captures the initial device orientation
 }
@@ -90,14 +91,14 @@ NSString const *frontal = @"frontal";
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
  
-    // Ends orientation notifications
+    // End orientation notifications
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     if ([[UIDevice currentDevice] isGeneratingDeviceOrientationNotifications]) {
         [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
     }
 }
  
-//This function records the angle of the device when the screen is tapped
+// Record the angle of the device when the screen is tapped
 - (void)handleTap:(UIGestureRecognizer *)sender {
     [self calculateAndSetAngles];
     [self finish];
@@ -105,8 +106,7 @@ NSString const *frontal = @"frontal";
 
 - (void)calculateAndSetAngles {
     _startAngle = ([self getDeviceAngleInDegreesFromAttitude:_referenceAttitude]);
-    
-    //This function calculates maximum and minimum angles recorded by the device
+    //Calculate maximum and minimum angles recorded by the device
     if (_newAngle > _maxAngle) {
         _maxAngle = _newAngle;
     }
@@ -119,10 +119,7 @@ NSString const *frontal = @"frontal";
 
 - (NSString *)getCurrentPlaneOfMotion {
     NSString *plane;
-    if (self.standingBendingRangeOfMotionStep.movementOption &
-    ORKPredefinedTaskMovementOptionBendingForwards ||
-    self.standingBendingRangeOfMotionStep.movementOption &
-    ORKPredefinedTaskMovementOptionBendingBackwards) {
+    if (self.standingBendingRangeOfMotionStep.movementOption & ORKPredefinedTaskMovementOptionBendingForwards || self.standingBendingRangeOfMotionStep.movementOption & ORKPredefinedTaskMovementOptionBendingBackwards) {
         plane = sagittal;
     } else if (self.standingBendingRangeOfMotionStep.movementOption &
         ORKPredefinedTaskMovementOptionBendingRight ||
@@ -138,39 +135,39 @@ NSString const *frontal = @"frontal";
         _referenceAttitude = motion.attitude;
     }
     CMAttitude *currentAttitude = [motion.attitude copy];
-    
-    [currentAttitude multiplyByInverseOfAttitude:_referenceAttitude];
-    
+    [currentAttitude multiplyByInverseOfAttitude:_referenceAttitude]; // attitude relative to start
     double angle = [self getDeviceAngleInDegreesFromAttitude:currentAttitude];
     
-    //This shifts the range of angles reported by the device from +/-180 degrees to -90 to +270 degrees, which should be sufficient to cover all achievable forward bending ranges of motion
-    if (UIDeviceOrientationLandscapeLeft == _orientation) {
-        //BOOL shiftAngleRange = angle > 90 && angle <= 180;
-        if (angle > 90 && angle <= 180) {
-            _newAngle = fabs(angle) - 360;
-        } else {
-            _newAngle = angle;
-        }
-    } else if (UIDeviceOrientationPortrait == _orientation) {
-        //BOOL shiftAngleRange = angle < -90 && angle >= -180;
-        if (angle < -90 && angle >= -180) {
-            _newAngle = 360 - fabs(angle);
-        } else {
-            _newAngle = angle;
-        }
-    } else if (UIDeviceOrientationLandscapeRight == _orientation) {
-        //BOOL shiftAngleRange = angle < -90 && angle >= -180;
-        if (angle < -90 && angle >= -180) {
-            _newAngle = 360 - fabs(angle);
-        } else {
-            _newAngle = angle;
-        }
-    } else if (UIDeviceOrientationPortraitUpsideDown == _orientation) {
-        //BOOL shiftAngleRange = angle > 90 && angle <= 180;
-        if (angle > 90 && angle <= 180) {
-            _newAngle = fabs(angle) - 360;
-        } else {
-            _newAngle = angle;
+    //During sagittal bending, we need to shift the range of angles reported by the device from +/-180 degrees to -90 to +270 degrees, in order to cover all achievable forward and backward bending ranges of motion
+    if ([[self getCurrentPlaneOfMotion] isEqual:sagittal]) {
+        if (UIDeviceOrientationLandscapeLeft == _orientation) {
+            //BOOL shiftAngleRange = angle > 90 && angle <= 180;
+            if (angle > 90 && angle <= 180) {
+                _newAngle = fabs(angle) - 360;
+            } else {
+                _newAngle = angle;
+            }
+        } else if (UIDeviceOrientationPortrait == _orientation) {
+            //BOOL shiftAngleRange = angle < -90 && angle >= -180;
+            if (angle < -90 && angle >= -180) {
+                _newAngle = 360 - fabs(angle);
+            } else {
+                _newAngle = angle;
+            }
+        } else if (UIDeviceOrientationLandscapeRight == _orientation) {
+            //BOOL shiftAngleRange = angle < -90 && angle >= -180;
+            if (angle < -90 && angle >= -180) {
+                _newAngle = 360 - fabs(angle);
+            } else {
+                _newAngle = angle;
+            }
+        } else if (UIDeviceOrientationPortraitUpsideDown == _orientation) {
+            //BOOL shiftAngleRange = angle > 90 && angle <= 180;
+            if (angle > 90 && angle <= 180) {
+                _newAngle = fabs(angle) - 360;
+            } else {
+                _newAngle = angle;
+            }
         }
     }
     [self calculateAndSetAngles];
@@ -214,7 +211,7 @@ NSString const *frontal = @"frontal";
             result.orientation = ORIENTATION_LANDSCAPE_LEFT;
             result.start = -90.0 - _startAngle;
             result.finish = result.start + _newAngle;
-        // In Lanscape Left device orientation, the task uses roll in the direction opposite to the original CoreMotion device axes (i.e. right hand rule). Therefore, maximum and minimum angles are reported the 'wrong' way around for the forward bending tasks.
+        // In Landscape Left device orientation, the task uses roll in the direction opposite to the original CoreMotion device axes (i.e. right hand rule). Therefore, maximum and minimum angles are reported the 'wrong' way around for the forward bending tasks.
             result.minimum = result.start - _maxAngle;
             result.maximum = result.start - _minAngle;
             result.range = fabs(result.maximum - result.minimum);
@@ -240,20 +237,24 @@ NSString const *frontal = @"frontal";
             result.minimum = result.start - _maxAngle;
             result.maximum = result.start - _minAngle;
             result.range = fabs(result.maximum - result.minimum);
-        } else if (!UIDeviceOrientationIsValidInterfaceOrientation(_orientation)) {
-            result.orientation = ORIENTATION_UNSPECIFIED;
-            result.start = NAN;
-            result.finish = NAN;
-            result.minimum = NAN;
-            result.maximum = NAN;
-            result.range = NAN;
         }
-    } else if ([[self getCurrentPlaneOfMotion] isEqual:frontal]) {
+    } else if ([[self getCurrentPlaneOfMotion] isEqual:frontal] &&
+               (_orientation == UIDeviceOrientationLandscapeLeft ||
+                _orientation == UIDeviceOrientationPortrait ||
+                _orientation == UIDeviceOrientationLandscapeRight ||
+                _orientation == UIDeviceOrientationPortraitUpsideDown)) {
         result.start = _startAngle;
         result.finish = result.start + _newAngle;
         result.minimum = result.start + _minAngle;
         result.maximum = result.start + _maxAngle;
         result.range = fabs(result.maximum - result.minimum);
+    } else if (!UIDeviceOrientationIsValidInterfaceOrientation(_orientation)) { // the phone should be upright at the outset of every standing bending task, or the data will be useless
+        result.orientation = ORIENTATION_UNSPECIFIED;
+        result.start = NAN;
+        result.finish = NAN;
+        result.minimum = NAN;
+        result.maximum = NAN;
+        result.range = NAN;
     }
                
     stepResult.results = [self.addedResults arrayByAddingObject:result] ? : @[result];
