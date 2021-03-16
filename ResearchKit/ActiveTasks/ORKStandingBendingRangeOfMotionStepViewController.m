@@ -30,16 +30,18 @@
 
 
 #import "ORKStandingBendingRangeOfMotionStepViewController.h"
-
+#import "ORKStandingBendingRangeOfMotionStep.h"
 #import "ORKRangeOfMotionResult.h"
-#import "ORKStepViewController_Internal.h"
 
+#import "ORKStepViewController_Internal.h"
 #import "ORKCustomStepView_Internal.h"
 #import "ORKActiveStepViewController_Internal.h"
 #import "ORKDeviceMotionRecorder.h"
 #import "ORKActiveStepView.h"
 #import "ORKProgressView.h"
 
+NSString const *sagittal = @"sagittal";
+NSString const *frontal = @"frontal";
 
 #define radiansToDegrees(radians) ((radians) * 180.0 / M_PI)
 #define allOrientationsForPitch(x, w, y, z) (atan2(2.0 * (x*w + y*z), 1.0 - 2.0 * (x*x + z*z)))
@@ -115,6 +117,22 @@
 
 #pragma mark - ORKDeviceMotionRecorderDelegate
 
+- (NSString *)getCurrentPlaneOfMotion {
+    NSString *plane;
+    if (self.standingBendingRangeOfMotionStep.movementOption &
+    ORKPredefinedTaskMovementOptionBendingForwards ||
+    self.standingBendingRangeOfMotionStep.movementOption &
+    ORKPredefinedTaskMovementOptionBendingBackwards) {
+        plane = sagittal;
+    } else if (self.standingBendingRangeOfMotionStep.movementOption &
+        ORKPredefinedTaskMovementOptionBendingRight ||
+        self.standingBendingRangeOfMotionStep.movementOption &
+        ORKPredefinedTaskMovementOptionBendingLeft) {
+        plane = frontal;
+    }
+    return plane;
+}
+
 - (void)deviceMotionRecorderDidUpdateWithMotion:(CMDeviceMotion *)motion {
     if (!_referenceAttitude) {
         _referenceAttitude = motion.attitude;
@@ -170,19 +188,14 @@
     double w = attitude.quaternion.w;
     double y = attitude.quaternion.y;
     double z = attitude.quaternion.z;
-    if (self.standingBendingRangeOfMotionStep.movementOption &
-        ORKPredefinedTaskMovementOptionBendingForwards ||
-        self.standingBendingRangeOfMotionStep.movementOption &
-        ORKPredefinedTaskMovementOptionBendingBackwards) {
+    
+    if ([[self getCurrentPlaneOfMotion] isEqual:sagittal]) {
         if (UIDeviceOrientationIsLandscape(_orientation)) {
             angle = radiansToDegrees(allOrientationsForRoll(x, w, y, z));
         } else if (UIDeviceOrientationIsPortrait(_orientation)) {
             angle = radiansToDegrees(allOrientationsForPitch(x, w, y, z));
         }
-    } else if (self.standingBendingRangeOfMotionStep.movementOption &
-               ORKPredefinedTaskMovementOptionBendingRight ||
-               self.standingBendingRangeOfMotionStep.movementOption &
-               ORKPredefinedTaskMovementOptionBendingLeft) {
+    } else if ([[self getCurrentPlaneOfMotion] isEqual:frontal]) {
             angle = radiansToDegrees(allOrientationsForYaw(x, w, y, z));
     }
     return angle;
@@ -196,10 +209,7 @@
     
     ORKRangeOfMotionResult *result = [[ORKRangeOfMotionResult alloc] initWithIdentifier:self.step.identifier];
     
-    if (self.standingBendingRangeOfMotionStep.movementOption &
-    ORKPredefinedTaskMovementOptionBendingForwards ||
-        self.standingBendingRangeOfMotionStep.movementOption &
-    ORKPredefinedTaskMovementOptionBendingBackwards) {
+    if ([[self getCurrentPlaneOfMotion] isEqual:sagittal]) {
         if (UIDeviceOrientationLandscapeLeft == _orientation) {
             result.orientation = ORIENTATION_LANDSCAPE_LEFT;
             result.start = -90.0 - _startAngle;
@@ -238,10 +248,7 @@
             result.maximum = NAN;
             result.range = NAN;
         }
-    } else if (self.standingBendingRangeOfMotionStep.movementOption &
-    ORKPredefinedTaskMovementOptionBendingRight ||
-    self.standingBendingRangeOfMotionStep.movementOption &
-    ORKPredefinedTaskMovementOptionBendingLeft) {
+    } else if ([[self getCurrentPlaneOfMotion] isEqual:frontal]) {
         result.start = _startAngle;
         result.finish = result.start + _newAngle;
         result.minimum = result.start + _minAngle;

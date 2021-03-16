@@ -49,8 +49,11 @@
                                        reason:ORKLocalizedString(@"LIMB_OPTION_BOTH_ERROR", nil)
                                      userInfo:nil];
     }
-    if (!(self.movementOption & ORKPredefinedTaskMovementOptionBendingForwards) &&
-    !(self.movementOption & ORKPredefinedTaskMovementOptionBendingBackwards)) {
+    if (
+        !(self.movementOption & ORKPredefinedTaskMovementOptionBendingForwards) &&
+        !(self.movementOption & ORKPredefinedTaskMovementOptionBendingBackwards) &&
+        !(self.movementOption == [NSNumber numberWithInteger:ORKPredefinedTaskMovementOptionBendingForwards]) &&
+        !(self.movementOption == [NSNumber numberWithInteger:ORKPredefinedTaskMovementOptionBendingBackwards])) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
                                        reason:ORKLocalizedString(@"MOVEMENT_OPTION_ERROR", nil)
                                      userInfo:nil];
