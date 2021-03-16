@@ -52,8 +52,8 @@
     if (
         !(self.movementOption & ORKPredefinedTaskMovementOptionBendingForwards) &&
         !(self.movementOption & ORKPredefinedTaskMovementOptionBendingBackwards) &&
-        !(self.movementOption == [NSNumber numberWithInteger:ORKPredefinedTaskMovementOptionBendingForwards]) &&
-        !(self.movementOption == [NSNumber numberWithInteger:ORKPredefinedTaskMovementOptionBendingBackwards])) {
+        !(self.movementOption & ORKPredefinedTaskMovementOptionBendingLeft) &&
+        !(self.movementOption & ORKPredefinedTaskMovementOptionBendingRight)) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
                                        reason:ORKLocalizedString(@"MOVEMENT_OPTION_ERROR", nil)
                                      userInfo:nil];
