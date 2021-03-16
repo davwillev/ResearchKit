@@ -117,7 +117,7 @@ NSString *const frontal = @"frontal";
 
 #pragma mark - ORKDeviceMotionRecorderDelegate
 
-- (NSString *)getCurrentPlaneOfMotion {
+- (NSString *)getCurrentPlaneOfRotation {
     NSString *plane;
     if (self.standingBendingRangeOfMotionStep.movementOption & ORKPredefinedTaskMovementOptionBendingForwards || self.standingBendingRangeOfMotionStep.movementOption & ORKPredefinedTaskMovementOptionBendingBackwards) {
         plane = sagittal;
@@ -139,7 +139,7 @@ NSString *const frontal = @"frontal";
     double angle = [self getDeviceAngleInDegreesFromAttitude:currentAttitude];
     
     //During sagittal bending, we need to shift the range of angles reported by the device from +/-180 degrees to -90 to +270 degrees, in order to cover all achievable forward and backward bending ranges of motion
-    if ([[self getCurrentPlaneOfMotion] isEqual:sagittal]) {
+    if ([[self getCurrentPlaneOfRotation] isEqual:sagittal]) {
         if (UIDeviceOrientationLandscapeLeft == _orientation) {
             //BOOL shiftAngleRange = angle > 90 && angle <= 180;
             if (angle > 90 && angle <= 180) {
@@ -186,13 +186,13 @@ NSString *const frontal = @"frontal";
     double y = attitude.quaternion.y;
     double z = attitude.quaternion.z;
     
-    if ([[self getCurrentPlaneOfMotion] isEqual:sagittal]) {
+    if ([[self getCurrentPlaneOfRotation] isEqual:sagittal]) {
         if (UIDeviceOrientationIsLandscape(_orientation)) {
             angle = radiansToDegrees(allOrientationsForRoll(x, w, y, z));
         } else if (UIDeviceOrientationIsPortrait(_orientation)) {
             angle = radiansToDegrees(allOrientationsForPitch(x, w, y, z));
         }
-    } else if ([[self getCurrentPlaneOfMotion] isEqual:frontal]) {
+    } else if ([[self getCurrentPlaneOfRotation] isEqual:frontal]) {
             angle = radiansToDegrees(allOrientationsForYaw(x, w, y, z));
     }
     return angle;
@@ -206,7 +206,7 @@ NSString *const frontal = @"frontal";
     
     ORKRangeOfMotionResult *result = [[ORKRangeOfMotionResult alloc] initWithIdentifier:self.step.identifier];
     
-    if ([[self getCurrentPlaneOfMotion] isEqual:sagittal]) {
+    if ([[self getCurrentPlaneOfRotation] isEqual:sagittal]) {
         if (UIDeviceOrientationLandscapeLeft == _orientation) {
             result.orientation = ORIENTATION_LANDSCAPE_LEFT;
             result.start = -90.0 - _startAngle;
@@ -238,7 +238,7 @@ NSString *const frontal = @"frontal";
             result.maximum = result.start - _minAngle;
             result.range = fabs(result.maximum - result.minimum);
         }
-    } else if ([[self getCurrentPlaneOfMotion] isEqual:frontal] &&
+    } else if ([[self getCurrentPlaneOfRotation] isEqual:frontal] &&
                (_orientation == UIDeviceOrientationLandscapeLeft ||
                 _orientation == UIDeviceOrientationPortrait ||
                 _orientation == UIDeviceOrientationLandscapeRight ||
