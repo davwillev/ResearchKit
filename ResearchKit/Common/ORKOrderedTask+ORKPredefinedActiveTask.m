@@ -1609,7 +1609,7 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
     
     for (movement = 1; movement <= movementCount; movement++) {
         
-        NSInteger nextMovement = [shuffledMovements[movement - 1] intValue];
+        ORKPredefinedTaskMovementOption nextMovement = [shuffledMovements[movement - 1] integerValue];
         
         // Create unique identifiers when both movements are selected
         NSString * (^appendIdentifier) (NSString *) = ^ (NSString * stepIdentifier) {
