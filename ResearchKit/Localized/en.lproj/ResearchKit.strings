@@ -462,24 +462,38 @@
 /* Standing Bending Range of Motion active task */
 "STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD" = "Forward Bending";
 "STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD" = "Backward Bending";
+"STANDING_BENDING_RANGE_OF_MOTION_TITLE_RIGHT" = "Bending to the Right";
+"STANDING_BENDING_RANGE_OF_MOTION_TITLE_LEFT" = "Bending to the Left";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_FORWARD" = "This task will measure how far you can bend forwards while standing, without bending your knees.\nDetailed instructions will follow.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_BACKWARD" = "This task will measure how far you can bend backwards while standing, without bending your knees.\nDetailed instructions will follow.";
+"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_LEFT" = "This task will measure how far you can bend over to the left side while standing, keeping your legs straight and your knees together.\nDetailed instructions will follow.";
+"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_RIGHT" = "This task will measure how far you can bend over to the right side while standing, keeping your legs straight and your knees together.\nDetailed instructions will follow.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_FORWARD_FIRST" = "This task will first measure how far you can bend forwards while standing, without bending your knees.\nDetailed instructions will follow.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_BACKWARD_FIRST" = "This task will first measure how far you can bend backwards while standing, without bending your knees.\nDetailed instructions will follow.";
+"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_LEFT_FIRST" = "This task will first measure how far you can bend over to the left side while standing, keeping your legs straight and your knees together.\nDetailed instructions will follow.";
+"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_RIGHT_FIRST" = "This task will first measure how far you can bend over to the right side while standing, keeping your legs straight and your knees together.\nDetailed instructions will follow.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_FORWARD_NEXT" = "Next, the task will measure how far you can bend forwards while standing, without bending your knees.\nDetailed instructions will follow.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_BACKWARD_NEXT" = "Next, the task will measure how far you can bend backwards while standing, without bending your knees.\nDetailed instructions will follow.";
-"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_STANDING_FIRST" = "You will need to be standing with your feet shoulder-width apart for the test.";
-"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_STANDING_NEXT" = "Please ensure that you are still standing with your feet shoulder-width apart.";
+"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_LEFT_NEXT" = "Next, this task will measure how far you can bend over to the left side while standing, keeping your legs straight and your knees together.\nDetailed instructions will follow.";
+"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_RIGHT_NEXT" = "Next, this task will measure how far you can bend over to the right side while standing, keeping your legs straight and your knees together.\nDetailed instructions will follow.";
+//"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_STANDING_FIRST" = "You will need to be standing with your feet shoulder-width apart for the test.";
+//"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_STANDING_NEXT" = "Please ensure that you are still standing with your feet shoulder-width apart.";
+"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_STANDING_SHOULDER_WIDTH" = "You will need to be standing with your legs straight and your feet shoulder-width apart for this test.";
+"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_STANDING_KNEES_TOGETHER" = "You will need to be standing with your legs straight and your knees together for this test.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_FORWARD_MOVEMENT_LEFT_LIMB" = "Measurements will begin when you tap the test screen. Then, bend forwards as far as you can so that your right hand reaches towards the top of your right foot. Finally, return to the upright position and tap the screen again to finish.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_FORWARD_MOVEMENT_RIGHT_LIMB" = "Measurements will begin when you tap the test screen. Then, bend forwards as far as you can so that your left hand reaches towards the top of your left foot. Finally, return to the upright position and tap the screen again to finish.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_BACKWARD_MOVEMENT_LEFT_LIMB" = "Measurements will begin when you tap the test screen. Then, bend backwards as far as you can without bending your knees. Finally, return to the upright position and tap the screen again to finish.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_BACKWARD_MOVEMENT_RIGHT_LIMB" = "Measurements will begin when you tap the test screen. Then, bend backwards as far as you can without bending your knees. Finally, return to the upright position and tap the screen again to finish.";
+"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_RIGHT_MOVEMENT_LEFT_LIMB" = "Measurements will begin when you tap the test screen. Then, bend to the right side as far as you can by reaching your right hand towards your right ankle. Finally, return to the upright position and tap the screen again to finish.";
+"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_LEFT_MOVEMENT_RIGHT_LIMB" = "Measurements will begin when you tap the test screen. Then, bend to the left side as far as you can by reaching your left hand towards your left ankle. Finally, return to the upright position and tap the screen again to finish.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_LEFT_LIMB" = "During the test, you will need to hold your device firmly against the center of your upper chest with the screen facing out, as pictured.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_RIGHT_LIMB" = "During the test, you will need to hold your device firmly against the center of your upper chest with the screen facing out, as pictured.";
-"STANDING_BENDING_RANGE_OF_MOTION_TOUCH_ANYWHERE_STEP_INSTRUCTION_LEFT" = "Using your left hand, hold your device upright against the center of your upper chest with the screen facing out. Tap the screen anywhere to begin.";
-"STANDING_BENDING_RANGE_OF_MOTION_TOUCH_ANYWHERE_STEP_INSTRUCTION_RIGHT" = "Using your right hand, hold your device upright against the center of your upper chest with the screen facing out. Tap the screen anywhere to begin.";
+"STANDING_BENDING_RANGE_OF_MOTION_TOUCH_ANYWHERE_STEP_INSTRUCTION_LEFT_LIMB" = "Using your left hand, hold your device upright against the center of your upper chest with the screen facing out. Tap the screen anywhere to begin.";
+"STANDING_BENDING_RANGE_OF_MOTION_TOUCH_ANYWHERE_STEP_INSTRUCTION_RIGHT_LIMB" = "Using your right hand, hold your device upright against the center of your upper chest with the screen facing out. Tap the screen anywhere to begin.";
 "STANDING_BENDING_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_FORWARD" = "Bend forwards as far as you can keeping the phone held against your chest. Then, return to the upright position and tap anywhere on the screen to finish.";
 "STANDING_BENDING_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_BACKWARD" = "Bend backwards as far as you can keeping the phone held against your chest. Then, return to the upright position and tap anywhere on the screen to finish.";
+"SIDE_BENDING_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_RIGHT" = "Bend to the right side as far as you can keeping the phone held against your chest. Then, return to the upright position and tap the screen again to finish.";
+"SIDE_BENDING_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_LEFT" = "Bend to the left side as far as you can keeping the phone held against your chest. Then, return to the upright position and tap the screen again to finish.";
 
 /* Timed walk active task. */
 "TIMED_WALK_TITLE" = "Timed Walk";
