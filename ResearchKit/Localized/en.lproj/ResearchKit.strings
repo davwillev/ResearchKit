@@ -492,8 +492,8 @@
 "STANDING_BENDING_RANGE_OF_MOTION_TOUCH_ANYWHERE_STEP_INSTRUCTION_RIGHT_LIMB" = "Using your right hand, hold your device upright against the center of your upper chest with the screen facing out. Tap the screen anywhere to begin.";
 "STANDING_BENDING_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_FORWARD" = "Bend forwards as far as you can keeping the phone held against your chest. Then, return to the upright position and tap anywhere on the screen to finish.";
 "STANDING_BENDING_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_BACKWARD" = "Bend backwards as far as you can keeping the phone held against your chest. Then, return to the upright position and tap anywhere on the screen to finish.";
-"SIDE_BENDING_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_RIGHT" = "Bend to the right side as far as you can keeping the phone held against your chest. Then, return to the upright position and tap the screen again to finish.";
-"SIDE_BENDING_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_LEFT" = "Bend to the left side as far as you can keeping the phone held against your chest. Then, return to the upright position and tap the screen again to finish.";
+"STANDING_BENDING_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_RIGHT" = "Bend to the right side as far as you can keeping the phone held against your chest. Then, return to the upright position and tap the screen again to finish.";
+"STANDING_BENDING_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_LEFT" = "Bend to the left side as far as you can keeping the phone held against your chest. Then, return to the upright position and tap the screen again to finish.";
 
 /* Timed walk active task. */
 "TIMED_WALK_TITLE" = "Timed Walk";
