@@ -1567,35 +1567,24 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
     NSInteger const scaleStep = 1;
     NSMutableArray *steps = [NSMutableArray array];
     NSString *location;
-    NSArray *movementList;
-    NSUInteger movement;
+    NSInteger movement;
+    //NSArray *movementList;
+    //NSUInteger movement;
     
-    // Reconstruct list of movements from enums and setup which movement to start with and how many movements (1, 2 or 4) there will be, based on the movementOption parameter. If more than one movements are selected, the order in which they are presented will be randomly shuffled.
+    // Build list of movements from enums and setup which movement to start with and how many movements (1, 2 or 4) there will be, based on the movementOption parameter. If more than one movements are selected, the order in which they are presented will be randomly shuffled.
     
-    if (movementOption == ORKPredefinedTaskMovementOptionBendingAll) {
-        movementList = [NSArray arrayWithObjects:
-                         [NSNumber numberWithInteger:ORKPredefinedTaskMovementOptionBendingForwards],
-                         [NSNumber numberWithInteger:ORKPredefinedTaskMovementOptionBendingBackwards],
-                         [NSNumber numberWithInteger:ORKPredefinedTaskMovementOptionBendingLeft],
-                         [NSNumber numberWithInteger:ORKPredefinedTaskMovementOptionBendingRight],
-                         nil];
-    } else if (movementOption == ORKPredefinedTaskMovementOptionBendingBothSagittal) {
-        movementList = [NSArray arrayWithObjects:
-                         [NSNumber numberWithInteger:ORKPredefinedTaskMovementOptionBendingForwards],
-                         [NSNumber numberWithInteger:ORKPredefinedTaskMovementOptionBendingBackwards],
-                         nil];
-    } else if (movementOption == ORKPredefinedTaskMovementOptionBendingBothSides) {
-        movementList = [NSArray arrayWithObjects:
-                         [NSNumber numberWithInteger:ORKPredefinedTaskMovementOptionBendingLeft],
-                         [NSNumber numberWithInteger:ORKPredefinedTaskMovementOptionBendingRight],
-                         nil];
-    } else if (movementOption == ORKPredefinedTaskMovementOptionBendingForwards ||
-               movementOption == ORKPredefinedTaskMovementOptionBendingBackwards ||
-               movementOption == ORKPredefinedTaskMovementOptionBendingLeft ||
-               movementOption == ORKPredefinedTaskMovementOptionBendingRight) {
-        movementList = [NSArray arrayWithObjects:
-                        [NSNumber numberWithInteger:movementOption],
-                        nil];
+    NSMutableArray *movementList = [[NSMutableArray alloc] init];
+    if (movementOption & ORKPredefinedTaskMovementOptionBendingForwards) {
+        [movementList addObject:[NSNumber numberWithInteger:ORKPredefinedTaskMovementOptionBendingForwards]];
+    }
+    if (movementOption & ORKPredefinedTaskMovementOptionBendingBackwards) {
+        [movementList addObject:[NSNumber numberWithInteger:ORKPredefinedTaskMovementOptionBendingBackwards]];
+    }
+    if (movementOption & ORKPredefinedTaskMovementOptionBendingLeft) {
+        [movementList addObject:[NSNumber numberWithInteger:ORKPredefinedTaskMovementOptionBendingLeft]];
+    }
+    if (movementOption & ORKPredefinedTaskMovementOptionBendingRight) {
+        [movementList addObject:[NSNumber numberWithInteger:ORKPredefinedTaskMovementOptionBendingRight]];
     }
     NSUInteger movementCount = [movementList count];
     
