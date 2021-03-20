@@ -1568,11 +1568,8 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
     NSMutableArray *steps = [NSMutableArray array];
     NSString *location;
     NSInteger movement;
-    //NSArray *movementList;
-    //NSUInteger movement;
     
-    // Build list of movements from enums and setup which movement to start with and how many movements (1, 2 or 4) there will be, based on the movementOption parameter. If more than one movements are selected, the order in which they are presented will be randomly shuffled.
-    
+    // Build list of movements from enums and setup which movement to start with and how many movements (1-4) there will be, based on the movementOption parameter. If more than one movements are selected, the order in which they are presented will be randomized.
     NSMutableArray *movementList = [[NSMutableArray alloc] init];
     if (movementOption & ORKPredefinedTaskMovementOptionBendingForwards) {
         [movementList addObject:[NSNumber numberWithInteger:ORKPredefinedTaskMovementOptionBendingForwards]];
@@ -1588,7 +1585,7 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
     }
     NSUInteger movementCount = [movementList count];
     
-    // Build an array of shuffled movements with length == movementCount
+    // Shuffle the list of movements
     NSMutableArray *shuffledMovements = [NSMutableArray arrayWithArray:movementList];
     for (NSUInteger i = 0; i < ([shuffledMovements count]) - 1; ++i) {
         NSInteger remainingCount = [shuffledMovements count] - i;
@@ -1598,9 +1595,10 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
     
     for (movement = 1; movement <= movementCount; movement++) {
         
+        // Allocate next movement and convert back to enum
         ORKPredefinedTaskMovementOption nextMovement = [shuffledMovements[movement - 1] integerValue];
         
-        // Create unique identifiers when both movements are selected
+        // Create unique identifiers for when multiple movements are selected
         NSString * (^appendIdentifier) (NSString *) = ^ (NSString * stepIdentifier) {
             if (movementCount == 1) {
                 return stepIdentifier;
@@ -1626,7 +1624,6 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
             
             ORKInstructionStep *instructionStep0 = [[ORKInstructionStep alloc] initWithIdentifier:appendIdentifier(ORKInstruction0StepIdentifier)];
             
-            //if (doingBoth) {
             if (movementOption == ORKPredefinedTaskMovementOptionBendingAll ||
                 movementOption == ORKPredefinedTaskMovementOptionBendingBothSagittal) {
                 // Set the title and instructions based on the movement(s) selected
