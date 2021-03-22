@@ -1569,7 +1569,7 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
     NSString *location;
     NSInteger movement;
     
-    // Build list of movements from enums and setup which movement to start with and how many movements (1-4) there will be, based on the movementOption parameter. If more than one movements are selected, the order in which they are presented will be randomized.
+    // Build list of movements from enums, and setup which movement to start with and how many movements (1-4) there will be, based on the movementOption parameter. If more than one movements are selected, the order in which they are presented will be randomized.
     NSMutableArray *movementList = [[NSMutableArray alloc] init];
     if (movementOption & ORKPredefinedTaskMovementOptionBendingForwards) {
         [movementList addObject:[NSNumber numberWithInteger:ORKPredefinedTaskMovementOptionBendingForwards]];
