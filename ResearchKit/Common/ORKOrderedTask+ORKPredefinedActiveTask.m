@@ -1623,64 +1623,118 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
         {   /* Instruction step 0 */
             
             ORKInstructionStep *instructionStep0 = [[ORKInstructionStep alloc] initWithIdentifier:appendIdentifier(ORKInstruction0StepIdentifier)];
+            if (movement == 1) {
+                if (movementCount == 1) { // single movement
+                    instructionStep0.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                    instructionStep0.detailText = ORKLocalizedString(@"RANGE_OF_MOTION_SOUND", nil);
+                    // Set the instruction text based on the single movement selected
+                    if (nextMovement == ORKPredefinedTaskMovementOptionBendingForwards) {
+                        instructionStep0.text = [NSString localizedStringWithFormat:
+                                                 ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_SINGLE", nil),
+                                                 ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil)];
+                    } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingBackwards) {
+                        instructionStep0.text = [NSString localizedStringWithFormat:
+                                                 ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_SINGLE", nil),
+                                                 ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil)];
+                    } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingRight) {
+                        instructionStep0.text = [NSString localizedStringWithFormat:
+                                                 ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_SINGLE", nil),
+                                                 ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_RIGHT", nil)];
+                    } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingLeft) {
+                        instructionStep0.text = [NSString localizedStringWithFormat:
+                                                 ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_SINGLE", nil),
+                                                 ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_LEFT", nil)];
+                    }
+                } else { // multiple movements
+                    instructionStep0.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                    instructionStep0.text = [NSString localizedStringWithFormat:ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_MULTIPLE", nil), @(movementCount)];
+                    instructionStep0.detailText = ORKLocalizedString(@"RANGE_OF_MOTION_SOUND", nil);
+                }
+                //instructionStep0.shouldTintImages = YES;
+                //instructionStep1.imageContentMode = UIViewContentModeScaleAspectFit;
+                ORKStepArrayAddStep(steps, instructionStep0);
+            }
+        }
+            
+        {   /* Instruction step 1 */
+            
+            ORKInstructionStep *instructionStep1 = [[ORKInstructionStep alloc] initWithIdentifier:appendIdentifier(ORKInstruction1StepIdentifier)];
             
             if (movementOption == ORKPredefinedTaskMovementOptionBendingAll ||
                 movementOption == ORKPredefinedTaskMovementOptionBendingBothSagittal) {
                 // Set the title and instructions based on the movement(s) selected
                 if (movement == 1) {
                     if (nextMovement == ORKPredefinedTaskMovementOptionBendingForwards) {
-                        instructionStep0.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
-                        instructionStep0.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
-                        instructionStep0.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_FORWARD_FIRST", nil); // different instructions for forward bending being first
+                        instructionStep1.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                        instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
+                        instructionStep1.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_FORWARD_FIRST", nil); // different instructions for forward bending being first
                     } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingBackwards) {
-                        instructionStep0.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
-                        instructionStep0.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
-                        instructionStep0.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_BACKWARD_FIRST", nil); // different instructions for backward bending being first
+                        instructionStep1.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                        instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
+                        instructionStep1.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_BACKWARD_FIRST", nil); // different instructions for backward bending being first
                     } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingRight) {
-                        instructionStep0.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
-                        instructionStep0.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_RIGHT", nil);
-                        instructionStep0.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_RIGHT_FIRST", nil); // different instructions for right side-bending being first
+                        instructionStep1.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                        instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_RIGHT", nil);
+                        instructionStep1.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_RIGHT_FIRST", nil); // different instructions for right side-bending being first
                     } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingLeft) {
-                        instructionStep0.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
-                        instructionStep0.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_LEFT", nil);
-                        instructionStep0.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_LEFT_FIRST", nil); // different instructions for left side-bending being first
+                        instructionStep1.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                        instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_LEFT", nil);
+                        instructionStep1.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_LEFT_FIRST", nil); // different instructions for left side-bending being first
                     }
-                } else { // movement >= 2
+                } else if (movement == movementCount) {
                     if (nextMovement == ORKPredefinedTaskMovementOptionBendingForwards) {
-                        instructionStep0.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
-                        instructionStep0.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
-                        instructionStep0.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_FORWARD_NEXT", nil); // different instructions for forward bending not being first
+                        instructionStep1.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                        instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
+                        instructionStep1.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_FORWARD_LAST", nil); // different instructions for forward bending being last
                     } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingBackwards) {
-                        instructionStep0.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
-                        instructionStep0.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
-                        instructionStep0.detailText =  ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_BACKWARD_NEXT", nil); // different instructions for forward bending not being first
+                        instructionStep1.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                        instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
+                        instructionStep1.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_BACKWARD_LAST", nil); // different instructions for backward bending being last
                     } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingRight) {
-                        instructionStep0.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
-                        instructionStep0.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_RIGHT", nil);
-                        instructionStep0.detailText =  ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_RIGHT_NEXT", nil); // different instructions for left side-bending not being first
+                        instructionStep1.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                        instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_RIGHT", nil);
+                        instructionStep1.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_RIGHT_LAST", nil); // different instructions for right side-bending being last
                     } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingLeft) {
-                        instructionStep0.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
-                        instructionStep0.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_LEFT", nil);
-                        instructionStep0.detailText =  ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_LEFT_NEXT", nil); // different instructions for left side-bending not being first
+                        instructionStep1.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                        instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_LEFT", nil);
+                        instructionStep1.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_LEFT_LAST", nil); // different instructions for left side-bending being last
+                    }
+                } else { // movement >= 2 but < movementCount
+                    if (nextMovement == ORKPredefinedTaskMovementOptionBendingForwards) {
+                        instructionStep1.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                        instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
+                        instructionStep1.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_FORWARD_NEXT", nil); // different instructions for forward bending not being first
+                    } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingBackwards) {
+                        instructionStep1.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                        instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
+                        instructionStep1.detailText =  ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_BACKWARD_NEXT", nil); // different instructions for forward bending not being first
+                    } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingRight) {
+                        instructionStep1.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                        instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_RIGHT", nil);
+                        instructionStep1.detailText =  ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_RIGHT_NEXT", nil); // different instructions for left side-bending not being first
+                    } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingLeft) {
+                        instructionStep1.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                        instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_LEFT", nil);
+                        instructionStep1.detailText =  ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_LEFT_NEXT", nil); // different instructions for left side-bending not being first
                     }
                 }
             } else { // not doing both
                 if (nextMovement == ORKPredefinedTaskMovementOptionBendingForwards) {
-                    instructionStep0.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
-                    instructionStep0.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_FORWARD", nil);
-                    instructionStep0.detailText = ORKLocalizedString(@"RANGE_OF_MOTION_SOUND", nil);
+                    instructionStep1.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                    instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_FORWARD", nil);
+                    //instructionStep1.detailText = ORKLocalizedString(@"RANGE_OF_MOTION_SOUND", nil);
                 } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingBackwards) {
-                    instructionStep0.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
-                    instructionStep0.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_BACKWARD", nil);
-                    instructionStep0.detailText = ORKLocalizedString(@"RANGE_OF_MOTION_SOUND", nil);
+                    instructionStep1.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                    instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_BACKWARD", nil);
+                    //instructionStep1.detailText = ORKLocalizedString(@"RANGE_OF_MOTION_SOUND", nil);
                 } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingLeft) {
-                    instructionStep0.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
-                    instructionStep0.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_RIGHT", nil);
-                    instructionStep0.detailText = ORKLocalizedString(@"RANGE_OF_MOTION_SOUND", nil);
+                    instructionStep1.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                    instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_RIGHT", nil);
+                    //instructionStep1.detailText = ORKLocalizedString(@"RANGE_OF_MOTION_SOUND", nil);
                 } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingLeft) {
-                    instructionStep0.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
-                    instructionStep0.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_LEFT", nil);
-                    instructionStep0.detailText = ORKLocalizedString(@"RANGE_OF_MOTION_SOUND", nil);
+                    instructionStep1.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                    instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_LEFT", nil);
+                    //instructionStep1.detailText = ORKLocalizedString(@"RANGE_OF_MOTION_SOUND", nil);
                 }
             }
             // Setup animation
@@ -1690,29 +1744,28 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
                     UIImage *im2 = [UIImage imageNamed:@"forward_bending_1_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                     UIImage *im3 = [UIImage imageNamed:@"forward_bending_2_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                     UIImage *im4 = [UIImage imageNamed:@"forward_bending_maximum_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
-                    instructionStep0.image = [UIImage animatedImageWithImages:@[im1, im1, im2, im3, im4, im4, im3, im2, im1, im1] duration:6];
+                    instructionStep1.image = [UIImage animatedImageWithImages:@[im1, im1, im2, im3, im4, im4, im3, im2, im1, im1] duration:6];
                 } else if (limbOption == ORKPredefinedTaskLimbOptionLeft) {
                     UIImage *im1 = [UIImage imageNamed:@"sagittal_bending_start_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                     UIImage *im2 = [UIImage imageNamed:@"forward_bending_1_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                     UIImage *im3 = [UIImage imageNamed:@"forward_bending_2_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                     UIImage *im4 = [UIImage imageNamed:@"forward_bending_maximum_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
-                    instructionStep0.image = [UIImage animatedImageWithImages:@[im1, im1, im2, im3, im4, im4, im3, im2, im1, im1] duration:6];
+                    instructionStep1.image = [UIImage animatedImageWithImages:@[im1, im1, im2, im3, im4, im4, im3, im2, im1, im1] duration:6];
                 }
             } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingBackwards) {
                 if (limbOption == ORKPredefinedTaskLimbOptionRight) {
                     UIImage *im1 = [UIImage imageNamed:@"sagittal_bending_start_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                     UIImage *im2 = [UIImage imageNamed:@"backward_bending_maximum_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
-                    instructionStep0.image = [UIImage animatedImageWithImages:@[im1, im1, im2, im2, im1, im1] duration:5];
+                    instructionStep1.image = [UIImage animatedImageWithImages:@[im1, im1, im2, im2, im1, im1] duration:5];
                 } else if (limbOption == ORKPredefinedTaskLimbOptionLeft) {
                     UIImage *im1 = [UIImage imageNamed:@"sagittal_bending_start_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                     UIImage *im2 = [UIImage imageNamed:@"backward_bending_maximum_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
-                    instructionStep0.image = [UIImage animatedImageWithImages:@[im1, im1, im2, im2, im1, im1] duration:5];
+                    instructionStep1.image = [UIImage animatedImageWithImages:@[im1, im1, im2, im2, im1, im1] duration:5];
                 }
             }
-            //isStepLastBeginningInstructionStep = NO; // TODO: need to set this in ORKTaskViewController to avoid 'Get Started being shown when a 'before' questionOption is selected
-            instructionStep0.shouldTintImages = YES;
-            //instructionStep0.imageContentMode = UIViewContentModeScaleAspectFit;
-            ORKStepArrayAddStep(steps, instructionStep0);
+            instructionStep1.shouldTintImages = YES;
+            //instructionStep1.imageContentMode = UIViewContentModeScaleAspectFit;
+            ORKStepArrayAddStep(steps, instructionStep1);
         }
             
         {   // Optional assessment of pain before the motion task
@@ -1748,43 +1801,43 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
             }
         }
             
-        {   /* Instruction step 1 */
+        {   /* Instruction step 2 */
             
             UIImage *sagittalBendingStartImage;
     
-            ORKInstructionStep *instructionStep1 = [[ORKInstructionStep alloc] initWithIdentifier:appendIdentifier(ORKInstruction1StepIdentifier)];
+            ORKInstructionStep *instructionStep2 = [[ORKInstructionStep alloc] initWithIdentifier:appendIdentifier(ORKInstruction2StepIdentifier)];
     
             if (movement == 1) {
                 if (nextMovement == ORKPredefinedTaskMovementOptionBendingForwards) {
-                    instructionStep1.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
-                    instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_STANDING_APART", nil);
-                    instructionStep1.detailText = ORKLocalizedString(@"RANGE_OF_MOTION_SOUND", nil);
+                    instructionStep2.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
+                    instructionStep2.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_STANDING_APART", nil);
+                    //instructionStep2.detailText = ORKLocalizedString(@"RANGE_OF_MOTION_SOUND", nil);
                 } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingBackwards) {
-                    instructionStep1.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
-                    instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_STANDING_APART", nil);
-                    instructionStep1.detailText = ORKLocalizedString(@"RANGE_OF_MOTION_SOUND", nil);
+                    instructionStep2.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
+                    instructionStep2.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_STANDING_APART", nil);
+                    //instructionStep2.detailText = ORKLocalizedString(@"RANGE_OF_MOTION_SOUND", nil);
                 } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingRight) {
-                    instructionStep1.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_RIGHT", nil);
-                    instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_STANDING_TOGETHER", nil);
-                    instructionStep1.detailText = ORKLocalizedString(@"RANGE_OF_MOTION_SOUND", nil);
+                    instructionStep2.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_RIGHT", nil);
+                    instructionStep2.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_STANDING_TOGETHER", nil);
+                    //instructionStep2.detailText = ORKLocalizedString(@"RANGE_OF_MOTION_SOUND", nil);
                 } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingLeft) {
-                    instructionStep1.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_LEFT", nil);
-                    instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_STANDING_TOGETHER", nil);
-                    instructionStep1.detailText = ORKLocalizedString(@"RANGE_OF_MOTION_SOUND", nil);
+                    instructionStep2.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_LEFT", nil);
+                    instructionStep2.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_STANDING_TOGETHER", nil);
+                    //instructionStep2.detailText = ORKLocalizedString(@"RANGE_OF_MOTION_SOUND", nil);
                 }
             } else { // movement >= 2
                 if (nextMovement == ORKPredefinedTaskMovementOptionBendingForwards) {
-                    instructionStep1.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
-                    instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_STANDING_APART", nil); // different instruction for forward bending not being first
+                    instructionStep2.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
+                    instructionStep2.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_STANDING_APART", nil); // different instruction for forward bending not being first
                 } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingBackwards) {
-                    instructionStep1.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
-                    instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_STANDING_APART", nil); // different instruction for backward bending not being first
+                    instructionStep2.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
+                    instructionStep2.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_STANDING_APART", nil); // different instruction for backward bending not being first
                 } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingLeft) {
-                    instructionStep1.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_RIGHT", nil);
-                    instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_STANDING_TOGETHER", nil); // different instruction for left side-bending not being first
+                    instructionStep2.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_RIGHT", nil);
+                    instructionStep2.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_STANDING_TOGETHER", nil); // different instruction for left side-bending not being first
                 } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingRight) {
-                    instructionStep1.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_LEFT", nil);
-                    instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_STANDING_TOGETHER", nil); // different instruction for right side-bending not being first
+                    instructionStep2.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_LEFT", nil);
+                    instructionStep2.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_STANDING_TOGETHER", nil); // different instruction for right side-bending not being first
                 }
             }
             if (limbOption == ORKPredefinedTaskLimbOptionRight) {
@@ -1792,82 +1845,82 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
             } else if (limbOption == ORKPredefinedTaskLimbOptionLeft) {
                 sagittalBendingStartImage = [UIImage imageNamed:@"sagittal_bending_start_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             }
-            instructionStep1.image = sagittalBendingStartImage;
-            instructionStep1.shouldTintImages = YES;
-            //instructionStep1.imageContentMode = UIViewContentModeScaleAspectFit;
-            ORKStepArrayAddStep(steps, instructionStep1);
+            instructionStep2.image = sagittalBendingStartImage;
+            instructionStep2.shouldTintImages = YES;
+            //instructionStep2.imageContentMode = UIViewContentModeScaleAspectFit;
+            ORKStepArrayAddStep(steps, instructionStep2);
         }
             
-        {   /* Instruction step 2 */
+        {   /* Instruction step 3 */
             
-            ORKInstructionStep *instructionStep2 = [[ORKInstructionStep alloc] initWithIdentifier:appendIdentifier(ORKInstruction2StepIdentifier)];
+            ORKInstructionStep *instructionStep3 = [[ORKInstructionStep alloc] initWithIdentifier:appendIdentifier(ORKInstruction3StepIdentifier)];
 
             if (movement == 1) {
                 if (nextMovement == ORKPredefinedTaskMovementOptionBendingForwards) {
-                    instructionStep2.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
-                    //instructionStep2.text = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                    instructionStep3.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
+                    //instructionStep3.text = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
                     if (limbOption == ORKPredefinedTaskLimbOptionRight) {
-                        instructionStep2.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_FORWARD_MOVEMENT_RIGHT_LIMB", nil);
+                        instructionStep3.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_FORWARD_MOVEMENT_RIGHT_LIMB", nil);
                     } else if (limbOption == ORKPredefinedTaskLimbOptionLeft) {
-                        instructionStep2.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_FORWARD_MOVEMENT_LEFT_LIMB", nil);
+                        instructionStep3.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_FORWARD_MOVEMENT_LEFT_LIMB", nil);
                     }
                 } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingBackwards) {
-                    instructionStep2.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
-                    //instructionStep2.text = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                    instructionStep3.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
+                    //instructionStep3.text = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
                     if (limbOption == ORKPredefinedTaskLimbOptionRight) {
-                        instructionStep2.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_BACKWARD_MOVEMENT_RIGHT_LIMB", nil);
+                        instructionStep3.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_BACKWARD_MOVEMENT_RIGHT_LIMB", nil);
                     } else if (limbOption == ORKPredefinedTaskLimbOptionLeft) {
-                        instructionStep2.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_BACKWARD_MOVEMENT_LEFT_LIMB", nil);
+                        instructionStep3.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_BACKWARD_MOVEMENT_LEFT_LIMB", nil);
                     }
                 } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingLeft) {
-                    instructionStep2.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_RIGHT", nil);
-                            //instructionStep2.text = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                    instructionStep3.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_RIGHT", nil);
+                            //instructionStep3.text = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
                     if (limbOption == ORKPredefinedTaskLimbOptionRight) {
-                        instructionStep2.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_LEFT_MOVEMENT_RIGHT_LIMB", nil);
+                        instructionStep3.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_LEFT_MOVEMENT_RIGHT_LIMB", nil);
                     } else if (limbOption == ORKPredefinedTaskLimbOptionLeft) {
-                        instructionStep2.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_LEFT_MOVEMENT_LEFT_LIMB", nil);
+                        instructionStep3.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_LEFT_MOVEMENT_LEFT_LIMB", nil);
                     }
                 } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingRight) {
-                        instructionStep2.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_LEFT", nil);
+                        instructionStep3.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_LEFT", nil);
                                    //instructionStep2.text = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
                         if (limbOption == ORKPredefinedTaskLimbOptionRight) {
-                            instructionStep2.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_RIGHT_MOVEMENT_RIGHT_LIMB", nil);
+                            instructionStep3.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_RIGHT_MOVEMENT_RIGHT_LIMB", nil);
                         } else if (limbOption == ORKPredefinedTaskLimbOptionLeft) {
-                            instructionStep2.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_RIGHT_MOVEMENT_LEFT_LIMB", nil);
+                            instructionStep3.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_RIGHT_MOVEMENT_LEFT_LIMB", nil);
                         }
                     }
             } else { // movement >= 2
                 if (nextMovement == ORKPredefinedTaskMovementOptionBendingForwards) {
-                    instructionStep2.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
-                    //instructionStep2.text = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                    instructionStep3.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
+                    //instructionStep3.text = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
                     if (limbOption == ORKPredefinedTaskLimbOptionRight) {
-                        instructionStep2.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_FORWARD_MOVEMENT_RIGHT_LIMB", nil);
+                        instructionStep3.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_FORWARD_MOVEMENT_RIGHT_LIMB", nil);
                     } else if (limbOption == ORKPredefinedTaskLimbOptionLeft) {
-                        instructionStep2.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_FORWARD_MOVEMENT_LEFT_LIMB", nil);
+                        instructionStep3.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_FORWARD_MOVEMENT_LEFT_LIMB", nil);
                     }
                 } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingBackwards) {
-                    instructionStep2.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
-                    //instructionStep2.text = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                    instructionStep3.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
+                    //instructionStep3.text = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
                     if (limbOption == ORKPredefinedTaskLimbOptionRight) {
-                        instructionStep2.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_BACKWARD_MOVEMENT_RIGHT_LIMB", nil);
+                        instructionStep3.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_BACKWARD_MOVEMENT_RIGHT_LIMB", nil);
                     } else if (limbOption == ORKPredefinedTaskLimbOptionLeft) {
-                        instructionStep2.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_BACKWARD_MOVEMENT_LEFT_LIMB", nil);
+                        instructionStep3.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_BACKWARD_MOVEMENT_LEFT_LIMB", nil);
                     }
                 } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingRight) {
-                        instructionStep2.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_RIGHT", nil);
-                    //instructionStep2.text = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                        instructionStep3.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_RIGHT", nil);
+                    //instructionStep3.text = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
                     if (limbOption == ORKPredefinedTaskLimbOptionRight) {
-                        instructionStep2.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_RIGHT_MOVEMENT_RIGHT_LIMB", nil);
+                        instructionStep3.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_RIGHT_MOVEMENT_RIGHT_LIMB", nil);
                     } else if (limbOption == ORKPredefinedTaskLimbOptionLeft) {
-                        instructionStep2.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_RIGHT_MOVEMENT_LEFT_LIMB", nil);
+                        instructionStep3.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_RIGHT_MOVEMENT_LEFT_LIMB", nil);
                     }
                 } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingLeft) {
-                        instructionStep2.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
-                        //instructionStep2.text = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
+                        instructionStep3.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
+                        //instructionStep3.text = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
                     if (limbOption == ORKPredefinedTaskLimbOptionRight) {
-                        instructionStep2.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_LEFT_MOVEMENT_RIGHT_LIMB", nil);
+                        instructionStep3.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_LEFT_MOVEMENT_RIGHT_LIMB", nil);
                     } else if (limbOption == ORKPredefinedTaskLimbOptionLeft) {
-                        instructionStep2.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_LEFT_MOVEMENT_LEFT_LIMB", nil);
+                        instructionStep3.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_LEFT_MOVEMENT_LEFT_LIMB", nil);
                     }
                 }
             }
@@ -1878,62 +1931,62 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
                     UIImage *im2 = [UIImage imageNamed:@"forward_bending_1_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                     UIImage *im3 = [UIImage imageNamed:@"forward_bending_2_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                     UIImage *im4 = [UIImage imageNamed:@"forward_bending_maximum_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
-                    instructionStep2.image = [UIImage animatedImageWithImages:@[im1, im1, im2, im3, im4, im4, im3, im2, im1, im1] duration:6];
+                    instructionStep3.image = [UIImage animatedImageWithImages:@[im1, im1, im2, im3, im4, im4, im3, im2, im1, im1] duration:6];
                 } else if (limbOption == ORKPredefinedTaskLimbOptionLeft) {
                     UIImage *im1 = [UIImage imageNamed:@"sagittal_bending_start_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                     UIImage *im2 = [UIImage imageNamed:@"forward_bending_1_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                     UIImage *im3 = [UIImage imageNamed:@"forward_bending_2_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                     UIImage *im4 = [UIImage imageNamed:@"forward_bending_maximum_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
-                    instructionStep2.image = [UIImage animatedImageWithImages:@[im1, im1, im2, im3, im4, im4, im3, im2, im1, im1] duration:6];
+                    instructionStep3.image = [UIImage animatedImageWithImages:@[im1, im1, im2, im3, im4, im4, im3, im2, im1, im1] duration:6];
                 }
             } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingBackwards) {
                 if (limbOption == ORKPredefinedTaskLimbOptionRight) {
                     UIImage *im1 = [UIImage imageNamed:@"sagittal_bending_start_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                     UIImage *im2 = [UIImage imageNamed:@"backward_bending_maximum_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
-                    instructionStep2.image = [UIImage animatedImageWithImages:@[im1, im1, im2, im2, im1, im1] duration:5];
+                    instructionStep3.image = [UIImage animatedImageWithImages:@[im1, im1, im2, im2, im1, im1] duration:5];
                 } else if (limbOption == ORKPredefinedTaskLimbOptionLeft) {
                     UIImage *im1 = [UIImage imageNamed:@"sagittal_bending_start_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
                     UIImage *im2 = [UIImage imageNamed:@"backward_bending_maximum_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
-                    instructionStep2.image = [UIImage animatedImageWithImages:@[im1, im1, im2, im2, im1, im1] duration:5];
+                    instructionStep3.image = [UIImage animatedImageWithImages:@[im1, im1, im2, im2, im1, im1] duration:5];
                 }
             }
-            //instructionStep2.imageContentMode = UIViewContentModeScaleAspectFit;
-            instructionStep2.shouldTintImages = YES;
-            ORKStepArrayAddStep(steps, instructionStep2);
+            //instructionStep3.imageContentMode = UIViewContentModeScaleAspectFit;
+            instructionStep3.shouldTintImages = YES;
+            ORKStepArrayAddStep(steps, instructionStep3);
         }
             
-        {   /* Instruction step 3 */
+        {   /* Instruction step 4 */
             UIImage *phoneAgainstChestImage;
             
-            ORKInstructionStep *instructionStep3 = [[ORKInstructionStep alloc] initWithIdentifier:appendIdentifier(ORKInstruction3StepIdentifier)];
+            ORKInstructionStep *instructionStep4 = [[ORKInstructionStep alloc] initWithIdentifier:appendIdentifier(ORKInstruction4StepIdentifier)];
 
             if (nextMovement == ORKPredefinedTaskMovementOptionBendingForwards) {
-                instructionStep3.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
+                instructionStep4.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
                 if (limbOption == ORKPredefinedTaskLimbOptionRight) {
-                    instructionStep3.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_RIGHT_LIMB", nil);
+                    instructionStep4.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_4_RIGHT_LIMB", nil);
                 } else if (limbOption == ORKPredefinedTaskLimbOptionLeft) {
-                    instructionStep3.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_LEFT_LIMB", nil);
+                    instructionStep4.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_4_LEFT_LIMB", nil);
                 }
             } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingBackwards) {
-                instructionStep3.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
+                instructionStep4.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD", nil);
                 if (limbOption == ORKPredefinedTaskLimbOptionRight) {
-                    instructionStep3.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_RIGHT_LIMB", nil);
+                    instructionStep4.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_4_RIGHT_LIMB", nil);
                 } else if (limbOption == ORKPredefinedTaskLimbOptionLeft) {
-                        instructionStep3.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_LEFT_LIMB", nil);
+                        instructionStep4.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_4_LEFT_LIMB", nil);
                 }
             } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingRight) {
-                instructionStep3.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_RIGHT", nil);
+                instructionStep4.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_RIGHT", nil);
                 if (limbOption == ORKPredefinedTaskLimbOptionRight) {
-                    instructionStep3.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_RIGHT_LIMB", nil);
+                    instructionStep4.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_4_RIGHT_LIMB", nil);
                 } else if (limbOption == ORKPredefinedTaskLimbOptionLeft) {
-                    instructionStep3.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_LEFT_LIMB", nil);
+                    instructionStep4.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_4_LEFT_LIMB", nil);
                 }
             } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingLeft) {
-                instructionStep3.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_LEFT", nil);
+                instructionStep4.title = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_LEFT", nil);
                 if (limbOption == ORKPredefinedTaskLimbOptionRight) {
-                    instructionStep3.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_RIGHT_LIMB", nil);
+                    instructionStep4.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_4_RIGHT_LIMB", nil);
                 } else if (limbOption == ORKPredefinedTaskLimbOptionLeft) {
-                    instructionStep3.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_LEFT_LIMB", nil);
+                    instructionStep4.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_4_LEFT_LIMB", nil);
                 }
             }
             if (limbOption == ORKPredefinedTaskLimbOptionRight) {
@@ -1941,10 +1994,10 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
             } else if (limbOption == ORKPredefinedTaskLimbOptionLeft) {
             phoneAgainstChestImage = [UIImage imageNamed:@"phone_against_chest_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             }
-            instructionStep3.image = phoneAgainstChestImage;
-            //instructionStep3.imageContentMode = UIViewContentModeScaleAspectFit;
-            instructionStep3.shouldTintImages = YES;
-            ORKStepArrayAddStep(steps, instructionStep3);
+            instructionStep4.image = phoneAgainstChestImage;
+            //instructionStep4.imageContentMode = UIViewContentModeScaleAspectFit;
+            instructionStep4.shouldTintImages = YES;
+            ORKStepArrayAddStep(steps, instructionStep4);
             }
         }
                             
