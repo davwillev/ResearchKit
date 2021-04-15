@@ -1569,7 +1569,7 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
     NSString *location;
     NSInteger movement;
     
-    // Build list of movements from enums, and setup which movement to start with and how many movements (1-4) there will be, based on the movementOption parameter. If more than one movements are selected, the order in which they are presented will be randomized.
+    // Build list of movements from predefined enums, and setup which movement to start with and how many movements (1-4) there will be, based on the movementOption parameter. If more than one movements are selected, the order in which they are presented will be randomized.
     NSMutableArray *movementList = [[NSMutableArray alloc] init];
     if (movementOption & ORKPredefinedTaskMovementOptionBendingForwards) {
         [movementList addObject:[NSNumber numberWithInteger:ORKPredefinedTaskMovementOptionBendingForwards]];
@@ -1598,24 +1598,20 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
         // Allocate next movement and convert back to enum
         ORKPredefinedTaskMovementOption nextMovement = [shuffledMovements[movement - 1] integerValue];
         
-        // Create unique identifiers for when multiple movements are selected
+        // Create unique identifiers for each standing bending movement
         NSString * (^appendIdentifier) (NSString *) = ^ (NSString * stepIdentifier) {
-            if (movementCount == 1) {
-                return stepIdentifier;
-            } else {
-                NSString *movementIdentifier;
-                switch (nextMovement) {
-                case ORKPredefinedTaskMovementOptionBendingForwards:
-                        movementIdentifier = ORKActiveTaskForwardBendingIdentifier; break;
-                case ORKPredefinedTaskMovementOptionBendingBackwards:
-                        movementIdentifier = ORKActiveTaskBackwardBendingIdentifier; break;
-                case ORKPredefinedTaskMovementOptionBendingRight:
-                        movementIdentifier = ORKActiveTaskRightBendingIdentifier; break;
-                case ORKPredefinedTaskMovementOptionBendingLeft:
-                        movementIdentifier = ORKActiveTaskLeftBendingIdentifier; break;
-                }
-                return [NSString stringWithFormat:@"%@.%@", stepIdentifier, movementIdentifier];
+            NSString *movementIdentifier;
+            switch (nextMovement) {
+            case ORKPredefinedTaskMovementOptionBendingForwards:
+                    movementIdentifier = ORKActiveTaskForwardBendingIdentifier; break;
+            case ORKPredefinedTaskMovementOptionBendingBackwards:
+                    movementIdentifier = ORKActiveTaskBackwardBendingIdentifier; break;
+            case ORKPredefinedTaskMovementOptionBendingRight:
+                    movementIdentifier = ORKActiveTaskRightBendingIdentifier; break;
+            case ORKPredefinedTaskMovementOptionBendingLeft:
+                    movementIdentifier = ORKActiveTaskLeftBendingIdentifier; break;
             }
+            return [NSString stringWithFormat:@"%@.%@", stepIdentifier, movementIdentifier];
         };
         
         if (!(options & ORKPredefinedTaskOptionExcludeInstructions)) {
