@@ -1753,9 +1753,11 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
                     instructionStep1.image = [UIImage animatedImageWithImages:@[im1, im1, im2, im2, im1, im1] duration:5];
                 }
             } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingRight) {
-                // TODO: Add right side bending animations
+                // TODO: Create right side bending animation
+                instructionStep1.image = [UIImage imageNamed:@"side_bending_maximum_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingLeft) {
-                // TODO: Add left side bending animations
+                // TODO: Create left side bending animation
+                instructionStep1.image = [UIImage imageNamed:@"side_bending_maximum_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             }
             
             instructionStep1.shouldTintImages = YES;
@@ -1885,9 +1887,11 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
                     instructionStep3.image = [UIImage animatedImageWithImages:@[im1, im1, im2, im2, im1, im1] duration:5];
                 }
             } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingRight) {
-                    // TODO: Add right side bending animation
+                // TODO: Create right side bending animation
+                instructionStep3.image = [UIImage imageNamed:@"side_bending_maximum_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingLeft) {
-                    // TODO: Add left side bending animation
+                // TODO: Create left side bending animation
+                instructionStep3.image = [UIImage imageNamed:@"side_bending_maximum_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             }
             //instructionStep3.imageContentMode = UIViewContentModeScaleAspectFit;
             instructionStep3.shouldTintImages = YES;
