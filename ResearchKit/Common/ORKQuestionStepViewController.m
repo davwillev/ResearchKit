@@ -73,6 +73,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     ORKNavigationContainerView *_navigationFooterView;
     ORKAnswerDefaultSource *_defaultSource;
     
+    UIImageView *_questionImageView;
     NSCalendar *_savedSystemCalendar;
     NSTimeZone *_savedSystemTimeZone;
     
@@ -165,6 +166,9 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
         _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
 
         [self.view addSubview:_navigationFooterView];
+        
+        [self setQuestionImageView];
+        
         if ([self.questionStep formatRequiresTableView] && !_customQuestionView) {
             _tableContainer = [ORKTableContainerView new];
             
@@ -259,6 +263,14 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
         self.continueButtonItem  = self.internalContinueButtonItem;
     }
     
+}
+
+- (void)setQuestionImageView {
+    if (!_questionImageView) {
+        _questionImageView = [UIImageView new];
+        _questionImageView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    [self.view addSubview:_questionImageView];
 }
 
 - (void)setupConstraints:(UIView *)view {
