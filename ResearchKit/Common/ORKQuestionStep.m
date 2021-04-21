@@ -84,6 +84,7 @@
     ORKQuestionStep *questionStep = [super copyWithZone:zone];
     questionStep.answerFormat = [self.answerFormat copy];
     questionStep.placeholder = [self.placeholder copy];
+    questionStep.questionImage = self.questionImage;
     return questionStep;
 }
 
@@ -93,7 +94,8 @@
     __typeof(self) castObject = object;
     return isParentSame &&
     ORKEqualObjects(self.answerFormat, castObject.answerFormat) &&
-    ORKEqualObjects(self.placeholder, castObject.placeholder);
+    ORKEqualObjects(self.placeholder, castObject.placeholder) &&
+    ORKEqualObjects(self.questionImage, castObject.questionImage);
 }
 
 - (NSUInteger)hash {
@@ -102,6 +104,13 @@
 
 - (void)setQuestion:(NSString *)question {
     _question = question;
+}
+
+- (void)setQuestionImage:(UIImage *)image {
+    _questionImage = image;
+    if (image) {
+        self.shouldTintImages = YES;
+    }
 }
 
 - (ORKQuestionType)questionType {
@@ -118,6 +127,7 @@
     if (self) {
         ORK_DECODE_OBJ_CLASS(aDecoder, answerFormat, ORKAnswerFormat);
         ORK_DECODE_OBJ_CLASS(aDecoder, placeholder, NSString);
+        ORK_DECODE_IMAGE(aDecoder, questionImage);
     }
     return self;
 }
@@ -127,6 +137,7 @@
     
     ORK_ENCODE_OBJ(aCoder, answerFormat);
     ORK_ENCODE_OBJ(aCoder, placeholder);
+    ORK_ENCODE_IMAGE(aCoder, questionImage);
 }
 
 + (BOOL)supportsSecureCoding {

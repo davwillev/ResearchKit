@@ -30,6 +30,7 @@
 
 
 @import Foundation;
+@import UIKit;
 #import <ResearchKit/ORKStep.h>
 
 
@@ -94,6 +95,14 @@ ORK_CLASS_AVAILABLE
  The value of this property is derived from the answer format.
  */
 @property (nonatomic, readonly) ORKQuestionType questionType;
+
+/**
+ An image that provides visual context for the question.
+ 
+ The image is displayed with aspect fit. Depending on the device, the screen area
+ available for this image can vary. For exact metrics, see `ORKScreenMetricIllustrationHeight`.
+ */
+@property (nonatomic, copy, nullable) UIImage *questionImage;
 
 /**
  A localized string that represents the placeholder text displayed before an answer has been entered.
