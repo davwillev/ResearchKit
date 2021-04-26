@@ -1598,7 +1598,7 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
         // Allocate next movement and convert back to enum
         ORKPredefinedTaskMovementOption nextMovement = [shuffledMovements[movement - 1] integerValue];
         
-        // Create unique identifiers for each standing bending movement
+        // Create unique identifiers for each movement (and add the order in which they are presented if doing more than 1 movement)
         NSString * (^appendIdentifier) (NSString *) = ^ (NSString * stepIdentifier) {
             NSString *movementIdentifier;
             switch (nextMovement) {
@@ -1611,7 +1611,11 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
             case ORKPredefinedTaskMovementOptionBendingLeft:
                     movementIdentifier = ORKActiveTaskLeftBendingIdentifier; break;
             }
-            return [NSString stringWithFormat:@"%@.%@", stepIdentifier, movementIdentifier];
+            if (movementCount == 1) {
+                return [NSString stringWithFormat:@"%@.%@", stepIdentifier, movementIdentifier];
+            } else {
+                return [NSString stringWithFormat:@"%@.%ld.%@", stepIdentifier, (long)movement, movementIdentifier];
+            }
         };
         
         if (!(options & ORKPredefinedTaskOptionExcludeInstructions)) {
