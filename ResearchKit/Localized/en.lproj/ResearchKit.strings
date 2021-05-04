@@ -408,9 +408,16 @@
 "RANGE_OF_MOTION_PAIN_SCALE_QUESTION_DURING" = "How severe was your pain%@ during this activity?";
 "RANGE_OF_MOTION_PAIN_SCALE_MAX" = "Worst\npain\npossible";
 "RANGE_OF_MOTION_PAIN_SCALE_MIN" = "No\npain";
+"RANGE_OF_MOTION_PAIN_SCALE_LOCATION_NECK" = " in your neck";
 "RANGE_OF_MOTION_PAIN_SCALE_LOCATION_BACK" = " in your back";
+"RANGE_OF_MOTION_PAIN_SCALE_LOCATION_ARMS" = " in your arms";
+"RANGE_OF_MOTION_PAIN_SCALE_LOCATION_SHOULDER" = " in your shoulder";
+"RANGE_OF_MOTION_PAIN_SCALE_LOCATION_HANDS" = " in your hands";
 "RANGE_OF_MOTION_PAIN_SCALE_LOCATION_LEGS" = " in your legs";
+"RANGE_OF_MOTION_PAIN_SCALE_LOCATION_KNEE" = " in your knee";
+"RANGE_OF_MOTION_PAIN_SCALE_LOCATION_FEET" = " in your feet";
 "RANGE_OF_MOTION_PAIN_SCALE_LOCATION_BACK_LEGS" = " in your back and legs";
+"RANGE_OF_MOTION_PAIN_SCALE_LOCATION_NECK_ARMS" = " in your neck and arms";
 "QUESTION_OPTION_ERROR" = "The questionOption argument used is not a recognized option for this task";
 "QUESTION_LOCATION_OPTION_ERROR" = "The questionOption parameter requires a valid locationOption argument";
 
