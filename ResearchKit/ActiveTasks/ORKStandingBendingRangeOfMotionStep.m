@@ -58,13 +58,6 @@
                                        reason:ORKLocalizedString(@"MOVEMENT_OPTION_ERROR", nil)
                                      userInfo:nil];
     }
-    if (!(self.locationOption & ORKPredefinedTaskLocationOptionBack) &&
-    !(self.locationOption & ORKPredefinedTaskLocationOptionLegs) &&
-    !(self.locationOption == ORKPredefinedTaskLocationOptionUnspecified)) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                       reason:ORKLocalizedString(@"LOCATION_OPTION_ERROR", nil)
-                                     userInfo:nil];
-    }
 }
 
 @end

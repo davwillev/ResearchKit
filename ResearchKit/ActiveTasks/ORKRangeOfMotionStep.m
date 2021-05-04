@@ -37,8 +37,6 @@
 
 @implementation ORKRangeOfMotionStep
 
-BOOL questionOptionNotValid;
-
 + (Class)stepViewControllerClass {
     return [ORKRangeOfMotionStepViewController class];
 }
@@ -72,14 +70,8 @@ BOOL questionOptionNotValid;
     }
     if (!(self.questionOption & ORKPredefinedTaskQuestionOptionPainBefore) && !(self.questionOption & ORKPredefinedTaskQuestionOptionPainDuring) && !(self.questionOption & ORKPredefinedTaskQuestionOptionPainAfter) &&
         !(self.questionOption == ORKPredefinedTaskQuestionOptionUnspecified)) {
-        questionOptionNotValid = YES;
         @throw [NSException exceptionWithName:NSInvalidArgumentException
                                        reason:ORKLocalizedString(@"QUESTION_OPTION_ERROR", nil)
-                                     userInfo:nil];
-    }
-    if (!(self.questionOption == ORKPredefinedTaskQuestionOptionUnspecified) && (!(questionOptionNotValid) && (self.locationOption == ORKPredefinedTaskLocationOptionUnspecified))) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                       reason:ORKLocalizedString(@"QUESTION_LOCATION_OPTION_ERROR", nil)
                                      userInfo:nil];
     }
 }

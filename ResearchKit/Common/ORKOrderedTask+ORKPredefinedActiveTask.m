@@ -1780,6 +1780,8 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
                     location = [ORKLocalizedString(@"RANGE_OF_MOTION_PAIN_SCALE_LOCATION_LEGS", nil) lowercaseString];
                 } else if (locationOption == ORKPredefinedTaskLocationOptionBackAndLegs) {
                     location = [ORKLocalizedString(@"RANGE_OF_MOTION_PAIN_SCALE_LOCATION_BACK_LEGS", nil) lowercaseString];
+                } else if (locationOption == ORKPredefinedTaskLocationOptionUnspecified) {
+                                   location = @"";
                 }
                 
                 ORKScaleAnswerFormat *beforeScaleFormat = [[ORKScaleAnswerFormat alloc]

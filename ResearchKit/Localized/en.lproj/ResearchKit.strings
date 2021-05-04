@@ -399,20 +399,19 @@
 "MOVEMENT_OPTION_ERROR" = "The movementOption argument used is not a recognized option for this task";
 
 /* Optional questions for Range of Motion tasks*/
-"RANGE_OF_MOTION_PAIN_SCALE_QUESTION_TITLE_NOW" = "Your current pain in your %@";
-"RANGE_OF_MOTION_PAIN_SCALE_QUESTION_NOW" = "How severe is the pain in your %@ right now?";
-"RANGE_OF_MOTION_PAIN_SCALE_QUESTION_TITLE_DURING" = "Your pain in your %@ during the activity";
+"RANGE_OF_MOTION_PAIN_SCALE_QUESTION_TITLE_NOW" = "Your current pain%@";
+"RANGE_OF_MOTION_PAIN_SCALE_QUESTION_NOW" = "How severe is your pain%@ right now?";
+"RANGE_OF_MOTION_PAIN_SCALE_QUESTION_TITLE_DURING" = "Your pain%@ during the activity";
 "RANGE_OF_MOTION_QUESTION_TITLE_BEFORE" = "Before the test...";
 "RANGE_OF_MOTION_QUESTION_TITLE_DURING" = "During the test...";
 "RANGE_OF_MOTION_QUESTION_TITLE_AFTER" = "After the test...";
-"RANGE_OF_MOTION_PAIN_SCALE_QUESTION_DURING" = "How severe was the pain in your %@ during this activity?";
+"RANGE_OF_MOTION_PAIN_SCALE_QUESTION_DURING" = "How severe was your pain%@ during this activity?";
 "RANGE_OF_MOTION_PAIN_SCALE_MAX" = "Worst\npain\npossible";
 "RANGE_OF_MOTION_PAIN_SCALE_MIN" = "No\npain";
-"RANGE_OF_MOTION_PAIN_SCALE_LOCATION_BACK" = "Back";
-"RANGE_OF_MOTION_PAIN_SCALE_LOCATION_LEGS" = "Legs";
-"RANGE_OF_MOTION_PAIN_SCALE_LOCATION_BACK_LEGS" = "Back and Legs";
+"RANGE_OF_MOTION_PAIN_SCALE_LOCATION_BACK" = " in your back";
+"RANGE_OF_MOTION_PAIN_SCALE_LOCATION_LEGS" = " in your legs";
+"RANGE_OF_MOTION_PAIN_SCALE_LOCATION_BACK_LEGS" = " in your back and legs";
 "QUESTION_OPTION_ERROR" = "The questionOption argument used is not a recognized option for this task";
-"LOCATION_OPTION_ERROR" = "The locationOption argument used is not a recognized option for this task";
 "QUESTION_LOCATION_OPTION_ERROR" = "The questionOption parameter requires a valid locationOption argument";
 
 /* Knee Range of Motion active task */
