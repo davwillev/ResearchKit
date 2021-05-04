@@ -1567,7 +1567,7 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
     NSInteger const scaleStep = 1;
     NSMutableArray *steps = [NSMutableArray array];
     NSString *location;
-    NSInteger movement;
+    NSInteger movementNumber;
     
     // Build list of movements from predefined enums, and setup which movement to start with and how many movements (1-4) there will be, based on the movementOption parameter. If more than one movements are selected, the order in which they are presented will be randomized.
     NSMutableArray *movementList = [[NSMutableArray alloc] init];
@@ -1593,10 +1593,10 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
         [shuffledMovements exchangeObjectAtIndex:i withObjectAtIndex:exchangeIndex];
     }
     
-    for (movement = 1; movement <= movementCount; movement++) {
+    for (movementNumber = 1; movementNumber <= movementCount; movementNumber++) {
         
         // Allocate next movement and convert back to enum
-        ORKPredefinedTaskMovementOption nextMovement = [shuffledMovements[movement - 1] integerValue];
+        ORKPredefinedTaskMovementOption nextMovement = [shuffledMovements[movementNumber - 1] integerValue];
         
         // Create unique identifiers for each movement (and add the order in which they are presented if doing more than 1 movement)
         NSString * (^appendIdentifier) (NSString *) = ^ (NSString * stepIdentifier) {
@@ -1614,7 +1614,7 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
             if (movementCount == 1) {
                 return [NSString stringWithFormat:@"%@.%@", stepIdentifier, movementIdentifier];
             } else {
-                return [NSString stringWithFormat:@"%@.%ld.%@", stepIdentifier, (long)movement, movementIdentifier];
+                return [NSString stringWithFormat:@"%@.%ld.%@", stepIdentifier, (long)movementNumber, movementIdentifier];
             }
         };
         
@@ -1623,7 +1623,7 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
         {   /* Instruction step 0 */
             
             ORKInstructionStep *instructionStep0 = [[ORKInstructionStep alloc] initWithIdentifier:appendIdentifier(ORKInstruction0StepIdentifier)];
-            if (movement == 1) {
+            if (movementNumber == 1) {
                 if (movementCount == 1) { // single movement
                     instructionStep0.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
                     instructionStep0.detailText = ORKLocalizedString(@"RANGE_OF_MOTION_SOUND", nil);
@@ -1661,7 +1661,7 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
             ORKInstructionStep *instructionStep1 = [[ORKInstructionStep alloc] initWithIdentifier:appendIdentifier(ORKInstruction1StepIdentifier)];
             
             if (movementCount > 1) {
-                if (movement == 1) { // different instructions for first movement
+                if (movementNumber == 1) { // different instructions for first movement
                     if (nextMovement == ORKPredefinedTaskMovementOptionBendingForwards) {
                         instructionStep1.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
                         instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
@@ -1679,7 +1679,7 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
                         instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_LEFT", nil);
                         instructionStep1.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_LEFT_FIRST", nil);
                     }
-                } else if (movement == movementCount) { // different instructions for last movement
+                } else if (movementNumber == movementCount) { // different instructions for last movement
                     if (nextMovement == ORKPredefinedTaskMovementOptionBendingForwards) {
                         instructionStep1.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
                         instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
@@ -1697,7 +1697,7 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
                         instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_LEFT", nil);
                         instructionStep1.detailText = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_LEFT_LAST", nil);
                     }
-                } else { // movement >= 2 but < movementCount
+                } else { // movementNumber >= 2 but < movementCount
                     if (nextMovement == ORKPredefinedTaskMovementOptionBendingForwards) {
                         instructionStep1.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
                         instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TITLE_FORWARD", nil);
