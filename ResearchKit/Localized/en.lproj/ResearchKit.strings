@@ -400,11 +400,11 @@
 
 /* Optional questions for Range of Motion tasks*/
 "RANGE_OF_MOTION_PAIN_SCALE_QUESTION_TITLE_NOW" = "Your current pain%@";
-"RANGE_OF_MOTION_PAIN_SCALE_QUESTION_NOW" = "What number best describes your pain%@ right now?";
 "RANGE_OF_MOTION_PAIN_SCALE_QUESTION_TITLE_DURING" = "Your pain%@ during the activity";
 "RANGE_OF_MOTION_QUESTION_TITLE_BEFORE" = "Before the test...";
 "RANGE_OF_MOTION_QUESTION_TITLE_DURING" = "During the test...";
 "RANGE_OF_MOTION_QUESTION_TITLE_AFTER" = "After the test...";
+"RANGE_OF_MOTION_PAIN_SCALE_QUESTION_NOW" = "What number best describes your pain%@ right now?";
 "RANGE_OF_MOTION_PAIN_SCALE_QUESTION_DURING" = "What number best described your pain%@ during this activity?";
 "RANGE_OF_MOTION_PAIN_SCALE_MAX" = "Pain as\nbad as\ncould be";
 "RANGE_OF_MOTION_PAIN_SCALE_MIN" = "No\npain";
