@@ -398,7 +398,7 @@
 "LIMB_OPTION_BOTH_ERROR" = "The limbOption argument cannot be BOTH for this task";
 "MOVEMENT_OPTION_ERROR" = "The movementOption argument used is not a recognized option for this task";
 
-/* Optional questions for Range of Motion tasks*/
+/* Optional questions for Range of Motion tasks */
 "RANGE_OF_MOTION_PAIN_SCALE_QUESTION_TITLE_NOW" = "Your current pain%@";
 "RANGE_OF_MOTION_PAIN_SCALE_QUESTION_TITLE_DURING" = "Your pain%@ during the activity";
 "RANGE_OF_MOTION_QUESTION_TITLE_BEFORE" = "Before the test...";
