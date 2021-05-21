@@ -1723,7 +1723,7 @@ NSString *const ORKStandingBendingRangeOfMotionStepIdentifier = @"standing.bendi
                 } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingBackwards) {
                     instructionStep1.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
                     instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_BACKWARD", nil);
-                } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingLeft) {
+                } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingRight) {
                     instructionStep1.title = ORKLocalizedString(@"RANGE_OF_MOTION_TITLE", nil);
                     instructionStep1.text = ORKLocalizedString(@"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_RIGHT", nil);
                 } else if (nextMovement == ORKPredefinedTaskMovementOptionBendingLeft) {
