@@ -480,7 +480,7 @@
 "STANDING_BENDING_RANGE_OF_MOTION_TITLE_BACKWARD" = "Bending Backwards";
 "STANDING_BENDING_RANGE_OF_MOTION_TITLE_RIGHT" = "Bending to Your Right Side";
 "STANDING_BENDING_RANGE_OF_MOTION_TITLE_LEFT" = "Bending to Your Left Side";
-"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_SINGLE" = "%@\n\nThis activity measures how far you can bend while standing. You will be given detailed instructions to help you perform this movement correctly.";
+"STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_SINGLE" = "%@\n\nThis activity measures how far you can bend while standing. Your movement will be recorded by sensors in your phone. You will be given detailed instructions to help you perform this movement correctly.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_MULTIPLE" = "This activity measures how far you can bend while standing. You will be asked to perform %1$@ different bending movements, which will be recorded by sensors in your phone. These movements will be tested separately and in a random order.\n\nYou will be given detailed instructions to help you perform each movement correctly.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_MULTIPLE_COUNT" = "There are %1$@ more movements to be tested.";
 "STANDING_BENDING_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_MULTIPLE_LAST" = "There is 1 more movement to be tested.";
